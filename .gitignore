@@ -1,0 +1,6 @@
+
+
+/src/*.suo
+/src/ElasticOps/bin
+/src/ElasticOps/obj
+/src/packages
