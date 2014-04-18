@@ -16,10 +16,7 @@
                 crimson = brudno czerwono różowy
                 emerland = ciemny zielony
 -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/baselight.xaml" />
-                <ResourceDictionary>
-                    <local:AppBootstrapper x:Key="bootstrapper" />
-                </ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/basedark.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
