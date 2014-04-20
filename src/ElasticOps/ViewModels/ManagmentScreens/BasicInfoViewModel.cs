@@ -12,7 +12,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public BasicInfoViewModel()
         {
-            var clusterHealthInfo = new ClusterInfo().Load(new Uri("http://localhost:9200"));
+            var clusterHealthInfo = new ClusterInfo().GetClusterHealthInfo(new Uri("http://localhost:9200"));
             ClusterHealthProperties = new BindableCollection<KeyValuePair<string, string>>();
             foreach (var keyValuePair in clusterHealthInfo)
                 ClusterHealthProperties.Add(keyValuePair);

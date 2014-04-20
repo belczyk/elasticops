@@ -1,12 +1,17 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using ElasticOps.Model;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen
     {
+
+
         public ClusterInfoScreenViewModel()
         {
             DisplayName = "Cluster";
+            GeneralClusterInfo = new ClusterInfo().GetTabsData(new Uri("http://localhost:9200"));
         }
 
         public void ShowBasicInfo()
@@ -23,5 +28,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             //ActivateItem(new BasicInfoViewModel());
         }
+
+        public GeneralClusterInfo GeneralClusterInfo { get; set; }
     }
 }
