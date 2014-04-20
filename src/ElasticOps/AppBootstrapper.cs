@@ -3,51 +3,67 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Autofac;
 using Caliburn.Micro;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
-using SimpleInjector;
 
 namespace ElasticOps
 {
     public class AppBootstrapper : Bootstrapper<ShellViewModel>
     {
-        private Container container;
+        protected IContainer Container { get; private set; }
 
-        /// <summary>
-        /// Override to configure the framework and setup your IoC container.
-        /// </summary>
         protected override void Configure()
         {
-            container = new Container();
-            container.Register<IWindowManager, WindowManager>();
-            container.Register<IEventAggregator, EventAggregator>();
-            var viewModels =
-                Assembly.GetExecutingAssembly()
-                    .DefinedTypes.Where(x => x.GetInterface(typeof(IManagmentScreen).Name) != null && !x.IsAbstract && x.IsClass);
-            container.RegisterAll(typeof(IManagmentScreen), viewModels);
-            container.Verify();
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<WindowManager>().As<IWindowManager>();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagmentScreen).Name) != null)
+                .As<IManagmentScreen>();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("ViewModel"))
+                .AsSelf().InstancePerDependency();
+
+            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
+              .Where(type => type.Name.EndsWith("View"))
+              .AsSelf().InstancePerDependency();
+
+            builder.RegisterAssemblyModules(Assembly.Load("ElasticOps.Model"));
+
+            Container = builder.Build();
         }
 
-        protected override object GetInstance(Type service, string key)
+        protected override object GetInstance(System.Type service, string key)
         {
-            if (service == null)
+            object instance;
+            if (string.IsNullOrWhiteSpace(key))
             {
-                var typeName = Assembly.GetExecutingAssembly().DefinedTypes.Where(x => x.Name.Contains(key)).Select(x => x.AssemblyQualifiedName).Single();
-
-                service = Type.GetType(typeName);
+                if (Container.TryResolve(service, out instance))
+                    return instance;
             }
-            return container.GetInstance(service);
+            else
+            {
+                if (Container.TryResolveNamed(key, service, out instance))
+                    return instance;
+            }
+            throw new Exception(string.Format("Could not locate any instances of contract {0}.", key ?? service.Name));
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            return container.GetAllInstances(service);
+            return Container.Resolve(typeof(IEnumerable<>).MakeGenericType(service)) as IEnumerable<object>;
         }
 
         protected override void BuildUp(object instance)
         {
-            container.InjectProperties(instance);
+            Container.InjectProperties(instance);
         }
+
+
     }
 }

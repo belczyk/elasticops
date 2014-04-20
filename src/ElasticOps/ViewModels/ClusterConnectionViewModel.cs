@@ -2,7 +2,7 @@
 
 namespace ElasticOps.ViewModels
 {
-    public class ClusterConnection : PropertyChangedBase
+    public class ClusterConnectionViewModel : PropertyChangedBase
     {
 
         public string clusterURL;

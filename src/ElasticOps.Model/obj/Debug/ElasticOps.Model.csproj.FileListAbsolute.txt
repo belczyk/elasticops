@@ -11,3 +11,5 @@ E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Newtonsoft.Json.xml
 E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.csprojResolveAssemblyReference.cache
 E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.dll
 E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.pdb
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Autofac.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Autofac.xml

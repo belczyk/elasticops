@@ -1,9 +1,12 @@
-﻿using Caliburn.Micro;
+﻿using Autofac;
+using Caliburn.Micro;
+using ElasticOps.Model;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen
     {
+
         public ClusterInfoScreenViewModel()
         {
             DisplayName = "Cluster";
@@ -11,6 +14,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public void ShowBasicInfo()
         {
+
             ActivateItem(new BasicInfoViewModel());
         }
 

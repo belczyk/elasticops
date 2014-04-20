@@ -7,20 +7,19 @@ namespace ElasticOps.ViewModels
     public class ShellViewModel : Conductor<IManagmentScreen>.Collection.OneActive
     {
 
-
         public ShellViewModel(IEnumerable<IManagmentScreen> managmentScreens)
         {
-            ClusterConnection = new ClusterConnection { ClusterURL = "http://localhost9200" };
+            ClusterConnectionViewModel = new ClusterConnectionViewModel { ClusterURL = "http://localhost9200" };
             ManagmentScreens = new BindableCollection<IManagmentScreen>();
             ManagmentScreens.AddRange(managmentScreens);
             DisplayName = "Elastic Ops";
         }
 
-        private ClusterConnection _clusterConnection;
-        public ClusterConnection ClusterConnection
+        private ClusterConnectionViewModel _clusterConnectionViewModel;
+        public ClusterConnectionViewModel ClusterConnectionViewModel
         {
-            get { return _clusterConnection; }
-            set { _clusterConnection = value; NotifyOfPropertyChange(() => ClusterConnection); }
+            get { return _clusterConnectionViewModel; }
+            set { _clusterConnectionViewModel = value; NotifyOfPropertyChange(() => ClusterConnectionViewModel); }
         }
 
         public BindableCollection<IManagmentScreen> ManagmentScreens { get; set; }

@@ -37,6 +37,10 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Caliburn.Micro, Version=1.5.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
@@ -59,13 +63,8 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector">
-      <HintPath>..\packages\SimpleInjector.2.5.0\lib\net45\SimpleInjector.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleInjector.Diagnostics">
-      <HintPath>..\packages\SimpleInjector.2.5.0\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -91,13 +90,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="GlobalSettings.cs" />
     <Compile Include="ViewModels\ManagmentScreens\BasicInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\IManagmentScreen.cs" />
     <Compile Include="ViewModels\ManagmentScreens\NodesInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\RESTScreenViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\ClusterConnection.cs" />
+    <Compile Include="ViewModels\ClusterConnectionViewModel.cs" />
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
     </Compile>

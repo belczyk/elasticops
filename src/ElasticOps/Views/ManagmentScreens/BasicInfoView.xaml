@@ -22,7 +22,7 @@
 
         <Label>Status:</Label>
         <TextBlock Grid.Row="0"
-                   Grid.Column="1">Yello</TextBlock>
+                   Grid.Column="1" Name="Status">Yello</TextBlock>
         <Label Grid.Row="1">Name:</Label>
         <TextBlock Grid.Row="1"
                    Grid.Column="1">Yello</TextBlock>

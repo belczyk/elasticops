@@ -10,7 +10,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public BasicInfoViewModel()
         {
             var clusterInfo = new ClusterInfo();
-            Status = clusterInfo.Load(new Uri("http://localhost:9200")).Status;
+            Status = clusterInfo.Load(GlobalSettings.ClusterURL).Status;
         }
 
         private string _Status;
