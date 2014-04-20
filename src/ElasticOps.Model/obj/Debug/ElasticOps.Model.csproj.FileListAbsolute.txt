@@ -13,3 +13,11 @@ E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.dll
 E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.pdb
 E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Autofac.dll
 E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Autofac.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.Core.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.Interfaces.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.Linq.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.PlatformServices.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.Core.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.Interfaces.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.Linq.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\System.Reactive.PlatformServices.xml
