@@ -1,4 +1,5 @@
 ﻿using System;
+using Autofac;
 using Caliburn.Micro;
 using ElasticOps.Model;
 
@@ -16,6 +17,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public void ShowBasicInfo()
         {
+
             ActivateItem(new BasicInfoViewModel());
         }
 
