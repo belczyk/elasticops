@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ElasticOps.Views.ManagmentScreens.ClusterInfoScreenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal">
+            <controls:Tile Title="Cluster"
+                           TiltFactor="2"
+                           Width="100"
+                           Height="100"
+                           HorizontalAlignment="Center"
+                           Name="ShowClusterInfo"
+                           cal:Message.Attach="[Event Click] = [Action ShowBasicInfo()]"></controls:Tile>
+            <controls:Tile Title="Nodes"
+                           TiltFactor="2"
+                           Width="100"
+                           Height="100"
+                           HorizontalAlignment="Center"
+                           Count="1"
+                           cal:Message.Attach="[Event Click] = [Action ShowNodesInfo()]"
+            ></controls:Tile>
+
+            <controls:Tile Title="Idices"
+                           TiltFactor="2"
+                           Width="100"
+                           Height="100"
+                           HorizontalContentAlignment="Center"
+                           Count="4"
+                           cal:Message.Attach="[Event Click] = [Action ShowIndicesInfo()]">
+
+
+            </controls:Tile>
+            <controls:Tile Title="Documents"
+                           HorizontalAlignment="Center"
+                           TiltFactor="2"
+                           Width="100"
+                           Height="100"
+                           Count="420K"
+                           >
+            </controls:Tile>
+            <controls:Tile Title="Types"
+                           HorizontalAlignment="Center"
+                           TiltFactor="2"
+                           Width="100"
+                           Height="100"
+                           Count="12">
+            </controls:Tile>
+        </StackPanel>
+        <ContentControl Grid.Row="1" x:Name="ActiveItem" />
+    </Grid>
+</UserControl>

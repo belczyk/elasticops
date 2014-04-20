@@ -1,0 +1,13 @@
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\ElasticOps.Model.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\ElasticOps.Model.pdb
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Elasticsearch.Net.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Nest.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Newtonsoft.Json.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Elasticsearch.Net.pdb
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Elasticsearch.Net.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Nest.pdb
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Nest.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\bin\Debug\Newtonsoft.Json.xml
+E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.csprojResolveAssemblyReference.cache
+E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.dll
+E:\SourceTree\elasticops\src\ElasticOps.Model\obj\Debug\ElasticOps.Model.pdb

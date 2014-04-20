@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ElasticOps.Views.ClusterConnectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
+             d:DesignHeight="120" d:DesignWidth="600">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="500"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0"
+               Content="Server:"
+               Height="35px"
+               HorizontalAlignment="Left"
+               Margin="5,10,0,16"
+               FontSize="16"></Label>
+        <TextBox Grid.Column="1"
+                 Height="30"
+                 Margin="5,12,0,18"
+                 HorizontalAlignment="Left"
+                 Width="457"
+                 Name="ClusterURL"
+                 />
+    </Grid>
+</UserControl>
