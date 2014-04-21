@@ -102,10 +102,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
     <Compile Include="Converters\BoolToOpositeVisiblityConverter.cs" />
     <Compile Include="Converters\BoolToVisiblityConverter.cs" />
     <Compile Include="Converters\HumanizeBigNumbersConverter.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="HumanizerExtensions.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\ManagmentScreens\BasicInfoViewModel.cs" />

@@ -2,11 +2,13 @@
 using System;
 using Autofac;
 using Caliburn.Micro;
+using ElasticOps.Attributes;
 using ElasticOps.Events;
 using ElasticOps.Model;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
+    [Priority(1)]
     public class ClusterInfoScreenViewModel : Conductor<object>.Collection.OneActive, IManagmentScreen
     {
         private IEventAggregator eventAggregator;

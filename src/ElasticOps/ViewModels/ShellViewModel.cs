@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using ElasticOps.Extensions;
 using ElasticOps.ViewModels.ManagmentScreens;
 
 namespace ElasticOps.ViewModels
@@ -14,7 +15,7 @@ namespace ElasticOps.ViewModels
             ClusterConnectionViewModel = clusterConnectionViewModel;
 
             ManagmentScreens = new BindableCollection<IManagmentScreen>();
-            ManagmentScreens.AddRange(managmentScreens);
+            ManagmentScreens.AddRange(managmentScreens.OrderByPriority());
             
             DisplayName = "Elastic Ops";
         }
