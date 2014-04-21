@@ -1,21 +1,27 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using ElasticOps.Model;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    public class BasicInfoViewModel : PropertyChangedBase 
+    public class BasicInfoViewModel : ClusterConnectedAutorefreashScreen
     {
         public IObservableCollection<KeyValuePair<string, string>> ClusterHealthProperties { get; set; }
 
-        public BasicInfoViewModel()
+
+        public BasicInfoViewModel(Settings settings, IEventAggregator eventAggregator)
+            : base(settings.ClusterUri, eventAggregator)
         {
-            var clusterHealthInfo = new ClusterInfo().Load(new Uri("http://localhost:9200"));
             ClusterHealthProperties = new BindableCollection<KeyValuePair<string, string>>();
+        }
+
+        public override void RefreshData()
+        {
+            var clusterHealthInfo = new ClusterInfo().Load(clusterUri);
+            ClusterHealthProperties.Clear();
             foreach (var keyValuePair in clusterHealthInfo)
                 ClusterHealthProperties.Add(keyValuePair);
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -8,5 +9,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             DisplayName = "REST";
         }
+
     }
 }

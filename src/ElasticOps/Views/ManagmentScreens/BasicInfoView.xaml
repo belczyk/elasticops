@@ -3,19 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="800"
              d:DesignWidth="1024">
-    <StackPanel>
+
+    <Grid>
         <ItemsControl ItemsSource="{Binding ClusterHealthProperties}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Key}" Width="150"/>
-                        <Label Content="{Binding Value}"/>
+                        <Label Content="{Binding Key}"
+                               Width="150" />
+                        <Label Content="{Binding Value}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </StackPanel>
+        <controls:ProgressRing IsActive="{Binding IsRefreshing}"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Right" />
+    </Grid>
 </UserControl>

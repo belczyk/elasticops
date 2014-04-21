@@ -12,14 +12,14 @@ namespace ElasticOps
 {
     public class AppBootstrapper : Bootstrapper<ShellViewModel>
     {
-        protected IContainer Container { get; private set; }
+        public static IContainer Container { get; private set; }
 
         protected override void Configure()
         {
             var builder = new ContainerBuilder();
 
             builder.RegisterType<WindowManager>().As<IWindowManager>();
-            builder.RegisterType<EventAggregator>().As<IEventAggregator>();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagmentScreen).Name) != null)
@@ -34,6 +34,7 @@ namespace ElasticOps
               .AsSelf().InstancePerDependency();
 
             builder.RegisterAssemblyModules(Assembly.Load("ElasticOps.Model"));
+            builder.RegisterType<Settings>().AsSelf().SingleInstance();
 
             Container = builder.Build();
         }

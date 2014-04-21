@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Caliburn.Micro;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    public class NodesInfoViewModel
+    public class NodesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
+        public NodesInfoViewModel(Settings settings, IEventAggregator eventAggregator)
+            : base(settings.ClusterUri, eventAggregator)
+        {
+        }
+
+        public override void RefreshData()
+        {
+        }
     }
 }

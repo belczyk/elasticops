@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.ViewModels.ManagmentScreens;
 
@@ -7,11 +8,14 @@ namespace ElasticOps.ViewModels
     public class ShellViewModel : Conductor<IManagmentScreen>.Collection.OneActive
     {
 
-        public ShellViewModel(IEnumerable<IManagmentScreen> managmentScreens)
+        public ShellViewModel(IEnumerable<IManagmentScreen> managmentScreens, ClusterConnectionViewModel clusterConnectionViewModel)
         {
-            ClusterConnectionViewModel = new ClusterConnectionViewModel { ClusterURL = "http://localhost9200" };
+            managmentScreens.ToList().ForEach(x=>x.ConductWith(this));
+            ClusterConnectionViewModel = clusterConnectionViewModel;
+
             ManagmentScreens = new BindableCollection<IManagmentScreen>();
             ManagmentScreens.AddRange(managmentScreens);
+            
             DisplayName = "Elastic Ops";
         }
 
