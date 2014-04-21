@@ -39,3 +39,5 @@ src/ElasticOps.Model/bin/Debug/Elasticsearch.Net.xml
 src/ElasticOps.Model/bin/Debug/Nest.xml
 src/ElasticOps.Model/bin/Debug/Newtonsoft.Json.xml
 src/ElasticOps.Model/bin/Debug/Newtonsoft.Json.xml
+/src/ElasticOps.Model/obj
+/src/ElasticOps.Model/bin
