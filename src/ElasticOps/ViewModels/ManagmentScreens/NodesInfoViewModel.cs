@@ -16,7 +16,8 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public override void RefreshData()
         {
-            var nodesInfo = new ClusterInfo().GetNodesInfo(new Uri("http://localhost:9200"));
+            var nodesInfo = new ClusterInfo().GetNodesInfo(clusterUri);
+            NodesInfo.Clear();
             foreach (var node in nodesInfo)
             {
                 NodesInfo.Add(new NodeInfoViewModel(node));
