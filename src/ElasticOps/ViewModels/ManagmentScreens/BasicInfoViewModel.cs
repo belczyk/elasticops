@@ -6,22 +6,24 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class BasicInfoViewModel : ClusterConnectedAutorefreashScreen
     {
-        public IObservableCollection<KeyValuePair<string, string>> ClusterHealthProperties { get; set; }
+        public IObservableCollection<ElasticPropertyViewModel> ClusterHealthProperties { get; set; }
 
 
         public BasicInfoViewModel(Settings settings, IEventAggregator eventAggregator)
             : base(settings.ClusterUri, eventAggregator)
         {
-            ClusterHealthProperties = new BindableCollection<KeyValuePair<string, string>>();
+            ClusterHealthProperties = new BindableCollection<ElasticPropertyViewModel>();
         }
 
         public override void RefreshData()
         {
             var clusterHealthInfo = new ClusterInfo().GetClusterHealthInfo(clusterUri);
             ClusterHealthProperties.Clear();
-            foreach (var keyValuePair in clusterHealthInfo)
-                ClusterHealthProperties.Add(keyValuePair);
+            foreach (var element in clusterHealthInfo)
+            {
+                ClusterHealthProperties.Add(
+                    new ElasticPropertyViewModel { Label = element.Key, Value = element.Value });
+            }
         }
-
     }
 }

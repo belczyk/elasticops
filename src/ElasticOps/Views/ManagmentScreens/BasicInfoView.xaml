@@ -9,17 +9,9 @@
              d:DesignWidth="1024">
 
     <Grid>
-        <ItemsControl ItemsSource="{Binding ClusterHealthProperties}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Key}"
-                               Width="150" />
-                        <Label Content="{Binding Value}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+
+        <ItemsControl Name="ClusterHealthProperties"/>
+
         <controls:ProgressRing IsActive="{Binding IsRefreshing}"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Right" />

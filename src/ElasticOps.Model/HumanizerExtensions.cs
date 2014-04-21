@@ -12,5 +12,12 @@ namespace ElasticOps
                 return Convert.ToString(string.Format("{0} K", number / 1000));
             return Convert.ToString(number);
         }
+
+        public static string HumanizePath(this string path)
+        {
+            if (string.IsNullOrEmpty(path)) return path;
+
+            return path.Replace("/", "\\");
+        }
     }
 }
