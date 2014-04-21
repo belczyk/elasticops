@@ -7,13 +7,16 @@
              mc:Ignorable="d"
              d:DesignHeight="800"
              d:DesignWidth="1024">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid>
 
-    <Grid>
+            <ItemsControl Name="ClusterHealthProperties" />
 
-        <ItemsControl Name="ClusterHealthProperties"/>
+            <controls:ProgressRing IsActive="{Binding IsRefreshing}"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Right" />
+        </Grid>
+    </ScrollViewer>
 
-        <controls:ProgressRing IsActive="{Binding IsRefreshing}"
-                               VerticalAlignment="Top"
-                               HorizontalAlignment="Right" />
-    </Grid>
 </UserControl>

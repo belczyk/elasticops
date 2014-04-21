@@ -6,10 +6,13 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Orientation="Horizontal">
-        <ItemsControl Name="NodesInfo"/>
-        <controls:ProgressRing IsActive="{Binding IsRefreshing}"
-                               VerticalAlignment="Top"
-                               HorizontalAlignment="Right" />
-    </StackPanel>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Horizontal">
+            <ItemsControl Name="NodesInfo" />
+            <controls:ProgressRing IsActive="{Binding IsRefreshing}"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Right" />
+        </StackPanel>
+
+    </ScrollViewer>
 </UserControl>
