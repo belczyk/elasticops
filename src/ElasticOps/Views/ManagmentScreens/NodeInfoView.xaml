@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ElasticOps.Views.ManagmentScreens.NodeInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Name" Width="150"/>
+            <Label Content="{Binding Name}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Hostname" Width="150"/>
+            <Label Content="{Binding Hostname}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="HttpAddress" Width="150"/>
+            <Label Content="{Binding HttpAddress}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Settings" Width="150"/>
+            <ItemsControl Name="Settings"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="OS" Width="150"/>
+            <ItemsControl Name="OS"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="CPU" Width="150"/>
+            <ItemsControl Name="CPU"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

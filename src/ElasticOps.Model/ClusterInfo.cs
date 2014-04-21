@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Humanizer;
 using Nest;
 
@@ -30,6 +31,18 @@ namespace ElasticOps.Model
                     Indices = indicesCount,
                     Documents = documentsCount
                 };
+        }
+
+        public IEnumerable<NodeInfo> GetNodesInfo(Uri clusterUri)
+        {
+            var elasticClient = new ElasticClient(new ConnectionSettings(clusterUri));
+            var nodesInfo = elasticClient.NodesInfo().Nodes.Values;
+            var result = new List<NodeInfo>();
+            foreach (var node in nodesInfo)
+            {
+                result.Add(new NodeInfo(node));
+            }
+            return result;
         }
     }
 }
