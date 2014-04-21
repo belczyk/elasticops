@@ -103,6 +103,8 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
+    <Compile Include="HumanizeBigNumbersConverter.cs" />
+    <Compile Include="HumanizerExtensions.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\ManagmentScreens\BasicInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModel.cs" />

@@ -1,6 +1,9 @@
 ﻿using System;
+using System;
 using Autofac;
 using Caliburn.Micro;
+using ElasticOps.Events;
+using ElasticOps.Model;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -19,7 +22,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             BasicInfoViewModel.ConductWith(this);
             NodesInfoViewModel.ConductWith(this);
-
+            ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
             ActivateItem(BasicInfoViewModel);
             DisplayName = "Cluster";
 
@@ -42,5 +45,21 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             //ActivateItem(new BasicInfoViewModel());
         }
 
+        private ClusterCounters _clusterCounters;
+
+        public ClusterCounters ClusterCounters
+        {
+            get { return _clusterCounters; }
+            set
+            {
+                _clusterCounters = value;
+                NotifyOfPropertyChange(() => ClusterCounters);
+            }
+        }
+
+        public void Handle(RefreashEvent message)
+        {
+            ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+        }
     }
 }

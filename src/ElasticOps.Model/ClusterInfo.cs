@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using Humanizer;
 using Nest;
 
@@ -9,14 +7,29 @@ namespace ElasticOps.Model
 {
     public class ClusterInfo
     {
-        public Dictionary<string, string> Load(Uri clusterUri)
+        public IDictionary<string, string> GetClusterHealthInfo(Uri clusterUri)
         {
-            var clusterHealthData = new ElasticClient(new ConnectionSettings(clusterUri)).Raw.ClusterHealth().Response;
-            var dictionary = clusterHealthData.Keys.Select(key => new KeyValuePair<string, string>(
-                key.Humanize(LetterCasing.Sentence),
-                clusterHealthData[key])).ToDictionary(x => x.Key, x => x.Value);
-            Thread.Sleep(3000);
+            var elasticClient = new ElasticClient(new ConnectionSettings(clusterUri));
+            var clusterHealthData = elasticClient.Raw.ClusterHealth().Response;
+
+            var dictionary = new Dictionary<string, string>();
+            foreach (var key in clusterHealthData.Keys)
+                dictionary.Add(key.Humanize(LetterCasing.Sentence), clusterHealthData[key]);
             return dictionary;
+        }
+
+        public ClusterCounters GetClusterCounters(Uri clusterUri)
+        {
+            var elasticClient = new ElasticClient(new ConnectionSettings(clusterUri));
+            var documentsCount = elasticClient.IndicesStats().Stats.Total.Documents.Count;
+            var indicesCount = elasticClient.IndicesStats().Indices.Count;
+            var nodesCount = elasticClient.NodesInfo().Nodes.Count;
+            return new ClusterCounters
+                {
+                    Nodes = nodesCount,
+                    Indices = indicesCount,
+                    Documents = documentsCount
+                };
         }
     }
 }

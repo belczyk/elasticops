@@ -17,7 +17,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public override void RefreshData()
         {
-            var clusterHealthInfo = new ClusterInfo().Load(clusterUri);
+            var clusterHealthInfo = new ClusterInfo().GetClusterHealthInfo(clusterUri);
             ClusterHealthProperties.Clear();
             foreach (var keyValuePair in clusterHealthInfo)
                 ClusterHealthProperties.Add(keyValuePair);
