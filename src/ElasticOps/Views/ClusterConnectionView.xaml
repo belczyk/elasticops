@@ -3,27 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:converters="clr-namespace:ElasticOps.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="120" d:DesignWidth="600">
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"></ColumnDefinition>
-            <ColumnDefinition Width="500"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Column="0"
+             d:DesignHeight="40" d:DesignWidth="1024">
+    <UserControl.Resources>
+        <converters:BoolToOpositeVisiblityConverter x:Key="boolToOpositeVisiblityConverter" />
+        <converters:BoolToVisiblityConverter x:Key="boolToVisiblityConverter" />
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal" >
+        
+        <Label 
                Content="Server:"
-               Height="35px"
+               Height="40px"
                HorizontalAlignment="Left"
-               Margin="5,10,0,16"
+               Margin="0,3,0,0"
                FontSize="16"></Label>
-        <TextBox Grid.Column="1"
+        <TextBox 
                  Height="30"
-                 Margin="5,12,0,18"
                  HorizontalAlignment="Left"
-                 Width="457"
+                 Width="495"
                  Name="ClusterUri"
+                 Margin="0,0,5,0"
+                 Text="{Binding ClusterUri}"
                  />
-    </Grid>
+        <Rectangle  Width="16"
+                    Height="16"
+                    Margin="0,0,0,0"
+                    Visibility="{Binding IsConnected, Converter={StaticResource boolToOpositeVisiblityConverter}}">
+            <Rectangle.Fill>
+                <VisualBrush Visual="{StaticResource appbar_connect_fail}" Opacity="0.5"  />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle  Width="16"
+                    Height="16"
+                    Margin="0,0,0,0"
+                    Visibility="{Binding IsConnected, Converter={StaticResource boolToVisiblityConverter}}">
+            <Rectangle.Fill>
+                <VisualBrush Visual="{StaticResource appbar_connect_ok}"
+                             Opacity="0.5" />
+            </Rectangle.Fill>
+        </Rectangle>
+    </StackPanel>
 </UserControl>

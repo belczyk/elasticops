@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using Caliburn.Micro;
 using ElasticOps.Events;
+using ElasticOps.Model;
 using Humanizer;
 
 namespace ElasticOps.ViewModels
@@ -26,7 +27,33 @@ namespace ElasticOps.ViewModels
             {
                 clusterUri = value;
                 NotifyOfPropertyChange(() => ClusterUri);
-                settings.ClusterUri = new Uri(value);
+                NotifyOfPropertyChange(() => IsValid);
+                NotifyOfPropertyChange(() => IsConnected);
+                if (IsValid)
+                {
+                    settings.ClusterUri = new Uri(value);
+                }
+            }
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                Uri uri;
+                return Uri.TryCreate(ClusterUri,UriKind.Absolute,out uri);
+            }
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                if (!IsValid) return false;
+
+                var ping = new PingCluster();
+
+                return ping.IsAlive(new Uri(ClusterUri));
             }
         }
 

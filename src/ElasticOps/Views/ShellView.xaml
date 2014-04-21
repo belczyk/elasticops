@@ -26,7 +26,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <views:ClusterConnectionView cal:Bind.Model="{Binding ClusterConnection}"></views:ClusterConnectionView>
+            <views:ClusterConnectionView cal:Bind.Model="{Binding ClusterConnectionViewModel}"></views:ClusterConnectionView>
         </Grid>
         <controls:MetroAnimatedTabControl Grid.Row="1"
                                           Name="ManagmentScreens">

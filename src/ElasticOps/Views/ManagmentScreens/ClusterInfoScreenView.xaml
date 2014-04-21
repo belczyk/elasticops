@@ -6,11 +6,12 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:elasticOps="clr-namespace:ElasticOps"
+             xmlns:conv="clr-namespace:ElasticOps.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1024">
     <UserControl.Resources>
         <ResourceDictionary>
-            <elasticOps:HumanizeBigNumbersConverter x:Key="BigNumbersConverter" />
+            <conv:HumanizeBigNumbersConverter x:Key="BigNumbersConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>

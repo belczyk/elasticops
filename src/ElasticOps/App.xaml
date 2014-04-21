@@ -13,11 +13,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/green.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/basedark.xaml" />
                 <ResourceDictionary>
-                    <elasticOps:AppBootstrapper x:Key="bootstrapper"  />
+                    <elasticOps:AppBootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>
 
 
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
+                <ResourceDictionary Source="/Resources/CustomIcons.xaml" />
 
 
             </ResourceDictionary.MergedDictionaries>

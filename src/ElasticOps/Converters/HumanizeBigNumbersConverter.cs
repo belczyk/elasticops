@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace ElasticOps
+namespace ElasticOps.Converters
 {
     public class HumanizeBigNumbersConverter : IValueConverter
     {

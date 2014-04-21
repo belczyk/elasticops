@@ -103,7 +103,9 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
-    <Compile Include="HumanizeBigNumbersConverter.cs" />
+    <Compile Include="Converters\BoolToOpositeVisiblityConverter.cs" />
+    <Compile Include="Converters\BoolToVisiblityConverter.cs" />
+    <Compile Include="Converters\HumanizeBigNumbersConverter.cs" />
     <Compile Include="HumanizerExtensions.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\ManagmentScreens\BasicInfoViewModel.cs" />
@@ -118,6 +120,10 @@
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\CustomIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
