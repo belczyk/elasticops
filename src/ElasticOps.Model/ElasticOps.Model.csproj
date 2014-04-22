@@ -69,7 +69,10 @@
   <ItemGroup>
     <Compile Include="ClusterInfo.cs" />
     <Compile Include="ClusterCounters.cs" />
+    <Compile Include="ClusterSchema.cs" />
+    <Compile Include="ESTypeInfo.cs" />
     <Compile Include="HumanizerExtensions.cs" />
+    <Compile Include="IndexInfo.cs" />
     <Compile Include="ModelsModule.cs" />
     <Compile Include="NodeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

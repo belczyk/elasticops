@@ -6,6 +6,7 @@ using Elasticsearch.Net;
 using Elasticsearch.Net.Connection;
 using Humanizer;
 using Nest;
+using Newtonsoft.Json;
 
 namespace ElasticOps.Model
 {
@@ -62,6 +63,54 @@ namespace ElasticOps.Model
 
 
             return res.Success;
+        }
+
+        public IEnumerable<IndexInfo> GetIndicesInfo(Uri clusterUri)
+        {
+            var client = new ElasticsearchClient(new ConnectionConfiguration(clusterUri));
+            var state = client.ClusterState();
+            var indices = state.Response["metadata"]["indices"];
+            var ret = new List<IndexInfo>();
+            foreach (var index in indices.Value)
+            {
+                ret.Add(new IndexInfo
+                {
+                    Name = index.Key,
+                    Types = GetTypes(index.Value["mappings"]),
+                    Settings = GetSettings(index.Value["settings"]),
+                    State = index.Value["state"].ToString()
+                });
+            }
+
+            return ret;
+
+        }
+
+        private Dictionary<string, string> GetSettings(dynamic settings)
+        {
+            var ret = new Dictionary<string, string>();
+
+            foreach (var setting in settings)
+            {
+                ret.Add(setting.Key,setting.Value.ToString());
+            }
+
+            return ret;
+        }
+
+        private List<ESTypeInfo> GetTypes(dynamic types)
+        {
+            var ret = new List<ESTypeInfo>();
+            foreach (var type in types)
+            {
+                ret.Add(new ESTypeInfo
+                {
+                    Name = type.Key,
+                    Mapping = JsonConvert.SerializeObject(type.Value,Formatting.Indented)
+                });
+            }
+
+            return ret;
         }
     }
 }
