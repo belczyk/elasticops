@@ -10,9 +10,11 @@ namespace ElasticOps.ViewModels
     public class ClusterConnectionViewModel : PropertyChangedBase
     {
         private Settings settings;
+        private IEventAggregator eventAggregator;
 
         public ClusterConnectionViewModel(Settings settings, IEventAggregator eventAggregator)
         {
+            this.eventAggregator = eventAggregator;
             this.settings = settings;
             ClusterUri = settings.ClusterUri.ToString();
             var observable = Observable.Interval(10.Seconds()).TimeInterval();
@@ -32,6 +34,7 @@ namespace ElasticOps.ViewModels
                 if (IsValid)
                 {
                     settings.ClusterUri = new Uri(value);
+                    eventAggregator.Publish(new ClusterUriChanged(settings.ClusterUri));
                 }
             }
         }

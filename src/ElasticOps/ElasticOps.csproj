@@ -104,6 +104,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
+    <Compile Include="ViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="ViewModels\ElasticPropertyViewModel.cs" />
     <Compile Include="Converters\BoolToOpositeVisiblityConverter.cs" />
     <Compile Include="Converters\BoolToVisiblityConverter.cs" />

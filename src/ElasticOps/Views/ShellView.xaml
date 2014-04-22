@@ -8,12 +8,12 @@
                       Height="768"
                       Width="1024"
                       WindowStartupLocation="CenterScreen"
-                      WindowState="Maximized">
+                      WindowState="Maximized"
+                      ResizeMode="CanResizeWithGrip"
+                      >
     <controls:MetroWindow.Resources>
-
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -23,13 +23,15 @@
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <views:ClusterConnectionView cal:Bind.Model="{Binding ClusterConnectionViewModel}"></views:ClusterConnectionView>
         </Grid>
-        <controls:MetroAnimatedTabControl Grid.Row="1"
+        <controls:MetroAnimatedTabControl Grid.Row="2"
                                           Name="ManagmentScreens">
 
         </controls:MetroAnimatedTabControl>
