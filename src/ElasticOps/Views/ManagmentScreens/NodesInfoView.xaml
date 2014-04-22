@@ -7,12 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Horizontal">
-            <ItemsControl Name="NodesInfo" />
-            <controls:ProgressRing IsActive="{Binding IsRefreshing}"
-                                   VerticalAlignment="Top"
-                                   HorizontalAlignment="Right" />
-        </StackPanel>
+        <Grid>
+            <controls:MetroProgressBar VerticalAlignment="Top"
+                                       Height="15"
+                                       IsIndeterminate="True"
+                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"></controls:MetroProgressBar>
+            <ItemsControl Name="NodesInfo" Margin="0,20,0,0" />
+
+        </Grid>
 
     </ScrollViewer>
 </UserControl>

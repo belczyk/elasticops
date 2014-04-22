@@ -9,13 +9,15 @@
              d:DesignWidth="1024">
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto">
+        
         <Grid>
+            <controls:MetroProgressBar VerticalAlignment="Top"
+                                       Height="15"
+                                       IsIndeterminate="True"
+                                       Visibility="{Binding IsRefreshing, Converter={StaticResource BooleanToVisibilityConverter}}"
+                ></controls:MetroProgressBar>
+            <ItemsControl Name="ClusterHealthProperties" Margin="0,20,0,0"/>
 
-            <ItemsControl Name="ClusterHealthProperties" />
-
-            <controls:ProgressRing IsActive="{Binding IsRefreshing}"
-                                   VerticalAlignment="Top"
-                                   HorizontalAlignment="Right" />
         </Grid>
     </ScrollViewer>
 

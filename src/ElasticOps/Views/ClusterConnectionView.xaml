@@ -6,10 +6,7 @@
              xmlns:converters="clr-namespace:ElasticOps.Converters"
              mc:Ignorable="d"
              d:DesignHeight="40" d:DesignWidth="1024">
-    <UserControl.Resources>
-        <converters:BoolToOpositeVisiblityConverter x:Key="boolToOpositeVisiblityConverter" />
-        <converters:BoolToVisiblityConverter x:Key="boolToVisiblityConverter" />
-    </UserControl.Resources>
+
     <StackPanel Orientation="Horizontal" >
         
         <Label 

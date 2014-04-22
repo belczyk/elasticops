@@ -51,7 +51,7 @@ namespace ElasticOps.ViewModels
             {
                 if (!IsValid) return false;
 
-                var ping = new PingCluster();
+                var ping = new ClusterInfo();
 
                 return ping.IsAlive(new Uri(ClusterUri));
             }

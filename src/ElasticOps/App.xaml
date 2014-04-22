@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
            
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:elasticOps="clr-namespace:ElasticOps">
+             xmlns:elasticOps="clr-namespace:ElasticOps"
+             xmlns:converters="clr-namespace:ElasticOps.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,7 +20,10 @@
 
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/Resources/CustomIcons.xaml" />
-
+                <ResourceDictionary>
+                    <converters:BoolToOpositeVisiblityConverter x:Key="boolToOpositeVisiblityConverter" />
+                    <converters:BoolToVisiblityConverter x:Key="boolToVisiblityConverter" />
+                </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type controls:Tile}">

@@ -71,7 +71,6 @@
     <Compile Include="ClusterCounters.cs" />
     <Compile Include="HumanizerExtensions.cs" />
     <Compile Include="ModelsModule.cs" />
-    <Compile Include="PingCluster.cs" />
     <Compile Include="NodeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
