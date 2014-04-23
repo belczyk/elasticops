@@ -11,11 +11,14 @@
                   VerticalScrollBarVisibility="Auto">
         
         <Grid>
+            <DockPanel VerticalAlignment="Top">
             <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
+                                       Margin="5,0,5,0"
                                        Visibility="{Binding IsRefreshing, Converter={StaticResource BooleanToVisibilityConverter}}"
                 ></controls:MetroProgressBar>
+            </DockPanel>
             <ItemsControl Name="ClusterHealthProperties" Margin="0,20,0,0"/>
 
         </Grid>

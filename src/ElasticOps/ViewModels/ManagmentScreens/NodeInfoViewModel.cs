@@ -40,7 +40,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 NotifyOfPropertyChange(() => HttpAddress);
             }
         }
-        
+
         private IObservableCollection<ElasticPropertyViewModel> _OS;
 
         public IObservableCollection<ElasticPropertyViewModel> OS
@@ -83,14 +83,17 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             Hostname = nodeInfo.Hostname;
             HttpAddress = nodeInfo.HttpAddress;
             OS = new BindableCollection<ElasticPropertyViewModel>();
-            foreach (var val in nodeInfo.OS)
-                OS.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value});
+            if (nodeInfo.OS != null)
+                foreach (var val in nodeInfo.OS)
+                    OS.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
             Settings = new BindableCollection<ElasticPropertyViewModel>();
-            foreach (var val in nodeInfo.Settings)
-                Settings.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
+            if (nodeInfo.Settings != null)
+                foreach (var val in nodeInfo.Settings)
+                    Settings.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
             CPU = new BindableCollection<ElasticPropertyViewModel>();
-            foreach (var val in nodeInfo.CPU)
-                CPU.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
+            if (nodeInfo.CPU != null)
+                foreach (var val in nodeInfo.CPU)
+                    CPU.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
         }
     }
 }

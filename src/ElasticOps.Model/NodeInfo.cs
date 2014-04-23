@@ -19,20 +19,24 @@ namespace ElasticOps.Model
             Name = nodeInfo.Name;
             Hostname = nodeInfo.Hostname;
             HttpAddress = nodeInfo.HttpAddress;
-            Settings = new Dictionary<string, string>
+            if (nodeInfo.Settings != null)
+                Settings = new Dictionary<string, string>
                 {
                     {"Data path", ((string)nodeInfo.Settings["path"]["data"]).HumanizePath()},
                     {"Configs path", ((string)nodeInfo.Settings["path"]["conf"]).HumanizePath()},
                     {"Logs path", ((string)nodeInfo.Settings["path"]["logs"]).HumanizePath()},
                 };
-            OS = new Dictionary<string, string>
+            if (nodeInfo.OS != null)
+            {
+                OS = new Dictionary<string, string>
                 {
                     {"# Processors", Convert.ToString(nodeInfo.OS.AvailableProcessors)},
                     {"Refresh interval", Convert.ToString(nodeInfo.OS.RefreshInterval)},
                     {"Memory", new ByteSize(nodeInfo.OS.Mem.TotalInBytes).Humanize("#.##")},
                     {"Swap", new ByteSize(nodeInfo.OS.Swap.TotalInBytes).Humanize("#.##")},
                 };
-            CPU = new Dictionary<string, string>
+
+                CPU = new Dictionary<string, string>
                 {
                     {"Vendor", nodeInfo.OS.Cpu.Vendor},
                     {"Model", nodeInfo.OS.Cpu.Model},
@@ -42,6 +46,7 @@ namespace ElasticOps.Model
                     {"Cores per socket", Convert.ToString(nodeInfo.OS.Cpu.CoresPerSocket)},
                     {"Cache size", new ByteSize(nodeInfo.OS.Cpu.CacheSizeInBytes).Humanize("#.##")},
                 };
+            }
         }
     }
 }

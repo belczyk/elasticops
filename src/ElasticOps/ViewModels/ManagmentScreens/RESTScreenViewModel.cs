@@ -141,7 +141,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 }
                 WebResponse response = request.GetResponse();
                 var reader = new StreamReader(response.GetResponseStream());
-                Thread.Sleep(3000);
 
                 Response = TryFormatIfJson(reader.ReadToEnd());
             }

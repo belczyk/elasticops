@@ -31,7 +31,7 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => ClusterUri);
                 NotifyOfPropertyChange(() => IsValid);
                 NotifyOfPropertyChange(() => IsConnected);
-                if (IsValid)
+                if (IsConnected)
                 {
                     settings.ClusterUri = new Uri(value);
                     eventAggregator.Publish(new ClusterUriChanged(settings.ClusterUri));
