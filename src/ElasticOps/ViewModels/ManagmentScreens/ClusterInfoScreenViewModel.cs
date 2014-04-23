@@ -24,7 +24,15 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             BasicInfoViewModel.ConductWith(this);
             NodesInfoViewModel.ConductWith(this);
-            ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+            try
+            {
+                ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
             ActivateItem(BasicInfoViewModel);
             DisplayName = "Cluster";
 
@@ -61,7 +69,14 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public void Handle(RefreashEvent message)
         {
-            ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+            try
+            {
+                ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }

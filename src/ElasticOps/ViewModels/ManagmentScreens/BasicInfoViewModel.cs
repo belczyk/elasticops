@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Caliburn.Micro;
 using ElasticOps.Model;
 
@@ -17,12 +17,19 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public override void RefreshData()
         {
-            var clusterHealthInfo = new ClusterInfo().GetClusterHealthInfo(clusterUri);
-            ClusterHealthProperties.Clear();
-            foreach (var element in clusterHealthInfo)
+            try
             {
-                ClusterHealthProperties.Add(
-                    new ElasticPropertyViewModel { Label = element.Key, Value = element.Value });
+                var clusterHealthInfo = new ClusterInfo().GetClusterHealthInfo(clusterUri);
+                ClusterHealthProperties.Clear();
+                foreach (var element in clusterHealthInfo)
+                {
+                    ClusterHealthProperties.Add(
+                        new ElasticPropertyViewModel {Label = element.Key, Value = element.Value});
+                }
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
     }
