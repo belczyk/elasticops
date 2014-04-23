@@ -10,9 +10,17 @@ namespace ElasticOps.Model
 {
     public class ClusterInfo
     {
+        private ElasticClientProvider elasticClientProvider;
+
+        public ClusterInfo(ElasticClientProvider elasticClientProvider)
+        {
+            this.elasticClientProvider = elasticClientProvider;
+        }
+
         public IDictionary<string, string> GetClusterHealthInfo(Uri clusterUri)
         {
-            var elasticClient = new ElasticClient(new ConnectionSettings(clusterUri));
+            var elasticClient = elasticClientProvider.GetElasticClient(clusterUri);
+
             var clusterHealthData = elasticClient.Raw.ClusterHealth().Response;
 
             var dictionary = new Dictionary<string, string>();
@@ -24,7 +32,8 @@ namespace ElasticOps.Model
 
         public ClusterCounters GetClusterCounters(Uri clusterUri)
         {
-            var elasticClient = new ElasticClient(new ConnectionSettings(clusterUri));
+            var elasticClient = elasticClientProvider.GetElasticClient(clusterUri);
+
             var documentsCount = elasticClient.IndicesStats().Stats.Total.Documents.Count;
             var indicesCount = elasticClient.IndicesStats().Indices.Count;
             var nodesCount = elasticClient.NodesInfo().Nodes.Count;
@@ -39,7 +48,8 @@ namespace ElasticOps.Model
 
         public IEnumerable<NodeInfo> GetNodesInfo(Uri clusterUri)
         {
-            var elasticClient = new ElasticClient(new ConnectionSettings(clusterUri));
+            var elasticClient = elasticClientProvider.GetElasticClient(clusterUri);
+
             var nodesInfo = elasticClient.NodesInfo().Nodes.Values;
             var result = new List<NodeInfo>();
             foreach (var node in nodesInfo)
@@ -54,7 +64,8 @@ namespace ElasticOps.Model
         {
             try
             {
-                var client = new ElasticClient(new ConnectionSettings(clusterUri));
+                var client = elasticClientProvider.GetElasticClient(clusterUri);
+
                 var res = client.ClusterHealth();
 
                 return res.ConnectionStatus.Success;
@@ -67,7 +78,8 @@ namespace ElasticOps.Model
 
         public IEnumerable<IndexInfo> GetIndicesInfo(Uri clusterUri)
         {
-            var client = new ElasticsearchClient(new ConnectionConfiguration(clusterUri));
+            var client = elasticClientProvider.GetElasticNetClient(clusterUri);
+
             var state = client.ClusterState();
             var indices = state.Response["metadata"]["indices"];
             var ret = new List<IndexInfo>();
@@ -83,7 +95,6 @@ namespace ElasticOps.Model
             }
 
             return ret;
-
         }
 
         private Dictionary<string, string> GetSettings(dynamic settings)

@@ -8,7 +8,7 @@ namespace ElasticOps.Model
         {
 
             builder.RegisterType<ClusterInfo>().AsSelf();
-
+            builder.RegisterType<ElasticClientProvider>().AsSelf();
         }
     }
 }

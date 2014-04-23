@@ -5,6 +5,8 @@ using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.Events;
 using ElasticOps.Model;
+using NLog;
+using LogManager = NLog.LogManager;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -13,11 +15,17 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     {
         private IEventAggregator eventAggregator;
         private Settings settings;
-
-        public ClusterInfoScreenViewModel(Settings settings,IEventAggregator eventAggregator, BasicInfoViewModel basicInfoViewModel, NodesInfoViewModel nodesInfoViewModel)
+        private ClusterInfo clusterInfo;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        public ClusterInfoScreenViewModel(Settings settings,
+            IEventAggregator eventAggregator, 
+            BasicInfoViewModel basicInfoViewModel, 
+            NodesInfoViewModel nodesInfoViewModel,
+            ClusterInfo clusterInfo )
         {
             this.eventAggregator = eventAggregator;
             this.settings = settings;
+            this.clusterInfo = clusterInfo;
 
             BasicInfoViewModel = basicInfoViewModel;
             NodesInfoViewModel = nodesInfoViewModel;
@@ -26,11 +34,11 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             NodesInfoViewModel.ConductWith(this);
             try
             {
-                ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+                ClusterCounters = clusterInfo.GetClusterCounters(settings.ClusterUri);
             }
             catch (Exception ex)
             {
-                
+                logger.Warn(ex);
             }
 
             ActivateItem(BasicInfoViewModel);
@@ -71,11 +79,11 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                ClusterCounters = new ClusterInfo().GetClusterCounters(settings.ClusterUri);
+                ClusterCounters = clusterInfo.GetClusterCounters(settings.ClusterUri);
             }
             catch (Exception ex)
             {
-                
+                logger.Warn(ex);
             }
         }
     }
