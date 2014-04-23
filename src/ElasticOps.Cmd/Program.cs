@@ -7,8 +7,8 @@ namespace ElasticOps.Cmd
     {
         static void Main(string[] args)
         {
-            var ci = new ClusterInfo();
-            var info = ci.GetIndicesInfo(new Uri("http://localhost:9200"));
+            //var ci = new ClusterInfo();
+            //var info = ci.GetIndicesInfo(new Uri("http://localhost:9200"));
         }
     }
 }

@@ -21,6 +21,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             IEventAggregator eventAggregator, 
             BasicInfoViewModel basicInfoViewModel, 
             NodesInfoViewModel nodesInfoViewModel,
+            IndicesInfoViewModel indicesInfoViewModel,
             ClusterInfo clusterInfo )
         {
             this.eventAggregator = eventAggregator;
@@ -29,9 +30,12 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             BasicInfoViewModel = basicInfoViewModel;
             NodesInfoViewModel = nodesInfoViewModel;
+            IndicesInfoViewModel = indicesInfoViewModel;
 
             BasicInfoViewModel.ConductWith(this);
             NodesInfoViewModel.ConductWith(this);
+            IndicesInfoViewModel.ConductWith(this);
+
             try
             {
                 ClusterCounters = clusterInfo.GetClusterCounters(settings.ClusterUri);
@@ -45,8 +49,10 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             DisplayName = "Cluster";
 
         }
+
         private BasicInfoViewModel BasicInfoViewModel { get; set; }
         private NodesInfoViewModel NodesInfoViewModel { get; set; }
+        private IndicesInfoViewModel IndicesInfoViewModel { get; set; }
 
         public void ShowBasicInfo()
         {
@@ -60,7 +66,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public void ShowIndicesInfo()
         {
-            //ActivateItem(new BasicInfoViewModel());
+            ActivateItem(IndicesInfoViewModel);
         }
 
         private ClusterCounters _clusterCounters;

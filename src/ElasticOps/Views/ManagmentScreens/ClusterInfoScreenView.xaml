@@ -34,9 +34,8 @@
                            Height="100"
                            HorizontalAlignment="Center"
                            Count="{Binding ClusterCounters.Nodes}"
-                           cal:Message.Attach="[Event Click] = [Action ShowNodesInfo()]"
-            ></controls:Tile>
-
+                           cal:Message.Attach="[Event Click] = [Action ShowNodesInfo()]">
+            </controls:Tile>
             <controls:Tile Title="Indices"
                            TiltFactor="2"
                            Width="100"
@@ -44,8 +43,6 @@
                            HorizontalContentAlignment="Center"
                            Count="{Binding ClusterCounters.Indices}"
                            cal:Message.Attach="[Event Click] = [Action ShowIndicesInfo()]">
-
-
             </controls:Tile>
             <controls:Tile Title="Documents"
                            HorizontalAlignment="Center"

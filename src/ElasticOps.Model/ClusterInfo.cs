@@ -89,7 +89,7 @@ namespace ElasticOps.Model
                 {
                     Name = index.Key,
                     Types = GetTypes(index.Value["mappings"]),
-                    Settings = GetSettings(index.Value["settings"]),
+                    Settings = GetSettings(index.Value["settings"]["index"]),
                     State = index.Value["state"].ToString()
                 });
             }

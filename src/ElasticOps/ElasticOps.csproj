@@ -118,6 +118,8 @@
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModel.cs" />
     <Compile Include="Events\ClusterUriChanged.cs" />
     <Compile Include="ViewModels\ManagmentScreens\IManagmentScreen.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\IndexInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\IndicesInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\NodeInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\NodesInfoViewModel.cs" />
     <Compile Include="Events\RefreashEvent.cs" />
@@ -144,6 +146,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManagmentScreens\ClusterInfoScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagmentScreens\IndexInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagmentScreens\IndicesInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,6 +185,12 @@
     </Compile>
     <Compile Include="Views\ManagmentScreens\ClusterInfoScreenView.xaml.cs">
       <DependentUpon>ClusterInfoScreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagmentScreens\IndexInfoView.xaml.cs">
+      <DependentUpon>IndexInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagmentScreens\IndicesInfoView.xaml.cs">
+      <DependentUpon>IndicesInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManagmentScreens\NodeInfoView.xaml.cs">
       <DependentUpon>NodeInfoView.xaml</DependentUpon>
