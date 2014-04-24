@@ -7,15 +7,20 @@ using Autofac;
 using Caliburn.Micro;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
+using NLog;
+using LogManager = NLog.LogManager;
 
 namespace ElasticOps
 {
     public class AppBootstrapper : Bootstrapper<ShellViewModel>
     {
         public static IContainer Container { get; private set; }
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         protected override void Configure()
         {
+            logger.Info("App starts");
+
             var builder = new ContainerBuilder();
 
             builder.RegisterType<WindowManager>().As<IWindowManager>();
