@@ -1,6 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
-using ElasticOps.Model;
+using Elasticsearch.Net.Connection;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -11,21 +11,19 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public IObservableCollection<ElasticPropertyViewModel> ClusterHealthProperties { get; set; }
+        
 
-        private ClusterInfo clusterInfo;
-
-        public BasicInfoViewModel(Settings settings, IEventAggregator eventAggregator, ClusterInfo clusterInfo)
+        public BasicInfoViewModel(Settings settings, IEventAggregator eventAggregator)
             : base(settings.ClusterUri, eventAggregator)
         {
             ClusterHealthProperties = new BindableCollection<ElasticPropertyViewModel>();
-            this.clusterInfo = clusterInfo;
         }
 
         public override void RefreshData()
         {
             try
             {
-                var clusterHealthInfo = clusterInfo.GetClusterHealthInfo(clusterUri);
+                var clusterHealthInfo = Com.ClusterInfo.Health(clusterUri);
                 ClusterHealthProperties.Clear();
                 foreach (var element in clusterHealthInfo)
                 {
@@ -37,6 +35,9 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             {
                 logger.Warn(ex);
             }
+
         }
+
+      
     }
 }

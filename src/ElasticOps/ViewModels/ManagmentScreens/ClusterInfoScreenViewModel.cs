@@ -1,32 +1,25 @@
 ﻿using System;
-using System;
-using Autofac;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
-using ElasticOps.Events;
-using ElasticOps.Model;
+
 using NLog;
 using LogManager = NLog.LogManager;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     [Priority(1)]
-    public class ClusterInfoScreenViewModel : Conductor<object>.Collection.OneActive, IManagmentScreen
+    public class ClusterInfoScreenViewModel : ClusterConnectedAutorefreashScreen, IManagmentScreen
     {
-        private IEventAggregator eventAggregator;
-        private Settings settings;
-        private ClusterInfo clusterInfo;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public ClusterInfoScreenViewModel(Settings settings,
             IEventAggregator eventAggregator, 
             BasicInfoViewModel basicInfoViewModel, 
             NodesInfoViewModel nodesInfoViewModel,
-            IndicesInfoViewModel indicesInfoViewModel,
-            ClusterInfo clusterInfo )
+            IndicesInfoViewModel indicesInfoViewModel
+           )
+            : base(settings.ClusterUri,eventAggregator)
         {
             this.eventAggregator = eventAggregator;
-            this.settings = settings;
-            this.clusterInfo = clusterInfo;
 
             BasicInfoViewModel = basicInfoViewModel;
             NodesInfoViewModel = nodesInfoViewModel;
@@ -38,7 +31,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             try
             {
-                ClusterCounters = clusterInfo.GetClusterCounters(settings.ClusterUri);
+                ClusterCounters = Com.ClusterInfo.ClusterCounters(settings.ClusterUri);
             }
             catch (Exception ex)
             {
@@ -69,9 +62,9 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             ActivateItem(IndicesInfoViewModel);
         }
 
-        private ClusterCounters _clusterCounters;
+        private Com.ClusterInfo.ClusterCounters _clusterCounters;
 
-        public ClusterCounters ClusterCounters
+        public Com.ClusterInfo.ClusterCounters ClusterCounters
         {
             get { return _clusterCounters; }
             set
@@ -81,11 +74,11 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        public void Handle(RefreashEvent message)
+        public override void RefreshData()
         {
             try
             {
-                ClusterCounters = clusterInfo.GetClusterCounters(settings.ClusterUri);
+                ClusterCounters = Com.ClusterInfo.ClusterCounters(clusterUri);
             }
             catch (Exception ex)
             {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticOps", "ElasticOps\ElasticOps.csproj", "{4ED29FDF-A914-4319-AC53-0736B794487F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticOps.Model", "ElasticOps.Model\ElasticOps.Model.csproj", "{91F4126B-54A1-4E60-BA51-476FD3A226C9}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Com", "ElasticOps.Com\ElasticOps.Com.fsproj", "{0623F346-37CC-4820-8728-0A9849C52A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		{4ED29FDF-A914-4319-AC53-0736B794487F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ED29FDF-A914-4319-AC53-0736B794487F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ED29FDF-A914-4319-AC53-0736B794487F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91F4126B-54A1-4E60-BA51-476FD3A226C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91F4126B-54A1-4E60-BA51-476FD3A226C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91F4126B-54A1-4E60-BA51-476FD3A226C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91F4126B-54A1-4E60-BA51-476FD3A226C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0623F346-37CC-4820-8728-0A9849C52A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0623F346-37CC-4820-8728-0A9849C52A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0623F346-37CC-4820-8728-0A9849C52A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0623F346-37CC-4820-8728-0A9849C52A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

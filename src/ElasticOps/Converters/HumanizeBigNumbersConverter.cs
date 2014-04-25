@@ -13,7 +13,7 @@ namespace ElasticOps.Converters
         {
             if (value is long)
             {
-                return ((long) value).HumanizeNumber();
+                return ((long) value);//.HumanizeNumber();
             }
 
             return value;

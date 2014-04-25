@@ -49,8 +49,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="FSharp.Data.DesignTime">
+      <HintPath>..\packages\FSharp.Data.2.0.5\lib\net40\FSharp.Data.DesignTime.dll</HintPath>
+    </Reference>
     <Reference Include="Humanizer">
-      <HintPath>..\packages\Humanizer.1.22.1\lib\portable-win+net40+sl50+wp8\Humanizer.dll</HintPath>
+      <HintPath>..\packages\Humanizer.1.24.1\lib\portable-win+net40+sl50+wp8\Humanizer.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.13.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -260,9 +264,9 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElasticOps.Model\ElasticOps.Model.csproj">
-      <Project>{91F4126B-54A1-4E60-BA51-476FD3A226C9}</Project>
-      <Name>ElasticOps.Model</Name>
+    <ProjectReference Include="..\ElasticOps.Com\ElasticOps.Com.fsproj">
+      <Project>{0623f346-37cc-4820-8728-0a9849c52a87}</Project>
+      <Name>ElasticOps.Com</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

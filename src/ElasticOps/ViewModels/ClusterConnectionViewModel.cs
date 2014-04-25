@@ -2,7 +2,7 @@
 using System.Reactive.Linq;
 using Caliburn.Micro;
 using ElasticOps.Events;
-using ElasticOps.Model;
+
 using Humanizer;
 using NLog;
 using LogManager = NLog.LogManager;
@@ -13,13 +13,11 @@ namespace ElasticOps.ViewModels
     {
         private Settings settings;
         private IEventAggregator eventAggregator;
-        private ClusterInfo clusterInfo;
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        public ClusterConnectionViewModel(Settings settings, IEventAggregator eventAggregator, ClusterInfo clusterInfo)
+        public ClusterConnectionViewModel(Settings settings, IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             this.settings = settings;
-            this.clusterInfo = clusterInfo;
 
             ClusterUri = settings.ClusterUri.ToString();
             var observable = Observable.Interval(10.Seconds()).TimeInterval();
@@ -60,7 +58,7 @@ namespace ElasticOps.ViewModels
                 if (!IsValid) return false;
                 try
                 {
-                    return clusterInfo.IsAlive(new Uri(ClusterUri));
+                    return Com.ClusterInfo.IsAlive(new Uri(ClusterUri));
                 }
                 catch (Exception ex)
                 {

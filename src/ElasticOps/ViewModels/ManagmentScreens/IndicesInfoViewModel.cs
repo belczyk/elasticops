@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
-using ElasticOps.Model;
+
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -11,25 +11,23 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private ClusterInfo clusterInfo;
 
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
         public IObservableCollection<IndexInfoViewModel> IndicesInfo { get; set; }
 
-        public IndicesInfoViewModel(Settings settings, IEventAggregator eventAggregator, ClusterInfo clusterInfo)
+        public IndicesInfoViewModel(Settings settings, IEventAggregator eventAggregator)
             : base(settings.ClusterUri, eventAggregator)
         {
             IndicesInfo = new BindableCollection<IndexInfoViewModel>();
-            this.clusterInfo = clusterInfo;
         }
 
         public override void RefreshData()
         {
             try
             {
-                var info = clusterInfo.GetIndicesInfo(clusterUri);
+                var indicesInfo = Com.ClusterInfo.IndicesInfo(clusterUri);
                 AllIndicesInfo.Clear();
-                foreach (var indexInfo in info)
+                foreach (var indexInfo in indicesInfo)
                     AllIndicesInfo.Add(new IndexInfoViewModel(indexInfo));
 
                 FilterIndices();

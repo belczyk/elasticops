@@ -5,7 +5,7 @@ using ElasticOps.Events;
 
 namespace ElasticOps
 {
-    public abstract class ClusterConnectedAutorefreashScreen : Screen, IHandle<RefreashEvent>, IHandle<ClusterUriChanged>
+    public abstract class ClusterConnectedAutorefreashScreen : Conductor<object>.Collection.OneActive, IHandle<RefreashEvent>, IHandle<ClusterUriChanged>
     {
         protected ClusterConnectedAutorefreashScreen(Uri clusterUri, IEventAggregator eventAggregator)
         {
