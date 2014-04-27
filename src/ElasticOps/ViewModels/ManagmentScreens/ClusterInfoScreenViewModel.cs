@@ -16,7 +16,8 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             BasicInfoViewModel basicInfoViewModel, 
             NodesInfoViewModel nodesInfoViewModel,
             IndicesInfoViewModel indicesInfoViewModel,
-            DocumentsInfoViewModel documentsInfoViewModel
+            DocumentsInfoViewModel documentsInfoViewModel,
+            MappingsInfoViewModel mappingsInfoViewModel
            )
             : base(settings.ClusterUri,eventAggregator)
         {
@@ -26,11 +27,13 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             NodesInfoViewModel = nodesInfoViewModel;
             IndicesInfoViewModel = indicesInfoViewModel;
             DocumentsInfoViewModel = documentsInfoViewModel;
+            MappingsInfoViewModel = mappingsInfoViewModel;
 
             BasicInfoViewModel.ConductWith(this);
             NodesInfoViewModel.ConductWith(this);
             IndicesInfoViewModel.ConductWith(this);
             DocumentsInfoViewModel.ConductWith(this);
+            MappingsInfoViewModel.ConductWith(this);
 
             try
             {
@@ -50,6 +53,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         private NodesInfoViewModel NodesInfoViewModel { get; set; }
         private IndicesInfoViewModel IndicesInfoViewModel { get; set; }
         private DocumentsInfoViewModel DocumentsInfoViewModel { get; set; }
+        private MappingsInfoViewModel MappingsInfoViewModel { get; set; }  
 
         public void ShowBasicInfo()
         {
@@ -69,6 +73,11 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public void ShowDocumentsInfo()
         {
             ActivateItem(DocumentsInfoViewModel);
+        }
+
+        public void ShowMappingsInfo()
+        {
+            ActivateItem(MappingsInfoViewModel);
         }
 
         private ClusterCounters _clusterCounters;

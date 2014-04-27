@@ -65,7 +65,12 @@ module ElasticOps.Com.ClusterInfo
                        let mappings = state.[indexName]?mappings 
                                          |> asPropertyList
                                          |> Seq.map (fun map -> 
-                                             new KeyValuePair<string,string>((fst map),(snd map).InnerText))
+                                             let sec = (snd map);
+                                             let prop = sec?properties;
+                                             let text = sec?properties.ToString();
+                                             let t = text.GetType();
+                                             new KeyValuePair<string,string>((fst map), (snd map)?properties.ToString())
+                                             )
                                          |> List.ofSeq
 
                        let settings = state.[indexName]?settings?index 

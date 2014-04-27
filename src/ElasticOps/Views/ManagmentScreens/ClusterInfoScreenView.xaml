@@ -57,7 +57,8 @@
                            HorizontalAlignment="Center"
                            TiltFactor="2"
                            Width="100"
-                           Height="100">
+                           Height="100"
+                           cal:Message.Attach="[Event Click] = [Action ShowMappingsInfo()]">
             </controls:Tile>
         </StackPanel>
         <ContentControl Grid.Row="1" x:Name="ActiveItem" />

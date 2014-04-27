@@ -128,6 +128,7 @@
     <Compile Include="ViewModels\ManagmentScreens\IManagmentScreen.cs" />
     <Compile Include="ViewModels\ManagmentScreens\IndexInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\IndicesInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\MappingsInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\NodeInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\NodesInfoViewModel.cs" />
     <Compile Include="Events\RefreashEvent.cs" />
@@ -169,6 +170,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ManagmentScreens\MappingsInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ManagmentScreens\NodeInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +211,9 @@
     </Compile>
     <Compile Include="Views\ManagmentScreens\IndicesInfoView.xaml.cs">
       <DependentUpon>IndicesInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagmentScreens\MappingsInfoView.xaml.cs">
+      <DependentUpon>MappingsInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManagmentScreens\NodeInfoView.xaml.cs">
       <DependentUpon>NodeInfoView.xaml</DependentUpon>
