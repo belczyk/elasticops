@@ -65,7 +65,12 @@ module ElasticOps.Com.ClusterInfo
                        let mappings = state.[indexName]?mappings 
                                          |> asPropertyList
                                          |> Seq.map (fun map -> 
-                                             new KeyValuePair<string,string>((fst map),(snd map).InnerText))
+                                             let sec = (snd map);
+                                             let prop = sec?properties;
+                                             let text = sec?properties.ToString();
+                                             let t = text.GetType();
+                                             new KeyValuePair<string,string>((fst map), (snd map)?properties.ToString())
+                                             )
                                          |> List.ofSeq
 
                        let settings = state.[indexName]?settings?index 
@@ -76,6 +81,21 @@ module ElasticOps.Com.ClusterInfo
 
                        { Name = indexName; Types = mappings; Settings = settings; State = state.[indexName]?state.AsString()}
             )
+
+    let DocumentsInfo uri =
+        let request = combineUri uri "_search"
+        let docsInfo = Http.RequestString ( request, httpMethod = "POST",
+                                            headers = [ "Accept", "application/json" ],
+                                            body   = TextRequest """  {"query": {"match_all": {}}, "facets": { "types": { "terms": { "field": "_type", "size": 100 }}}}  """
+                                            ) 
+                        |> JsonValue.Parse
+                        |> fun el -> el?facets?types?terms
+                        |> fun el -> el.AsArray()
+                        |> Seq.map (fun el -> 
+                         new KeyValuePair<string,string>(el?term.AsString(), el?count.AsString()))
+                        |> List.ofSeq
+                                            
+        docsInfo
 
     let IsAlive uri = 
         let response = Http.Request (combineUri uri "/_cluster/health")

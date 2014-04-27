@@ -15,6 +15,10 @@
                 <Label Content="Settings" Width="150"/>
                 <ItemsControl Name="Settings"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Types" Width="150"/>
+                <ItemsControl Name="Types"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

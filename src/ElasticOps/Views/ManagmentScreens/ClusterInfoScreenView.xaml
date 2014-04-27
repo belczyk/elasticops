@@ -50,15 +50,16 @@
                            Width="100"
                            Height="100"
                            Count="{Binding ClusterCounters.Documents, Converter={StaticResource BigNumbersConverter}}"
+                           cal:Message.Attach="[Event Click] = [Action ShowDocumentsInfo()]"
                            >
             </controls:Tile>
-            <!--<controls:Tile Title="Types"
+            <controls:Tile Title="Mappings"
                            HorizontalAlignment="Center"
                            TiltFactor="2"
                            Width="100"
                            Height="100"
-                           Count="12">
-            </controls:Tile>-->
+                           cal:Message.Attach="[Event Click] = [Action ShowMappingsInfo()]">
+            </controls:Tile>
         </StackPanel>
         <ContentControl Grid.Row="1" x:Name="ActiveItem" />
     </Grid>

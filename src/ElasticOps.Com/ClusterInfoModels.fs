@@ -19,6 +19,6 @@ type NodeInfo = { Name: string;
 
 type IndexInfo = { Name: string; 
                    State: string; 
-                   Types: list<KeyValuePair<string, string>>; 
+                   Types: list<KeyValuePair<string, string>>;
                    Settings: list<KeyValuePair<string, string>>}
 
