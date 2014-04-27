@@ -48,12 +48,17 @@
     <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonTypes.fs" />
     <Compile Include="Attributes.fs" />
     <Compile Include="ElasticResponseProcessing.fs" />
     <Compile Include="ClusterInfoModels.fs" />
@@ -61,7 +66,7 @@
     <None Include="Script.fsx" />
     <None Include="packages.config" />
     <Compile Include="HandlerFinder.fs" />
-    <Compile Include="CommandBus.fs" />
+    <Compile Include="RequestBus.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

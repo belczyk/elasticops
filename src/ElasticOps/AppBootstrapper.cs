@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Caliburn.Micro;
+using ElasticOps.Com.Infrastructure;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using NLog;
@@ -37,8 +38,7 @@ namespace ElasticOps
             builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
               .Where(type => type.Name.EndsWith("View"))
               .AsSelf().InstancePerDependency();
-
-            builder.RegisterAssemblyModules(Assembly.Load("ElasticOps.Model"));
+            builder.RegisterType<RequestBus>().AsSelf();
             builder.RegisterType<Settings>().AsSelf().SingleInstance();
 
             Container = builder.Build();

@@ -7,7 +7,7 @@ module ElasticOps.Com.ClusterInfo
     open System
     open ElasticOps.Com.ElasticResponseProcessing
     open ElasticOps.Com
-
+    open ElasticOps.Com.CommonTypes
 
     [<ESVersionFrom(1)>]
     let Health (uri) =
@@ -35,8 +35,8 @@ module ElasticOps.Com.ClusterInfo
 
 
 
-    let NodesInfo uri =
-        request uri "/_nodes"
+    let NodesInfo (connection : Connection) =
+        request connection.clusterUri "/_nodes"
             |> JsonValue.Parse
             |> fun ps -> ps?nodes
             |> asPropertyList
