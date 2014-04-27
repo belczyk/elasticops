@@ -1,7 +1,7 @@
 ﻿using System;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
-
+using ElasticOps.Com.Models;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -62,9 +62,9 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             ActivateItem(IndicesInfoViewModel);
         }
 
-        private Com.ClusterInfo.ClusterCounters _clusterCounters;
+        private ClusterCounters _clusterCounters;
 
-        public Com.ClusterInfo.ClusterCounters ClusterCounters
+        public ClusterCounters ClusterCounters
         {
             get { return _clusterCounters; }
             set

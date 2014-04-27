@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-
+using ElasticOps.Com.Models;
 using Humanizer;
 using ClusterInfo = ElasticOps.Com.ClusterInfo;
 
@@ -31,7 +31,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        public IndexInfoViewModel(ClusterInfo.IndexInfo indexInfo)
+        public IndexInfoViewModel(IndexInfo indexInfo)
         {
             Name = indexInfo.Name;
             Settings = new BindableCollection<ElasticPropertyViewModel>();

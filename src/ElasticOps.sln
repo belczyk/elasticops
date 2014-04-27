@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticOps", "ElasticOps\El
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Com", "ElasticOps.Com\ElasticOps.Com.fsproj", "{0623F346-37CC-4820-8728-0A9849C52A87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticOps.Tests", "ElasticOps.Tests\ElasticOps.Tests.csproj", "{900B580B-848C-4B19-BA2C-02601322DDC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{0623F346-37CC-4820-8728-0A9849C52A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0623F346-37CC-4820-8728-0A9849C52A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0623F346-37CC-4820-8728-0A9849C52A87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{900B580B-848C-4B19-BA2C-02601322DDC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{900B580B-848C-4B19-BA2C-02601322DDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{900B580B-848C-4B19-BA2C-02601322DDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{900B580B-848C-4B19-BA2C-02601322DDC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

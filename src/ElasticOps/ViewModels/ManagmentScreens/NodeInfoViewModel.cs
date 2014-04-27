@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using ClusterInfo = ElasticOps.Com.ClusterInfo;
+using ElasticOps.Com.Models;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -77,7 +77,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        public NodeInfoViewModel(ClusterInfo.NodeInfo nodeInfo)
+        public NodeInfoViewModel(NodeInfo nodeInfo)
         {
             Name = nodeInfo.Name;
             Hostname = nodeInfo.Hostname;
