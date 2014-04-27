@@ -77,6 +77,21 @@ module ElasticOps.Com.ClusterInfo
                        { Name = indexName; Types = mappings; Settings = settings; State = state.[indexName]?state.AsString()}
             )
 
+    let DocumentsInfo uri =
+        let request = combineUri uri "_search"
+        let docsInfo = Http.RequestString ( request, httpMethod = "POST",
+                                            headers = [ "Accept", "application/json" ],
+                                            body   = TextRequest """  {"query": {"match_all": {}}, "facets": { "types": { "terms": { "field": "_type", "size": 100 }}}}  """
+                                            ) 
+                        |> JsonValue.Parse
+                        |> fun el -> el?facets?types?terms
+                        |> fun el -> el.AsArray()
+                        |> Seq.map (fun el -> 
+                         new KeyValuePair<string,string>(el?term.AsString(), el?count.AsString()))
+                        |> List.ofSeq
+                                            
+        docsInfo
+
     let IsAlive uri = 
         let response = Http.Request (combineUri uri "/_cluster/health")
         response.StatusCode = 200

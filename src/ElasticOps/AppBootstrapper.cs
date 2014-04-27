@@ -38,7 +38,6 @@ namespace ElasticOps
               .Where(type => type.Name.EndsWith("View"))
               .AsSelf().InstancePerDependency();
 
-            builder.RegisterAssemblyModules(Assembly.Load("ElasticOps.Model"));
             builder.RegisterType<Settings>().AsSelf().SingleInstance();
 
             Container = builder.Build();
