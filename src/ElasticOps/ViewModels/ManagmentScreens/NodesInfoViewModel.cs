@@ -1,27 +1,22 @@
 ﻿using Caliburn.Micro;
-using ElasticOps.Com.CommonTypes;
-using ElasticOps.Com.Infrastructure;
-using ElasticOps.Com.Models;
-using Microsoft.FSharp.Collections;
+using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class NodesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
         public IObservableCollection<NodeInfoViewModel> NodesInfo { get; set; }
-        private RequestBus requestBus;
 
-        public NodesInfoViewModel(Settings settings, IEventAggregator eventAggregator, RequestBus requestBus)
-            : base(settings.ClusterUri, eventAggregator)
+        public NodesInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
         {
             NodesInfo = new BindableCollection<NodeInfoViewModel>();
-            this.requestBus = requestBus;
         }
 
         public override void RefreshData()
         {
             var result =
-                requestBus.Execute<FSharpList<NodeInfo>>(new Connection(clusterUri, new Com.CommonTypes.Version(0)));
+                commandBus.Execute(new ClusterInfo.NodesInfoCommand(connection));
 
             if (!result.Success) return;
 

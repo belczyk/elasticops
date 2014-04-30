@@ -1,21 +1,27 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Caliburn.Micro;
+using ElasticOps.Com.CommonTypes;
+using ElasticOps.Com.Infrastructure;
 using ElasticOps.Events;
+using Humanizer;
 
 namespace ElasticOps
 {
-    public abstract class ClusterConnectedAutorefreashScreen : Conductor<object>.Collection.OneActive, IHandle<RefreashEvent>, IHandle<ClusterUriChanged>
+    public abstract class ClusterConnectedAutorefreashScreen : Conductor<object>.Collection.OneActive, IHandle<RefreashEvent>
     {
-        protected ClusterConnectedAutorefreashScreen(Uri clusterUri, IEventAggregator eventAggregator)
+        protected ClusterConnectedAutorefreashScreen(Infrastructure infrastructure)
         {
-            this.clusterUri = clusterUri;
-            this.eventAggregator = eventAggregator;
+            this.settings = infrastructure.Settings;
+            this.eventAggregator = infrastructure.EventAggregator;
+            this.commandBus = infrastructure.CommandBus;
+            this.connection = infrastructure.Settings.Connection;
+
         }
 
         protected IEventAggregator eventAggregator;
-        protected Uri clusterUri;
-
+        protected Settings settings;
+        protected CommandBus commandBus;
+        protected Connection connection;
         private bool _isRefreshing;
 
         public bool IsRefreshing
@@ -45,15 +51,6 @@ namespace ElasticOps
         {
             if (!IsRefreshing)
                 StartRefreshingData();
-        }
-
-        public void Handle(ClusterUriChanged message)
-        {
-            if (clusterUri != message.ClusterUri && message.ClusterUri !=null)
-            {
-                clusterUri = message.ClusterUri;
-                StartRefreshingData();
-            }
         }
 
         private void StartRefreshingData()

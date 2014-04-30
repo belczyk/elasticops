@@ -15,6 +15,17 @@ type Version(major : int,?minor : int,?patch : int,?build : int) =
     override this.Equals (o ) =
             let other = o :?> Version
             this.major = other.major && this.minor = other.minor && this.patch = other.patch && this.build = other.build
+    
+    static member FromString(version : string) = 
+        match version with 
+        | null |"" -> new Version(0)
+        | _ -> let parts = version.Split '.'
+               match (parts |> Seq.map (fun v -> Int32.Parse(v)) |> List.ofSeq)  with 
+               | m::mi::p::b::_ -> new Version(m,mi,p,b)
+               | m::mi::p::_ -> new Version(m,mi,p)
+               | m::mi::_ -> new Version(m,mi)
+               | m::_ -> new Version(m)
+               | _ -> new Version(0)
 
     interface System.IComparable  with
         member this.CompareTo(other ) =
@@ -30,14 +41,30 @@ type Version(major : int,?minor : int,?patch : int,?build : int) =
             | (_,_,_,b),(_,_,_,b2) when b < b2 -> -1
             | _ -> raise (Exception "unknown version combination when comparing versions")
 
-type RequestResult<'T when 'T : null> (result : 'T, success : Boolean, errorMessage : String) =
+type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMessage : String) =
     member x.Result = result
     member x.Success = success 
     member x.ErrorMessage = errorMessage 
-
-    new (result : 'T) = RequestResult(result,true,null)
-    new (errorMessage : string ) = RequestResult(null,false,errorMessage)
+    member x.Failed 
+        with get() = not x.Success
+        
+    new (result : 'T) = CommandResult(result,true,null)
+    new (errorMessage : string ) = CommandResult(null,false,errorMessage)
 
 type Connection(clusterUri : Uri, version : Version) =
-    member x.clusterUri = clusterUri
-    member x.version = version 
+    member x.ClusterUri = clusterUri
+    member x.Version = version 
+
+type HeartBeat( isAlive : bool , version : string ) =
+    member x.IsAlive = isAlive 
+    member x.Version = version
+
+    new(isAlive : bool) = HeartBeat(isAlive,null)
+
+
+type Command<'T>(connection : Connection) = 
+    new (connection) = Command<'T>(connection)
+    member x.Connection = connection
+
+    member x.ClusterUri = x.Connection.ClusterUri
+    member x.Version = x.Connection.Version

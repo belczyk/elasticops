@@ -1,5 +1,7 @@
 ﻿using System;
 using Caliburn.Micro;
+using ElasticOps.Com;
+using ElasticOps.Com.Infrastructure;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -9,8 +11,8 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public DocumentsInfoViewModel(Settings settings, IEventAggregator eventAggregator)
-            : base(settings.ClusterUri, eventAggregator)
+        public DocumentsInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
         {
             Documents = new BindableCollection<ElasticPropertyViewModel>();
         }
@@ -19,9 +21,12 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                var docsInfo = Com.ClusterInfo.DocumentsInfo(clusterUri);
+                var result = commandBus.Execute(new ClusterInfo.DocumentsInfoCommand(connection));
+
+                if (result.Failed) return;
+
                 Documents.Clear();
-                foreach (var docInfo in docsInfo)
+                foreach (var docInfo in result.Result)
                 {
                     Documents.Add(new ElasticPropertyViewModel
                         {

@@ -5,6 +5,7 @@ open FSharp.Data
 open FSharp.Data.JsonExtensions
 open Humanizer
 open FSharp.Data.Runtime
+open System.Linq
 
 let asPropertyList (jsonValue : JsonValue) = 
     jsonValue.Properties 
@@ -19,19 +20,29 @@ let asPropertyListOfScalars (jsonValue : JsonValue) =
 let humanizeKeys (pair : (string * JsonValue)) = 
     ((fst pair).Humanize(LetterCasing.Sentence), (snd pair))
 
+let extractStringsFromValues (pair : (string * JsonValue)) =
+    ((fst pair),(snd pair).AsString())
 
 let asKeyValuePairList (propSeq :  (string * JsonValue) seq) = 
     propSeq |> Seq.map humanizeKeys 
     |> Seq.map (fun pair -> new KeyValuePair<string,string>((fst pair),(snd pair).AsString()))
     |> List.ofSeq
     
-let combineUri uri endpoint =
-    let u = new Uri(uri,new Uri(endpoint,UriKind.Relative))
-    u.ToString()
+let combineUri ( uri : Uri) endpoint =
+    match endpoint with 
+    | null | "" -> uri.ToString()
+    | _ -> let u = new Uri(uri,new Uri(endpoint,UriKind.Relative))
+           u.ToString()
 
 
-let request uri endpoint =
+let GET uri endpoint =
     combineUri uri endpoint |> Http.RequestString 
+
+let POSTJson uri endpoint body =
+    Http.RequestString ( (combineUri uri endpoint), httpMethod = "POST",
+                        headers = [ "Accept", "application/json" ],
+                        body   = TextRequest body
+                        ) 
 
 let propCount selector json =
     json 
@@ -39,5 +50,10 @@ let propCount selector json =
         |> selector
         |> asPropertyList
         |> Seq.length
+    
+module CList =
+    let ofSeq (seq : seq<_>)=
+        seq.ToList()
 
-
+    let ofList (list : _ list ) =
+        list.ToList()

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
-
+using ElasticOps.Com;
+using ElasticOps.Com.Infrastructure;
+using ElasticOps.Com.Models;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -15,8 +18,8 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
         public IObservableCollection<IndexInfoViewModel> IndicesInfo { get; set; }
 
-        public IndicesInfoViewModel(Settings settings, IEventAggregator eventAggregator)
-            : base(settings.ClusterUri, eventAggregator)
+        public IndicesInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
         {
             IndicesInfo = new BindableCollection<IndexInfoViewModel>();
         }
@@ -25,9 +28,11 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                var indicesInfo = Com.ClusterInfo.IndicesInfo(clusterUri);
+                var result = commandBus.Execute(new ClusterInfo.IndicesInfoCommand(connection));
+                if (result.Failed) return;
+
                 AllIndicesInfo.Clear();
-                foreach (var indexInfo in indicesInfo)
+                foreach (var indexInfo in result.Result)
                     AllIndicesInfo.Add(new IndexInfoViewModel(indexInfo));
 
                 FilterIndices();

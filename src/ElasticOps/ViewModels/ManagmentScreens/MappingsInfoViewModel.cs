@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using System.Linq;
+using ElasticOps.Com;
+using ElasticOps.Com.Infrastructure;
+using ElasticOps.Com.Models;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -10,17 +13,19 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private IEnumerable<Com.Models.IndexInfo> indices;
-        
-        public MappingsInfoViewModel(Settings settings, IEventAggregator eventAggregator)
-            : base(settings.ClusterUri, eventAggregator)
+
+        public MappingsInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
         {
             AllIndices = new BindableCollection<string>();
             TypesForSelectedIndex = new BindableCollection<string>();
 
-            indices = Com.ClusterInfo.IndicesInfo(clusterUri);
+            var result = commandBus.Execute(new ClusterInfo.IndicesInfoCommand(connection));
+
+            if (result.Failed) return;
+            indices = result.Result;
             indices = indices.OrderByDescending(index => index.Name);
             AllIndices.Clear();
-
             foreach (var indexInfo in indices)
             {
                 AllIndices.Add(indexInfo.Name);

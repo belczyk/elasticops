@@ -1,27 +1,27 @@
 ﻿using System;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
+using ElasticOps.Com;
+using ElasticOps.Com.Infrastructure;
 using ElasticOps.Com.Models;
-using NLog;
-using LogManager = NLog.LogManager;
+using ProviderImplementation;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     [Priority(1)]
     public class ClusterInfoScreenViewModel : ClusterConnectedAutorefreashScreen, IManagmentScreen
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-        public ClusterInfoScreenViewModel(Settings settings,
-            IEventAggregator eventAggregator, 
+
+        public ClusterInfoScreenViewModel(
             BasicInfoViewModel basicInfoViewModel, 
             NodesInfoViewModel nodesInfoViewModel,
             IndicesInfoViewModel indicesInfoViewModel,
             DocumentsInfoViewModel documentsInfoViewModel,
-            MappingsInfoViewModel mappingsInfoViewModel
+            MappingsInfoViewModel mappingsInfoViewModel,
+            Infrastructure infrastructure
            )
-            : base(settings.ClusterUri,eventAggregator)
+            : base(infrastructure)
         {
-            this.eventAggregator = eventAggregator;
 
             BasicInfoViewModel = basicInfoViewModel;
             NodesInfoViewModel = nodesInfoViewModel;
@@ -35,14 +35,10 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             DocumentsInfoViewModel.ConductWith(this);
             MappingsInfoViewModel.ConductWith(this);
 
-            try
-            {
-                ClusterCounters = Com.ClusterInfo.ClusterCounters(settings.ClusterUri);
-            }
-            catch (Exception ex)
-            {
-                logger.Warn(ex);
-            }
+            var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
+            if (result.Success)
+                ClusterCounters = result.Result;
+            
 
             ActivateItem(BasicInfoViewModel);
             DisplayName = "Cluster";
@@ -94,14 +90,11 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public override void RefreshData()
         {
-            try
-            {
-                ClusterCounters = Com.ClusterInfo.ClusterCounters(clusterUri);
-            }
-            catch (Exception ex)
-            {
-                logger.Warn(ex);
-            }
+            var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
+
+            if (result.Failed) return;
+
+            ClusterCounters = result.Result;
         }
     }
 }

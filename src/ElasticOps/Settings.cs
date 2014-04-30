@@ -1,34 +1,22 @@
 ﻿using System;
-
+using ElasticOps.Com.CommonTypes;
+using Version = ElasticOps.Com.CommonTypes.Version;
 
 namespace ElasticOps
 {
     public class Settings
     {
-        private object _lock = new object();
-        private Uri _clusterUri;
+        private Connection _connection;
 
-        public Uri ClusterUri
+        public Connection Connection
         {
             get
             {
-                if (_clusterUri==null)
-                    lock (_lock)
-                    {
-                        if (_clusterUri == null)
-                        {
-                            _clusterUri = new Uri("http://localhost:9200");
-                        }
-                    }
-                return _clusterUri;
+                if (_connection==null)
+                    Connection = new Connection(new Uri("http://localhost:9200"), Version.FromString("1.0.0.0"));
+                return _connection;
             }
-            set
-            {
-                lock (_lock)
-                {
-                    _clusterUri = value;
-                }
-            }
+            set { _connection = value; }
         }
     }
 }

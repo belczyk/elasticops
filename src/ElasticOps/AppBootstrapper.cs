@@ -38,8 +38,10 @@ namespace ElasticOps
             builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
               .Where(type => type.Name.EndsWith("View"))
               .AsSelf().InstancePerDependency();
-            builder.RegisterType<RequestBus>().AsSelf();
+            builder.RegisterType<CommandBus>().AsSelf();
             builder.RegisterType<Settings>().AsSelf().SingleInstance();
+
+            builder.RegisterType<Infrastructure>().AsSelf();
 
             Container = builder.Build();
         }

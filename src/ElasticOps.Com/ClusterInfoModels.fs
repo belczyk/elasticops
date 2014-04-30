@@ -5,6 +5,7 @@ open FSharp.Data.JsonExtensions
 open System.Collections.Generic
 open System
 open ElasticOps.Com
+open System.Collections.Generic
 
 type ClusterCounters = { Indices: int; 
                          Documents: int; 
@@ -19,6 +20,7 @@ type NodeInfo = { Name: string;
 
 type IndexInfo = { Name: string; 
                    State: string; 
-                   Types: list<KeyValuePair<string, string>>;
-                   Settings: list<KeyValuePair<string, string>>}
+                   Types: List<KeyValuePair<string, string>>;
+                   Settings: List<KeyValuePair<string, string>>}
 
+type DocumentInfo = { Name : string; Count : int}

@@ -11,10 +11,6 @@ let private foldMethodNames (methods : MethodInfo list) =
     |> List.map (fun m -> m.Name)
     |> List.fold (fun mn r -> mn + ", " + r) String.Empty
 
-let private raiseAmbiguousHanlderResolution matchingType (reqType : Type) eligableMethods  = 
-      raise (AmbiguousHanlderResolution (sprintf "found multiple \"%s\" handlers for requested type %s: %s" matchingType  reqType.Name  (foldMethodNames eligableMethods) ))
-
-
 
 let getVersionAttribute<'T when 'T :> ESVersionAttribute > (m : MethodInfo) =
     let attributes = m.GetCustomAttributes().ToList()
@@ -36,14 +32,18 @@ let private byVersion (version : CommonTypes.Version) (m : MethodInfo) =
     | (None , Some v) -> version <= v
     | (Some vFrom, Some vTo) -> version >= vFrom && version<= vTo
 
-let exactHanlderMatch (methods :  MethodInfo list) (reqType : Type) (version : CommonTypes.Version) = 
+    
+
+let private raiseAmbiguousHanlderResolution (commandType : Type) eligableMethods  = 
+      raise (AmbiguousHanlderResolution (sprintf "found multiple handlers for requested command %s: %s" commandType.Name  (foldMethodNames eligableMethods) ))
+
+
+let exactHanlderMatch (methods :  MethodInfo list) (commandType : Type) (version : CommonTypes.Version) = 
      let eligableMethods = methods  
-                            |> List.filter (fun m -> m.ReturnType = reqType)
+                            |> List.filter (fun m -> m.GetParameters().First().ParameterType = commandType)
                             |> List.filter (byVersion version)
 
      match eligableMethods with
      | [] -> None 
      | m::[]  -> Some m
-     | _ -> raiseAmbiguousHanlderResolution "returns exacly requested type" (reqType : Type) eligableMethods
-
-
+     | _ -> raiseAmbiguousHanlderResolution commandType eligableMethods

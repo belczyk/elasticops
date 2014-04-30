@@ -37,5 +37,5 @@ type ESVersionTo (major : int, minor : int, patch : int, build : int) =
     new (major : int, minor : int) = ESVersionTo(major,minor,0,0)
     new (major : int, minor : int, patch : int) = ESVersionTo(major,minor,patch,0)
 
-type CommandsHanlders() =
+type CommandsHandlers() =
     inherit Attribute()

@@ -16,14 +16,15 @@ using Newtonsoft.Json.Linq;
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     [Priority(2)]
-    public class RESTScreenViewModel : Screen, IManagmentScreen, IHandle<ClusterUriChanged>
+    public class RESTScreenViewModel : Screen, IManagmentScreen
     {
         private IEventAggregator eventAggregator;
+        private Settings settings;
 
         public RESTScreenViewModel(Settings settings, IEventAggregator eventAggregator)
         {
             DisplayName = "REST";
-            ClusterUri = settings.ClusterUri;
+            this.settings = settings;
             this.eventAggregator = eventAggregator;
 
             Methods = new BindableCollection<ComboBoxItemViewModel>
@@ -124,10 +125,10 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                var requestUri = ClusterUri;
+                var requestUri = settings.Connection.ClusterUri;
                 if (!string.IsNullOrEmpty(Endpoint))
                 {
-                    requestUri = new Uri(ClusterUri,new Uri(Endpoint,UriKind.Relative));
+                    requestUri = new Uri(settings.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
                 }
                 var request = WebRequest.Create(requestUri);
                 request.Method = Method;
@@ -173,12 +174,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         }
 
-        private Uri ClusterUri { get; set; }
 
-        public void Handle(ClusterUriChanged message)
-        {
-            ClusterUri = message.ClusterUri;
-        }
 
         protected override void OnActivate()
         {

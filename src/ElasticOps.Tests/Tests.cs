@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Collections.Generic;
+using ElasticOps.Com;
 using ElasticOps.Com.CommonTypes;
 using Version = ElasticOps.Com.CommonTypes.Version;
 using ElasticOps.Com.Infrastructure;
@@ -15,9 +17,14 @@ namespace ElasticOps.Tests
         [Test]
         public void CommandBus()
         {
-            var bus = new RequestBus();
+            var bus = new CommandBus();
+            var uri = new Uri("http://localhost:9200");
+            var version = new Version(1);
+            var connection = new Connection(uri, version);
 
-          var result =  bus.Execute<FSharpList<NodeInfo>>(new Connection(new Uri("http://localhost:9200"),new Version(1) ));
+            var result = bus.Execute(new ClusterInfo.HealthCommand(connection));
+
+            Assert.AreEqual(result.Result["Status"],"yellow");
         }
     }
 }

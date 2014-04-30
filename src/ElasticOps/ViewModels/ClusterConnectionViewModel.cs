@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Caliburn.Micro;
+using ElasticOps.Com.CommonTypes;
 using ElasticOps.Events;
-
+using Version = ElasticOps.Com.CommonTypes.Version;
 using Humanizer;
 using NLog;
 using LogManager = NLog.LogManager;
@@ -18,10 +19,15 @@ namespace ElasticOps.ViewModels
         {
             this.eventAggregator = eventAggregator;
             this.settings = settings;
+            ClusterUri = "http://localhost:9200";
 
-            ClusterUri = settings.ClusterUri.ToString();
-            var observable = Observable.Interval(10.Seconds()).TimeInterval();
-            observable.Subscribe((o) => eventAggregator.Publish(new RefreashEvent()));
+            var observable = Observable.Interval(1.Minutes()).TimeInterval();
+            observable.Subscribe((o) =>
+            {
+                if (IsConnected)
+                    eventAggregator.Publish(new RefreashEvent());
+            }
+            );
         }
 
         public string clusterUri;
@@ -33,11 +39,15 @@ namespace ElasticOps.ViewModels
                 clusterUri = value;
                 NotifyOfPropertyChange(() => ClusterUri);
                 NotifyOfPropertyChange(() => IsValid);
+                if (IsValid)
+                {
+                    IsConnectedLastUpdate = null;
+                    IsConnectedLastValue = null;
+                }
                 NotifyOfPropertyChange(() => IsConnected);
                 if (IsConnected)
                 {
-                    settings.ClusterUri = new Uri(value);
-                    eventAggregator.Publish(new ClusterUriChanged(settings.ClusterUri));
+                    eventAggregator.Publish(new RefreashEvent());
                 }
             }
         }
@@ -47,21 +57,39 @@ namespace ElasticOps.ViewModels
             get
             {
                 Uri uri;
-                return Uri.TryCreate(ClusterUri,UriKind.Absolute,out uri);
+                return Uri.TryCreate(ClusterUri, UriKind.Absolute, out uri);
             }
         }
 
+        private DateTime? IsConnectedLastUpdate { get; set; }
+        private bool? IsConnectedLastValue { get; set; }
         public bool IsConnected
         {
             get
             {
                 if (!IsValid) return false;
+
+                if (IsConnectedLastValue.HasValue && IsConnectedLastUpdate.HasValue &&
+                    (DateTime.Now - IsConnectedLastUpdate) > 30.Seconds())
+                {
+                    return IsConnectedLastValue.Value;
+                }
+
                 try
                 {
-                    return Com.ClusterInfo.IsAlive(new Uri(ClusterUri));
+                    var heartBeat = Com.ClusterInfo.IsAlive(new Uri(ClusterUri));
+                    IsConnectedLastValue = heartBeat.IsAlive;
+                    IsConnectedLastUpdate = DateTime.Now;
+                    if (heartBeat.IsAlive)
+                    {
+                        settings.Connection = new Connection(new Uri(ClusterUri), Version.FromString(heartBeat.Version));
+                    }
+                    return heartBeat.IsAlive;
                 }
                 catch (Exception ex)
                 {
+                    IsConnectedLastValue = false;
+                    IsConnectedLastUpdate = DateTime.Now;
                     logger.Warn(ex);
                 }
 

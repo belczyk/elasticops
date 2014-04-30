@@ -66,7 +66,7 @@
     <None Include="Script.fsx" />
     <None Include="packages.config" />
     <Compile Include="HandlerFinder.fs" />
-    <Compile Include="RequestBus.fs" />
+    <Compile Include="CommandBus.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
