@@ -11,12 +11,14 @@ namespace ElasticOps.ViewModels
 
         public ShellViewModel(IEnumerable<IManagmentScreen> managmentScreens, ClusterConnectionViewModel clusterConnectionViewModel)
         {
-            managmentScreens.ToList().ForEach(x=>x.ConductWith(this));
             ClusterConnectionViewModel = clusterConnectionViewModel;
 
             ManagmentScreens = new BindableCollection<IManagmentScreen>();
             ManagmentScreens.AddRange(managmentScreens.OrderByPriority());
+
+            ManagmentScreens.ToList().ForEach(x => x.ConductWith(this));
             
+
             DisplayName = "Elastic Ops";
         }
 

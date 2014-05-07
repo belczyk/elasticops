@@ -6,17 +6,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <StackPanel>
+        <StackPanel Style="{StaticResource Content}">
             <StackPanel Orientation="Horizontal">
-                <Label Content="Name" Width="150"/>
-                <Label Content="{Binding Name}"/>
+                <TextBlock Text="Name" Width="150"/>
+                <TextBlock Text="{Binding Name}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Settings" Width="150"/>
+                <TextBlock Text="Settings" Width="150"/>
                 <ItemsControl Name="Settings"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Types" Width="150"/>
+                <TextBlock Text="Types" Width="150"/>
                 <ItemsControl Name="Types"/>
             </StackPanel>
         </StackPanel>

@@ -23,7 +23,7 @@
         <controls:MetroProgressBar Grid.Row="0" VerticalAlignment="Top"
                                    Height="15"
                                    IsIndeterminate="True"
-                                   Visibility="{Binding IsExecuting, Converter={StaticResource BooleanToVisibilityConverter}}"></controls:MetroProgressBar>
+                                   Visibility="{Binding IsExecuting, Converter={StaticResource boolToVisiblityConverter}}"></controls:MetroProgressBar>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal">
             <Label>Method:</Label>

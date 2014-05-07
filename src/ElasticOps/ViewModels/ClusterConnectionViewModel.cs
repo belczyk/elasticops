@@ -21,7 +21,7 @@ namespace ElasticOps.ViewModels
             this.settings = settings;
             ClusterUri = "http://localhost:9200";
 
-            var observable = Observable.Interval(1.Minutes()).TimeInterval();
+            var observable = Observable.Interval(10.Seconds()).TimeInterval();
             observable.Subscribe((o) =>
             {
                 if (IsConnected)

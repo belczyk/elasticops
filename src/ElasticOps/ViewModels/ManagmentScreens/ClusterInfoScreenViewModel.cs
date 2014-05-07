@@ -9,7 +9,7 @@ using ProviderImplementation;
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     [Priority(1)]
-    public class ClusterInfoScreenViewModel : ClusterConnectedAutorefreashScreen, IManagmentScreen
+    public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen
     {
 
         public ClusterInfoScreenViewModel(
@@ -20,7 +20,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             MappingsInfoViewModel mappingsInfoViewModel,
             Infrastructure infrastructure
            )
-            : base(infrastructure)
+            //: base(infrastructure)
         {
 
             BasicInfoViewModel = basicInfoViewModel;
@@ -28,22 +28,18 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             IndicesInfoViewModel = indicesInfoViewModel;
             DocumentsInfoViewModel = documentsInfoViewModel;
             MappingsInfoViewModel = mappingsInfoViewModel;
-
-            BasicInfoViewModel.ConductWith(this);
-            NodesInfoViewModel.ConductWith(this);
-            IndicesInfoViewModel.ConductWith(this);
-            DocumentsInfoViewModel.ConductWith(this);
-            MappingsInfoViewModel.ConductWith(this);
-
-            var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
-            if (result.Success)
-                ClusterCounters = result.Result;
             
-
             ActivateItem(BasicInfoViewModel);
+
+            //var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
+            //if (result.Success)
+            //    ClusterCounters = result.Result;
+
+
             DisplayName = "Cluster";
 
         }
+
 
         private BasicInfoViewModel BasicInfoViewModel { get; set; }
         private NodesInfoViewModel NodesInfoViewModel { get; set; }
@@ -88,13 +84,30 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        public override void RefreshData()
+        //public override void RefreshData()
+        //{
+        //    var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
+
+        //    if (result.Failed) return;
+
+        //    ClusterCounters = result.Result;
+        //}
+
+        protected override void OnDeactivate(bool close)
         {
-            var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
+            DeactivateChildren(close);
+            //eventAggregator.Unsubscribe(this);
+            base.OnDeactivate(close);
+        }
 
-            if (result.Failed) return;
-
-            ClusterCounters = result.Result;
+        private void DeactivateChildren(bool close)
+        {
+            BasicInfoViewModel.Deactivate(close);
+            NodesInfoViewModel.Deactivate(close);
+            IndicesInfoViewModel.Deactivate(close);
+            DocumentsInfoViewModel.Deactivate(close);
+            MappingsInfoViewModel.Deactivate(close);
+            
         }
     }
 }

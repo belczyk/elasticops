@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
 
 namespace ElasticOps.ViewModels
 {
@@ -26,6 +27,11 @@ namespace ElasticOps.ViewModels
                 _Value = value;
                 NotifyOfPropertyChange(() => Value);
             }
+        }
+
+        public void CopyToCliboard()
+        {
+            Clipboard.SetText(Value);
         }
     }
 }

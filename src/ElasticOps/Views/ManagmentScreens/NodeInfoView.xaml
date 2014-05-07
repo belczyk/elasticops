@@ -5,29 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Name" Width="150"/>
-            <Label Content="{Binding Name}"/>
+    <StackPanel Style="{StaticResource Content}">
+        <StackPanel Orientation="Horizontal"
+                    Style="{StaticResource Content}">
+            <TextBlock Text="Name"
+                   Width="150"
+                   />
+            <TextBlock Text="{Binding Name}"
+                  />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label Content="Hostname" Width="150"/>
-            <Label Content="{Binding Hostname}"/>
+            <TextBlock Text="Hostname" Width="150"/>
+            <TextBlock Text="{Binding Hostname}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label Content="HttpAddress" Width="150"/>
-            <Label Content="{Binding HttpAddress}"/>
+            <TextBlock Text="HttpAddress" Width="150"/>
+            <TextBlock Text="{Binding HttpAddress}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label Content="Settings" Width="150"/>
+            <TextBlock Text="Settings" Width="150"/>
             <ItemsControl Name="Settings"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label Content="OS" Width="150"/>
+            <TextBlock Text="OS" Width="150"/>
             <ItemsControl Name="OS"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label Content="CPU" Width="150"/>
+            <TextBlock Text="CPU" Width="150"/>
             <ItemsControl Name="CPU"/>
         </StackPanel>
     </StackPanel>

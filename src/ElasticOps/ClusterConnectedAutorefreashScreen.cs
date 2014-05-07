@@ -7,7 +7,7 @@ using Humanizer;
 
 namespace ElasticOps
 {
-    public abstract class ClusterConnectedAutorefreashScreen : Conductor<object>.Collection.OneActive, IHandle<RefreashEvent>
+    public abstract class ClusterConnectedAutorefreashScreen : Screen, IHandle<RefreashEvent>
     {
         protected ClusterConnectedAutorefreashScreen(Infrastructure infrastructure)
         {
@@ -35,6 +35,11 @@ namespace ElasticOps
         }
 
         protected override void OnDeactivate(bool close)
+        {
+            Deactivate(close);
+        }
+
+        public void Deactivate(bool close)
         {
             eventAggregator.Unsubscribe(this);
             base.OnDeactivate(close);

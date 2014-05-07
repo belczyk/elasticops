@@ -96,7 +96,6 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
@@ -122,15 +121,15 @@
     <Compile Include="Converters\HumanizeBigNumbersConverter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\BasicInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\BasicInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\DocumentsInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\DocumentsInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\IManagmentScreen.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\IndexInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\IndicesInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\MappingsInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\NodeInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\NodesInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\IndexInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\IndicesInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\MappingsInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodeInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodesInfoViewModel.cs" />
     <Compile Include="Events\RefreashEvent.cs" />
     <Compile Include="ViewModels\ManagmentScreens\RESTScreenViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -138,6 +137,10 @@
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\AppStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\CustomIcons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -287,6 +290,10 @@
       <Project>{0623f346-37cc-4820-8728-0a9849c52a87}</Project>
       <Name>ElasticOps.Com</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Icons\paste.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
