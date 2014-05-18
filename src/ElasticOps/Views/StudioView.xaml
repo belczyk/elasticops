@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ElasticOps.Views.StudioView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:views="clr-namespace:ElasticOps.Views"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <controls:TransitioningContentControl Name="ClusterConnectionViewModel"
+                                                  Transition="LeftReplace"></controls:TransitioningContentControl>
+        </Grid>
+        <controls:MetroAnimatedTabControl Grid.Row="2"
+                                          Name="ManagmentScreens">
+
+        </controls:MetroAnimatedTabControl>
+
+    </Grid>
+</UserControl>

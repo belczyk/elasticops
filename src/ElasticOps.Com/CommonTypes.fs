@@ -1,6 +1,9 @@
 ﻿namespace ElasticOps.Com.CommonTypes
 open System
+open FSharp.Data
+open FSharp.Data.JsonExtensions
 
+[<AllowNullLiteral>]
 type Version(major : int,?minor : int,?patch : int,?build : int) =
     member x.major = major
     member x.minor = minor
@@ -15,7 +18,14 @@ type Version(major : int,?minor : int,?patch : int,?build : int) =
     override this.Equals (o ) =
             let other = o :?> Version
             this.major = other.major && this.minor = other.minor && this.patch = other.patch && this.build = other.build
-    
+    member x.getPart p = 
+        match p with
+            | Some v -> v
+            | None -> 0
+
+    override this.ToString () =
+        String.Format("{0}.{1}.{2}.{3}",this.major, this.getPart(this.minor), this.getPart(this.patch), this.getPart(this.build))
+
     static member FromString(version : string) = 
         match version with 
         | null |"" -> new Version(0)
@@ -51,9 +61,45 @@ type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMess
     new (result : 'T) = CommandResult(result,true,null)
     new (errorMessage : string ) = CommandResult(null,false,errorMessage)
 
-type Connection(clusterUri : Uri, version : Version) =
-    member x.ClusterUri = clusterUri
-    member x.Version = version 
+
+[<AllowNullLiteral>]
+type Connection(clusterUri : Uri) =
+    let mutable uri : Uri = null
+    let mutable isConnected = false
+    let mutable uncheckedUri = false
+    let mutable version : Version = null
+
+    let getVersion uri = 
+        try
+            let response = JsonValue.Parse (Http.RequestString (uri.ToString())) 
+            match response?status.AsString() with
+                | "200" -> Some (Version.FromString(response?version?number.AsString()))
+                | _ -> None
+        with
+        | _ -> None
+
+    member x.Version = version
+
+    member x.ClusterUri  = uri
+
+    member x.SetClusterUri sUri =
+        Uri.TryCreate(sUri,UriKind.Absolute,&uri)
+        uncheckedUri <- true
+
+    member x.IsConnected 
+        with get () = 
+            if not uncheckedUri then
+                isConnected
+            else
+                match getVersion uri with 
+                    | Some v -> version <- v
+                                isConnected <- true
+                                uncheckedUri <- false
+                                true
+                    | None -> isConnected <- false
+                              uncheckedUri <- false
+                              false
+    new() = Connection(null)
 
 type HeartBeat( isAlive : bool , version : string ) =
     member x.IsAlive = isAlive 
@@ -65,6 +111,9 @@ type HeartBeat( isAlive : bool , version : string ) =
 type Command<'T>(connection : Connection) = 
     new (connection) = Command<'T>(connection)
     member x.Connection = connection
+    member x.ClusterUri = match x.Connection with 
+                            | null -> null
+                            | _ -> x.Connection.ClusterUri
 
-    member x.ClusterUri = x.Connection.ClusterUri
     member x.Version = x.Connection.Version
+    

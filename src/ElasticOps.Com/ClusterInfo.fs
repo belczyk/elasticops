@@ -45,6 +45,7 @@ module ElasticOps.Com.ClusterInfo
     type NodesInfoCommand(connection) = 
         inherit Command<IEnumerable<NodeInfo>>(connection)
 
+    [<ESVersionFrom(1,0,0,0)>]
     let NodesInfo (request : NodesInfoCommand) =
         GET request.ClusterUri "/_nodes"
                     |> JsonValue.Parse

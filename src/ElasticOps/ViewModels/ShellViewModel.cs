@@ -1,35 +1,57 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Caliburn.Micro;
-using ElasticOps.Extensions;
-using ElasticOps.ViewModels.ManagmentScreens;
+﻿using Caliburn.Micro;
+using ElasticOps.Com.Events;
 
 namespace ElasticOps.ViewModels
 {
-    public class ShellViewModel : Conductor<IManagmentScreen>.Collection.OneActive
+    public class ShellViewModel : Conductor<object>.Collection.OneActive, IHandle<GoToStudioEvent>
     {
+     
+        private StudioViewModel studioViewModel;
+        private SettingsViewModel _settingsViewModel;
 
-        public ShellViewModel(IEnumerable<IManagmentScreen> managmentScreens, ClusterConnectionViewModel clusterConnectionViewModel)
+        public ShellViewModel( 
+            Infrastructure infrastructure,
+            StudioViewModel studioViewModel, 
+            SettingsViewModel _settingsViewModel,
+            FooterViewModel footerViewModel
+            )
         {
-            ClusterConnectionViewModel = clusterConnectionViewModel;
-
-            ManagmentScreens = new BindableCollection<IManagmentScreen>();
-            ManagmentScreens.AddRange(managmentScreens.OrderByPriority());
-
-            ManagmentScreens.ToList().ForEach(x => x.ConductWith(this));
-            
+            this.studioViewModel = studioViewModel;
+            this._settingsViewModel = _settingsViewModel;
+            FooterViewModel = footerViewModel;
 
             DisplayName = "Elastic Ops";
-        }
 
-        private ClusterConnectionViewModel _clusterConnectionViewModel;
-        public ClusterConnectionViewModel ClusterConnectionViewModel
+            ActivateItem(studioViewModel);
+            infrastructure.EventAggregator.Subscribe(this);
+
+        }
+        private FooterViewModel _footerViewModel;
+
+        public FooterViewModel FooterViewModel
         {
-            get { return _clusterConnectionViewModel; }
-            set { _clusterConnectionViewModel = value; NotifyOfPropertyChange(() => ClusterConnectionViewModel); }
+            get { return _footerViewModel; }
+            set
+            {
+                _footerViewModel = value;
+                NotifyOfPropertyChange(() => FooterViewModel);
+            }
         }
 
-        public BindableCollection<IManagmentScreen> ManagmentScreens { get; set; }
+        public void ShowSettings()
+        {
+            ActivateItem(_settingsViewModel);
+        }
+        public void ShowStudio()
+        {
+            ActivateItem(studioViewModel);
+        }
+
+
+        public void Handle(GoToStudioEvent message)
+        {
+            ActivateItem(studioViewModel);
+        }
 
     }
 }

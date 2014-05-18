@@ -18,7 +18,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         public override void RefreshData()
         {
-            var result = commandBus.Execute(new ClusterInfo.HealthCommand(connection));
+           var result = commandBus.Execute(new ClusterInfo.HealthCommand(connection));
 
             if (result.Failed) return;
 
@@ -28,9 +28,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 ClusterHealthProperties.Add(
                     new ElasticPropertyViewModel {Label = element.Key, Value = element.Value});
             }
-    
         }
-
-      
     }
 }

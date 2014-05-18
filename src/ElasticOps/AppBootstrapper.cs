@@ -1,13 +1,16 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using Autofac;
 using Caliburn.Micro;
 using ElasticOps.Com.Infrastructure;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
+using MahApps.Metro.Controls;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -23,13 +26,18 @@ namespace ElasticOps
             logger.Info("App starts");
 
             var builder = new ContainerBuilder();
-
             builder.RegisterType<WindowManager>().As<IWindowManager>();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
+            builder.RegisterType<DialogManager>().AsSelf();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagmentScreen).Name) != null)
                 .As<IManagmentScreen>();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(x => x.BaseType == typeof (UserSettings))
+                .As<UserSettings>();
+
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("ViewModel"))
@@ -72,6 +80,15 @@ namespace ElasticOps
             Container.InjectProperties(instance);
         }
 
+        public static IEnumerable<T> GetAllInstances<T>()
+        {
+            return Container.Resolve(typeof(IEnumerable<>).MakeGenericType(typeof(T))) as IEnumerable<T>;
+        }
+
+        public static T GetInstance<T>()
+        {
+            return Container.Resolve<T>();
+        }
 
     }
 }

@@ -634,7 +634,7 @@
         <Path Width="34.2877" Height="29.4585" Canvas.Left="22" Canvas.Top="24.5415" Stretch="Fill" Fill="{DynamicResource BlackBrush}" Data="F1 M 32.2209,33.4875L 39.1875,40.0582L 52.9627,24.5415L 56.2877,27.4707L 39.5834,47.5L 28.8959,36.8125L 32.2209,33.4875 Z M 22,25L 50,25L 45.5,30L 27,30L 27,49L 46,49L 46,42.5L 51,36.5L 51,54L 22,54L 22,25 Z "/>
     </Canvas>
 
-    <Canvas x:Key="appbar_checkmark_uncrossed" Width="76" Height="76" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+    <Canvas x:Key="appbar_checkmark_unded" Width="76" Height="76" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
         <Path Width="32" Height="32" Canvas.Left="22" Canvas.Top="22" Stretch="Fill" Fill="{DynamicResource BlackBrush}" Data="F1 M 22,54L 22,22L 54,22L 54,54L 22,54 Z M 26,26L 26,50L 50,50L 50,26L 26,26 Z "/>
     </Canvas>
 

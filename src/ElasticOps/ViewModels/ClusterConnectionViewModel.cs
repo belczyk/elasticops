@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Caliburn.Micro;
-using ElasticOps.Com.CommonTypes;
-using ElasticOps.Events;
-using Version = ElasticOps.Com.CommonTypes.Version;
+using ElasticOps.Com.Events;
 using Humanizer;
-using NLog;
-using LogManager = NLog.LogManager;
 
 namespace ElasticOps.ViewModels
 {
     public class ClusterConnectionViewModel : PropertyChangedBase
     {
         private Settings settings;
-        private IEventAggregator eventAggregator;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
         public ClusterConnectionViewModel(Settings settings, IEventAggregator eventAggregator)
         {
-            this.eventAggregator = eventAggregator;
             this.settings = settings;
-            ClusterUri = "http://localhost:9200";
 
             var observable = Observable.Interval(10.Seconds()).TimeInterval();
             observable.Subscribe((o) =>
             {
-                if (IsConnected)
+                if (settings.Connection.IsConnected)
                     eventAggregator.Publish(new RefreashEvent());
-            }
-            );
+            });
+            ClusterUri = "http://localhost:9200";
         }
 
         public string clusterUri;
@@ -37,18 +29,29 @@ namespace ElasticOps.ViewModels
             set
             {
                 clusterUri = value;
+                settings.Connection.SetClusterUri(clusterUri);
+
                 NotifyOfPropertyChange(() => ClusterUri);
                 NotifyOfPropertyChange(() => IsValid);
-                if (IsValid)
-                {
-                    IsConnectedLastUpdate = null;
-                    IsConnectedLastValue = null;
-                }
                 NotifyOfPropertyChange(() => IsConnected);
-                if (IsConnected)
-                {
-                    eventAggregator.Publish(new RefreashEvent());
-                }
+                NotifyOfPropertyChange(() => Version);
+            }
+        }
+
+        public bool IsConnected
+        {
+            get { return settings.Connection.IsConnected; }
+
+        }
+
+        public string Version
+        {
+            get
+            {
+                if (settings.Connection.IsConnected && settings.Connection.Version != null)
+                    return settings.Connection.Version.ToString();
+
+                return string.Empty;
             }
         }
 
@@ -59,42 +62,7 @@ namespace ElasticOps.ViewModels
                 Uri uri;
                 return Uri.TryCreate(ClusterUri, UriKind.Absolute, out uri);
             }
-        }
-
-        private DateTime? IsConnectedLastUpdate { get; set; }
-        private bool? IsConnectedLastValue { get; set; }
-        public bool IsConnected
-        {
-            get
-            {
-                if (!IsValid) return false;
-
-                if (IsConnectedLastValue.HasValue && IsConnectedLastUpdate.HasValue &&
-                    (DateTime.Now - IsConnectedLastUpdate) > 30.Seconds())
-                {
-                    return IsConnectedLastValue.Value;
-                }
-
-                try
-                {
-                    var heartBeat = Com.ClusterInfo.IsAlive(new Uri(ClusterUri));
-                    IsConnectedLastValue = heartBeat.IsAlive;
-                    IsConnectedLastUpdate = DateTime.Now;
-                    if (heartBeat.IsAlive)
-                    {
-                        settings.Connection = new Connection(new Uri(ClusterUri), Version.FromString(heartBeat.Version));
-                    }
-                    return heartBeat.IsAlive;
-                }
-                catch (Exception ex)
-                {
-                    IsConnectedLastValue = false;
-                    IsConnectedLastUpdate = DateTime.Now;
-                    logger.Warn(ex);
-                }
-
-                return false;
-            }
+        
         }
 
     }

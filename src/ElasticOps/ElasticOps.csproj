@@ -113,7 +113,12 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
+    <Compile Include="DialogManager.cs" />
     <Compile Include="Infrastructure.cs" />
+    <Compile Include="UserSettings\GeneralSettings.cs" />
+    <Compile Include="UserSettings\SettingAttribute.cs" />
+    <Compile Include="UserSettings\UserSettings.cs" />
+    <Compile Include="UserSettings\ViewSettings.cs" />
     <Compile Include="ViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="ViewModels\ElasticPropertyViewModel.cs" />
     <Compile Include="Converters\BoolToOpositeVisiblityConverter.cs" />
@@ -121,6 +126,8 @@
     <Compile Include="Converters\HumanizeBigNumbersConverter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ViewModels\FlyoutBaseViewModel.cs" />
+    <Compile Include="ViewModels\FooterViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\BasicInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\DocumentsInfoViewModel.cs" />
@@ -130,12 +137,34 @@
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\MappingsInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodeInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodesInfoViewModel.cs" />
-    <Compile Include="Events\RefreashEvent.cs" />
     <Compile Include="ViewModels\ManagmentScreens\RESTScreenViewModel.cs" />
+    <Compile Include="ViewModels\Settings\IntSettingViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingToViewModelMapper.cs" />
+    <Compile Include="ViewModels\Settings\SettingViewModel.cs" />
+    <Compile Include="ViewModels\Settings\StringSettingViewModel.cs" />
+    <Compile Include="ViewModels\Settings\UriSettingViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ClusterConnectionViewModel.cs" />
+    <Compile Include="ViewModels\StudioViewModel.cs" />
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\IntSettingView.xaml.cs">
+      <DependentUpon>IntSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SettingPageView.xaml.cs">
+      <DependentUpon>SettingPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\StringSettingView.xaml.cs">
+      <DependentUpon>StringSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\UriSettingView.xaml.cs">
+      <DependentUpon>UriSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudioView.xaml.cs">
+      <DependentUpon>StudioView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\AppStyles.xaml">
       <SubType>Designer</SubType>
@@ -150,6 +179,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ElasticPropertyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FooterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,7 +218,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\RESTScreenView.xaml">
+    <Page Include="Views\RESTScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\IntSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\SettingPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\StringSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\UriSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +252,9 @@
     </Compile>
     <Compile Include="Views\ElasticPropertyView.xaml.cs">
       <DependentUpon>ElasticPropertyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FooterView.xaml.cs">
+      <DependentUpon>FooterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManagmentScreens\BasicInfoView.xaml.cs">
       <DependentUpon>BasicInfoView.xaml</DependentUpon>
@@ -224,14 +280,21 @@
     <Compile Include="Views\ManagmentScreens\NodesInfoView.xaml.cs">
       <DependentUpon>NodesInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\RESTScreenView.xaml.cs">
+    <Compile Include="Views\RESTScreenView.xaml.cs">
       <DependentUpon>RESTScreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ClusterConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudioView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,12 +14,12 @@ let private foldMethodNames (methods : MethodInfo list) =
 
 let getVersionAttribute<'T when 'T :> ESVersionAttribute > (m : MethodInfo) =
     let attributes = m.GetCustomAttributes().ToList()
-                     |> Seq.filter (fun a -> a.GetType() = typeof<ESVersionFrom>)
+                     |> Seq.filter (fun a -> a.GetType() = typeof<'T>)
                      |> List.ofSeq
 
     match attributes with
     | [] -> None
-    | from::[] -> Some ((from :?> ESVersionFrom).ToVersion())
+    | from::[] -> Some ((from :?> ESVersionFrom).ToVersion()) 
     | _ -> raise (IllegalOperationMultipleESVersionFromAttributes (sprintf "Methods %s have multiple ESVersionFrom attributes" m.Name))
 
 

@@ -6,8 +6,12 @@ open ElasticOps.Com
 open ElasticOps.Com.HandlerFinder
 open ElasticOps.Com.CommonTypes
 open NLog
+open Caliburn.Micro
+open ElasticOps.Com.Events
 
-type CommandBus() =
+type CommandBus(eventAggregator : IEventAggregator ) =
+    let eventAggregator = eventAggregator
+
     static member private logger = LogManager.GetCurrentClassLogger()
 
     member private  x.executeMethod<'TResult when 'TResult : null> (m : MethodInfo) (command : Command<'TResult>) =
@@ -18,8 +22,12 @@ type CommandBus() =
             | ex ->
                 CommandBus.logger.WarnException("Exception while executing command in CommandBus",ex)
                 match ex.InnerException with
-                | null -> new CommandResult<'TResult>(ex.Message)
-                | inner -> new CommandResult<'TResult>(ex.InnerException.Message)
+                | null -> 
+                    eventAggregator.Publish (new ErrorOccuredEvent(ex.Message))
+                    new CommandResult<'TResult>(ex.Message)
+                | inner -> 
+                    eventAggregator.Publish (new ErrorOccuredEvent(ex.InnerException.Message))
+                    new CommandResult<'TResult>(ex.InnerException.Message)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =
         match command.ClusterUri with
@@ -36,4 +44,7 @@ type CommandBus() =
 
             match (exactHanlderMatch eligibleMethods requestedType command.Version) with 
             | Some m -> (this.executeMethod<'TResult> m command)
-            | None -> new CommandResult<'TResult>("Handler not found")
+            | None -> 
+                let msg = String.Format("Handler for {0} not found.",requestedType.Name)
+                eventAggregator.Publish(new ErrorOccuredEvent(msg))
+                new CommandResult<'TResult>(msg)

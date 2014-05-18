@@ -1,4 +1,6 @@
 ﻿
+using System.Windows;
+using ElasticOps.ViewModels;
 using MahApps.Metro.Controls;
 
 namespace ElasticOps.Views
@@ -9,7 +11,8 @@ namespace ElasticOps.Views
         public ShellView()
         {
             InitializeComponent();
-            
+            DialogManager.Window = this;
         }
+
     }
 }

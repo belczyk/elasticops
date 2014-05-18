@@ -45,6 +45,8 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         private void DisplayMapping()
         {
             var ind = indices.SingleOrDefault(index => index.Name.Equals(SelectedIndex));
+            if (ind == null) return;
+
             Mapping = ind.Types.SingleOrDefault(type => type.Key.Equals((SelectedType))).Value;
         }
 
