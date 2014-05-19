@@ -113,9 +113,9 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
-    <Compile Include="DialogManager.cs" />
     <Compile Include="Infrastructure.cs" />
     <Compile Include="UserSettings\GeneralSettings.cs" />
+    <Compile Include="UserSettings\IntSettingConstraints.cs" />
     <Compile Include="UserSettings\SettingAttribute.cs" />
     <Compile Include="UserSettings\UserSettings.cs" />
     <Compile Include="UserSettings\ViewSettings.cs" />

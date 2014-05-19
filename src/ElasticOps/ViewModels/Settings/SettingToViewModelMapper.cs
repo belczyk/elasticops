@@ -22,7 +22,7 @@ namespace ElasticOps.ViewModels
         {
             var settingAttribute = settingProperty.GetCustomAttributes(typeof(SettingAttribute)).Single() as SettingAttribute;
 
-            var viewModel = GetViewModelFor(settingProperty.PropertyType);
+            var viewModel = GetViewModelFor(settingProperty);
 
             if (viewModel == null) return null;
 
@@ -32,19 +32,30 @@ namespace ElasticOps.ViewModels
             return viewModel;
         }
 
-        private SettingViewModel GetViewModelFor(System.Type type)
+        private SettingViewModel GetViewModelFor(PropertyInfo propertyInfo)
         {
-            switch (type.Name.ToLower())
+            switch (propertyInfo.PropertyType.Name.ToLower())
             {
                 case "string":
                     return AppBootstrapper.GetInstance<StringSettingViewModel>();
                 case "uri":
                     return AppBootstrapper.GetInstance<UriSettingViewModel>();
                 case "int32":
-                    return AppBootstrapper.GetInstance<IntSettingViewModel>();
+                    var intVM = AppBootstrapper.GetInstance<IntSettingViewModel>();
+                    SetIntConstraints(propertyInfo, intVM);
+                    return intVM;
             }
 
             return null;
+        }
+
+        private void SetIntConstraints(PropertyInfo propertyInfo, IntSettingViewModel intVM)
+        {
+            var constraintAttr = propertyInfo.GetAttributes<IntSettingConstraintsAttribute>(true).SingleOrDefault();
+            if (constraintAttr == null) return;
+
+            intVM.Maximum = constraintAttr.Maximum;
+            intVM.Minimum = constraintAttr.Minimum;
         }
     }
 }

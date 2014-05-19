@@ -25,6 +25,5 @@
                              Opacity="0.5" />
             </Rectangle.Fill>
         </Rectangle>
-        <Button Margin="10,0,0,0"  Name="ValidateConnection" Content="Validate connection" IsEnabled="{Binding IsValid}"></Button>
     </StackPanel>
 </UserControl>

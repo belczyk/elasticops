@@ -48,16 +48,6 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        public void ValidateConnection()
-        {
-            var heartBeat =
-                infrastructure.CommandBus.Execute(new ClusterInfo.HealthCommand(infrastructure.Settings.Connection));
-
-            if (heartBeat.Success)
-                infrastructure.DialogManager.ShowMessage("Cluster connection status","Connection established.");
-            else
-                infrastructure.DialogManager.ShowMessage("Cluster connection status", "Couldn't connect.");
-        }
 
     }
 }

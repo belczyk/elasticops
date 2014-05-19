@@ -28,7 +28,6 @@ namespace ElasticOps
             var builder = new ContainerBuilder();
             builder.RegisterType<WindowManager>().As<IWindowManager>();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
-            builder.RegisterType<DialogManager>().AsSelf();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagmentScreen).Name) != null)

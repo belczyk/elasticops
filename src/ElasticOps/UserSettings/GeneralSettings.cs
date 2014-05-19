@@ -18,6 +18,7 @@ namespace ElasticOps
         public Uri DefaultClusterUri { get; set; }
 
         [Setting("Primary font size", 1)]
+        [IntSettingConstraints(10,24)]
         public int PrimaryFontSize { get; set; }
     }
 }

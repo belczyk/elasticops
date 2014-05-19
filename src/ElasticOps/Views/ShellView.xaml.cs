@@ -11,7 +11,6 @@ namespace ElasticOps.Views
         public ShellView()
         {
             InitializeComponent();
-            DialogManager.Window = this;
         }
 
     }
