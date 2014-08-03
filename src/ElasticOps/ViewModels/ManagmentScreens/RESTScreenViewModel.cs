@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(2)]
+    [Priority(30)]
     public class RESTScreenViewModel : Screen, IManagmentScreen
     {
         private IEventAggregator eventAggregator;

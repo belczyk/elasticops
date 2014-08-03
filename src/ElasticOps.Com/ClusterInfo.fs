@@ -13,7 +13,7 @@ module ElasticOps.Com.ClusterInfo
 
     type HealthCommand(connection) = 
         inherit Command<IDictionary<string,string>>(connection)
-
+    
     let Health (command : HealthCommand) =
         let res =GET command.ClusterUri "/_cluster/health"
                     |> JsonValue.Parse

@@ -35,9 +35,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-src/ElasticOps.Model/bin/Debug/Elasticsearch.Net.xml
-src/ElasticOps.Model/bin/Debug/Nest.xml
-src/ElasticOps.Model/bin/Debug/Newtonsoft.Json.xml
-src/ElasticOps.Model/bin/Debug/Newtonsoft.Json.xml
-/src/ElasticOps.Model/obj
-/src/ElasticOps.Model/bin
+
+src/ElasticOps.v2.ncrunchsolution
+src/_NCrunch_ElasticOps

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.Tracing;
-using ElasticOps.Com.CommonTypes;
-using Version = ElasticOps.Com.CommonTypes.Version;
+﻿using ElasticOps.Com.CommonTypes;
 
 namespace ElasticOps
 {
@@ -14,4 +11,5 @@ namespace ElasticOps
 
         public Connection Connection { get; set; }
     }
+
 }

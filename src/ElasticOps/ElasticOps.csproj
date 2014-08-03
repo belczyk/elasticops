@@ -138,6 +138,7 @@
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodeInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodesInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagmentScreens\RESTScreenViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\QueryViewModel.cs" />
     <Compile Include="ViewModels\Settings\IntSettingViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
@@ -150,6 +151,9 @@
     <Compile Include="ViewModels\StudioViewModel.cs" />
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagmentScreens\QueryView.xaml.cs">
+      <DependentUpon>QueryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\IntSettingView.xaml.cs">
       <DependentUpon>IntSettingView.xaml</DependentUpon>
@@ -218,7 +222,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RESTScreenView.xaml">
+    <Page Include="Views\ManagmentScreens\QueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagmentScreens\RESTScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,7 +288,7 @@
     <Compile Include="Views\ManagmentScreens\NodesInfoView.xaml.cs">
       <DependentUpon>NodesInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RESTScreenView.xaml.cs">
+    <Compile Include="Views\ManagmentScreens\RESTScreenView.xaml.cs">
       <DependentUpon>RESTScreenView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsView.xaml.cs">

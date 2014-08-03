@@ -11,6 +11,7 @@ using ElasticOps.Com.Infrastructure;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using MahApps.Metro.Controls;
+using Nest;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -91,3 +92,15 @@ namespace ElasticOps
 
     }
 }
+
+
+
+//type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMessage : String) =
+//    member x.Result = result
+//    member x.Success = success 
+//    member x.ErrorMessage = errorMessage 
+//    member x.Failed 
+//        with get() = not x.Success
+        
+//    new (result : 'T) = CommandResult(result,true,null)
+//    new (errorMessage : string ) = CommandResult(null,false,errorMessage)

@@ -64,7 +64,7 @@ type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMess
 
 [<AllowNullLiteral>]
 type Connection(clusterUri : Uri) =
-    let mutable uri : Uri = null
+    let mutable uri : Uri = clusterUri
     let mutable isConnected = false
     let mutable uncheckedUri = false
     let mutable version : Version = null

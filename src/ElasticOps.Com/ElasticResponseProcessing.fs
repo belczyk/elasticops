@@ -44,6 +44,11 @@ let POSTJson uri endpoint body =
                         body   = TextRequest body
                         ) 
 
+let POST uri endpoint body =
+    Http.RequestString ( (combineUri uri endpoint), httpMethod = "POST",
+                        body   = TextRequest body
+                        ) 
+
 let propCount selector json =
     json 
         |> JsonValue.Parse

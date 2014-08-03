@@ -8,7 +8,7 @@ using ProviderImplementation;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(1)]
+    [Priority(10)]
     public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen
     {
 
