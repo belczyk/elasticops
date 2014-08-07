@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParseTests.fs" />
+    <Compile Include="TraverseTests.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
   </ItemGroup>

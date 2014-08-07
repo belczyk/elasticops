@@ -52,6 +52,10 @@
     <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +83,13 @@
     <None Include="packages.config" />
     <Compile Include="HandlerFinder.fs" />
     <Compile Include="CommandBus.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Json.AST\Json.AST.fsproj">
+      <Name>Json.AST</Name>
+      <Project>{631df293-91a6-48e7-a9f0-5fe5a846eed9}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

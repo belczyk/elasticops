@@ -4,6 +4,8 @@ open System
 open System.Text.RegularExpressions
 open System.Globalization
 
+let toCharList (str : String )= str.ToCharArray() |> List.ofArray
+
 type Value = 
     | String of string
     | Number of double
@@ -81,13 +83,13 @@ let nextNumber (chars : Char list) =
             | [] -> (str, [])
             | c :: tail when 47 <= (int c) && (int c) <= 57 -> findNumber tail Number (str + c.ToString())
             | c :: tail when c = '.' -> findNumber tail Fraction (str + c.ToString())
-            | _ -> (str, [])
+            | _ :: tail -> (str, tail)            
         | Fraction -> 
             match cs with
             | [] -> (str, [])
             | c :: tail when 47 <= (int c) && (int c) <= 57 -> findNumber tail Fraction (str + c.ToString())
             | _ :: tail -> (str, tail)
-    
+
     let res = (findNumber chars NumberLookup.Number String.Empty)
     let numStr = fst res
     let rest = snd res
@@ -125,7 +127,7 @@ and parseNextArray (chars : Char list) =
         | _ -> 
             let (value, rest) = propertyValue (remaining)
             findNextValue (rest, acc @ [ value ])
-    
+
     let (res, rest) = findNextValue (chars, [])
     (Array(res), rest)
 
@@ -152,8 +154,11 @@ and parseNextObject (json : Char list) =
     let rec findNextPart (cs : Char list) = 
         match cs with
         | [] -> (EOF, [])
-        | '{' :: head -> 
-            let (props, rest) = objectProperties (head)
+        | '{' :: tail -> 
+            let (props, rest) = objectProperties (tail)
             (Part.Object(props), rest)
-        | _ :: head -> findNextPart (head)
+        | _ :: tail -> findNextPart (tail)
     findNextPart (json)
+
+
+

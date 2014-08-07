@@ -17,5 +17,6 @@ let ``extracts ``() =
     let bus = givenBus()
     let res = bus.Execute ((new ScrollSearchCommand(new Connection(new Uri("http://localhost:9200")),null,"ab.monowai.olympic",1000)))
     1
-    //type ScrollSearchCommand(connection,scrollId, index,size) = 
-    //new Connection(new Uri("http://localhost:9200"))),null,"ab.monowai.olympic",1000
+
+
+

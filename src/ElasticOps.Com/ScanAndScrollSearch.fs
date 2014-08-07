@@ -1,10 +1,15 @@
 ﻿[<CommandsHandlers>]
 module ElasticOps.Com.ScanAndScrollSearch
+open Json.AST.Parse
+open Json.AST.Traverse
 open ElasticOps.Com.CommonTypes
-open System.Collections.Generic
 open ElasticOps.Com.ElasticResponseProcessing
+open System.Collections.Generic
 open FSharp.Data
+open System
+open System.Text.RegularExpressions
 open FSharp.Data.JsonExtensions
+open Newtonsoft.Json
 
 [<AllowNullLiteral>]
 type ScrollResult(documents,nextScrollId) = 
@@ -17,22 +22,25 @@ type ScrollSearchCommand(connection,scrollId, index,size) =
     member val Size = size with get, set
     member val Index = index with get, set
 
-
-let ObtainScrollId json =
+let obtainScrollId json =
     json?_scroll_id.AsString()
 
-let GetScrollPage clusterUri scrollId =
-    let res = (POST clusterUri "/_search/scroll?scroll=5m" scrollId)
-                    |> JsonValue.Parse 
-                    |> (fun res -> res?hits)
-
-    (new ScrollResult("",""))
+//let getScrollResult propList =  
 
 
-let ScrollSearch (command : ScrollSearchCommand) = 
+let getScrollPage clusterUri scrollId =
+   let json = (POST clusterUri "/_search/scroll?scroll=5m" scrollId) 
+   let res = parseNextObject (toCharList(json))
+
+   let scrollid = find (fst(res)) "_scroll_id"
+   let hits = find (fst(res)) "hits.hits"
+
+   new ScrollResult("","")                 
+    
+let scrollSearch (command : ScrollSearchCommand) = 
     match command.ScrollId with 
         | null -> (GET command.ClusterUri (command.Index+"/_search?search_type=scan&scroll=5m")) 
                     |> JsonValue.Parse
-                    |> ObtainScrollId 
-                    |> (GetScrollPage  command.ClusterUri)
-        | id -> (GetScrollPage command.ClusterUri id)
+                    |> obtainScrollId 
+                    |> (getScrollPage  command.ClusterUri)
+        | id -> (getScrollPage command.ClusterUri id)

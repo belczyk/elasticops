@@ -1,11 +1,11 @@
-﻿module Json.AST.Tests
+﻿module Json.AST.Tests.ParseTests
 
 open Json.AST.Parse
 open FsUnit
 open NUnit.Framework
 open System 
 
-let toCharList (str : String )= str.ToCharArray() |> List.ofArray
+
 
 [<Test>]
 let ``parseNextObject returns object for {}``() =
@@ -165,3 +165,41 @@ let ``can parse complex partial objects``() =
                                             Part.Object([]))]))]))
                                 ]))
 
+[<Test>]
+let ``can parse objects with numeric properites``() =
+    let (res,rest) = (parseNextObject ("
+{ 
+  \"failed\" : 0,
+      \"successful\" : 5,
+      \"total\" : 5
+  
+}
+ "|> toCharList))
+    res |>
+        should equal (Part.Object([
+                        Part.Property("failed",Part.Value(Value.Number(0.0)));
+                        Part.Property("successful",Part.Value(Value.Number(5.0)));
+                        Part.Property("total",Part.Value(Value.Number(5.0)))]))
+
+
+[<Test>]
+let ``can parse objects with mix of different types of properites``() =
+    let (res,rest) = (parseNextObject ("
+{\"_scroll_id\":\"1\",
+\"took\":1,
+\"timed_out\":false,
+\"_shards\":{\"total\":5,\"successful\":5,\"failed\":0}}
+ "|> toCharList))
+    res |>
+        should equal (Part.Object([
+                        Part.Property("_scroll_id",Part.Value(Value.String("1")));
+                        Part.Property("took",Part.Value(Value.Number(1.0)));
+                        Part.Property("timed_out",Part.Value(Value.Boolean(false)));
+                        Part.Property("_shards",Part.Object([
+                                                        Part.Property("total",Part.Value(Value.Number(5.0)));
+                                                        Part.Property("successful",Part.Value(Value.Number(5.0)));
+                                                        Part.Property("failed",Part.Value(Value.Number(0.0)))])
+                                                    )
+                        
+                        ]))
+                                        
