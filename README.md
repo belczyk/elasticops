@@ -19,3 +19,5 @@ I'm hoping to add below features:
 * Backup and restore 
 * Indexing SQL tables 
 * Reviewing mappings
+
+![ElsticOps main screen](/docs/images/elastic.png)
