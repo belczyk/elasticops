@@ -1,14 +1,10 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using ElasticOps.Attributes;
-using ElasticOps.Com;
-using ElasticOps.Com.Infrastructure;
 using ElasticOps.Com.Models;
-using ProviderImplementation;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(10)]
+    [Priority(1)]
     public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen
     {
 
