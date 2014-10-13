@@ -192,14 +192,13 @@ let ``can parse objects with mix of different types of properites``() =
  "|> toCharList))
     res |>
         should equal (Part.Object([
-                        Part.Property("_scroll_id",Part.Value(Value.String("1")));
-                        Part.Property("took",Part.Value(Value.Number(1.0)));
-                        Part.Property("timed_out",Part.Value(Value.Boolean(false)));
-                        Part.Property("_shards",Part.Object([
-                                                        Part.Property("total",Part.Value(Value.Number(5.0)));
-                                                        Part.Property("successful",Part.Value(Value.Number(5.0)));
-                                                        Part.Property("failed",Part.Value(Value.Number(0.0)))])
-                                                    )
-                        
-                        ]))
-                                        
+                                  Part.Property("_scroll_id",Part.Value(Value.String("1")));
+                                  Part.Property("took",Part.Value(Value.Number(1.0)));
+                                  Part.Property("timed_out",Part.Value(Value.Boolean(false)));
+                                  Part.Property("_shards",Part.Object([
+                                                                       Part.Property("total",Part.Value(Value.Number(5.0)));
+                                                                       Part.Property("successful",Part.Value(Value.Number(5.0)));
+                                                                       Part.Property("failed",Part.Value(Value.Number(0.0)))])
+                                                                     )
+                                  
+                                  ]))
