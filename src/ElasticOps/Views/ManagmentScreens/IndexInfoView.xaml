@@ -6,19 +6,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <StackPanel Style="{StaticResource Content}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Name" Width="150"/>
-                <TextBlock Text="{Binding Name}"/>
+        <Border  Margin="0,0,0,10" BorderThickness="0,0,0,1" BorderBrush="#60A917"  >
+            <StackPanel Style="{StaticResource Content}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Name" Width="150"/>
+                    <TextBlock Text="{Binding Name}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Settings" Width="150"/>
+                    <ItemsControl Name="Settings"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Types" Width="150"/>
+                    <ItemsControl Name="Types">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Label}"></TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Settings" Width="150"/>
-                <ItemsControl Name="Settings"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Types" Width="150"/>
-                <ItemsControl Name="Types"/>
-            </StackPanel>
-        </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -1,7 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
 using ElasticOps.Com;
-using ElasticOps.Com.Infrastructure;
 using NLog;
 using LogManager = NLog.LogManager;
 

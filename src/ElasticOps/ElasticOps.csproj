@@ -159,6 +159,7 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ClusterConnectionViewModel.cs" />
     <Compile Include="ViewModels\StudioViewModel.cs" />
+    <Compile Include="ViewModels\TypesListViewModel.cs" />
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +180,9 @@
     </Compile>
     <Compile Include="Views\StudioView.xaml.cs">
       <DependentUpon>StudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TypesListView.xaml.cs">
+      <DependentUpon>TypesListView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\AppStyles.xaml">
       <SubType>Designer</SubType>
@@ -313,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TypesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

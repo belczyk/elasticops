@@ -118,3 +118,26 @@ module ElasticOps.Com.ClusterInfo
             | _ -> new HeartBeat(false)
         with
         | ex -> new HeartBeat(false)
+
+
+    type ListIndicesCommand(connection) = 
+        inherit Command<List<string>>(connection)
+
+    let ListIndices (command: ListIndicesCommand) =
+        IndicesInfo(new IndicesInfoCommand(command.Connection))
+        |> Seq.map (fun i -> i.Name)
+        |> CList.ofSeq
+
+    type ListTypesCommand(connection) = 
+        inherit Command<List<string>>(connection)
+        member val IndexName = "" with get,set
+
+    let ListTypes (command: ListTypesCommand) = 
+        GET command.ClusterUri (command.IndexName+"/_mapping")
+                        |> JsonValue.Parse
+                        |> fun el -> el.[command.IndexName]?mappings
+                        |> asPropertyList
+                        |> Seq.map (fun el -> fst el)
+                        |> CList.ofSeq
+
+

@@ -13,18 +13,7 @@
                                        IsIndeterminate="True"
                                        Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"></controls:MetroProgressBar>
         <StackPanel >
-            <StackPanel Orientation="Horizontal">
-                <ComboBox Name="AllIndices" Margin="10,20,0,0" IsSynchronizedWithCurrentItem="True" Width="200">
-                    <ComboBox.SelectedItem>
-                        <Binding Path="SelectedIndex" />
-                    </ComboBox.SelectedItem>
-                </ComboBox>
-                <ComboBox Name="TypesForSelectedIndex" Margin="10,20,0,0" IsSynchronizedWithCurrentItem="True" Width="200">
-                    <ComboBox.SelectedItem>
-                        <Binding Path="SelectedType" />
-                    </ComboBox.SelectedItem>
-                </ComboBox>
-            </StackPanel>
+            <ContentControl Name="TypesList"></ContentControl>
             <StackPanel>
                 <Label Name="Mapping"></Label>
             </StackPanel>

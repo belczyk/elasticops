@@ -24,3 +24,4 @@ type IndexInfo = { Name: string;
                    Settings: List<KeyValuePair<string, string>>}
 
 type DocumentInfo = { Name : string; Count : int}
+
