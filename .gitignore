@@ -38,3 +38,5 @@ _ReSharper*/
 
 src/ElasticOps.v2.ncrunchsolution
 src/_NCrunch_ElasticOps
+
+!/src/packages/**/*.dll
