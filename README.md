@@ -1,7 +1,9 @@
 Elastic Ops
 ==========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/uvu9ymptbd1lnfjw?svg=true)](https://ci.appveyor.com/project/belczyk/elasticops)
+
+
+<img src="https://ci.appveyor.com/api/projects/status/uvu9ymptbd1lnfjw?svg=true" height="25px" />
 
 The project started from real need for a tool that I can copy on server an use to quickly asses cluster state. Most of the managment tools for ElasticSearch are Chrom plugins or online sites. It's offen not possible to reach internet from our client servers or to install Chrome but on the other hand I can copy whaterver I want ... (bloody corporate rules).
 
