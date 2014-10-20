@@ -3,7 +3,7 @@
 /src/ElasticOps/bin
 /src/ElasticOps/obj
 /src/packages
-*.dll
+
 */obj/Debug/*
 */bin/Debug/*
 
@@ -39,4 +39,4 @@ _ReSharper*/
 src/ElasticOps.v2.ncrunchsolution
 src/_NCrunch_ElasticOps
 
-!/src/packages/**/*.dll
+!src/packages/**/*.dll
