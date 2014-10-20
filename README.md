@@ -1,6 +1,8 @@
 Elastic Ops
 ==========
 
+[![Build status](https://ci.appveyor.com/api/projects/status/uvu9ymptbd1lnfjw?svg=true)](https://ci.appveyor.com/project/belczyk/elasticops)
+
 The project started from real need for a tool that I can copy on server an use to quickly asses cluster state. Most of the managment tools for ElasticSearch are Chrom plugins or online sites. It's offen not possible to reach internet from our client servers or to install Chrome but on the other hand I can copy whaterver I want ... (bloody corporate rules).
 
 It became my pet project (also [Weronika Łabaj](https://github.com/weralabaj) helped me a lot) and test field for ideas. Front end is build in `C#, WPF, MVVM` and back end is written in `F#, FSharp.Data`. Initailly backend was also in C# but we switched to F# as it's more sutiable for JSON processing.
