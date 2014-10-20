@@ -11,6 +11,7 @@ open System.Collections.Generic
 
 
 [<Test>]
+[<Ignore>]
 let ``traverse find finds objects in a tree``() =
     let command = new ListTypesCommand(new Connection(new Uri("http://localhost:9200")))
     command.IndexName <- "docs"
