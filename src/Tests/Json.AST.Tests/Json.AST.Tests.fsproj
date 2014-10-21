@@ -58,7 +58,6 @@
     <Compile Include="TraverseTests.fs" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Compile Include="ClusterInfoTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ElasticOps.Com\ElasticOps.Com.fsproj">

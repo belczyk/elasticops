@@ -75,11 +75,10 @@
   <ItemGroup>
     <Compile Include="Events.fs" />
     <Compile Include="CommonTypes.fs" />
-    <Compile Include="Attributes.fs" />
+    <Compile Include="ESVersionAttributes.fs" />
     <Compile Include="ElasticResponseProcessing.fs" />
     <Compile Include="ClusterInfoModels.fs" />
     <Compile Include="ClusterInfo.fs" />
-    <Compile Include="ScanAndScrollSearch.fs" />
     <None Include="Script.fsx" />
     <None Include="packages.config" />
     <Compile Include="HandlerFinder.fs" />

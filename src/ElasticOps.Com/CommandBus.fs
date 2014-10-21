@@ -1,22 +1,29 @@
-﻿namespace  ElasticOps.Com.Infrastructure
+﻿namespace  ElasticOps.Com
 open System 
 open System.Reflection
 open System.Linq
 open ElasticOps.Com
-open ElasticOps.Com.HandlerFinder
-open ElasticOps.Com.CommonTypes
 open NLog
 open Caliburn.Micro
-open ElasticOps.Com.Events
 
-type CommandBus(eventAggregator : IEventAggregator ) =
+type CommandBus(eventAggregator : IEventAggregator, client : IRESTClient ) =
     let eventAggregator = eventAggregator
+    let client = client
 
     static member private logger = LogManager.GetCurrentClassLogger()
 
-    member private  x.executeMethod<'TResult when 'TResult : null> (m : MethodInfo) (command : Command<'TResult>) =
+    member private this.buildArgs(argsTypes : ParameterInfo list, args : Object list) = 
+        match argsTypes with 
+            | hd::tail -> match hd.ParameterType.Name with
+                | "IRESTClient" -> this.buildArgs(tail,(client :> Object)::args)
+                | _ -> invalidOp "Unknown type. Can't find value for handlers argument of type"
+            | [] -> args
+        
+    member private  this.executeMethod<'TResult when 'TResult : null> (m : MethodInfo) (command : Command<'TResult>) =
         try 
-            let result = (m.Invoke(null,[|command|]))
+            let argsTypes = m.GetParameters() |> List.ofArray |> List.tail
+            let args = this.buildArgs (argsTypes,[command]) |> List.rev
+            let result = (m.Invoke(null,Array.ofList args))
             new CommandResult<'TResult> (result :?> 'TResult)
         with 
             | ex ->
@@ -42,7 +49,7 @@ type CommandBus(eventAggregator : IEventAggregator ) =
                                 |> List.collect (fun t -> List.ofArray (t.GetMethods()))
                                 |> List.filter (fun m -> m.IsStatic)
 
-            match (exactHanlderMatch eligibleMethods requestedType command.Version) with 
+            match (HandlerFinder.exactHanlderMatch eligibleMethods requestedType command.Version) with 
             | Some m -> (this.executeMethod<'TResult> m command)
             | None -> 
                 let msg = String.Format("Handler for {0} not found.",requestedType.Name)

@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using ElasticOps.Com.Infrastructure;
+using ElasticOps.Com;
 
 namespace ElasticOps
 {

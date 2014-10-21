@@ -1,7 +1,8 @@
-﻿namespace ElasticOps.Com.CommonTypes
+﻿namespace ElasticOps.Com
 open System
 open FSharp.Data
 open FSharp.Data.JsonExtensions
+open System.Web
 
 [<AllowNullLiteral>]
 type Version(major : int,?minor : int,?patch : int,?build : int) =
@@ -71,11 +72,17 @@ type Connection(clusterUri : Uri) =
 
     let getVersion uri = 
         try
-            let response = JsonValue.Parse (Http.RequestString (uri.ToString())) 
+            let statusReq = System.Net.WebRequest.Create(uri.ToString());
+            let statusRes = statusReq.GetResponse()
+            let stream = statusRes.GetResponseStream()
+            let reader = new System.IO.StreamReader(stream)
+            let response = JsonValue.Parse (reader.ReadToEnd())
+
             match response?status.AsString() with
                 | "200" -> Some (Version.FromString(response?version?number.AsString()))
                 | _ -> None
         with
+        | :? System.Net.WebException -> None
         | _ -> None
 
     member x.Version = version
@@ -116,4 +123,43 @@ type Command<'T>(connection : Connection) =
                             | _ -> x.Connection.ClusterUri
 
     member x.Version = x.Connection.Version
-    
+
+type IRESTClient = 
+        abstract GET : string -> string
+        abstract GET : Uri * string -> string
+        abstract POST : string * string -> string
+        abstract POST : Uri * string * string -> string
+        abstract POSTJson : string * string -> string
+        abstract POSTJson : Uri * string * string -> string
+
+type RESTClient() = 
+    member private this.combineUri ( uri : Uri) endpoint =
+        match endpoint with 
+        | null | "" -> uri.ToString()
+        | _ -> (new Uri(uri,new Uri(endpoint,UriKind.Relative))).ToString()
+
+    interface IRESTClient with 
+        member this.GET(url : string) = 
+            url |> Http.RequestString  
+
+        member this.GET(uri, endpoint) =
+            this.combineUri uri endpoint |> Http.RequestString
+
+        member this.POST(url : string, body : string) = 
+            Http.RequestString ( url, httpMethod = "POST",
+                        body   = TextRequest body
+                        )
+        member this.POST(uri, endpoint, body : string) = 
+            Http.RequestString ( (this.combineUri uri endpoint), httpMethod = "POST",
+                        body   = TextRequest body
+                        )
+        member this.POSTJson(url : string, body : string) = 
+            Http.RequestString ( url, httpMethod = "POST",
+                        headers = [ "Accept", "application/json" ],
+                        body   = TextRequest body
+                        ) 
+        member this.POSTJson(uri, endpoint, body : string) = 
+            Http.RequestString ( (this.combineUri uri endpoint), httpMethod = "POST",
+                        headers = [ "Accept", "application/json" ],
+                        body   = TextRequest body
+                        ) 

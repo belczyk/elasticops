@@ -41,7 +41,7 @@
                            Width="100"
                            Height="100"
                            HorizontalContentAlignment="Center"
-                           Count="{Binding ClusterCounters.Indices}"
+                           Count="{Binding ClusterCounters.Indices, Converter={StaticResource BigNumbersConverter}}"
                            cal:Message.Attach="[Event Click] = [Action ShowIndicesInfo()]">
             </controls:Tile>
             <controls:Tile Title="Documents"

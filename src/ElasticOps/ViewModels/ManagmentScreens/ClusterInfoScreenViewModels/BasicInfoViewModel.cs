@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using ElasticOps.Com;
-using ElasticOps.Com.Infrastructure;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {

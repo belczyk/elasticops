@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Caliburn.Micro;
-using ElasticOps.Com.Events;
+using ElasticOps.Com;
 using Humanizer;
 
 namespace ElasticOps.ViewModels

@@ -1,14 +1,9 @@
 ﻿[<CommandsHandlers>]
 module ElasticOps.Com.ClusterInfo
-    open ElasticOps.Com.Models
+    open ElasticOps.Com
     open FSharp.Data
     open FSharp.Data.JsonExtensions
     open System.Collections.Generic
-    open System
-    open ElasticOps.Com.ElasticResponseProcessing
-    open ElasticOps.Com
-    open ElasticOps.Com.CommonTypes
-    open System.Linq
 
 
     type HealthCommand(connection) = 
@@ -38,9 +33,7 @@ module ElasticOps.Com.ClusterInfo
         let nodesCount = GET command.ClusterUri "/_nodes"
                             |> propCount (fun p->p)
 
-
         { Indices = ic; Documents = docCount; Nodes = nodesCount }
-
 
     type NodesInfoCommand(connection) = 
         inherit Command<IEnumerable<NodeInfo>>(connection)
@@ -78,9 +71,6 @@ module ElasticOps.Com.ClusterInfo
                                          |> asPropertyList
                                          |> Seq.map (fun map -> 
                                              let sec = (snd map);
-                                             let prop = sec?properties;
-                                             let text = sec?properties.ToString();
-                                             let t = text.GetType();
                                              new KeyValuePair<string,string>((fst map), (snd map)?properties.ToString())
                                              )
                                          |> CList.ofSeq
@@ -128,16 +118,24 @@ module ElasticOps.Com.ClusterInfo
         |> Seq.map (fun i -> i.Name)
         |> CList.ofSeq
 
-    type ListTypesCommand(connection) = 
+    type ListTypesCommand(connection, indexName) = 
         inherit Command<List<string>>(connection)
-        member val IndexName = "" with get,set
+        member val IndexName = indexName with get,set
 
-    let ListTypes (command: ListTypesCommand) = 
-        GET command.ClusterUri (command.IndexName+"/_mapping")
+    let ListTypes (command: ListTypesCommand, client : IRESTClient) = 
+        client.GET(command.ClusterUri, (command.IndexName+"/_mapping"))
                         |> JsonValue.Parse
                         |> fun el -> el.[command.IndexName]?mappings
                         |> asPropertyList
                         |> Seq.map (fun el -> fst el)
                         |> CList.ofSeq
+
+    type GetMappingCommand(connection, indexName, typeName) = 
+        inherit Command<string>(connection)
+        member val IndexName = indexName
+        member val TypeName = typeName
+
+    let GetMapping(command: GetMappingCommand, client : IRESTClient) = 
+        client.GET (command.ClusterUri,("/"+command.IndexName+"/"+command.TypeName+"/_mapping?pretty"))
 
 

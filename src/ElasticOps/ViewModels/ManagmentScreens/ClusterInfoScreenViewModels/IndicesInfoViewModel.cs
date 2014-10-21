@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using Caliburn.Micro;
 using ElasticOps.Com;
-using ElasticOps.Com.Infrastructure;
-using ElasticOps.Com.Models;
 using NLog;
 using LogManager = NLog.LogManager;
 
@@ -46,7 +43,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         private void FilterIndices()
         {
             IndicesInfo.Clear();
-            IndicesInfo.AddRange(AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWith(".marvel")));
+            IndicesInfo.AddRange(AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWith(Predef.MarvelIndexPrefix)));
         }
 
         private bool _ShowMarvelIndices;

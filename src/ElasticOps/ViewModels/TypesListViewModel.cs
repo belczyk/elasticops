@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Linq;
 using Caliburn.Micro;
-using MahApps.Metro.Behaviours;
+using ElasticOps.Com;
 
 
 namespace ElasticOps.ViewModels
@@ -8,29 +8,52 @@ namespace ElasticOps.ViewModels
     public class TypesListViewModel : PropertyChangedBase
     {
         private readonly Infrastructure _infrastructure;
+        private readonly Connection _connection;
 
         public TypesListViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
-            AllIndices = new ObservableCollection<string>();
-            TypesForSelectedIndex = new ObservableCollection<string>();
+            _connection = infrastructure.Settings.Connection;
+            AllIndices = new BindableCollection<string>();
+            TypesForSelectedIndex = new BindableCollection<string>();
         }
-        private ObservableCollection<string> _allIndices;
-        private ObservableCollection<string> _typesForSelectedIndex;
+        private IObservableCollection<string> _allIndices;
+        private IObservableCollection<string> _typesForSelectedIndex;
         private string _selectedIndex;
         private string _selectedType;
 
-        public ObservableCollection<string> AllIndices
+
+        public void RefreashData()
+        {
+            IsRefreshing = true;
+
+            var indices = _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Settings.Connection));
+            var selectedIndex = SelectedIndex;
+            AllIndices.Clear();
+            indices.Result.OrderBy(x=>x).Where(x => !x.StartsWith(Predef.MarvelIndexPrefix) || _ShowMarvelIndices).ToList().ForEach(AllIndices.Add);
+            if (AllIndices.Contains(selectedIndex))
+            {
+                SelectedIndex = selectedIndex;
+            }
+            else if (AllIndices.Any())
+            {
+                SelectedIndex = AllIndices.First();
+            }
+            IsRefreshing = false;
+
+        }
+
+        public IObservableCollection<string> AllIndices
         {
             get { return _allIndices; }
             set
             {
                 _allIndices = value;
-                NotifyOfPropertyChange(()=>AllIndices);
+                NotifyOfPropertyChange(() => AllIndices);
             }
         }
 
-        public ObservableCollection<string> TypesForSelectedIndex
+        public IObservableCollection<string> TypesForSelectedIndex
         {
             get { return _typesForSelectedIndex; }
             set
@@ -54,9 +77,25 @@ namespace ElasticOps.ViewModels
 
         private void ReloadTypes()
         {
-            if (string.IsNullOrEmpty(SelectedType)) return;
+            if (string.IsNullOrEmpty(SelectedIndex)) return;
+            IsRefreshing = true;
 
+            var result = _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Settings.Connection,
+                SelectedIndex));
 
+            var selectedType = SelectedType;
+            TypesForSelectedIndex.Clear();
+            result.Result.OrderBy(x=>x).ToList().ForEach(TypesForSelectedIndex.Add);
+
+            if (TypesForSelectedIndex.Contains(selectedType))
+            {
+                SelectedType = selectedType;
+            }
+            else if (TypesForSelectedIndex.Any())
+            {
+                SelectedType = TypesForSelectedIndex.First();
+            }
+            IsRefreshing = false;
         }
 
         public string SelectedType
@@ -66,8 +105,29 @@ namespace ElasticOps.ViewModels
             {
                 _selectedType = value;
                 NotifyOfPropertyChange(() => SelectedType);
-                
+
             }
+        }
+
+        private bool _ShowMarvelIndices;
+
+        public bool ShowMarvelIndices
+        {
+            get { return _ShowMarvelIndices; }
+            set
+            {
+                _ShowMarvelIndices = value;
+                NotifyOfPropertyChange(() => ShowMarvelIndices);
+                RefreashData();
+            }
+        }
+
+        private bool _isRefreashing;
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreashing; }
+            set { _isRefreashing = value; }
         }
     }
 }

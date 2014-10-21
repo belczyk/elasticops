@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
-using ElasticOps.Com.CommonTypes;
-using ElasticOps.Com.Events;
-using ElasticOps.Com.Infrastructure;
+using ElasticOps.Com;
 
 namespace ElasticOps
 {

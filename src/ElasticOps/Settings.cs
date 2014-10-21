@@ -1,4 +1,4 @@
-﻿using ElasticOps.Com.CommonTypes;
+﻿using ElasticOps.Com;
 
 namespace ElasticOps
 {

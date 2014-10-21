@@ -1,4 +1,4 @@
-﻿namespace ElasticOps.Com.Events
+﻿namespace ElasticOps.Com
 open System
 
 type ErrorOccuredEvent(msg) =

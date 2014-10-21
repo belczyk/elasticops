@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Windows;
 using Autofac;
 using Caliburn.Micro;
-using ElasticOps.Com.Infrastructure;
+using ElasticOps.Com;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using MahApps.Metro.Controls;
@@ -47,6 +47,7 @@ namespace ElasticOps
               .Where(type => type.Name.EndsWith("View"))
               .AsSelf().InstancePerDependency();
             builder.RegisterType<CommandBus>().AsSelf();
+            builder.RegisterType<RESTClient>().As<IRESTClient>();
             builder.RegisterType<Settings>().AsSelf().SingleInstance();
 
             builder.RegisterType<Infrastructure>().AsSelf();

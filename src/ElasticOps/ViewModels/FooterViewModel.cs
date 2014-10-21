@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using ElasticOps.Com.Events;
+using ElasticOps.Com;
 using Humanizer;
 
 namespace ElasticOps.ViewModels

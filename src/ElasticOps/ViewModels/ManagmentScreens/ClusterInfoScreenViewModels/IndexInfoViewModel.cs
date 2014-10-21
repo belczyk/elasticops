@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using ElasticOps.Com.Models;
+using ElasticOps.Com;
 using Humanizer;
 
 namespace ElasticOps.ViewModels.ManagmentScreens

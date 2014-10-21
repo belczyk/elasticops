@@ -5,16 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="900">
-        <StackPanel Orientation="Horizontal">
-            <ComboBox Name="AllIndices" IsSynchronizedWithCurrentItem="True" Width="200">
-                <ComboBox.SelectedItem>
-                    <Binding Path="SelectedIndex" />
-                </ComboBox.SelectedItem>
-            </ComboBox>
-            <ComboBox Name="TypesForSelectedIndex"  IsSynchronizedWithCurrentItem="True" Width="200">
-                <ComboBox.SelectedItem>
-                    <Binding Path="SelectedType" />
-                </ComboBox.SelectedItem>
-            </ComboBox>
-        </StackPanel>
+    <StackPanel Orientation="Horizontal">
+        <ComboBox Name="AllIndices" IsSynchronizedWithCurrentItem="True" Width="200">
+            <ComboBox.SelectedItem>
+                <Binding Path="SelectedIndex" />
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <ComboBox Name="TypesForSelectedIndex"  IsSynchronizedWithCurrentItem="True" Width="200" Margin="20,0,0,0">
+            <ComboBox.SelectedItem>
+                <Binding Path="SelectedType" />
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <CheckBox Name="ShowMarvelIndices" Content="Show Marvel indices" Margin="10,0,0,0"/>
+    </StackPanel>
 </UserControl>

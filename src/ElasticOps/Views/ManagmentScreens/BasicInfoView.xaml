@@ -7,21 +7,24 @@
              mc:Ignorable="d"
              d:DesignHeight="800"
              d:DesignWidth="1024">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                  VerticalScrollBarVisibility="Auto">
-        
-        <Grid>
-            <DockPanel VerticalAlignment="Top">
-            <controls:MetroProgressBar VerticalAlignment="Top"
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
-                                       Margin="5,0,5,0"
                                        Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
+                                       Grid.Row="0"
                 ></controls:MetroProgressBar>
-            </DockPanel>
-            <ItemsControl Name="ClusterHealthProperties" Margin="0,20,0,0"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"  Grid.Row="1">
+            <ItemsControl Name="ClusterHealthProperties" Margin="5,20,5,0"/>
+        </ScrollViewer>
+    </Grid>
 
-        </Grid>
-    </ScrollViewer>
 
 </UserControl>

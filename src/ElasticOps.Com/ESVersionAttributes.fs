@@ -1,6 +1,5 @@
 ﻿namespace ElasticOps.Com
 open System
-open ElasticOps.Com.CommonTypes
 
 
 type ESVersionAttribute (major : int, minor : int, patch : int, build : int) =
@@ -15,7 +14,7 @@ type ESVersionAttribute (major : int, minor : int, patch : int, build : int) =
     member x.build = build
 
     member x.ToVersion() = 
-        new Version(major,minor,patch,build)
+        new ElasticOps.Com.Version(major,minor,patch,build)
 
     member x.ToTuple() = 
         (major,minor,patch,build)

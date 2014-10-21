@@ -1,10 +1,5 @@
-﻿namespace ElasticOps.Com.Models
+﻿namespace ElasticOps.Com
 
-open FSharp.Data
-open FSharp.Data.JsonExtensions
-open System.Collections.Generic
-open System
-open ElasticOps.Com
 open System.Collections.Generic
 
 type ClusterCounters = { Indices: int; 

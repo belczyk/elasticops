@@ -1,12 +1,13 @@
 ﻿using Caliburn.Micro;
 using ElasticOps.Attributes;
-using ElasticOps.Com.Models;
+using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     [Priority(1)]
-    public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen
+    public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen, IHandle<RefreashEvent>
     {
+        private readonly Infrastructure _infrastructure;
 
         public ClusterInfoScreenViewModel(
             BasicInfoViewModel basicInfoViewModel, 
@@ -16,9 +17,9 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             MappingsInfoViewModel mappingsInfoViewModel,
             Infrastructure infrastructure
            )
-            //: base(infrastructure)
         {
-
+            _infrastructure = infrastructure;
+            _infrastructure.EventAggregator.Subscribe(this);
             BasicInfoViewModel = basicInfoViewModel;
             NodesInfoViewModel = nodesInfoViewModel;
             IndicesInfoViewModel = indicesInfoViewModel;
@@ -27,12 +28,9 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             
             ActivateItem(BasicInfoViewModel);
 
-            //var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
-            //if (result.Success)
-            //    ClusterCounters = result.Result;
-
-
             DisplayName = "Cluster";
+
+            LoadCounters();
 
         }
 
@@ -80,20 +78,19 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        //public override void RefreshData()
-        //{
-        //    var result = commandBus.Execute(new ClusterInfo.ClusterCountersCommand(connection));
-
-        //    if (result.Failed) return;
-
-        //    ClusterCounters = result.Result;
-        //}
-
         protected override void OnDeactivate(bool close)
         {
             DeactivateChildren(close);
-            //eventAggregator.Unsubscribe(this);
+            _infrastructure.EventAggregator.Unsubscribe(this);
             base.OnDeactivate(close);
+        }
+
+        protected override void OnActivate()
+        {
+
+            LoadCounters();
+            
+            base.OnActivate();
         }
 
         private void DeactivateChildren(bool close)
@@ -104,6 +101,21 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             DocumentsInfoViewModel.Deactivate(close);
             MappingsInfoViewModel.Deactivate(close);
             
+        }
+
+        public void Handle(RefreashEvent message)
+        {
+            LoadCounters();
+        }
+
+        private void LoadCounters()
+        {
+            var result =
+                _infrastructure.CommandBus.Execute(new ClusterInfo.ClusterCountersCommand(_infrastructure.Settings.Connection));
+
+            if (result.Failed) return;
+
+            ClusterCounters = result.Result;
         }
     }
 }

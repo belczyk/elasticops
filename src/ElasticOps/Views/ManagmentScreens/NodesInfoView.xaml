@@ -6,15 +6,21 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
-            <controls:MetroProgressBar VerticalAlignment="Top"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
-                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"></controls:MetroProgressBar>
+                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
+                                   Grid.Row="0"></controls:MetroProgressBar>
+
+        <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ItemsControl Name="NodesInfo" Margin="0,20,0,0" />
+        </ScrollViewer>
 
-        </Grid>
+    </Grid>
 
-    </ScrollViewer>
 </UserControl>
