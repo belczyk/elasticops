@@ -1,30 +1,57 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition.Primitives;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
+using System.Text.RegularExpressions;
 using Autofac;
 using Caliburn.Micro;
 using ElasticOps.Com;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
-using MahApps.Metro.Controls;
-using Nest;
-using NLog;
-using LogManager = NLog.LogManager;
+using Logary.Configuration;
+using Logary.Targets;
+using Console = System.Console;
+using Logary;
+using TextWriter = Logary.Targets.TextWriter;
 
 namespace ElasticOps
 {
     public class AppBootstrapper : Bootstrapper<ShellViewModel>
     {
         public static IContainer Container { get; private set; }
-        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         protected override void Configure()
         {
-            logger.Info("App starts");
+            ConfigureContainer();
+            ConfigureLogger();
+
+            var logger = Logging.GetCurrentLogger();
+
+            logger.Info("ElasticOps starts.");
+        }
+
+        private void ConfigureLogger()
+        {
+            
+            LogaryFactory.New("ElasticOps",
+                with => with.Target<TextWriter.Builder>(
+                    "console1",
+                    conf =>
+                    conf.Target.WriteTo(File.CreateText("log.log"), File.CreateText("log-err.log"))
+                        .MinLevel(LogLevel.Info)
+                        .AcceptIf(line => true)
+                        .SourceMatching(new Regex(".*"))
+                    )
+                    .Target<Debugger.Builder>("debugger")
+                    .Target<Logstash.Builder>("logstash")
+                );
+
+        }
+
+        private void ConfigureContainer()
+        {
 
             var builder = new ContainerBuilder();
             builder.RegisterType<WindowManager>().As<IWindowManager>();
@@ -35,7 +62,7 @@ namespace ElasticOps
                 .As<IManagmentScreen>();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(x => x.BaseType == typeof (UserSettings))
+                .Where(x => x.BaseType == typeof(UserSettings))
                 .As<UserSettings>();
 
 
@@ -53,8 +80,9 @@ namespace ElasticOps
             builder.RegisterType<Infrastructure>().AsSelf();
 
             Container = builder.Build();
-        }
 
+            
+        }
         protected override object GetInstance(System.Type service, string key)
         {
             object instance;
@@ -94,14 +122,3 @@ namespace ElasticOps
     }
 }
 
-
-
-//type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMessage : String) =
-//    member x.Result = result
-//    member x.Success = success 
-//    member x.ErrorMessage = errorMessage 
-//    member x.Failed 
-//        with get() = not x.Success
-        
-//    new (result : 'T) = CommandResult(result,true,null)
-//    new (errorMessage : string ) = CommandResult(null,false,errorMessage)

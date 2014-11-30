@@ -3,31 +3,23 @@ open System
 open System.Reflection
 open System.Linq
 open ElasticOps.Com
-open NLog
 open Caliburn.Micro
+open Logary
+open System.Collections.Generic
 
-type CommandBus(eventAggregator : IEventAggregator, client : IRESTClient ) =
+type CommandBus(eventAggregator : IEventAggregator) =
     let eventAggregator = eventAggregator
-    let client = client
 
-    static member private logger = LogManager.GetCurrentClassLogger()
+    let logger = Logging.getCurrentLogger()
 
-    member private this.buildArgs(argsTypes : ParameterInfo list, args : Object list) = 
-        match argsTypes with 
-            | hd::tail -> match hd.ParameterType.Name with
-                | "IRESTClient" -> this.buildArgs(tail,(client :> Object)::args)
-                | _ -> invalidOp "Unknown type. Can't find value for handlers argument of type"
-            | [] -> args
-        
     member private  this.executeMethod<'TResult when 'TResult : null> (m : MethodInfo) (command : Command<'TResult>) =
         try 
-            let argsTypes = m.GetParameters() |> List.ofArray |> List.tail
-            let args = this.buildArgs (argsTypes,[command]) |> List.rev
+            let args = [command :> System.Object]
             let result = (m.Invoke(null,Array.ofList args))
             new CommandResult<'TResult> (result :?> 'TResult)
         with 
             | ex ->
-                CommandBus.logger.WarnException("Exception while executing command in CommandBus",ex)
+                logger.Log <| LogLine.create''' "Error occured while executing command." (new Dictionary<string,Object>()) LogLevel.Error [||] "" ex NodaTime.SystemClock.Instance.Now
                 match ex.InnerException with
                 | null -> 
                     eventAggregator.Publish (new ErrorOccuredEvent(ex.Message))

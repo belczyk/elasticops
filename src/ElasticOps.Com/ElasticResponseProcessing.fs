@@ -16,6 +16,37 @@ module CList =
     let ofList (list : _ list ) =
         list.ToList()
 
+[<AutoOpen>]
+module REST =
+    open Logary 
+    let logger = Logging.getCurrentLogger()
+
+    let GET' = "GET"
+    let POST' = "POST"
+
+    let combineUri ( uri : Uri) endpoint =
+        match endpoint with 
+        | null | "" -> uri.ToString()
+        | _ -> let u = new Uri(uri,new Uri(endpoint,UriKind.Relative))
+               u.ToString()
+
+    let GET uri endpoint =
+        let url = combineUri uri endpoint
+        Log.info "request" [("Uri", url);("Verb", GET')] |> logger.Log
+        Http.RequestString  url 
+
+    let POSTJson uri endpoint body =
+        let url = combineUri uri endpoint 
+        Log.info "request" [("uri", url);("verb", POST'); ("body",body)]  |> logger.Log
+        Http.RequestString ( url, httpMethod = "POST",
+                            headers = [ "Accept", "application/json" ],
+                            body   = TextRequest body )
+
+    let POST uri endpoint body =
+        let url = (combineUri uri endpoint)
+        Log.info "request"  [("uri", url);("verb", POST'); ("body",body)]  |> logger.Log
+        Http.RequestString ( url , httpMethod = "POST",
+                            body   = TextRequest body )
 
 [<AutoOpen>]
 module JsonValueProcessing =
@@ -40,27 +71,6 @@ module JsonValueProcessing =
         |> Seq.map (fun pair -> new KeyValuePair<string,string>((fst pair),(snd pair).AsString()))
         |> List.ofSeq
         
-    let combineUri ( uri : Uri) endpoint =
-        match endpoint with 
-        | null | "" -> uri.ToString()
-        | _ -> let u = new Uri(uri,new Uri(endpoint,UriKind.Relative))
-               u.ToString()
-
-
-    let GET uri endpoint =
-        combineUri uri endpoint |> Http.RequestString 
-
-    let POSTJson uri endpoint body =
-        Http.RequestString ( (combineUri uri endpoint), httpMethod = "POST",
-                            headers = [ "Accept", "application/json" ],
-                            body   = TextRequest body
-                            ) 
-
-    let POST uri endpoint body =
-        Http.RequestString ( (combineUri uri endpoint), httpMethod = "POST",
-                            body   = TextRequest body
-                            ) 
-
     let propCount selector json =
         json 
             |> JsonValue.Parse

@@ -1,15 +1,15 @@
 ﻿using System;
 using Caliburn.Micro;
 using ElasticOps.Com;
-using NLog;
-using LogManager = NLog.LogManager;
+using Logary;
+
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class DocumentsInfoViewModel : ClusterConnectedAutorefreashScreen
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private static Logger logger = Logging.GetCurrentLogger();
         public DocumentsInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
         {
@@ -36,7 +36,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
             catch (Exception ex)
             {
-                logger.Warn(ex);
+                logger.WarnException("Error while refreshing data.",ex);
             }
         }
 

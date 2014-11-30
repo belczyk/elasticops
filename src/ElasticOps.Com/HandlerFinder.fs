@@ -3,8 +3,6 @@ open System.Reflection
 open System.Linq
 open System
 
-
-
 module HandlerFinder =
     exception AmbiguousHanlderResolution of string
     exception IllegalOperationMultipleESVersionFromAttributes of string

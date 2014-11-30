@@ -23,8 +23,14 @@ module ElasticOps.Com.ClusterInfo
     let ClusterCounters (command : ClusterCountersCommand) =
         let stats = GET command.ClusterUri "_stats"
    
-        let ic = stats
-                   |> propCount (fun ps -> ps?indices)
+        let ic1 = stats
+                    |> JsonValue.Parse
+                    |> (fun ps -> ps?indices)
+                    |> asPropertyList
+
+        let ic = ic1
+                    |> Seq.filter (fun i -> (fst i).StartsWith("."))
+                    |> Seq.length
                
         let docCount = stats
                         |> JsonValue.Parse
@@ -50,7 +56,11 @@ module ElasticOps.Com.ClusterInfo
                             Name = el?name.AsString(); 
                             Hostname = el?host.AsString(); 
                             HttpAddress = el?http_address.AsString();
-                            CPU = el?os?cpu |> asPropertyList |> asKeyValuePairList;
+                            CPU = el?os |> (fun e -> 
+                                match e.TryGetProperty("cpu") with
+                                | None -> JsonValue.Parse "{}"
+                                | Some cpu -> cpu
+                            ) |> asPropertyList |> asKeyValuePairList;
                             Settings = el?settings?path |> asPropertyList |> asKeyValuePairList;
                             OS = el?os |> asPropertyListOfScalars |> Seq.map humanizeKeys |> asKeyValuePairList;
                         })
