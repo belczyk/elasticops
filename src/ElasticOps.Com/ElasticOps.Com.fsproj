@@ -103,13 +103,6 @@
     <Compile Include="CommandBus.fs" />
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Json.AST\Json.AST.fsproj">
-      <Name>Json.AST</Name>
-      <Project>{631df293-91a6-48e7-a9f0-5fe5a846eed9}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
