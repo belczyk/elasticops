@@ -7,10 +7,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0623f346-37cc-4820-8728-0a9849c52a87</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ElasticOps.Com</RootNamespace>
-    <AssemblyName>ElasticOps.Com</AssemblyName>
+    <RootNamespace>ElasticOps.Commands</RootNamespace>
+    <AssemblyName>ElasticOps.Commands</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <Name>ElasticOps.Com</Name>
+    <Name>ElasticOps.Commands</Name>
     <TargetFrameworkProfile />
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
   </PropertyGroup>

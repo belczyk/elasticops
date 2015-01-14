@@ -401,9 +401,9 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElasticOps.Com\ElasticOps.Com.fsproj">
+    <ProjectReference Include="..\ElasticOps.Commands\ElasticOps.Commands.fsproj">
       <Project>{0623f346-37cc-4820-8728-0a9849c52a87}</Project>
-      <Name>ElasticOps.Com</Name>
+      <Name>ElasticOps.Commands</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
