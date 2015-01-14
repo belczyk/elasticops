@@ -1,0 +1,40 @@
+{
+
+module Lexer
+
+// Opens methods related to fslex.exe
+open Microsoft.FSharp.Text.Lexing
+open Tokens
+open System
+
+let newline (lexbuf: LexBuffer<_>) = 
+  lexbuf.StartPos <- lexbuf.StartPos.NextLine
+
+let lexeme = LexBuffer.LexemeString
+
+}
+
+let char        = ['a'-'z' 'A'-'Z']   
+let digit       = ['0'-'9']   
+let int         = '-'?digit+   
+let float       = '-'?digit+ '.' digit+   
+let identifier  = char(char|digit|['-' '_' '.'])*   
+let whitespace  = [' ' '\t']   
+let newline     = "\n\r" | '\n' | '\r'  
+let boolean = "true" | "false"
+let quote = ['"']
+let string = quote(char(char|digit|'_')*)quote
+
+rule tokenize = parse   
+| whitespace    { tokenize lexbuf }   
+| newline       { lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf; }   
+| int           { INT(Int32.Parse((lexeme lexbuf))) }   
+| float         { DECIMAL(Decimal.Parse(lexeme lexbuf)) }   
+| '{'           { L_C_BRAC }   
+| '}'           { R_C_BRAC }   
+| '['           { L_S_BRAC }   
+| ']'           { R_S_BRAC }   
+| ':'           { SEMICOLON }   
+| boolean       { BOOLEAN(Boolean.Parse(lexeme lexbuf))}   
+| string		{ STRING(lexeme lexbuf)}
+| eof           { EOF }
