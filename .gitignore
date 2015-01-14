@@ -27,7 +27,6 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
-[Bb]in
 [Dd]ebug*/
 *.lib
 *.sbr
@@ -39,3 +38,4 @@ _ReSharper*/
 src/ElasticOps.v2.ncrunchsolution
 src/_NCrunch_ElasticOps
 
+!/src/packages/FsLexYacc.6.0.4/bin/**/*.exe
