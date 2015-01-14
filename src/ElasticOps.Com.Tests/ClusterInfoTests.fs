@@ -41,15 +41,15 @@ let exampleIndexMappingsResponse = """{
       }
    }
 }"""
-let connection = new Connection(new Uri("http://localhost:9200"))
-
-[<Test>]
-let ``ListTypes retrieves all type names``() =
-    let command = new ListTypesCommand(connection,"docs")
-    let commandBus = new CommandBus(new EventAggregator(),clientMock.Setup(fun x -> <@ x.GET(any(),any()) @>).Returns(exampleIndexMappingsResponse).Create())
-
-    let res = commandBus.Execute(command)
-
-    res.Result |> should equal (CList.ofList ["docs";"docs2"])
-
+//let connection = new Connection(new Uri("http://localhost:9200"))
+//
+//[<Test>]
+//let ``ListTypes retrieves all type names``() =
+//    let command = new ListTypesCommand(connection,"docs")
+//    let commandBus = new CommandBus(new EventAggregator(),clientMock.Setup(fun x -> <@ x.GET(any(),any()) @>).Returns(exampleIndexMappingsResponse).Create())
+//
+//    let res = commandBus.Execute(command)
+//
+//    res.Result |> should equal (CList.ofList ["docs";"docs2"])
+//
 

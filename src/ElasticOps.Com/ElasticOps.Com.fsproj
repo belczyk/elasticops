@@ -38,10 +38,6 @@
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Actor">
-      <HintPath>..\packages\FSharp.Actor-logary.2.0.0-beta2\lib\net40\FSharp.Actor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.3.0.0.2\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
