@@ -53,8 +53,14 @@
     <FsLex Include="Lexer.fsl">
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
+    <FsYacc Include="Parser.fsy">
+      <OtherFlags>--module Parser -v</OtherFlags>
+    </FsYacc>
     <Compile Include="Structures.fs" />
     <Compile Include="Lexer.fs" />
+    <None Include="Parser.fsy" />
+    <Compile Include="Parser.fsi" />
+    <Compile Include="Parser.fs" />
     <Compile Include="Processing.fs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 {
 
+//This lexer has been writen with help of "Real world OCaml" book By Yaron Minsky, Anil Madhavapeddy, Jason Hickey (chepter 15)
+
 module Lexer
 
 // Opens methods related to fslex.exe
@@ -7,47 +9,55 @@ open Microsoft.FSharp.Text.Lexing
 open ElasticOps.Parsing.Structures
 open System
 
+exception SyntaxError of string
+
+let lexeme = LexBuffer.LexemeString
+
 let newline (lexbuf: LexBuffer<_>) = 
   lexbuf.StartPos <- lexbuf.StartPos.NextLine
 
-let lexeme = LexBuffer.LexemeString
-/// Converts a string into a list of characters.
-let explode (s:string) =
-    [for c in s -> c]
-
-/// Converts a list of characters into a string.
-let implode (xs:char list) =
-    let sb = System.Text.StringBuilder(xs.Length)
-    xs |> List.iter (sb.Append >> ignore)
-    sb.ToString()
-
-
-let removeQuotes s = s |> explode |> List.tail |> List.rev |> List.tail |> List.rev |> implode
-
 }
 
-let char        = ['a'-'z' 'A'-'Z']   
-let digit       = ['0'-'9']   
-let int         = '-'?digit+   
-let float       = '-'?digit+ '.' digit+   
-let identifier  = char(char|digit|['-' '_' '.'])*   
-let whitespace  = [' ' '\t']   
-let newline     = "\n\r" | '\n' | '\r'  
-let boolean     = "true" | "false"
-let quote       = ['"']
-let string      = quote _* quote
+(* part 1 *)
+let int = '-'? ['0'-'9'] ['0'-'9']*
 
-rule tokenize = parse   
-| whitespace    { tokenize lexbuf }   
-| newline       { lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf; }   
-| int           { INT(Int32.Parse((lexeme lexbuf))) }   
-| float         { DECIMAL(Decimal.Parse(lexeme lexbuf)) }   
-| '{'           { L_C_BRAC }   
-| '}'           { R_C_BRAC }   
-| '['           { L_S_BRAC }   
-| ']'           { R_S_BRAC }   
-| ':'           { SEMICOLON }   
-| ','           { COMMA }   
-| boolean       { BOOLEAN(Boolean.Parse(lexeme lexbuf))}   
-| string		{ STRING(removeQuotes(lexeme lexbuf))}
-| eof           { EOF }
+(* part 2 *)
+let digit = ['0'-'9']
+let frac = '.' digit*
+let exp = ['e' 'E'] ['-' '+']? digit+
+let float = digit* frac? exp?
+
+(* part 3 *)
+let white = [' ' '\t']+
+let newline = '\r' | '\n' | "\r\n"
+let id = ['a'-'z' 'A'-'Z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
+
+(* part 4 *)
+rule read =
+  parse
+  | white    { read lexbuf }
+  | newline  { newline lexbuf; read lexbuf }
+  | int      { INT (Int32.Parse(lexeme lexbuf)) }
+  | float    { FLOAT (float (lexeme lexbuf)) }
+  | "true"   { TRUE }
+  | "false"  { FALSE }
+  | "null"   { NULL }
+  | '"'      { read_string "" false lexbuf} 
+  | '{'      { LEFT_BRACE }
+  | '}'      { RIGHT_BRACE }
+  | '['      { LEFT_BRACK }
+  | ']'      { RIGHT_BRACK }
+  | ':'      { COLON }
+  | ','      { COMMA }
+  | _ { raise (SyntaxError ("Unexpected char: " ^ lexeme lexbuf)) }
+  | eof      { EOF }
+
+(* part 5 *)
+and read_string str ignorequote =
+  parse
+  | '"' { if ignorequote  then (read_string (str+"\\\"") false lexbuf) else STRING (str) }
+  | '\\'  { read_string str true lexbuf}
+  | [^ '"' '\\']+
+    { read_string (str+(lexeme lexbuf)) false lexbuf}
+  | _ { raise (SyntaxError ("Illegal string character: " ^ (lexeme lexbuf))) }
+  | eof { raise (SyntaxError ("String is not terminated")) }

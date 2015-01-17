@@ -1,28 +1,27 @@
 ﻿module ElasticOps.Parsing.Structures
-open System 
 
 
-type Tokens = 
-    | INT of int
-    | DECIMAL of decimal
-    | STRING of String
-    | BOOLEAN of bool
-    | COMMA
-    | L_S_BRAC 
-    | R_S_BRAC
-    | L_C_BRAC
-    | R_C_BRAC
-    | SEMICOLON
-    | EOF
+type token =
+  | NULL
+  | TRUE
+  | FALSE
+  | STRING of string
+  | INT of int
+  | FLOAT of float
+  | ID of string
+  | LEFT_BRACK
+  | RIGHT_BRACK
+  | LEFT_BRACE
+  | RIGHT_BRACE
+  | COMMA
+  | COLON
+  | EOF
 
-    
-type  Property = {Name : String; Value : Values; } 
-and Values =
-    | Decimal of decimal
-    | Bool of bool
-    | String of string
-    | Int of int
-    | Assoc of Property list
-    | List of Values list
-
-
+type jsonValue = 
+  | Assoc of (string * jsonValue) list
+  | Bool of bool
+  | Float of float
+  | Int of int
+  | List of jsonValue list
+  | Null
+  | String of string
