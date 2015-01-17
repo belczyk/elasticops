@@ -9,6 +9,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Commands", "Elas
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Parsing", "ElasticOps.Parsing\ElasticOps.Parsing.fsproj", "{E9EF6FBA-1DFD-4020-9CAF-F77111C0BFDF}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Parsing.Tests", "ElasticOps.Parsing.Tests\ElasticOps.Parsing.Tests.fsproj", "{F897800A-CA28-470D-9697-563D95B8C98C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Build|Any CPU = Build|Any CPU
@@ -34,6 +36,12 @@ Global
 		{E9EF6FBA-1DFD-4020-9CAF-F77111C0BFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9EF6FBA-1DFD-4020-9CAF-F77111C0BFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9EF6FBA-1DFD-4020-9CAF-F77111C0BFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F897800A-CA28-470D-9697-563D95B8C98C}.Build|Any CPU.ActiveCfg = Release|Any CPU
+		{F897800A-CA28-470D-9697-563D95B8C98C}.Build|Any CPU.Build.0 = Release|Any CPU
+		{F897800A-CA28-470D-9697-563D95B8C98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F897800A-CA28-470D-9697-563D95B8C98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F897800A-CA28-470D-9697-563D95B8C98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F897800A-CA28-470D-9697-563D95B8C98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

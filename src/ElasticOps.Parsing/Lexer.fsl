@@ -4,13 +4,25 @@ module Lexer
 
 // Opens methods related to fslex.exe
 open Microsoft.FSharp.Text.Lexing
-open Tokens
+open ElasticOps.Parsing.Structures
 open System
 
 let newline (lexbuf: LexBuffer<_>) = 
   lexbuf.StartPos <- lexbuf.StartPos.NextLine
 
 let lexeme = LexBuffer.LexemeString
+/// Converts a string into a list of characters.
+let explode (s:string) =
+    [for c in s -> c]
+
+/// Converts a list of characters into a string.
+let implode (xs:char list) =
+    let sb = System.Text.StringBuilder(xs.Length)
+    xs |> List.iter (sb.Append >> ignore)
+    sb.ToString()
+
+
+let removeQuotes s = s |> explode |> List.tail |> List.rev |> List.tail |> List.rev |> implode
 
 }
 
@@ -21,9 +33,9 @@ let float       = '-'?digit+ '.' digit+
 let identifier  = char(char|digit|['-' '_' '.'])*   
 let whitespace  = [' ' '\t']   
 let newline     = "\n\r" | '\n' | '\r'  
-let boolean = "true" | "false"
-let quote = ['"']
-let string = quote(char(char|digit|'_')*)quote
+let boolean     = "true" | "false"
+let quote       = ['"']
+let string      = quote _* quote
 
 rule tokenize = parse   
 | whitespace    { tokenize lexbuf }   
@@ -35,6 +47,7 @@ rule tokenize = parse
 | '['           { L_S_BRAC }   
 | ']'           { R_S_BRAC }   
 | ':'           { SEMICOLON }   
+| ','           { COMMA }   
 | boolean       { BOOLEAN(Boolean.Parse(lexeme lexbuf))}   
-| string		{ STRING(lexeme lexbuf)}
+| string		{ STRING(removeQuotes(lexeme lexbuf))}
 | eof           { EOF }
