@@ -56,6 +56,9 @@
     <Compile Include="ParsingTests.fs" />
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="hugeJson.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">

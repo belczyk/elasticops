@@ -41,9 +41,9 @@ object_fields: rev_object_fields { List.rev $1 };
 
 rev_object_fields:
   | { [] }
-  | rev_object_fields COMMA ID COLON value
+  | STRING COLON value {[($1,$3)]}
+  | rev_object_fields COMMA STRING COLON value
     { ($3, $5) :: $1 }
-
 
 array_values:
   | { [] }
