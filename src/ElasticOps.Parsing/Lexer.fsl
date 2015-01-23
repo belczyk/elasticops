@@ -8,6 +8,7 @@ module Lexer
 open Microsoft.FSharp.Text.Lexing
 open ElasticOps.Parsing.Structures
 open System
+open Parser
 
 exception SyntaxError of string
 
@@ -25,7 +26,7 @@ let int = '-'? ['0'-'9'] ['0'-'9']*
 let digit = ['0'-'9']
 let frac = '.' digit*
 let exp = ['e' 'E'] ['-' '+']? digit+
-let float = digit* frac? exp?
+let float = '-'? digit* frac? exp?
 
 (* part 3 *)
 let white = [' ' '\t']+

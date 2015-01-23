@@ -168,7 +168,7 @@ let _fsyacc_immediateActions = [|65535us; 49152us; 16385us; 16386us; 16387us; 65
 let _fsyacc_reductions ()  =    [| 
 # 169 "Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
-            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : ElasticOps.Parsing.Structures.jsonValue option)) in
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : ElasticOps.Parsing.Structures.JsonValue option)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
@@ -185,7 +185,7 @@ let _fsyacc_reductions ()  =    [|
                                     _1 
                    )
 # 24 "Parser.fsy"
-                 : ElasticOps.Parsing.Structures.jsonValue option));
+                 : ElasticOps.Parsing.Structures.JsonValue option));
 # 189 "Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
@@ -405,5 +405,5 @@ let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> =
     numTerminals = 17;
     productionToNonTerminalTable = _fsyacc_productionToNonTerminalTable  }
 let engine lexer lexbuf startState = (tables ()).Interpret(lexer, lexbuf, startState)
-let start lexer lexbuf : ElasticOps.Parsing.Structures.jsonValue option =
+let start lexer lexbuf : ElasticOps.Parsing.Structures.JsonValue option =
     Microsoft.FSharp.Core.Operators.unbox ((tables ()).Interpret(lexer, lexbuf, 0))

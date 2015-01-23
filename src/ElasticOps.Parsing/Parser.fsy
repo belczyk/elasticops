@@ -18,7 +18,7 @@ open ElasticOps.Parsing.Structures
 %token COLON
 %token COMMA
 %token EOF
-%type <ElasticOps.Parsing.Structures.jsonValue option> start
+%type <ElasticOps.Parsing.Structures.JsonValue option> start
 
 %%
 start: prog {  $1 }

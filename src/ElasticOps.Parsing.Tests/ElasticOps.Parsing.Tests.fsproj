@@ -59,6 +59,9 @@
     <None Include="hugeJson.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="randomComplexTestsJson.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">
