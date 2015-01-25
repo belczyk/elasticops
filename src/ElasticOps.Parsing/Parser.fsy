@@ -1,5 +1,6 @@
 ﻿%{
 open ElasticOps.Parsing.Structures
+
 %}
 
 %start start
@@ -8,6 +9,7 @@ open ElasticOps.Parsing.Structures
 %token <float> FLOAT
 %token <string> ID
 %token <string> STRING
+%token <string> UNTERMINATED_STRING
 %token TRUE
 %token FALSE
 %token NULL
@@ -18,37 +20,45 @@ open ElasticOps.Parsing.Structures
 %token COLON
 %token COMMA
 %token EOF
+
 %type <ElasticOps.Parsing.Structures.JsonValue option> start
 
 %%
 start: prog {  $1 }
 
 prog:
-  | EOF       { None }
+  | EOF   { None }
   | value { Some $1 }
 
 value:
-  | LEFT_BRACE object_fields RIGHT_BRACE { ElasticOps.Parsing.Structures.Assoc $2 }
-  | LEFT_BRACK array_values RIGHT_BRACK { ElasticOps.Parsing.Structures.List $2 }
-  | STRING { ElasticOps.Parsing.Structures.String $1 }
-  | INT { ElasticOps.Parsing.Structures.Int $1 }
-  | FLOAT { ElasticOps.Parsing.Structures.Float $1 }
-  | TRUE { ElasticOps.Parsing.Structures.Bool true }
-  | FALSE { ElasticOps.Parsing.Structures.Bool false }
-  | NULL { ElasticOps.Parsing.Structures.Null }
+  | LEFT_BRACE object_fields RIGHT_BRACE { Assoc $2 }
+  | LEFT_BRACE object_fields             { Assoc $2 }
+  | LEFT_BRACK array_values RIGHT_BRACK  { List $2 }
+  | LEFT_BRACK array_values              { List $2 }
+  | STRING                               { String $1 }
+  | INT                                  { Int $1 }
+  | FLOAT                                { Float $1 }
+  | TRUE                                 { Bool true }
+  | FALSE                                { Bool false }
+  | NULL                                 { Null }
 
 object_fields: rev_object_fields { List.rev $1 };
 
 rev_object_fields:
-  | { [] }
-  | STRING COLON value {[($1,$3)]}
-  | rev_object_fields COMMA STRING COLON value
-    { ($3, $5) :: $1 }
+  |                                            { [] }
+  | STRING COLON value                         { [($1,$3)] }
+  | STRING COLON                               { [($1, Colon)] }
+  | STRING                                     { [($1, Missing)] }
+  | rev_object_fields COMMA STRING COLON value { ($3, $5) :: $1 }
+  | rev_object_fields COMMA                    { $1 }
+  | rev_object_fields COMMA STRING             { ($3,Missing) :: $1 }
+  | rev_object_fields COMMA STRING COLON       { ($3,Colon) :: $1 }
 
 array_values:
-  | { [] }
-  | rev_values { List.rev $1 }
+  |                  { [] }
+  | rev_values       { List.rev $1 }
+  | rev_values COMMA { List.rev $1 }
 
 rev_values:
-  | value { [$1] }
+  | value                  { [$1] }
   | rev_values COMMA value { $3 :: $1 }
