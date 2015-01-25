@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:shb="clr-namespace:AurelienRibon.Ui.SyntaxHighlightBox;assembly=AurelienRibon.Ui.SyntaxHighlightBox">
 
     <Style TargetType="{x:Type controls:Tile}">
 
@@ -27,5 +28,9 @@
     </Style>
     <BitmapImage x:Key="paste_icon"
                  UriSource="/Resources/Icons/paste.png" />
+
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="#252525"></Setter>
+    </Style>
 
 </ResourceDictionary>

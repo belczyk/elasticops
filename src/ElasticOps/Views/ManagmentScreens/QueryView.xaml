@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:shb="clr-namespace:AurelienRibon.Ui.SyntaxHighlightBox;assembly=AurelienRibon.Ui.SyntaxHighlightBox"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
@@ -14,14 +15,15 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-    
-            <GridSplitter Grid.Column="1"
+        <shb:SyntaxHighlightBox IsLineNumbersMarginVisible="True" x:Name="query" Grid.Column="0"  Margin="0" />
+        <GridSplitter Grid.Column="1"
                       ResizeDirection="Columns"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       ResizeBehavior="PreviousAndNext"
                       Background="#43671E"
                       x:Name="ResponseEditor"></GridSplitter>
+        <shb:SyntaxHighlightBox IsLineNumbersMarginVisible="True" x:Name="result" Grid.Column="2" Margin="0" />
 
     </Grid>
 </UserControl>
