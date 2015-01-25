@@ -17,27 +17,34 @@ let newline (lexbuf: LexBuffer<_>) =
 }
 
 let int = ['-' '+']? ['0'-'9']+
-let emptyint = '-' | '+'
 let digit = ['0'-'9']
-let frac = '.' digit*
+let frac = '.' digit+
 let exp = ['e' 'E'] ['-' '+']? digit+
-let float = '-'? digit* frac? exp?
+let float = ['-' '+']? digit+ frac? exp?
 
 let white = [' ' '\t']+
 let newline = '\r' | '\n' | "\r\n"
 let id = ['a'-'z' 'A'-'Z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
-let true = 't' | "tr" | "tru" | "true"
-let false = 'f' | "fa" | "fal" | "fals" | "false"
+let u_true = 't' | "tr" | "tru" 
+let u_false = 'f' | "fa" | "fal" | "fals" 
+let u_int = '-' | '+'
+let u_float = ['-' '+']? digit+ '.' digit* ['e' 'E']? ['+' '-']? digit*
+let u_null = 'n' | "nu" | "nul"
+
 rule read =
   parse
   | white    { read lexbuf }
   | newline  { newline lexbuf; read lexbuf }
   | int      { INT (Int32.Parse(lexeme lexbuf)) }
-  | emptyint { INT (0) }
+  | u_int    { UNFINISHED_VALUE(lexeme lexbuf, TInt) }
   | float    { FLOAT (float (lexeme lexbuf)) }
-  | true     { TRUE }
-  | false    { FALSE }
+  | u_float  { UNFINISHED_VALUE(lexeme lexbuf, TFloat) }
+  | "true"   { TRUE }
+  | "false"  { FALSE }
+  | u_true   { UNFINISHED_VALUE(lexeme lexbuf, TBool) }
+  | u_false  { UNFINISHED_VALUE(lexeme lexbuf, TBool) }
   | "null"   { NULL }
+  | u_null   { UNFINISHED_VALUE(lexeme lexbuf, TNull) }
   | '"'      { read_string "" false lexbuf }
   | '{'      { LEFT_BRACE }
   | '}'      { RIGHT_BRACE }

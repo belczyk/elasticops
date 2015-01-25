@@ -22,17 +22,59 @@ let ``parse values ``() =
     "\"abc\"" |> parse |> should equal (Some(JsonValue.String("abc")))
 
 [<Test>]
-let ``parse partial true value``() = 
-    "t"  |> parse |> should equal (Some(JsonValue.Bool(true)))
-    "tr"  |> parse |> should equal (Some(JsonValue.Bool(true)))
-    "tru"  |> parse |> should equal (Some(JsonValue.Bool(true)))
+[<TestCase("t")>]
+[<TestCase("tr")>]
+[<TestCase("tru")>]
+let ``parse partial true value``(case) = 
+    case  |> parse |> should equal (Some(JsonValue.UnfinishedValue(case,JsonValueType.TBool)))
 
 [<Test>]
-let ``parse partial false value``() = 
-    "f"  |> parse |> should equal (Some(JsonValue.Bool(false)))
-    "fa"  |> parse |> should equal (Some(JsonValue.Bool(false)))
-    "fal"  |> parse |> should equal (Some(JsonValue.Bool(false)))
-    "fals"  |> parse |> should equal (Some(JsonValue.Bool(false)))
+[<TestCase("f")>]
+[<TestCase("fa")>]
+[<TestCase("fal")>]
+[<TestCase("fals")>]
+let ``parse partial false value``(case) = 
+    case  |> parse |> should equal (Some(JsonValue.UnfinishedValue(case,JsonValueType.TBool)))
+
+[<Test>]
+[<TestCase("n")>]
+[<TestCase("nu")>]
+[<TestCase("nul")>]
+let ``parse partial null value`` (case) = 
+    case  |> parse |> should equal (Some(JsonValue.UnfinishedValue(case,JsonValueType.TNull)))
+
+[<Test>]
+[<TestCase("+")>]
+[<TestCase("-")>]
+let ``parse partial int value`` (case) =
+    case  |> parse |> should equal (Some(JsonValue.UnfinishedValue(case,JsonValueType.TInt)))
+    
+[<Test>]
+[<TestCase("0.")>]
+[<TestCase("-1.")>]
+[<TestCase("+1.")>]
+[<TestCase("-12.")>]
+[<TestCase("+12.")>]
+[<TestCase("+12.1e")>]
+[<TestCase("-12.2E")>]
+[<TestCase("12.2E")>]
+[<TestCase("12.2e")>]
+[<TestCase("-12.2E+")>]
+[<TestCase("-12.2E-")>]
+[<TestCase("-12.1e-")>]
+[<TestCase("-12.1e+")>]
+[<TestCase("+12.2E+")>]
+[<TestCase("+12.2E-")>]
+[<TestCase("+12.1e-")>]
+[<TestCase("+12.1e+")>]
+[<TestCase("12.2E+")>]
+[<TestCase("12.2E-")>]
+[<TestCase("12.1e-")>]
+[<TestCase("12.1e+")>]
+let ``parser partial float`` (case) =
+    case  |> parse |> should equal (Some(JsonValue.UnfinishedValue(case,JsonValueType.TFloat)))
+    
+    
 
 [<Test>]
 let ``parse simple objects`` () =

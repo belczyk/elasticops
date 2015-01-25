@@ -12,7 +12,6 @@ let tokenizeAll (lexbuf : LexBuffer<char>) =
         | _ -> List.rev res
     tokenize lexbuf []
 
-
 let parse json = 
     let lexbuf = LexBuffer<char>.FromString json
     let res = Parser.start Lexer.read lexbuf

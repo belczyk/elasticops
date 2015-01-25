@@ -19,6 +19,7 @@ open ElasticOps.Parsing.Structures
 %token RIGHT_BRACK
 %token COLON
 %token COMMA
+%token <string * ElasticOps.Parsing.Structures.JsonValueType> UNFINISHED_VALUE
 %token EOF
 
 %type <ElasticOps.Parsing.Structures.JsonValue option> start
@@ -41,6 +42,7 @@ value:
   | TRUE                                 { Bool true }
   | FALSE                                { Bool false }
   | NULL                                 { Null }
+  | UNFINISHED_VALUE                     { UnfinishedValue $1 }
 
 object_fields: rev_object_fields { List.rev $1 };
 

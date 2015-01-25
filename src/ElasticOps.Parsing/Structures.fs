@@ -10,7 +10,7 @@ type JsonValue =
   | String of string
   | Missing
   | Colon
-
+  | UnfinishedValue of string * JsonValueType
 
   //below function is not important, it simply prints values 
   override x.ToString() = 
@@ -30,3 +30,18 @@ type JsonValue =
                                |> List.map (fun value -> value.ToString()) 
                                |> String.concat ","
                                |> sprintf "List(%s)"
+            | UnfinishedValue (s,t) -> sprintf "Unfinished_%s(%s)" (t.ToString()) s
+and JsonValueType =
+    | TBool
+    | TFloat
+    | TInt
+    | TString
+    | TNull
+    override x.ToString() = 
+        match x with 
+        | TBool -> "Bool"
+        | TFloat -> "Float"
+        | TInt -> "Int"
+        | TString -> "String"
+        | TNull -> "Null"
+
