@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AurelienRibon.Ui.SyntaxHighlightBox">
-      <HintPath>..\External\SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.dll</HintPath>
+      <HintPath>..\AurelienRibon.Ui.SyntaxHighlightBox\bin\Debug\AurelienRibon.Ui.SyntaxHighlightBox.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

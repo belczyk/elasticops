@@ -11,15 +11,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Parsing", "Elast
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Parsing.Tests", "ElasticOps.Parsing.Tests\ElasticOps.Parsing.Tests.fsproj", "{F897800A-CA28-470D-9697-563D95B8C98C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{EBCBE901-32DF-48D0-A879-C41CBA7CE155}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyntaxHighlightBox", "SyntaxHighlightBox", "{1D9B854B-EFB3-42BF-B034-F37F0A79A587}"
-	ProjectSection(SolutionItems) = preProject
-		External\SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.dll = External\SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.dll
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurelienRibon.Ui.SyntaxHighlightBox", "AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj", "{10A9ECD3-AE1E-494D-9A27-8A32DD581759}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Build|Any CPU = Build|Any CPU
@@ -51,17 +42,8 @@ Global
 		{F897800A-CA28-470D-9697-563D95B8C98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F897800A-CA28-470D-9697-563D95B8C98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F897800A-CA28-470D-9697-563D95B8C98C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Build|Any CPU.ActiveCfg = Release|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Build|Any CPU.Build.0 = Release|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1D9B854B-EFB3-42BF-B034-F37F0A79A587} = {EBCBE901-32DF-48D0-A879-C41CBA7CE155}
 	EndGlobalSection
 EndGlobal

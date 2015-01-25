@@ -15,7 +15,6 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        <shb:SyntaxHighlightBox IsLineNumbersMarginVisible="True" x:Name="query" Grid.Column="0"  Margin="0" />
         <GridSplitter Grid.Column="1"
                       ResizeDirection="Columns"
                       HorizontalAlignment="Stretch"
@@ -23,7 +22,6 @@
                       ResizeBehavior="PreviousAndNext"
                       Background="#43671E"
                       x:Name="ResponseEditor"></GridSplitter>
-        <shb:SyntaxHighlightBox IsLineNumbersMarginVisible="True" x:Name="result" Grid.Column="2" Margin="0" />
 
     </Grid>
 </UserControl>
