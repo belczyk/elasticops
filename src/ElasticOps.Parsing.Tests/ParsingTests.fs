@@ -4,7 +4,7 @@ open NUnit.Framework
 open FsUnit
 open ElasticOps.Parsing.Structures
 open ElasticOps.Parsing.Processing  
-
+open System.IO
 
 let countSubstring (where :string) (what : string) =
     match what with
@@ -116,7 +116,7 @@ let ``parse complex objects`` () =
 
 [<Test>]
 let ``parse huge json in less then half seconds`` () =
-    let json = System.IO.File.ReadAllText "hugeJson.json"
+    let json = File.ReadAllText "hugeJson.json"
 
     let stopWatch = System.Diagnostics.Stopwatch.StartNew()
     json |> parse |> ignore
@@ -128,7 +128,7 @@ let ``parse huge json in less then half seconds`` () =
 
 [<Test>]
 let ``parse random complex json without parse error`` () =
-    let json = System.IO.File.ReadAllText "randomComplexTestsJson.json"
+    let json = File.ReadAllText "randomComplexTestsJson.json"
 
     json |> parse |> ignore
 
@@ -216,19 +216,57 @@ let ``can parse json terminated after colon`` () =
 [<Test>]
 let ``can parse json terminated in a random place`` () = 
     let rnd = System.Random(System.DateTime.Now.Millisecond)
-    let json = System.IO.File.ReadAllText "randomComplexTestsJson.json"
+    let json = File.ReadAllText "randomComplexTestsJson.json"
     let lines = json.Split('\n') 
     let lineCount = lines |> Seq.length
+    let watch = System.Diagnostics.Stopwatch.StartNew()
 
-    for i in [1..1000] do
-        let lineNum = rnd.Next(2,lineCount)
-        let line = Seq.nth lineNum lines
-        let lineLen = String.length line
-        let columnNum = rnd.Next(0,lineLen)
-        let fullLines = lines |> Seq.take (lineNum-1)
-        let json = (String.concat "\n" fullLines) + line.Substring(0,columnNum)
+    let testAsync (i) = 
+        async {
+                let lineNum = rnd.Next(2,lineCount)
+                let line = Seq.nth lineNum lines
+                let lineLen = String.length line
+                let columnNum = rnd.Next(0,lineLen)
+                let fullLines = lines |> Seq.take (lineNum-1)
+                let json = (String.concat "\n" fullLines) + line.Substring(0,columnNum)
 
-        try 
-            json |> parse  |> ignore
-        with 
-        | e -> Assert.Fail ("Parser error for JSON: " + json)
+                try 
+                    json |> parse  |> ignore
+                with 
+                | e -> Assert.Fail ("Parser error for JSON: " + json)
+        }
+
+    [1..1000] |> Seq.map testAsync |> Async.Parallel |> Async.RunSynchronously |> ignore
+
+
+    watch.Stop()
+    printfn "total time [ms]: %d" watch.ElapsedMilliseconds
+
+    //fool test runner to not ignore this test
+    Assert.True true
+
+[<Test>]
+let ``can parse json terminated at any point`` () =
+    let json = @"{""b1"": true,""b2"": false,""abs"": [ true, false ],""nu"": null,""ans"": [ null, null ],""in"": -12,""ais"": [ -12, 1 ],""fl"": -123.23E-12,""afs"": [ -123.23E-12, +123.23E-12],""st"": ""st fa\"" f\"" f"",""ass"": [ ""str"", ""fas"", ""\"" f"" ]}"
+
+    let watch = System.Diagnostics.Stopwatch.StartNew()
+
+    let testAsync i = 
+        async {
+            let subJson = json.Substring(0,i);
+            try
+                subJson |> parse |> ignore
+            with
+            | e -> Assert.Fail ("Parser error for JSON: " + json)
+        }
+
+    [1..(json.Length-1)] |> Seq.map testAsync |> Async.Parallel |> Async.RunSynchronously |> ignore
+
+    watch.Stop()
+
+    printfn "total time [ms]: %d" watch.ElapsedMilliseconds
+    //fool test runner to not ignore this test
+    Assert.True true
+        
+
+        
