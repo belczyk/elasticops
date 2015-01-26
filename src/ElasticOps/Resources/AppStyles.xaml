@@ -29,8 +29,5 @@
     <BitmapImage x:Key="paste_icon"
                  UriSource="/Resources/Icons/paste.png" />
 
-    <Style TargetType="TextBox">
-        <Setter Property="Background" Value="#252525"></Setter>
-    </Style>
 
 </ResourceDictionary>
