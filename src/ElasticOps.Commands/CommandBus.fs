@@ -4,13 +4,10 @@ open System.Reflection
 open System.Linq
 open ElasticOps.Com
 open Caliburn.Micro
-open Logary
-open System.Collections.Generic
 
-type CommandBus(eventAggregator : IEventAggregator) =
+type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
     let eventAggregator = eventAggregator
 
-    let logger = Logging.getCurrentLogger()
 
     member private  this.executeMethod<'TResult when 'TResult : null> (m : MethodInfo) (command : Command<'TResult>) =
         try 
@@ -19,13 +16,12 @@ type CommandBus(eventAggregator : IEventAggregator) =
             new CommandResult<'TResult> (result :?> 'TResult)
         with 
             | ex ->
-                logger.Log <| LogLine.create''' "Error occured while executing command." (new Dictionary<string,Object>()) LogLevel.Error [||] "" ex NodaTime.SystemClock.Instance.Now
                 match ex.InnerException with
                 | null -> 
-                    eventAggregator.Publish (new ErrorOccuredEvent(ex.Message))
+                    eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.Message))
                     new CommandResult<'TResult>(ex.Message)
                 | inner -> 
-                    eventAggregator.Publish (new ErrorOccuredEvent(ex.InnerException.Message))
+                    eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.InnerException.Message))
                     new CommandResult<'TResult>(ex.InnerException.Message)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =
@@ -45,5 +41,5 @@ type CommandBus(eventAggregator : IEventAggregator) =
             | Some m -> (this.executeMethod<'TResult> m command)
             | None -> 
                 let msg = String.Format("Handler for {0} not found.",requestedType.Name)
-                eventAggregator.Publish(new ErrorOccuredEvent(msg))
+                eventAggregator.PublishOnUIThread(new ErrorOccuredEvent(msg))
                 new CommandResult<'TResult>(msg)

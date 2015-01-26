@@ -18,8 +18,6 @@ module CList =
 
 [<AutoOpen>]
 module REST =
-    open Logary 
-    let logger = Logging.getCurrentLogger()
 
     let GET' = "GET"
     let POST' = "POST"
@@ -32,19 +30,16 @@ module REST =
 
     let GET uri endpoint =
         let url = combineUri uri endpoint
-        Log.info "request" [("Uri", url);("Verb", GET')] |> logger.Log
         Http.RequestString  url 
 
     let POSTJson uri endpoint body =
         let url = combineUri uri endpoint 
-        Log.info "request" [("uri", url);("verb", POST'); ("body",body)]  |> logger.Log
         Http.RequestString ( url, httpMethod = "POST",
                             headers = [ "Accept", "application/json" ],
                             body   = TextRequest body )
 
     let POST uri endpoint body =
         let url = (combineUri uri endpoint)
-        Log.info "request"  [("uri", url);("verb", POST'); ("body",body)]  |> logger.Log
         Http.RequestString ( url , httpMethod = "POST",
                             body   = TextRequest body )
 

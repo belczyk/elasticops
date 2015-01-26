@@ -18,7 +18,7 @@ namespace ElasticOps.ViewModels
 
         private void LoadSettingsPages()
         {
-            var userSettings = AppBootstrapper.GetAllInstances<UserSettings>().OrderByPriority();
+            var userSettings = ElasticOps.AppBootstrapper.GetAllInstances<UserSettings>().OrderByPriority();
 
             foreach (var us in userSettings)
             {

@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -160,8 +158,9 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                dynamic obj = JObject.Parse(response);
-                return JsonConvert.SerializeObject(obj,Formatting.Indented);
+                //dynamic obj = JObject.Parse(response);
+                //return JsonConvert.SerializeObject(obj,Formatting.Indented);
+                return null;
             }
             catch
             {

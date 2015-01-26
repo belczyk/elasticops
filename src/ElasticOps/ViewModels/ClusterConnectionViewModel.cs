@@ -17,7 +17,7 @@ namespace ElasticOps.ViewModels
             observable.Subscribe((o) =>
             {
                 if (settings.Connection.IsConnected)
-                    eventAggregator.Publish(new RefreashEvent());
+                    eventAggregator.PublishOnUIThread(new RefreashEvent());
             });
             ClusterUri = "http://localhost:9200";
         }

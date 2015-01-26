@@ -49,6 +49,7 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <Import Project="..\packages\FsLexYacc.6.0.4\bin\FsLexYacc.targets" />
+
   <ItemGroup>
     <FsLex Include="Lexer.fsl">
       <OtherFlags>--unicode</OtherFlags>

@@ -1,59 +1,40 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
+using System.Windows;
 using Autofac;
+using Autofac.Core;
 using Caliburn.Micro;
+using Caliburn.Micro.Autofac;
 using ElasticOps.Com;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
-using Logary.Configuration;
-using Logary.Targets;
-using Console = System.Console;
-using Logary;
-using TextWriter = Logary.Targets.TextWriter;
 
 namespace ElasticOps
 {
-    public class AppBootstrapper : Bootstrapper<ShellViewModel>
+    public class AppBootstrapper : AutofacBootstrapper<ShellViewModel>
     {
-        public static IContainer Container { get; private set; }
-
-        protected override void Configure()
+        private static IContainer AContainer { get; set; }
+        public AppBootstrapper()
         {
-            ConfigureContainer();
-            ConfigureLogger();
-
-            var logger = Logging.GetCurrentLogger();
-
-            logger.Info("ElasticOps starts.");
+            Initialize();
+            AContainer = Container;
         }
 
-        private void ConfigureLogger()
+        public static IEnumerable<T> GetAllInstances<T>()
         {
-            
-            LogaryFactory.New("ElasticOps",
-                with => with.Target<TextWriter.Builder>(
-                    "console1",
-                    conf =>
-                    conf.Target.WriteTo(File.CreateText("log.log"), File.CreateText("log-err.log"))
-                        .MinLevel(LogLevel.Info)
-                        .AcceptIf(line => true)
-                        .SourceMatching(new Regex(".*"))
-                    )
-                    .Target<Debugger.Builder>("debugger")
-                    .Target<Logstash.Builder>("logstash")
-                );
-
+            return AContainer.Resolve<IEnumerable<T>>();
         }
 
-        private void ConfigureContainer()
+        public static T GetInstance<T>()
         {
+            return AContainer.Resolve<T>();
+        }
 
-            var builder = new ContainerBuilder();
+        protected override void ConfigureContainer(ContainerBuilder builder)
+        {
             builder.RegisterType<WindowManager>().As<IWindowManager>();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
@@ -79,46 +60,19 @@ namespace ElasticOps
 
             builder.RegisterType<Infrastructure>().AsSelf();
 
-            Container = builder.Build();
-
-            
         }
-        protected override object GetInstance(System.Type service, string key)
+
+        protected override void ConfigureBootstrapper()
         {
-            object instance;
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                if (Container.TryResolve(service, out instance))
-                    return instance;
-            }
-            else
-            {
-                if (Container.TryResolveNamed(key, service, out instance))
-                    return instance;
-            }
-            throw new Exception(string.Format("Could not locate any instances of contract {0}.", key ?? service.Name));
+            base.ConfigureBootstrapper();
+            EnforceNamespaceConvention = false;
         }
 
-        protected override IEnumerable<object> GetAllInstances(Type service)
+        protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            return Container.Resolve(typeof(IEnumerable<>).MakeGenericType(service)) as IEnumerable<object>;
+            DisplayRootViewFor<ShellViewModel>();
         }
-
-        protected override void BuildUp(object instance)
-        {
-            Container.InjectProperties(instance);
-        }
-
-        public static IEnumerable<T> GetAllInstances<T>()
-        {
-            return Container.Resolve(typeof(IEnumerable<>).MakeGenericType(typeof(T))) as IEnumerable<T>;
-        }
-
-        public static T GetInstance<T>()
-        {
-            return Container.Resolve<T>();
-        }
-
     }
+
 }
 

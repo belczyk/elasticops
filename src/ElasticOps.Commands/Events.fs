@@ -6,4 +6,4 @@ type ErrorOccuredEvent(msg) =
 
 type RefreashEvent() = class end
 
-type GoToStudioEvent() = class end
+type GoToStudioEvent() = class end  

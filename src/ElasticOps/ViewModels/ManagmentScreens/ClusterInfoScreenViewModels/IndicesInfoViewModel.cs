@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
-using Logary;
 
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
-        private static Logger logger = Logging.GetCurrentLogger();
 
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
         public IObservableCollection<IndexInfoViewModel> IndicesInfo { get; set; }
@@ -36,7 +34,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
             catch (Exception ex)
             {
-                logger.WarnException("Error while refreashing data", ex);
             }
         }
 
