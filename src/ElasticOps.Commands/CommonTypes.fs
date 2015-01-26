@@ -76,7 +76,7 @@ type Connection(clusterUri : Uri) =
             let statusRes = statusReq.GetResponse()
             let stream = statusRes.GetResponseStream()
             let reader = new System.IO.StreamReader(stream)
-            let response = JsonValue.Parse (reader.ReadToEnd(),null)
+            let response = JsonValue.Parse (reader.ReadToEnd())
 
             match response?status.AsString() with
                 | "200" -> Some (Version.FromString(response?version?number.AsString()))
@@ -98,7 +98,7 @@ type Connection(clusterUri : Uri) =
             if not uncheckedUri then
                 isConnected
             else
-                match getVersion(uri,None) with 
+                match getVersion(uri) with 
                     | Some v -> version <- v
                                 isConnected <- true
                                 uncheckedUri <- false
