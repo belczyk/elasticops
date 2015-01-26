@@ -67,6 +67,9 @@
     <Reference Include="Humanizer">
       <HintPath>..\packages\Humanizer.1.33.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=0.13.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -109,8 +112,10 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
+    <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
-    <Compile Include="Controls\CodeEditor.xaml.cs">
+    <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
+    <Compile Include="Views\Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure.cs" />
@@ -175,7 +180,7 @@
     <Compile Include="Views\TypesListView.xaml.cs">
       <DependentUpon>TypesListView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\CodeEditor.xaml">
+    <Page Include="Views\Controls\CodeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,6 +343,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="JavaScript.xshd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

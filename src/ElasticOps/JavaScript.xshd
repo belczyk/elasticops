@@ -1,0 +1,46 @@
+﻿<?xml version="1.0"?>
+<!-- syntaxdefinition for JavaScript 2.0 by Svante Lidman -->
+<!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
+<SyntaxDefinition name="JavaScript" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<Color name="Digits" foreground="#E3CD24" exampleText="3.14" />
+	<Color name="Comment" foreground="#EEEEEE" exampleText="// comment" />
+	<Color name="String" foreground="#93C763" exampleText="var text = &quot;Hello, World!&quot;;" />
+	<Color name="Character" foreground="Sienna" exampleText="var char = 'a';" />
+	<Color name="Regex" foreground="Sienna" exampleText="/abc/m" />
+	<Color name="JavaScriptKeyWords" foreground="#0022CD" exampleText="return myVariable;" />
+	<Color name="JavaScriptIntrinsics" foreground="#0022CD" exampleText="Math.random()" />
+	<Color name="JavaScriptLiterals" foreground="#0022CD" exampleText="return false;" />
+	<Color name="JavaScriptGlobalFunctions" foreground="#0022CD" exampleText="escape(myString);" />
+	<RuleSet ignoreCase="false">
+		<Span color="Comment">
+			<Begin>//</Begin>
+		</Span>
+		<Span color="Comment" multiline="true">
+			<Begin>/\*</Begin>
+			<End>\*/</End>
+		</Span>
+		<!--<Rule color="Regex">/.*/</Rule>-->
+		<Span color="Regex">
+			<Begin>/</Begin>
+			<End>/</End>
+			<RuleSet>
+				<Span begin="\\/" end="." />
+			</RuleSet>
+		</Span>
+		<Span color="String" multiline="true">
+			<Begin>"</Begin>
+			<End>"</End>
+			<RuleSet>
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
+		<Span color="Character">
+			<Begin>'</Begin>
+			<End>'</End>
+			<RuleSet>
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
+		<Rule color="Digits">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
+	</RuleSet>
+</SyntaxDefinition>

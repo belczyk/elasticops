@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:controls="clr-namespace:ElasticOps.Controls"
+             xmlns:controls="clr-namespace:ElasticOps.Views.Controls"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
@@ -15,6 +16,8 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
+        <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor"  cal:Bind.Model="{Binding QueryEditor}"></controls:CodeEditor>
+
         <GridSplitter Grid.Column="1"
                       ResizeDirection="Columns"
                       HorizontalAlignment="Stretch"
@@ -22,6 +25,8 @@
                       ResizeBehavior="PreviousAndNext"
                       Background="#43671E"
                       x:Name="ResponseEditor"></GridSplitter>
+
+        <controls:CodeEditor Grid.Column="2" x:Name="ResultEditor"  cal:Bind.Model="{Binding ResultEditor}"></controls:CodeEditor>
 
     </Grid>
 </UserControl>
