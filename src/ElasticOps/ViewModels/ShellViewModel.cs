@@ -1,5 +1,10 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using Caliburn.Micro;
 using ElasticOps.Com;
+using MahApps.Metro;
 
 namespace ElasticOps.ViewModels
 {
@@ -25,6 +30,15 @@ namespace ElasticOps.ViewModels
             ActivateItem(studioViewModel);
             infrastructure.EventAggregator.Subscribe(this);
 
+
+            AccentColors = ThemeManager.Accents
+                                            .Select(a => new AccentColorMenuData() { Name = a.Name, ColorBrush = a.Resources["AccentColorBrush"] as Brush })
+                                            .ToList();
+
+            AppThemes = ThemeManager.AppThemes
+                                           .Select(a => new AppThemeMenuData() { Name = a.Name, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush })
+                                           .ToList();
+
         }
         private FooterViewModel _footerViewModel;
 
@@ -46,6 +60,23 @@ namespace ElasticOps.ViewModels
         {
             ActivateItem(studioViewModel);
         }
+
+        public void SwitchToDarkTheme()
+        {
+            var accent = ThemeManager.Accents.First(x => x.Name == "Blue");
+            var theme = ThemeManager.GetAppTheme("BaseDark");
+            ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
+        }
+
+        public void SwitchToLightTheme()
+        {
+            var accent = ThemeManager.Accents.First(x => x.Name == "Blue");
+            var theme = ThemeManager.GetAppTheme("BaseLight");
+            ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
+        }
+
+        public List<AccentColorMenuData> AccentColors { get; set; }
+        public List<AppThemeMenuData> AppThemes { get; set; }
 
 
         public void Handle(GoToStudioEvent message)

@@ -1,5 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using System.Linq;
+using System.Windows;
+using Caliburn.Micro;
 using ElasticOps.Extensions;
+using MahApps.Metro;
 
 namespace ElasticOps.ViewModels
 {
@@ -31,7 +34,6 @@ namespace ElasticOps.ViewModels
             }
         }
 
-          
         public BindableCollection<SettingPageViewModel> SettingsPages { get; set; }
 
     }
