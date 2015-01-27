@@ -55,7 +55,7 @@
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
     <FsYacc Include="Parser.fsy">
-      <OtherFlags>--module Parser -v</OtherFlags>
+      <OtherFlags>--module Parser</OtherFlags>
     </FsYacc>
     <Compile Include="Structures.fs" />
     <Compile Include="Parser.fsi" />
