@@ -11,6 +11,8 @@ using Caliburn.Micro.Autofac;
 using ElasticOps.Com;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
+using Serilog;
+using Serilog.Events;
 
 namespace ElasticOps
 {
@@ -70,6 +72,10 @@ namespace ElasticOps
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.RollingFile("logs/log-{Date}.log")
+                .CreateLogger();
+
             DisplayRootViewFor<ShellViewModel>();
         }
     }

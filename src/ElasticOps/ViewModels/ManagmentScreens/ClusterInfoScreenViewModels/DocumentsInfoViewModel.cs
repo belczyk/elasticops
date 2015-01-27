@@ -1,7 +1,7 @@
 ﻿using System;
 using Caliburn.Micro;
 using ElasticOps.Com;
-
+using Serilog;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -34,6 +34,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
             catch (Exception ex)
             {
+                Log.Logger.Warning(ex, "Exception while refreshing data.");
             }
         }
 

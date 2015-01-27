@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using Serilog;
 
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
-
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
         public IObservableCollection<IndexInfoViewModel> IndicesInfo { get; set; }
 
@@ -34,6 +34,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
             catch (Exception ex)
             {
+                Log.Logger.Warning(ex,"Exception while refreshing data.");
             }
         }
 
@@ -43,14 +44,14 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             IndicesInfo.AddRange(AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWith(Predef.MarvelIndexPrefix)));
         }
 
-        private bool _ShowMarvelIndices;
+        private bool _showMarvelIndices;
 
         public bool ShowMarvelIndices
         {
-            get { return _ShowMarvelIndices; }
+            get { return _showMarvelIndices; }
             set
             {
-                _ShowMarvelIndices = value;
+                _showMarvelIndices = value;
                 NotifyOfPropertyChange(() => ShowMarvelIndices);
                 FilterIndices();
             }
