@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
 using ElasticOps.Com;
@@ -56,28 +55,14 @@ namespace ElasticOps.ViewModels
         {
             ActivateItem(_settingsViewModel);
         }
+
         public void ShowStudio()
         {
             ActivateItem(studioViewModel);
         }
 
-        public void SwitchToDarkTheme()
-        {
-            var accent = ThemeManager.Accents.First(x => x.Name == "Blue");
-            var theme = ThemeManager.GetAppTheme("BaseDark");
-            ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
-        }
-
-        public void SwitchToLightTheme()
-        {
-            var accent = ThemeManager.Accents.First(x => x.Name == "Blue");
-            var theme = ThemeManager.GetAppTheme("BaseLight");
-            ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
-        }
-
         public List<AccentColorMenuData> AccentColors { get; set; }
         public List<AppThemeMenuData> AppThemes { get; set; }
-
 
         public void Handle(GoToStudioEvent message)
         {

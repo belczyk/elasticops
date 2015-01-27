@@ -7,3 +7,6 @@ type ErrorOccuredEvent(msg) =
 type RefreashEvent() = class end
 
 type GoToStudioEvent() = class end  
+
+type ThemeChangedEvent(isDark) = 
+    member this.IsDark : bool = isDark

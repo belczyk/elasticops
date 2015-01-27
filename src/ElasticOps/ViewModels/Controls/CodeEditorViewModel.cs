@@ -1,16 +1,45 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using System;
+using System.Windows.Media;
+using System.Xml;
 using Caliburn.Micro;
+using ElasticOps.Com;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace ElasticOps.ViewModels.Controls
 {
-    public class CodeEditorViewModel : PropertyChangedBase
+    public class CodeEditorViewModel : PropertyChangedBase, IHandle<ThemeChangedEvent>
     {
+        private readonly Infrastructure _infrastructure;
         private string _code;
+        private IHighlightingDefinition _highlightingDefinition;
+        private Brush _foreground;
 
-        public CodeEditorViewModel()
+        public CodeEditorViewModel(Infrastructure infrastructure)
         {
-            Code = "adfad";
+            _infrastructure = infrastructure;
+            _infrastructure.EventAggregator.Subscribe(this);
+            LoadHighlightRules(Theme.Dark);
+        }
+
+        private enum Theme
+        {
+            Dark,
+            Light
+        }
+
+        private void LoadHighlightRules(Theme theme)
+        {
+            
+            Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
+
+            using (var s = (GetType()).Assembly.GetManifestResourceStream(String.Format("ElasticOps.Query{0}HighlightingRules.xshd", theme)))
+            {
+                using (var reader = new XmlTextReader(s))
+                {
+                    HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
         }
 
         public string Code
@@ -21,27 +50,37 @@ namespace ElasticOps.ViewModels.Controls
                 if (value == _code) return;
                 _code = value;
                 NotifyOfPropertyChange(() => Code);
-                NotifyOfPropertyChange(() => LineNumberGutter);
-
             }
         }
 
-
-        public string LineNumberGutter
+        public Brush Foreground
         {
             get
             {
-                if (string.IsNullOrEmpty(Code)) return string.Empty;
-
-                var lines = Regex.Matches(Code, "\n").Count;
-                var builder = new StringBuilder();
-                for (int i = 1; i < lines; i++)
-                {
-                    builder.AppendLine(i.ToString());
-                }
-
-                return builder.ToString();
+                return _foreground;
             }
+            set
+            {
+                if (Equals(value, _foreground)) return;
+                _foreground = value;
+                NotifyOfPropertyChange(() => Foreground);
+            }
+        }
+
+        public IHighlightingDefinition HighlightingDefinition
+        {
+            get { return _highlightingDefinition; }
+            set
+            {
+                if (Equals(value, _highlightingDefinition)) return;
+                _highlightingDefinition = value;
+                NotifyOfPropertyChange(() => HighlightingDefinition);
+            }
+        }
+
+        public void Handle(ThemeChangedEvent message)
+        {
+            LoadHighlightRules(message.IsDark ? Theme.Dark : Theme.Light);
         }
     }
 }

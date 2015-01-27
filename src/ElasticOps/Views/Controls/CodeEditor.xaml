@@ -7,13 +7,16 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-        <Grid >
-            <avalonEdit:TextEditor Grid.Column="2"
+    <Grid >
+        <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="textEditor"
                     FontFamily="Consolas"
                     ShowLineNumbers="True"
                     FontSize="12pt"
-                    />
-        </Grid>
+                    SyntaxHighlighting="{Binding HighlightingDefinition}"
+                    Foreground="{Binding Foreground}"
+                    >
+        </avalonEdit:TextEditor>
+    </Grid>
 </UserControl>

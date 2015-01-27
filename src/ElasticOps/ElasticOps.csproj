@@ -351,7 +351,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="JavaScript.xshd" />
+    <EmbeddedResource Include="QueryLightHighlightingRules.xshd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -360,6 +360,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="QueryDarkHighlightingRules.xshd" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
