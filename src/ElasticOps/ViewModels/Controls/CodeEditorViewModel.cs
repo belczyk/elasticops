@@ -7,7 +7,6 @@ namespace ElasticOps.ViewModels.Controls
     public class CodeEditorViewModel : PropertyChangedBase
     {
         private string _code;
-        private string _lineNumberGutter;
 
         public CodeEditorViewModel()
         {

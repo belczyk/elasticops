@@ -9,7 +9,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     {
         private readonly Infrastructure _infrastructure;
 
-        private IEnumerable<IndexInfo> indices;
         private string _mapping;
 
         public MappingsInfoViewModel(TypesListViewModel typesListViewModel, Infrastructure infrastructure) : base(infrastructure)

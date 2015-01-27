@@ -12,8 +12,6 @@ namespace ElasticOps.ViewModels
             this.infrastructure = infrastructure;
         }
 
-        private Uri _value;
-
         public Uri Value
         {
             get

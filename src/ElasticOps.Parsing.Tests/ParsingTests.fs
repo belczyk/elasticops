@@ -100,18 +100,18 @@ let ``parse complex objects`` () =
 
 
     res |> should equal (Some( JsonValue.Assoc(
-                        [("title",JsonValue.String("Cities"));
-                         ("cities", JsonValue.List([
-                                        JsonValue.Assoc([
-                                                ("name",JsonValue.String("Chicago"));
-                                                ("zips",JsonValue.List([JsonValue.Int(60601);JsonValue.Int(60600)]))
-                                        ]);
-                                        JsonValue.Assoc([
-                                                ("name",JsonValue.String("New York"));
-                                                ("zips",JsonValue.List([JsonValue.Int(10001)]))
-                                        ])
-                         ]))]
-                      )
+                                                [("title",JsonValue.String("Cities"));
+                                                 ("cities", JsonValue.List([
+                                                                           JsonValue.Assoc([
+                                                                                           ("name",JsonValue.String("Chicago"));
+                                                                                           ("zips",JsonValue.List([JsonValue.Int(60601);JsonValue.Int(60600)]))
+                                                                           ]);
+                                                                           JsonValue.Assoc([
+                                                                                           ("name",JsonValue.String("New York"));
+                                                                                           ("zips",JsonValue.List([JsonValue.Int(10001)]))
+                                                                           ])
+                                                 ]))]
+                                              )
     ))
 
 [<Test>]
@@ -180,13 +180,13 @@ let ``parser json ending with object terminated with comma after full property``
     let res = json |> parse
 
     res |> should equal (Some(JsonValue.List([
-        JsonValue.Assoc([
-            ("id", JsonValue.Int(1));
-            ("name", JsonValue.String("Kathie Steele"))
-        ]);
-        JsonValue.Assoc([
-            ("id", JsonValue.Int(2))
-        ])
+                                             JsonValue.Assoc([
+                                                             ("id", JsonValue.Int(1));
+                                                             ("name", JsonValue.String("Kathie Steele"))
+                                             ]);
+                                             JsonValue.Assoc([
+                                                             ("id", JsonValue.Int(2))
+                                             ])
     ])))
 
 [<Test>]
@@ -233,7 +233,7 @@ let ``can parse json terminated in a random place`` () =
                 try 
                     json |> parse  |> ignore
                 with 
-                | e -> Assert.Fail ("Parser error for JSON: " + json)
+                | _ -> Assert.Fail ("Parser error for JSON: " + json)
         }
 
     [1..1000] |> Seq.map testAsync |> Async.Parallel |> Async.RunSynchronously |> ignore
@@ -257,7 +257,7 @@ let ``can parse json terminated at any point`` () =
             try
                 subJson |> parse |> ignore
             with
-            | e -> Assert.Fail ("Parser error for JSON: " + json)
+            | _ -> Assert.Fail ("Parser error for JSON: " + json)
         }
 
     [1..(json.Length-1)] |> Seq.map testAsync |> Async.Parallel |> Async.RunSynchronously |> ignore
