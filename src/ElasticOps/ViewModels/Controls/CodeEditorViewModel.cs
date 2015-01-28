@@ -19,7 +19,7 @@ namespace ElasticOps.ViewModels.Controls
         {
             _infrastructure = infrastructure;
             _infrastructure.EventAggregator.Subscribe(this);
-            LoadHighlightRules(Theme.Dark);
+            LoadHighlightRules(infrastructure.Config.Appearance.Theme == "BaseDark" ? Theme.Dark : Theme.Light);
         }
 
         private enum Theme
@@ -30,7 +30,6 @@ namespace ElasticOps.ViewModels.Controls
 
         private void LoadHighlightRules(Theme theme)
         {
-            
             Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
 
             using (var s = (GetType()).Assembly.GetManifestResourceStream(String.Format("ElasticOps.Query{0}HighlightingRules.xshd", theme)))

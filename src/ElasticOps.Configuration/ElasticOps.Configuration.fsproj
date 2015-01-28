@@ -49,10 +49,10 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <None Include="Config.yaml" />
     <Compile Include="ElasticOpsConfig.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
+    <None Include="Config.yaml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Configuration">

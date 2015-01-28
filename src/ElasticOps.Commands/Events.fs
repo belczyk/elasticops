@@ -8,5 +8,9 @@ type RefreashEvent() = class end
 
 type GoToStudioEvent() = class end  
 
-type ThemeChangedEvent(isDark) = 
+type ThemeChangedEvent(theme : String, isDark) = 
     member this.IsDark : bool = isDark
+    member this.Theme : string = theme
+
+type AccentChangedEvent(accent) =
+    member this.Accent : String = accent

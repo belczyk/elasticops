@@ -1,4 +1,5 @@
-﻿namespace ElasticOps.FSCommon
+﻿namespace ElasticOps.Configuration
 open FSharp.Configuration
 
-type ElasticOpsConfig = YamlConfig<"Config.yaml">
+
+type ElasticOpsConfig = YamlConfig<"..\SolutionItems\Config.yaml">

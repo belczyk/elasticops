@@ -13,6 +13,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Parsing.Tests", 
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Configuration", "ElasticOps.Configuration\ElasticOps.Configuration.fsproj", "{F4A3B1C5-3C4F-4E2D-8FDC-02F891E2D3CA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{979F7567-AD97-48A2-866C-3049A3F43DB9}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\Config.yaml = SolutionItems\Config.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Build|Any CPU = Build|Any CPU

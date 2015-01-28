@@ -358,6 +358,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="QueryLightHighlightingRules.xshd" />
+    <None Include="..\SolutionItems\Config.yaml">
+      <Link>Config.yaml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -385,6 +389,10 @@
     <ProjectReference Include="..\ElasticOps.Commands\ElasticOps.Commands.fsproj">
       <Project>{0623f346-37cc-4820-8728-0a9849c52a87}</Project>
       <Name>ElasticOps.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElasticOps.Configuration\ElasticOps.Configuration.fsproj">
+      <Project>{f4a3b1c5-3c4f-4e2d-8fdc-02f891e2d3ca}</Project>
+      <Name>ElasticOps.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

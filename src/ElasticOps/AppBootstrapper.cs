@@ -9,6 +9,7 @@ using Autofac.Core;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using ElasticOps.Com;
+using ElasticOps.Configuration;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Serilog;
@@ -59,7 +60,7 @@ namespace ElasticOps
             builder.RegisterType<CommandBus>().AsSelf();
             builder.RegisterType<RESTClient>().As<IRESTClient>();
             builder.RegisterType<Settings>().AsSelf().SingleInstance();
-
+            builder.RegisterType<ElasticOpsConfig>().AsSelf();
             builder.RegisterType<Infrastructure>().AsSelf();
 
         }
