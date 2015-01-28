@@ -133,6 +133,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
+    <Compile Include="Behaviors\AutoCompleteIndexNameBehavior.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
     <Compile Include="Services\ConfigService.cs" />
@@ -370,10 +371,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="QueryLightHighlightingRules.xshd" />
-    <None Include="..\SolutionItems\Config.yaml">
-      <Link>Config.yaml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -422,7 +419,7 @@
 IF not exist lib\Humanizer (mkdir lib\Humanizer)
 
 
-del *.xml
+del *.xml 
 if "$(ConfigurationName)"  == "Release" (
 	del *.pdb
 	del *ElasticOps.vshost*
