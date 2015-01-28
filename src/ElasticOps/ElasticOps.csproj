@@ -133,6 +133,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
+    <Compile Include="Behaviors\AutoCompleteIndexNameBehavior.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
     <Compile Include="Services\ConfigService.cs" />
@@ -418,44 +419,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF not exist lib (mkdir lib)
-IF not exist lib\Humanizer (mkdir lib\Humanizer)
-
-
-del *.xml
-if "$(ConfigurationName)"  == "Release" (
-	del *.pdb
-	del *ElasticOps.vshost*
-)
-
-del ElasticOps.vshost.exe
-move /Y af lib\Humanizer\af  
-move /Y ar lib\Humanizer\ar  
-move /Y bg lib\Humanizer\bg  
-move /Y cs lib\Humanizer\cs  
-move /Y da lib\Humanizer\da  
-move /Y de lib\Humanizer\de  
-move /Y el lib\Humanizer\el  
-move /Y es lib\Humanizer\es  
-move /Y fa lib\Humanizer\fa  
-move /Y fi-FI lib\Humanizer\fi-FI  
-move /Y fr lib\Humanizer\fr  
-move /Y fr-BE lib\Humanizer\fr-BE  
-move /Y he lib\Humanizer\he  
-move /Y hu lib\Humanizer\hu  
-move /Y id lib\Humanizer\id  
-move /Y nb-NO lib\Humanizer\nb-NO  
-move /Y nl lib\Humanizer\nl  
-move /Y pl lib\Humanizer\pl  
-move /Y pt-BR lib\Humanizer\pt-BR  
-move /Y ro lib\Humanizer\ro  
-move /Y ru lib\Humanizer\ru  
-move /Y sk lib\Humanizer\sk  
-move /Y sv lib\Humanizer\sv  
-move /Y Humanizer.dll lib\Humanizer\Humanizer.dll  
-move /Y *.dll lib 
-move /Y *.pdb lib 
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
