@@ -1,11 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
-using Autofac.Core;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using ElasticOps.Com;
@@ -14,7 +11,6 @@ using ElasticOps.Services;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Serilog;
-using Serilog.Events;
 
 namespace ElasticOps
 {

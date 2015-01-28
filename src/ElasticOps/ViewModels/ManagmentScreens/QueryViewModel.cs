@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.ObjectModel;
+using System.Reactive.Linq;
+using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.ViewModels.Controls;
 using ElasticOps.ViewModels.ManagmentScreens;
@@ -18,6 +20,8 @@ namespace ElasticOps.ViewModels
             this.infrastructure = infrastructure;
             _queryEditor = queryEditorModel;
             _resultEditor = resultEditorModel;
+            UrlSuggest = new ObservableCollection<string>();
+
         }
 
         public CodeEditorViewModel QueryEditor
@@ -41,5 +45,7 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => ResultEditor);
             }
         }
+
+        public ObservableCollection<string> UrlSuggest { get; set; }
     }
 }
