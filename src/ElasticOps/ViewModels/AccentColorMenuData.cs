@@ -1,9 +1,7 @@
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
 using ElasticOps.Com;
-using MahApps.Metro;
 
 namespace ElasticOps.ViewModels
 {
@@ -22,11 +20,7 @@ namespace ElasticOps.ViewModels
 
         public virtual void DoChangeTheme(object sender)
         {
-            var theme = ThemeManager.DetectAppStyle(Application.Current);
-            var accent = ThemeManager.GetAccent(this.Name);
-            ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
-
-            AppBootstrapper.GetInstance<IEventAggregator>().PublishOnUIThread(new AccentChangedEvent(accent.Name));
+            AppBootstrapper.GetInstance<IEventAggregator>().PublishOnUIThread(new AccentChangedEvent(this.Name));
         }
     }
 }

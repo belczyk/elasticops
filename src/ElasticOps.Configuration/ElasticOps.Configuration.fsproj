@@ -52,7 +52,9 @@
     <Compile Include="ElasticOpsConfig.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
-    <None Include="Config.yaml" />
+    <None Include="..\SolutionItems\Config.yaml">
+      <Link>Config.yaml</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Configuration">

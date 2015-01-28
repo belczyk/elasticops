@@ -1,6 +1,5 @@
 ﻿
 using System.Windows;
-using ElasticOps.ViewModels;
 using MahApps.Metro.Controls;
 
 namespace ElasticOps.Views
@@ -11,6 +10,13 @@ namespace ElasticOps.Views
         public ShellView()
         {
             InitializeComponent();
+
+            this.Closed += ShellView_Closed;
+        }
+
+        void ShellView_Closed(object sender, System.EventArgs e)
+        {
+             Application.Current.Shutdown();
         }
 
     }

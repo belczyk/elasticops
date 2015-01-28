@@ -10,6 +10,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using ElasticOps.Com;
 using ElasticOps.Configuration;
+using ElasticOps.Services;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Serilog;
@@ -20,6 +21,8 @@ namespace ElasticOps
     public class AppBootstrapper : AutofacBootstrapper<ShellViewModel>
     {
         private static IContainer AContainer { get; set; }
+        private static ThemeService ThemeService { get; set; }
+        private static ConfigService ConfigService { get; set; }
         public AppBootstrapper()
         {
             Initialize();
@@ -60,7 +63,14 @@ namespace ElasticOps
             builder.RegisterType<CommandBus>().AsSelf();
             builder.RegisterType<RESTClient>().As<IRESTClient>();
             builder.RegisterType<Settings>().AsSelf().SingleInstance();
-            builder.RegisterType<ElasticOpsConfig>().AsSelf();
+            builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
+            builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
+            builder.Register((c) =>
+            {
+                var config = new ElasticOpsConfig();
+                config.Load("config.yaml");
+                return config;
+            }).As<ElasticOpsConfig>().SingleInstance();
             builder.RegisterType<Infrastructure>().AsSelf();
 
         }
@@ -77,7 +87,11 @@ namespace ElasticOps
                 .WriteTo.RollingFile("logs/log-{Date}.log")
                 .CreateLogger();
 
+            ConfigService = AContainer.Resolve<ConfigService>();
+            ThemeService = AContainer.Resolve<ThemeService>();
+
             DisplayRootViewFor<ShellViewModel>();
+
         }
     }
 

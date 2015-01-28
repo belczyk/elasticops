@@ -125,6 +125,8 @@
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
+    <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Services\ThemeService.cs" />
     <Compile Include="ViewModels\AccentColorMenuData.cs" />
     <Compile Include="ViewModels\AppThemeMenuData.cs" />
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />

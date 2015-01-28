@@ -14,3 +14,4 @@ type ThemeChangedEvent(theme : String, isDark) =
 
 type AccentChangedEvent(accent) =
     member this.Accent : String = accent
+
