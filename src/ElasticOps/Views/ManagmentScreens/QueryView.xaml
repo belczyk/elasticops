@@ -15,7 +15,21 @@
             <RowDefinition Height="45"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <t:AutoCompleteBox ItemsSource="{Binding UrlSuggest}" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></t:AutoCompleteBox>
+        <t:AutoCompleteBox Width="300" ItemsSource="{Binding UrlSuggest}" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <t:AutoCompleteBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="60"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Path=Text}" Grid.Column="0"></TextBlock>
+                        <TextBlock Text="{Binding Path=Mode}" FontStyle="Italic" Grid.Column="1"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </t:AutoCompleteBox.ItemTemplate>
+
+        </t:AutoCompleteBox>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>

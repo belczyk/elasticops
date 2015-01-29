@@ -8,7 +8,7 @@ using ElasticOps.Extensions;
 
 namespace ElasticOps.Behaviors 
 {
-    public class IndexSuggest : ObservableCollection<string>, IHandle<RefreashEvent>
+    public class IndexSuggest : ObservableCollection<SuggestItem>, IHandle<RefreashEvent>
     {
         private readonly Infrastructure _infrastructure;
         private readonly Action<string> _onTextChanged;
@@ -22,7 +22,7 @@ namespace ElasticOps.Behaviors
         public void UpdateSuggestions(string text)
         {
             Clear();
-            _indices.Where(x => x.StartsWith(text)).ForEach(Add);
+            _indices.Where(x => x.StartsWith(text)).Select(x => new SuggestItem(x, SugegestionMode.Endpoint)).ForEach(Add);
 
         }
 

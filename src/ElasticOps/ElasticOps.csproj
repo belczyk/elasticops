@@ -135,6 +135,8 @@
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\AutoCompleteIndexNameBehavior.cs" />
     <Compile Include="Behaviors\IndexSuggest.cs" />
+    <Compile Include="Behaviors\SugegestionMode.cs" />
+    <Compile Include="Behaviors\SuggestItem.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
     <Compile Include="Services\ConfigService.cs" />

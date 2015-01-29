@@ -9,9 +9,12 @@ namespace ElasticOps.ViewModels
     public class ClusterConnectionViewModel : PropertyChangedBase
     {
         private Settings settings;
+        private readonly IEventAggregator _eventAggregator;
+
         public ClusterConnectionViewModel(Settings settings, IEventAggregator eventAggregator)
         {
             this.settings = settings;
+            _eventAggregator = eventAggregator;
 
             var observable = Observable.Interval(10.Seconds()).TimeInterval();
             observable.Subscribe((o) =>
@@ -28,6 +31,7 @@ namespace ElasticOps.ViewModels
             get { return clusterUri; }
             set
             {
+                var wasConnected = IsConnected;
                 clusterUri = value;
                 settings.Connection.SetClusterUri(clusterUri);
 
@@ -35,6 +39,10 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => IsValid);
                 NotifyOfPropertyChange(() => IsConnected);
                 NotifyOfPropertyChange(() => Version);
+
+                if(!wasConnected && IsConnected)
+                    _eventAggregator.PublishOnUIThread(new RefreashEvent());
+
             }
         }
 
