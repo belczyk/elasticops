@@ -10,7 +10,7 @@ module ElasticOps.Com.ClusterInfo
         inherit Command<IDictionary<string,string>>(connection)
     
     let Health (command : HealthCommand) =
-        let res =GET command.ClusterUri "/_cluster/health"
+        let res =GET command.Connection "/_cluster/health"
                     |> JsonValue.Parse
                     |> asPropertyList
                     |> Seq.map humanizeKeys
@@ -21,7 +21,7 @@ module ElasticOps.Com.ClusterInfo
         inherit Command<ClusterCounters>(connection)
 
     let ClusterCounters (command : ClusterCountersCommand) =
-        let stats = GET command.ClusterUri "_stats"
+        let stats = GET command.Connection "_stats"
    
         let ic1 = stats
                     |> JsonValue.Parse
@@ -36,7 +36,7 @@ module ElasticOps.Com.ClusterInfo
                         |> JsonValue.Parse
                         |> fun ps -> ps?_all?total?docs?count.AsInteger()
 
-        let nodesCount = GET command.ClusterUri "/_nodes"
+        let nodesCount = GET command.Connection "/_nodes"
                             |> propCount (fun p->p)
 
         { Indices = ic; Documents = docCount; Nodes = nodesCount }
@@ -46,7 +46,7 @@ module ElasticOps.Com.ClusterInfo
 
     [<ESVersionFrom(1,0,0,0)>]
     let NodesInfo (request : NodesInfoCommand) =
-        GET request.ClusterUri "/_nodes"
+        GET request.Connection "/_nodes"
                     |> JsonValue.Parse
                     |> fun ps -> ps?nodes
                     |> asPropertyList
@@ -72,7 +72,7 @@ module ElasticOps.Com.ClusterInfo
         inherit Command<IEnumerable<IndexInfo>>(connection)
 
     let IndicesInfo (command : IndicesInfoCommand) =
-        let state = GET command.ClusterUri "/_cluster/state"
+        let state = GET command.Connection "/_cluster/state"
                         |> JsonValue.Parse
                         |> fun el -> el?metadata?indices
         state 
@@ -102,7 +102,7 @@ module ElasticOps.Com.ClusterInfo
 
     let DocumentsInfo (command : DocumentsInfoCommand) =
         let request = combineUri command.ClusterUri "_search"
-        (POSTJson command.ClusterUri "_search" """  {"query": {"match_all": {}}, "facets": { "types": { "terms": { "field": "_type", "size": 100 }}}}  """)
+        (POSTJson command.Connection "_search" """  {"query": {"match_all": {}}, "facets": { "types": { "terms": { "field": "_type", "size": 100 }}}}  """)
             |> JsonValue.Parse
             |> fun el -> el?facets?types?terms
             |> fun el -> el.AsArray()
@@ -125,7 +125,7 @@ module ElasticOps.Com.ClusterInfo
         inherit Command<IEnumerable<String>>(connection)
 
     let ListIndices (command: ListIndicesCommand) =
-        GET command.ClusterUri "/_cluster/state"
+        GET command.Connection "/_cluster/state"
                         |> JsonValue.Parse
                         |> fun el -> el?metadata?indices
                         |> asPropertyList
@@ -137,7 +137,7 @@ module ElasticOps.Com.ClusterInfo
         member val IndexName = indexName with get,set
 
     let ListTypes (command: ListTypesCommand) = 
-        GET command.ClusterUri (command.IndexName+"/_mapping")
+        GET command.Connection (command.IndexName+"/_mapping")
                         |> JsonValue.Parse
                         |> fun el -> el.[command.IndexName]?mappings
                         |> asPropertyList
@@ -149,7 +149,7 @@ module ElasticOps.Com.ClusterInfo
         member val IndexName = indexName
         member val TypeName = typeName
 
-    let GetMapping(command: GetMappingCommand, client : IRESTClient) = 
-        client.GET (command.ClusterUri,("/"+command.IndexName+"/"+command.TypeName+"/_mapping?pretty"))
+    let GetMapping(command: GetMappingCommand) = 
+        GET command.Connection ("/"+command.IndexName+"/"+command.TypeName+"/_mapping?pretty")
 
 

@@ -28,18 +28,18 @@ module REST =
         | _ -> let u = new Uri(uri,new Uri(endpoint,UriKind.Relative))
                u.ToString()
 
-    let GET uri endpoint =
-        let url = combineUri uri endpoint
+    let GET (connection : Connection) endpoint =
+        let url = combineUri connection.ClusterUri endpoint
         Http.RequestString  url 
 
-    let POSTJson uri endpoint body =
-        let url = combineUri uri endpoint 
+    let POSTJson (connection : Connection) endpoint body =
+        let url = combineUri connection.ClusterUri endpoint 
         Http.RequestString ( url, httpMethod = "POST",
                             headers = [ "Accept", "application/json" ],
                             body   = TextRequest body )
 
-    let POST uri endpoint body =
-        let url = (combineUri uri endpoint)
+    let POST (connection : Connection) endpoint body =
+        let url = (combineUri connection.ClusterUri endpoint)
         Http.RequestString ( url , httpMethod = "POST",
                             body   = TextRequest body )
 
