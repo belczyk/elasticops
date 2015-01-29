@@ -12,14 +12,14 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     [Priority(30)]
     public class RESTScreenViewModel : Screen, IManagmentScreen
     {
+        private readonly Infrastructure _infrastructure;
         private IEventAggregator eventAggregator;
-        private Settings settings;
 
-        public RESTScreenViewModel(Settings settings, IEventAggregator eventAggregator)
+        public RESTScreenViewModel(Infrastructure infrastructure)
         {
+            _infrastructure = infrastructure;
             DisplayName = "REST";
-            this.settings = settings;
-            this.eventAggregator = eventAggregator;
+            this.eventAggregator = infrastructure.EventAggregator;
 
             Methods = new BindableCollection<ComboBoxItemViewModel>
             {
@@ -119,10 +119,10 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                var requestUri = settings.Connection.ClusterUri;
+                var requestUri = _infrastructure.Connection.ClusterUri;
                 if (!string.IsNullOrEmpty(Endpoint))
                 {
-                    requestUri = new Uri(settings.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
+                    requestUri = new Uri(_infrastructure.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
                 }
                 var request = WebRequest.Create(requestUri);
                 request.Method = Method;

@@ -6,20 +6,20 @@ namespace ElasticOps
 {
     public class Infrastructure
     {
-        public Infrastructure(Settings settings, 
-            CommandBus commandBus, 
+        public Infrastructure(CommandBus commandBus, 
             IEventAggregator eventAggregator, 
             IWindowManager windowManager,
             ElasticOpsConfig config)
         {
-            Settings = settings;
             CommandBus = commandBus;
             EventAggregator = eventAggregator;
             WindowManager = windowManager;
             Config = config;
+            Connection = new Connection();
         }
 
-        public Settings Settings { get; set; }
+        public Connection Connection { get; set; }
+
         public CommandBus CommandBus { get; set; }
         public IEventAggregator EventAggregator { get; set; }
         public IWindowManager WindowManager { get; set; }

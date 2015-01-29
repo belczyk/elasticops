@@ -12,13 +12,20 @@ type Version(major : int,?minor : int,?patch : int,?build : int) =
     member x.build = build
     member x.ToTuple() = 
         (major,minor,patch,build)
+
     new (major: int) = Version(major,0,0,0)
     new (major : int, minor : int) = Version(major,minor,0,0)
     new (major : int, minor : int,patch : int) = Version(major,minor,patch,0)
     
-    override this.Equals (o ) =
+    override x.Equals (o ) =
             let other = o :?> Version
-            this.major = other.major && this.minor = other.minor && this.patch = other.patch && this.build = other.build
+            x.major = other.major && x.minor = other.minor && x.patch = other.patch && x.build = other.build
+
+    override x.GetHashCode() =
+        let hash o h = h * 486187739 + o.GetHashCode()
+
+        (hash x.major 17) |> hash x.minor |> hash x.patch |> hash x.build 
+
     member x.getPart p = 
         match p with
             | Some v -> v
@@ -52,15 +59,17 @@ type Version(major : int,?minor : int,?patch : int,?build : int) =
             | (_,_,_,b),(_,_,_,b2) when b < b2 -> -1
             | _ -> raise (Exception "unknown version combination when comparing versions")
 
-type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMessage : String) =
+type CommandResult<'T when 'T : null> (result : 'T, success : Boolean, errorMessage : String, ex : Exception) =
     member x.Result = result
     member x.Success = success 
     member x.ErrorMessage = errorMessage 
+    member x.Exception = ex
     member x.Failed 
         with get() = not x.Success
         
-    new (result : 'T) = CommandResult(result,true,null)
-    new (errorMessage : string ) = CommandResult(null,false,errorMessage)
+    new (result : 'T) = CommandResult(result,true,null,null)
+    new (errorMessage : string ) = CommandResult(null,false,errorMessage,null)
+    new (errorMessage : string, ex : Exception) = CommandResult(null,false,errorMessage,ex)
 
 
 [<AllowNullLiteral>]
@@ -90,7 +99,7 @@ type Connection(clusterUri : Uri) =
     member x.ClusterUri  = uri
 
     member x.SetClusterUri sUri =
-        Uri.TryCreate(sUri,UriKind.Absolute,&uri)
+        Uri.TryCreate(sUri,UriKind.Absolute,&uri) |> ignore
         uncheckedUri <- true
 
     member x.IsConnected 

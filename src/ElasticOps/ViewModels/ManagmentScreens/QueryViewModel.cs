@@ -11,19 +11,15 @@ namespace ElasticOps.ViewModels
     [Priority(1)]
     public class QueryViewModel : Screen, IManagmentScreen
     {
-        private Infrastructure _infrastructure;
         private CodeEditorViewModel _queryEditor;
         private CodeEditorViewModel _resultEditor;
         private string _url;
 
-        public QueryViewModel(Infrastructure infrastructure, CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel)
+        public QueryViewModel(CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel)
         {
             DisplayName = "Query";
-            _infrastructure = infrastructure;
             _queryEditor = queryEditorModel;
             _resultEditor = resultEditorModel;
-            UrlSuggest = new IndexSuggest(infrastructure);
-
         }
 
         public CodeEditorViewModel QueryEditor
@@ -57,10 +53,8 @@ namespace ElasticOps.ViewModels
                 if (value == _url) return;
                 _url = value;
                 NotifyOfPropertyChange(() => Url);
-                UrlSuggest.UpdateSuggestions(_url);
             }
         }
 
-        public IndexSuggest UrlSuggest { get; set; }
     }
 }

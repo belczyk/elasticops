@@ -1,9 +1,58 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                    >
+                    xmlns:Converters="http://metro.mahapps.com/winfx/xaml/shared"
+                    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:wpf="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:Tile}">
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <Converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+    <!--TextBox Style-->
+    <Style TargetType="{x:Type wpf:AutoCompleteBox}">
+        <Setter Property="ContextMenu"
+                Value="{DynamicResource TextBoxMetroContextMenu}" />
+        <Setter Property="Controls:TextBoxHelper.IsMonitoring"
+                Value="True" />
+        <Setter Property="Controls:ControlsHelper.ButtonWidth"
+                Value="22" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource ContentFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource ContentFontSize}" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="MinHeight"
+                Value="26" />
+        <Setter Property="Background"
+                Value="{DynamicResource ControlBackgroundBrush}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextBrush}" />
+        <Setter Property="Padding"
+                Value="0" />
+
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="Validation.ErrorTemplate"
+                Value="{DynamicResource ValidationErrorTemplate}" />
+    </Style>
+
+
+    <DataTemplate x:Key="UrlAutoCompleteBoxItemTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Path=Text}" Grid.Column="0"></TextBlock>
+            <TextBlock Text="{Binding Path=Mode}" FontStyle="Italic" Grid.Column="1"></TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <Style TargetType="{x:Type Controls:Tile}">
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver"
@@ -28,6 +77,10 @@
     </Style>
     <BitmapImage x:Key="paste_icon"
                  UriSource="/Resources/Icons/paste.png" />
+
+
+
+
 
 
 </ResourceDictionary>

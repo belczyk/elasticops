@@ -34,7 +34,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             if (string.IsNullOrEmpty(TypesList.SelectedIndex) || string.IsNullOrEmpty(TypesList.SelectedType)) return;
 
-            var res =_infrastructure.CommandBus.Execute(new ClusterInfo.GetMappingCommand(_infrastructure.Settings.Connection,
+            var res =_infrastructure.CommandBus.Execute(new ClusterInfo.GetMappingCommand(_infrastructure.Connection,
                 TypesList.SelectedIndex, TypesList.SelectedType));
 
             if (res.Success) Mapping = res.Result;

@@ -136,8 +136,8 @@ module ElasticOps.Com.ClusterInfo
         inherit Command<List<string>>(connection)
         member val IndexName = indexName with get,set
 
-    let ListTypes (command: ListTypesCommand, client : IRESTClient) = 
-        client.GET(command.ClusterUri, (command.IndexName+"/_mapping"))
+    let ListTypes (command: ListTypesCommand) = 
+        GET command.ClusterUri (command.IndexName+"/_mapping")
                         |> JsonValue.Parse
                         |> fun el -> el.[command.IndexName]?mappings
                         |> asPropertyList

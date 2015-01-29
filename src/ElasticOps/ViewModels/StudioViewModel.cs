@@ -8,16 +8,12 @@ namespace ElasticOps.ViewModels
 {
     public class StudioViewModel : Conductor<IManagmentScreen>.Collection.OneActive
     {
-        private IEventAggregator eventAggregator;
-        private Settings settings;
 
-        public StudioViewModel(Settings settings, IEventAggregator eventAggregator, IEnumerable<IManagmentScreen> managmentScreens, ClusterConnectionViewModel clusterConnectionViewModel)
+        public StudioViewModel(IEnumerable<IManagmentScreen> managmentScreens, ClusterConnectionViewModel clusterConnectionViewModel)
         {
             ClusterConnectionViewModel = clusterConnectionViewModel;
             ManagmentScreens = new BindableCollection<IManagmentScreen>();
             ManagmentScreens.AddRange(managmentScreens.OrderByPriority());
-            this.settings = settings;
-            this.eventAggregator = eventAggregator;
 
             ManagmentScreens.ToList().ForEach(x => x.ConductWith(this));
             

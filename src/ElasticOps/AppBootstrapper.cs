@@ -58,7 +58,6 @@ namespace ElasticOps
               .AsSelf().InstancePerDependency();
             builder.RegisterType<CommandBus>().AsSelf();
             builder.RegisterType<RESTClient>().As<IRESTClient>();
-            builder.RegisterType<Settings>().AsSelf().SingleInstance();
             builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
             builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
             builder.Register((c) =>
@@ -67,7 +66,7 @@ namespace ElasticOps
                 config.Load("config.yaml");
                 return config;
             }).As<ElasticOpsConfig>().SingleInstance();
-            builder.RegisterType<Infrastructure>().AsSelf();
+            builder.RegisterType<Infrastructure>().AsSelf().SingleInstance();
 
         }
 

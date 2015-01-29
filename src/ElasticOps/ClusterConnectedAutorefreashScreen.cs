@@ -8,15 +8,13 @@ namespace ElasticOps
     {
         protected ClusterConnectedAutorefreashScreen(Infrastructure infrastructure)
         {
-            this.settings = infrastructure.Settings;
             this.eventAggregator = infrastructure.EventAggregator;
             this.commandBus = infrastructure.CommandBus;
-            this.connection = infrastructure.Settings.Connection;
+            this.connection = infrastructure.Connection;
 
         }
 
         protected IEventAggregator eventAggregator;
-        protected Settings settings;
         protected CommandBus commandBus;
         protected Connection connection;
         private bool _isRefreshing;

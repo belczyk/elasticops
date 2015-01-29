@@ -8,21 +8,21 @@ namespace ElasticOps.ViewModels
 {
     public class ClusterConnectionViewModel : PropertyChangedBase
     {
-        private Settings settings;
+        private readonly Infrastructure _infrastructure;
         private readonly IEventAggregator _eventAggregator;
 
-        public ClusterConnectionViewModel(Settings settings, IEventAggregator eventAggregator)
+        public ClusterConnectionViewModel(Infrastructure infrastructure)
         {
-            this.settings = settings;
-            _eventAggregator = eventAggregator;
+            _infrastructure = infrastructure;
+            _eventAggregator = infrastructure.EventAggregator;
 
             var observable = Observable.Interval(10.Seconds()).TimeInterval();
             observable.Subscribe((o) =>
             {
-                if (settings.Connection.IsConnected)
-                    eventAggregator.PublishOnUIThread(new RefreashEvent());
+                if (infrastructure.Connection.IsConnected)
+                    _eventAggregator.PublishOnUIThread(new RefreashEvent());
             });
-            ClusterUri = "http://localhost:9200";
+            ClusterUri= infrastructure.Config.DefaultClusterUrl.ToString();
         }
 
         public string clusterUri;
@@ -33,7 +33,7 @@ namespace ElasticOps.ViewModels
             {
                 var wasConnected = IsConnected;
                 clusterUri = value;
-                settings.Connection.SetClusterUri(clusterUri);
+                _infrastructure.Connection.SetClusterUri(clusterUri);
 
                 NotifyOfPropertyChange(() => ClusterUri);
                 NotifyOfPropertyChange(() => IsValid);
@@ -48,7 +48,7 @@ namespace ElasticOps.ViewModels
 
         public bool IsConnected
         {
-            get { return settings.Connection.IsConnected; }
+            get { return _infrastructure.Connection.IsConnected; }
 
         }
 
@@ -56,8 +56,8 @@ namespace ElasticOps.ViewModels
         {
             get
             {
-                if (settings.Connection.IsConnected && settings.Connection.Version != null)
-                    return settings.Connection.Version.ToString();
+                if (_infrastructure.Connection.IsConnected && _infrastructure.Connection.Version != null)
+                    return _infrastructure.Connection.Version.ToString();
 
                 return string.Empty;
             }

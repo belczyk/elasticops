@@ -111,7 +111,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         private void LoadCounters()
         {
             var result =
-                _infrastructure.CommandBus.Execute(new ClusterInfo.ClusterCountersCommand(_infrastructure.Settings.Connection));
+                _infrastructure.CommandBus.Execute(new ClusterInfo.ClusterCountersCommand(_infrastructure.Connection));
 
             if (result.Failed) return;
 

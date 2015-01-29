@@ -13,7 +13,7 @@ namespace ElasticOps.ViewModels
         public TypesListViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
-            _connection = infrastructure.Settings.Connection;
+            _connection = infrastructure.Connection;
             AllIndices = new BindableCollection<string>();
             TypesForSelectedIndex = new BindableCollection<string>();
         }
@@ -27,7 +27,7 @@ namespace ElasticOps.ViewModels
         {
             IsRefreshing = true;
 
-            var indices = _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Settings.Connection));
+            var indices = _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
             var selectedIndex = SelectedIndex;
             AllIndices.Clear();
             indices.Result.OrderBy(x=>x).Where(x => !x.StartsWith(Predef.MarvelIndexPrefix) || _ShowMarvelIndices).ToList().ForEach(AllIndices.Add);
@@ -80,7 +80,7 @@ namespace ElasticOps.ViewModels
             if (string.IsNullOrEmpty(SelectedIndex)) return;
             IsRefreshing = true;
 
-            var result = _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Settings.Connection,
+            var result = _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Connection,
                 SelectedIndex));
 
             var selectedType = SelectedType;

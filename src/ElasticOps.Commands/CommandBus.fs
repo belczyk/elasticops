@@ -21,11 +21,11 @@ type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
                 | null -> 
                     eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Exception: {@ExceptionMessage}",command.GetType().Name,ex.Message)
-                    new CommandResult<'TResult>(ex.Message)
+                    new CommandResult<'TResult>(ex.Message,ex)
                 | inner -> 
                     eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.InnerException.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Inner exception: {@ExceptionMessage}",command.GetType().Name,inner.Message)
-                    new CommandResult<'TResult>(ex.InnerException.Message)
+                    new CommandResult<'TResult>(ex.InnerException.Message,ex)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =
         match command.ClusterUri with
