@@ -4,7 +4,7 @@ module ElasticOps.Com.ClusterInfo
     open FSharp.Data
     open FSharp.Data.JsonExtensions
     open System.Collections.Generic
-
+    open System
 
     type HealthCommand(connection) = 
         inherit Command<IDictionary<string,string>>(connection)
@@ -66,6 +66,8 @@ module ElasticOps.Com.ClusterInfo
                         })
                     |> CList.ofSeq
 
+
+ 
     type IndicesInfoCommand(connection) = 
         inherit Command<IEnumerable<IndexInfo>>(connection)
 
@@ -119,14 +121,16 @@ module ElasticOps.Com.ClusterInfo
         with
         | ex -> new HeartBeat(false)
 
-
-    type ListIndicesCommand(connection) = 
-        inherit Command<List<string>>(connection)
+    type ListIndicesCommand(connection) =
+        inherit Command<IEnumerable<String>>(connection)
 
     let ListIndices (command: ListIndicesCommand) =
-        IndicesInfo(new IndicesInfoCommand(command.Connection))
-        |> Seq.map (fun i -> i.Name)
-        |> CList.ofSeq
+        GET command.ClusterUri "/_cluster/state"
+                        |> JsonValue.Parse
+                        |> fun el -> el?metadata?indices
+                        |> asPropertyList
+                        |> Seq.map fst
+                        |> CList.ofSeq
 
     type ListTypesCommand(connection, indexName) = 
         inherit Command<List<string>>(connection)

@@ -15,7 +15,7 @@
             <RowDefinition Height="45"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <t:AutoCompleteBox ItemsSource="{Binding UrlSuggest}"></t:AutoCompleteBox>
+        <t:AutoCompleteBox ItemsSource="{Binding UrlSuggest}" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></t:AutoCompleteBox>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>

@@ -2,25 +2,27 @@
 using System.Reactive.Linq;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
+using ElasticOps.Behaviors;
 using ElasticOps.ViewModels.Controls;
 using ElasticOps.ViewModels.ManagmentScreens;
 
 namespace ElasticOps.ViewModels
 {
-    [Priority(2)]
-    class QueryViewModel : Screen, IManagmentScreen
+    [Priority(1)]
+    public class QueryViewModel : Screen, IManagmentScreen
     {
-        private Infrastructure infrastructure;
+        private Infrastructure _infrastructure;
         private CodeEditorViewModel _queryEditor;
         private CodeEditorViewModel _resultEditor;
+        private string _url;
 
         public QueryViewModel(Infrastructure infrastructure, CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel)
         {
             DisplayName = "Query";
-            this.infrastructure = infrastructure;
+            _infrastructure = infrastructure;
             _queryEditor = queryEditorModel;
             _resultEditor = resultEditorModel;
-            UrlSuggest = new ObservableCollection<string>();
+            UrlSuggest = new IndexSuggest(infrastructure);
 
         }
 
@@ -46,6 +48,19 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        public ObservableCollection<string> UrlSuggest { get; set; }
+
+        public string Url
+        {
+            get { return _url; }
+            set
+            {
+                if (value == _url) return;
+                _url = value;
+                NotifyOfPropertyChange(() => Url);
+                UrlSuggest.UpdateSuggestions(_url);
+            }
+        }
+
+        public IndexSuggest UrlSuggest { get; set; }
     }
 }
