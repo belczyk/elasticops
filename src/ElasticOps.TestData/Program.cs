@@ -29,6 +29,42 @@ namespace ElasticOps.TestData
             .NumberOfShards(1)
             .AddMapping<Book>(m => m.MapFromAttributes())
             .AddMapping<CD>(m => m.MapFromAttributes()));
+
+            RandomBooks(100000, name, client);
+            RandomCDs(10000, name, client);
+        }
+
+        private static void RandomBooks(int n,string indexName, ElasticClient client)
+        {
+            for (var i = 0; i < n; i++)
+            {
+                var book = new Book
+                {
+                    Id = i,
+                    Description = LoremNET.Lorem.Paragraph(20,10),
+                    Title =  LoremNET.Lorem.Words(1,5),
+                    Year = (int)LoremNET.Lorem.Number(1965, 2015)
+                };
+
+                client.Index(book, ind => ind.Index(indexName));
+            }
+        }
+
+
+        private static void RandomCDs(int n, string indexName, ElasticClient client)
+        {
+            for (var i = 0; i < n; i++)
+            {
+                var book = new CD
+                {
+                    Id = i,
+                    Title = LoremNET.Lorem.Words(1, 5),
+                    Genere= LoremNET.Lorem.Words(1, 2),
+                    ReleaseDate = LoremNET.Lorem.DateTime(1990)
+                };
+
+                client.Index(book, ind => ind.Index(indexName));
+            }
         }
     }
 }

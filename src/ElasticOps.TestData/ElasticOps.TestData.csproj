@@ -36,6 +36,9 @@
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\packages\Elasticsearch.Net.1.4.0\lib\net45\Elasticsearch.Net.dll</HintPath>
     </Reference>
+    <Reference Include="LoremNET">
+      <HintPath>..\packages\Lorem.NET.1.0.5\lib\net40\LoremNET.dll</HintPath>
+    </Reference>
     <Reference Include="Nest">
       <HintPath>..\packages\NEST.1.4.0\lib\net45\Nest.dll</HintPath>
     </Reference>

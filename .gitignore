@@ -40,3 +40,4 @@ src/ElasticOps.v2.ncrunchsolution
 src/_NCrunch_ElasticOps
 
 !/src/packages/FsLexYacc.6.0.4/bin/**/*.exe
+!/src/packages/Lorem.NET.1.0.5/lib/net40/LoremNET.dll
