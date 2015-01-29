@@ -26,6 +26,9 @@ namespace ElasticOps.Behaviors
 
             text = text.Replace('\\', '/');
 
+            if (text.StartsWith("/"))
+                text = text.Substring(1);
+
             var parts = text.Split('/').ToList();
 
             if (parts.Count() == 1)

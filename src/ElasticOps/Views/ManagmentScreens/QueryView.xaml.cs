@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ElasticOps.Views
 {
@@ -12,5 +13,6 @@ namespace ElasticOps.Views
             InitializeComponent();
 
         }
+
     }
 }

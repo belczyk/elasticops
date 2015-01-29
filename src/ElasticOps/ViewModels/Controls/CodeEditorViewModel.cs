@@ -14,6 +14,7 @@ namespace ElasticOps.ViewModels.Controls
         private string _code;
         private IHighlightingDefinition _highlightingDefinition;
         private Brush _foreground;
+        private bool _isReadOnly;
 
         public CodeEditorViewModel(Infrastructure infrastructure)
         {
@@ -80,6 +81,17 @@ namespace ElasticOps.ViewModels.Controls
         public void Handle(ThemeChangedEvent message)
         {
             LoadHighlightRules(message.IsDark ? Theme.Dark : Theme.Light);
+        }
+
+        public bool IsReadOnly
+        {
+            get { return _isReadOnly; }
+            set
+            {
+                if (value.Equals(_isReadOnly)) return;
+                _isReadOnly = value;
+                NotifyOfPropertyChange(() => IsReadOnly);
+            }
         }
     }
 }

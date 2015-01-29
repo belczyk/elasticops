@@ -154,6 +154,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 Execute();
             }
         }
+
         private string TryFormatIfJson(string response)
         {
             try
@@ -168,8 +169,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
 
         }
-
-
 
         protected override void OnActivate()
         {
