@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\AppThemeMenuData.cs" />
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
     <Compile Include="SimpleCommand.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\ConsoleViewModel.cs" />
     <Compile Include="Views\Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
@@ -193,6 +194,9 @@
     <Compile Include="ViewModels\TypesListViewModel.cs" />
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagmentScreens\ConsoleView.xaml.cs">
+      <DependentUpon>ConsoleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManagmentScreens\QueryView.xaml.cs">
       <DependentUpon>QueryView.xaml</DependentUpon>
@@ -244,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManagmentScreens\ClusterInfoScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagmentScreens\ConsoleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

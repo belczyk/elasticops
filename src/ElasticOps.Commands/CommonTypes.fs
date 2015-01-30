@@ -96,7 +96,7 @@ type Connection(clusterUri : Uri) =
 
     
     member val IsOfflineMode = false with get,set
-    member val IsTrackEnabled = true with get,set
+    member val IsTrackEnabled = false with get,set
 
     member x.Version = version
 

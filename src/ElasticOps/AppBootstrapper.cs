@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
@@ -11,6 +13,7 @@ using ElasticOps.Services;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Serilog;
+using Serilog.Events;
 
 namespace ElasticOps
 {
@@ -77,15 +80,17 @@ namespace ElasticOps
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
+            var eventsAggr = AContainer.Resolve<IEventAggregator>();
+
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile("logs/log-{Date}.log")
+                .WriteTo.Observers(o => o.Subscribe(Observer.Create<LogEvent>((le) => eventsAggr.PublishOnUIThread(new LogEntryCreatedEvent(le)))))
                 .CreateLogger();
 
             ConfigService = AContainer.Resolve<ConfigService>();
             ThemeService = AContainer.Resolve<ThemeService>();
 
             DisplayRootViewFor<ShellViewModel>();
-
         }
     }
 
