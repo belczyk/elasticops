@@ -6,7 +6,7 @@ open FSharp.Data.JsonExtensions
 open Humanizer
 open FSharp.Data.Runtime
 open System.Linq
-
+open Serilog
 
 [<AutoOpen>]
 module CList =
@@ -30,18 +30,52 @@ module REST =
 
     let GET (connection : Connection) endpoint =
         let url = combineUri connection.ClusterUri endpoint
-        Http.RequestString  url 
+
+        try 
+            let result = Http.RequestString  url 
+
+            if (connection.IsTrackEnabled) then
+                Log.Logger.Information("GET   clusterUri: {clusterUri}  and endpoint: {endpoint}.  Result:  {result}",connection.ClusterUri,endpoint,result)
+                
+            result
+        with
+        | ex -> 
+            Log.Logger.Error("Error when executing GET. ClusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",connection.ClusterUri,endpoint,ex)
+            raise ex
 
     let POSTJson (connection : Connection) endpoint body =
         let url = combineUri connection.ClusterUri endpoint 
-        Http.RequestString ( url, httpMethod = "POST",
+
+        try 
+            let result = Http.RequestString ( url, httpMethod = "POST",
                             headers = [ "Accept", "application/json" ],
                             body   = TextRequest body )
 
+            if (connection.IsTrackEnabled) then
+                Log.Logger.Information("POST body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Result: {result}",body,connection.ClusterUri,endpoint,result)
+
+            result
+        with 
+        | ex -> 
+            Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
+            raise ex
+
+
     let POST (connection : Connection) endpoint body =
         let url = (combineUri connection.ClusterUri endpoint)
-        Http.RequestString ( url , httpMethod = "POST",
-                            body   = TextRequest body )
+
+        try 
+            let result = Http.RequestString ( url , httpMethod = "POST",body   = TextRequest body )
+
+            if (connection.IsTrackEnabled) then
+                Log.Logger.Information("POST body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Result: {result}",body,connection.ClusterUri,endpoint,result)
+
+            result
+        with
+        | ex -> 
+            Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
+            raise ex
+
 
 [<AutoOpen>]
 module JsonValueProcessing =

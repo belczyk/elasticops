@@ -57,7 +57,6 @@ namespace ElasticOps
               .Where(type => type.Name.EndsWith("View"))
               .AsSelf().InstancePerDependency();
             builder.RegisterType<CommandBus>().AsSelf();
-            builder.RegisterType<RESTClient>().As<IRESTClient>();
             builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
             builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
             builder.Register((c) =>

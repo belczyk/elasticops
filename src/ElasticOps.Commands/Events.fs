@@ -15,3 +15,5 @@ type ThemeChangedEvent(theme : String, isDark) =
 type AccentChangedEvent(accent) =
     member this.Accent : String = accent
 
+type LogEntryCreatedEvent (msg : string) = 
+    member this.Message : string = msg

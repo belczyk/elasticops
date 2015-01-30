@@ -94,6 +94,10 @@ type Connection(clusterUri : Uri) =
         | :? System.Net.WebException -> None
         | _ -> None
 
+    
+    member val IsOfflineMode = false with get,set
+    member val IsTrackEnabled = true with get,set
+
     member x.Version = version
 
     member x.ClusterUri  = uri
@@ -133,42 +137,3 @@ type Command<'T>(connection : Connection) =
 
     member x.Version = x.Connection.Version
 
-type IRESTClient = 
-        abstract GET : string -> string
-        abstract GET : Uri * string -> string
-        abstract POST : string * string -> string
-        abstract POST : Uri * string * string -> string
-        abstract POSTJson : string * string -> string
-        abstract POSTJson : Uri * string * string -> string
-
-type RESTClient() = 
-    member private this.combineUri ( uri : Uri) endpoint =
-        match endpoint with 
-        | null | "" -> uri.ToString()
-        | _ -> (new Uri(uri,new Uri(endpoint,UriKind.Relative))).ToString()
-
-    interface IRESTClient with 
-        member this.GET(url : string) = 
-            url |> Http.RequestString  
-
-        member this.GET(uri, endpoint) =
-            this.combineUri uri endpoint |> Http.RequestString
-
-        member this.POST(url : string, body : string) = 
-            Http.RequestString ( url, httpMethod = "POST",
-                        body   = TextRequest body
-                        )
-        member this.POST(uri, endpoint, body : string) = 
-            Http.RequestString ( (this.combineUri uri endpoint), httpMethod = "POST",
-                        body   = TextRequest body
-                        )
-        member this.POSTJson(url : string, body : string) = 
-            Http.RequestString ( url, httpMethod = "POST",
-                        headers = [ "Accept", "application/json" ],
-                        body   = TextRequest body
-                        ) 
-        member this.POSTJson(uri, endpoint, body : string) = 
-            Http.RequestString ( (this.combineUri uri endpoint), httpMethod = "POST",
-                        headers = [ "Accept", "application/json" ],
-                        body   = TextRequest body
-                        ) 
