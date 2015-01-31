@@ -18,5 +18,5 @@ open ElasticOps.Com
 let ``Can execute HealthCommand without error`` () =
     (fun con -> new ClusterInfo.HealthCommand(con))
         |> executeForAllConnections 
-
-    
+        |> List.map (fun x -> Assert.IsTrue(x.Success, x.ErrorMessage))
+        |> ignore

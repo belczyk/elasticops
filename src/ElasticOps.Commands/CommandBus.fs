@@ -28,21 +28,18 @@ type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
                     new CommandResult<'TResult>(ex.InnerException.Message,ex)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =
-        match command.ClusterUri with
-        | null -> new CommandResult<'TResult>("Missing uri")
-        | _ -> 
-            let requestedType = command.GetType()
+        let requestedType = command.GetType()
 
-            let eligibleMethods =Assembly.GetExecutingAssembly().GetTypes()  
-                                |> List.ofArray 
-                                |> List.filter  (fun t -> t.IsSealed && t.IsAbstract )
-                                |> List.filter  (fun t -> t.GetCustomAttributes().Any(fun a -> a.GetType() = typeof<CommandsHandlers>) )
-                                |> List.collect (fun t -> List.ofArray (t.GetMethods()))
-                                |> List.filter (fun m -> m.IsStatic)
+        let eligibleMethods =Assembly.GetExecutingAssembly().GetTypes()  
+                            |> List.ofArray 
+                            |> List.filter  (fun t -> t.IsSealed && t.IsAbstract )
+                            |> List.filter  (fun t -> t.GetCustomAttributes().Any(fun a -> a.GetType() = typeof<CommandsHandlers>) )
+                            |> List.collect (fun t -> List.ofArray (t.GetMethods()))
+                            |> List.filter (fun m -> m.IsStatic)
 
-            match (HandlerFinder.exactHanlderMatch eligibleMethods requestedType command.Version) with 
-            | Some m -> (this.executeMethod<'TResult> m command)
-            | None -> 
-                let msg = String.Format("Handler for {0} not found.",requestedType.Name)
-                eventAggregator.PublishOnUIThread(new ErrorOccuredEvent(msg))
-                new CommandResult<'TResult>(msg)
+        match (HandlerFinder.exactHanlderMatch eligibleMethods requestedType command.Version) with 
+        | Some m -> (this.executeMethod<'TResult> m command)
+        | None -> 
+            let msg = String.Format("Handler for {0} not found.",requestedType.Name)
+            eventAggregator.PublishOnUIThread(new ErrorOccuredEvent(msg))
+            new CommandResult<'TResult>(msg)

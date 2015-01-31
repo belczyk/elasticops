@@ -9,20 +9,21 @@ let config = new CommandsTestsConfig()
 config.Load("Config.yaml")
 
 let getConnectionsFromDisk() =
-    let dir = new DirectoryInfo(config.DataPath)
+    let dir = new DirectoryInfo(config.ReadPath)
     dir.GetDirectories() 
-        |> Seq.ofArray 
-        |> Seq.map (fun x -> Version.FromString x.Name)
-        |> Seq.map (fun ver -> 
+        |> List.ofArray 
+        |> List.map (fun x -> Version.FromString x.Name)
+        |> List.map (fun ver -> 
                             let connection = new Connection()
                             connection.IsOfflineMode <- true
                             connection.DiskVersion <- ver
-                            connection.ReadPath <- config.DataPath
+                            connection.ReadPath <- config.ReadPath
                             connection )
 
 let getConnectionsFromConfig() = 
     config.ElasticSearchNodesEndpoints 
-        |> Seq.map (fun x -> 
+        |> List.ofSeq
+        |> List.map (fun x -> 
                             let connection = new Connection(x)
                             connection.SavePath <- config.SavePath
                             connection.IsOfflineMode <- false
@@ -36,14 +37,14 @@ let connections() =
     else
         getConnectionsFromConfig()
 
-let execute  (createCommand : Connection -> 'T when 'T :> Command<'R>) (con : Connection) =
-    let bus = new CommandBus(new EventAggregator())
 
-    let cmd = con |> createCommand 
-    let res = cmd |> bus.Execute 
-    res
 let executeForAllConnections (createCommand : Connection -> 'T when 'T :> Command<'R>) = 
     let cons = connections()
+    let bus = new CommandBus(new EventAggregator())
 
-    for con in cons do execute  createCommand con
+    let results = cons |> List.map createCommand  |> List.map  bus.Execute
+
+    
+    results
+    
         

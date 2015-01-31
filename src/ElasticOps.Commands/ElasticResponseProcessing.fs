@@ -59,7 +59,7 @@ module REST =
         | _ -> ignore()
 
     let OfflineGET (connection : Connection ) endpoint = 
-        Path.Combine(connection.SavePath, connection.DiskVersion.ToString(), (endpointToDirName endpoint),"result.json")
+        Path.Combine(connection.ReadPath, connection.DiskVersion.ToString(), (endpointToDirName endpoint),GET',"result.json")
             |> File.ReadAllText
 
     let GET (connection : Connection) endpoint =
