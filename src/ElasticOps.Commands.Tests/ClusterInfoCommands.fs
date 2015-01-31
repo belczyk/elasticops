@@ -3,20 +3,90 @@ open FsUnit
 open NUnit.Framework
 open ElasticOps.Com
 
-//    new ClusterInfo.HealthCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.ClusterCountersCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.NodesInfoCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.IndicesInfoCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.DocumentsInfoCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.IsAliveCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.ListIndicesCommand(connection) |> bus.Execute |> ignore
-//    new ClusterInfo.ListTypesCommand(connection, "products") |> bus.Execute |> ignore
-//    new ClusterInfo.GetMappingCommand(connection, "products","book") |> bus.Execute |> ignore
+    module OverDefaultSet =
+        [<Test>]
+        let ``HealthCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.HealthCommand(con))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``ClusterCountersCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.ClusterCountersCommand(con))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``NodesInfoCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.NodesInfoCommand(con))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``IndicesInfoCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.IndicesInfoCommand(con))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``DocumentsInfoCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.DocumentsInfoCommand(con))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
 
 
-[<Test>]
-let ``Can execute HealthCommand without error`` () =
-    (fun con -> new ClusterInfo.HealthCommand(con))
-        |> executeForAllConnections 
-        |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
-        |> ignore
+        [<Test>]
+        let ``ListIndicesCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.ListIndicesCommand(con))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``ListTypesCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.ListTypesCommand(con,"products"))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``GetMappingCommand can be executed without errors`` () =
+            (fun con -> new ClusterInfo.GetMappingCommand(con,"products","book"))
+                |> executeForAllConnections 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+    module OverEmptySet =
+        [<Test>]
+        let ``HealthCommand can be executed without errors over empty ElasticSearch node (no indices)`` () =
+            (fun con -> new ClusterInfo.HealthCommand(con))
+                |> executeForAllConnectionsOverSet "empty" 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``ClusterCountersCommand can be executed without errors over empty ElasticSearch node (no indices)`` () =
+            (fun con -> new ClusterInfo.ClusterCountersCommand(con))
+                |> executeForAllConnectionsOverSet "empty" 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``NodesInfoCommand can be executed without errors over empty ElasticSearch node (no indices)`` () =
+            (fun con -> new ClusterInfo.NodesInfoCommand(con))
+                |> executeForAllConnectionsOverSet "empty" 
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+
+        [<Test>]
+        let ``IndicesInfoCommand can be executed without errors over empty ElasticSearch node (no indices)`` () =
+            (fun con -> new ClusterInfo.IndicesInfoCommand(con))
+                |> executeForAllConnectionsOverSet "empty"
+                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> ignore
+

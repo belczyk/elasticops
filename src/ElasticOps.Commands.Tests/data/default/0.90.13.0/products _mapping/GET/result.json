@@ -1,0 +1,1 @@
+{"products":{"cd":{"properties":{"artist":{"type":"string"},"genere":{"type":"string"},"id":{"type":"integer"},"releaseDate":{"type":"date","format":"dateOptionalTime"},"title":{"type":"string"}}},"book":{"properties":{"description":{"type":"string"},"id":{"type":"integer"},"title":{"type":"string"},"year":{"type":"integer"}}}}}

@@ -1,0 +1,18 @@
+{
+  "book" : {
+    "properties" : {
+      "description" : {
+        "type" : "string"
+      },
+      "id" : {
+        "type" : "integer"
+      },
+      "title" : {
+        "type" : "string"
+      },
+      "year" : {
+        "type" : "integer"
+      }
+    }
+  }
+}

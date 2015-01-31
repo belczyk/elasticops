@@ -1,0 +1,1 @@
+{"ok":true,"cluster_name":"elasticsearch_0_90_13","nodes":{"vDW1ILpITASwa_7Xh7nVbA":{"name":"Volla","transport_address":"inet[/10.1.1.4:8913]","hostname":"caldeum","version":"0.90.13","http_address":"inet[/10.1.1.4:9913]"}}}

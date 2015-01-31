@@ -79,23 +79,28 @@ type Connection(clusterUri : Uri) =
     let mutable uncheckedUri = false
     let mutable version : Version = null
 
-    let getVersion uri = 
-        try
-            let statusReq = System.Net.WebRequest.Create(uri.ToString());
-            let statusRes = statusReq.GetResponse()
-            let stream = statusRes.GetResponseStream()
-            let reader = new System.IO.StreamReader(stream)
-            let response = JsonValue.Parse (reader.ReadToEnd())
+    member val DiskVersion = (null : Version) with get,set
 
-            match response?status.AsString() with
-                | "200" -> Some (Version.FromString(response?version?number.AsString()))
-                | _ -> None
-        with
-        | :? System.Net.WebException -> None
-        | _ -> None
+    member x.GetVersion uri = 
+        if x.IsOfflineMode then 
+            (Some x.DiskVersion)
+        else
+            try
+                let statusReq = System.Net.WebRequest.Create(uri.ToString());
+                let statusRes = statusReq.GetResponse()
+                let stream = statusRes.GetResponseStream()
+                let reader = new System.IO.StreamReader(stream)
+                let response = JsonValue.Parse (reader.ReadToEnd())
+
+                match response?status.AsString() with
+                    | "200" -> Some (Version.FromString(response?version?number.AsString()))
+                    | _ -> None
+            with
+            | :? System.Net.WebException -> None
+            | _ -> None
 
     member x.Init() = 
-        match getVersion(uri) with 
+        match x.GetVersion(uri) with 
                         | Some v -> version <- v
                                     isConnected <- true
                                     uncheckedUri <- false
@@ -109,7 +114,6 @@ type Connection(clusterUri : Uri) =
     member val SaveResultToDisk = false with get,set
     member val SavePath = String.Empty with get,set
     member val ReadPath = String.Empty with get,set
-    member val DiskVersion = (null : Version) with get,set
 
     member x.Version  with get() = 
                                     if (version = null) then 

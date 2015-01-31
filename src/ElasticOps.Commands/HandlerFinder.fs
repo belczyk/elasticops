@@ -3,6 +3,7 @@ open System.Reflection
 open System.Linq
 open System
 
+
 module HandlerFinder =
     exception AmbiguousHanlderResolution of string
     exception IllegalOperationMultipleESVersionFromAttributes of string
@@ -19,7 +20,7 @@ module HandlerFinder =
     
         match attributes with
         | [] -> None
-        | from::[] -> Some ((from :?> ESVersionFrom).ToVersion()) 
+        | from::[] -> Some ((from :?> 'T ).ToVersion()) 
         | _ -> raise (IllegalOperationMultipleESVersionFromAttributes (sprintf "Methods %s have multiple ESVersionFrom attributes" m.Name))
     
     
@@ -34,8 +35,8 @@ module HandlerFinder =
     
         
     
-    let private raiseAmbiguousHanlderResolution (commandType : Type) eligableMethods  = 
-          raise (AmbiguousHanlderResolution (sprintf "found multiple handlers for requested command %s: %s" commandType.Name  (foldMethodNames eligableMethods) ))
+    let private raiseAmbiguousHanlderResolution (commandType : Type) eligableMethods (version :  ElasticOps.Com.Version) = 
+          raise (AmbiguousHanlderResolution (sprintf "found multiple handlers for requested command %s: %s. ElasticSearch version: %s" commandType.Name  (foldMethodNames eligableMethods) (version.ToString()) ))
     
     
     let exactHanlderMatch (methods :  MethodInfo list) (commandType : Type) (version : ElasticOps.Com.Version) = 
@@ -46,5 +47,5 @@ module HandlerFinder =
          match eligableMethods with
          | [] -> None 
          | m::[]  -> Some m
-         | _ -> raiseAmbiguousHanlderResolution commandType eligableMethods
+         | _ -> raiseAmbiguousHanlderResolution commandType eligableMethods version
     
