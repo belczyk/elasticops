@@ -1,4 +1,4 @@
-﻿module LexerTests 
+﻿module LexerAndParserTests 
 
 open NUnit.Framework
 open FsUnit

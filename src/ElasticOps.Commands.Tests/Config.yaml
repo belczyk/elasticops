@@ -1,0 +1,5 @@
+﻿IsOfflineMode : true
+DataPath : ..\\..\\data
+SavePath : ..\\..\\data
+ElasticSearchNodesEndpoints:
+                             - http://localhost:9200

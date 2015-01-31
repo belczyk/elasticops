@@ -39,8 +39,7 @@ module ElasticOps.Com.ClusterInfo
         let nodesCount = GET command.Connection "/_nodes"
                             |> propCount (fun p->p)
 
-        { Indices = ic; Documents = docCount; Nodes = nodesCount }
-
+        new ClusterCounters(ic,docCount,nodesCount)
     type NodesInfoCommand(connection) = 
         inherit Command<IEnumerable<NodeInfo>>(connection)
 

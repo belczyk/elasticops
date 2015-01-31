@@ -2,13 +2,10 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
-using ElasticOps.Behaviors;
 using ElasticOps.ViewModels.Controls;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Newtonsoft.Json;

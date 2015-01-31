@@ -2,9 +2,12 @@
 
 open System.Collections.Generic
 
-type ClusterCounters = { Indices: int; 
-                         Documents: int; 
-                         Nodes: int }
+[<AllowNullLiteral>]
+type ClusterCounters(i, d, n) =
+    member val Indices = i with get,set
+    member val Documents = d with get,set
+    member val Nodes = n with get,set
+
 
 type NodeInfo = { Name: string; 
                   Hostname: string; 

@@ -94,11 +94,27 @@ type Connection(clusterUri : Uri) =
         | :? System.Net.WebException -> None
         | _ -> None
 
-    
+    member x.Init() = 
+        match getVersion(uri) with 
+                        | Some v -> version <- v
+                                    isConnected <- true
+                                    uncheckedUri <- false
+                                    true
+                        | None -> isConnected <- false
+                                  uncheckedUri <- false
+                                  false
+
     member val IsOfflineMode = false with get,set
     member val IsTrackEnabled = false with get,set
+    member val SaveResultToDisk = false with get,set
+    member val SavePath = String.Empty with get,set
+    member val ReadPath = String.Empty with get,set
+    member val DiskVersion = (null : Version) with get,set
 
-    member x.Version = version
+    member x.Version  with get() = 
+                                    if (version = null) then 
+                                        x.Init() |> ignore
+                                    version
 
     member x.ClusterUri  = uri
 
@@ -111,19 +127,15 @@ type Connection(clusterUri : Uri) =
             if not uncheckedUri then
                 isConnected
             else
-                match getVersion(uri) with 
-                    | Some v -> version <- v
-                                isConnected <- true
-                                uncheckedUri <- false
-                                true
-                    | None -> isConnected <- false
-                              uncheckedUri <- false
-                              false
+                x.Init()
+
     new() = Connection(null)
 
+
+[<AllowNullLiteral>]
 type HeartBeat( isAlive : bool , version : string ) =
-    member x.IsAlive = isAlive 
-    member x.Version = version
+    member val IsAlive = isAlive with get,set
+    member val Version = version with get,set
 
     new(isAlive : bool) = HeartBeat(isAlive,null)
 
