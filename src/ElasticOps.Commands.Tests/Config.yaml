@@ -1,6 +1,11 @@
-﻿IsOfflineMode : true
+﻿IsOfflineMode : false
 ReadPath : ..\\..\\data
 SavePath : ..\\..\\data
 ElasticSearchNodesEndpoints:
                              - http://localhost:9200
                              - http://localhost:9913
+                             - http://localhost:9112
+                             - http://localhost:9103
+                             - http://localhost:9124
+                             - http://localhost:9137
+                             - http://localhost:9142

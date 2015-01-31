@@ -21,11 +21,11 @@ type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
                 | null -> 
                     eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Exception: {@ExceptionMessage}",command.GetType().Name,ex.Message)
-                    new CommandResult<'TResult>(ex.Message,ex)
+                    new CommandResult<'TResult>(String.Format("ES Version {0}", if command.Connection.Version = null then command.Connection.DiskVersion.ToString() else command.Connection.Version.ToString())+ex.Message,ex)
                 | inner -> 
                     eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.InnerException.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Inner exception: {@ExceptionMessage}",command.GetType().Name,inner.Message)
-                    new CommandResult<'TResult>(ex.InnerException.Message,ex)
+                    new CommandResult<'TResult>(String.Format("ES Version {0}", if command.Connection.Version = null then command.Connection.DiskVersion.ToString() else command.Connection.Version.ToString())+ex.InnerException.Message,ex)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =
         let requestedType = command.GetType()
