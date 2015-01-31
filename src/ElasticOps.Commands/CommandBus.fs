@@ -9,6 +9,17 @@ open Serilog
 type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
     let eventAggregator = eventAggregator
 
+    member private this.buildErrorMessage (command : Command<'T>) (exception' : Exception) = 
+        let version = match (command.Connection.Version) with
+                        | null -> match (command.Connection.DiskVersion) with
+                                    | null -> "[unknown]"
+                                    | v -> v.ToString()
+                        | v -> v.ToString()
+        let clusterUri = match command.Connection.ClusterUri with
+                            | null -> "[null]"
+                            | u -> u.ToString()
+
+        String.Format("Error occured. Url: {0}. Version {1}. Error: {2}", clusterUri, version, exception'.Message)
 
     member private  this.executeMethod<'TResult when 'TResult : null> (m : MethodInfo) (command : Command<'TResult>) =
         try 
@@ -21,11 +32,11 @@ type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
                 | null -> 
                     eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Exception: {@ExceptionMessage}",command.GetType().Name,ex.Message)
-                    new CommandResult<'TResult>(String.Format("ES Version {0}", if command.Connection.Version = null then command.Connection.DiskVersion.ToString() else command.Connection.Version.ToString())+ex.Message,ex)
+                    new CommandResult<'TResult>((this.buildErrorMessage command ex),ex)
                 | inner -> 
                     eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.InnerException.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Inner exception: {@ExceptionMessage}",command.GetType().Name,inner.Message)
-                    new CommandResult<'TResult>(String.Format("ES Version {0}", if command.Connection.Version = null then command.Connection.DiskVersion.ToString() else command.Connection.Version.ToString())+ex.InnerException.Message,ex)
+                    new CommandResult<'TResult>((this.buildErrorMessage command inner),ex)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =
         let requestedType = command.GetType()
