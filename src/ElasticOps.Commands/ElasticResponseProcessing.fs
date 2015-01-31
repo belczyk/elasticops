@@ -62,6 +62,11 @@ module REST =
         Path.Combine(connection.ReadPath, connection.DiskVersion.ToString(), (endpointToDirName endpoint),GET',"result.json")
             |> File.ReadAllText
 
+    let OfflinePOST (connection : Connection ) endpoint body= 
+        let h = hash body
+        Path.Combine(connection.ReadPath, connection.DiskVersion.ToString(), (endpointToDirName endpoint),POST',"result " + h + ".json")
+            |> File.ReadAllText
+
     let GET (connection : Connection) endpoint =
         if connection.IsOfflineMode then 
             OfflineGET connection endpoint
@@ -82,39 +87,45 @@ module REST =
                 raise ex
 
     let POSTJson (connection : Connection) endpoint body =
-        let url = combineUri connection.ClusterUri endpoint 
+        if connection.IsOfflineMode then 
+            OfflinePOST connection endpoint body
+        else
+            let url = combineUri connection.ClusterUri endpoint 
 
-        try 
-            let result = Http.RequestString ( url, httpMethod = "POST",
-                            headers = [ "Accept", "application/json" ],
-                            body   = TextRequest body )
+            try 
+                let result = Http.RequestString ( url, httpMethod = "POST",
+                                headers = [ "Accept", "application/json" ],
+                                body   = TextRequest body )
 
-            if (connection.IsTrackEnabled) then
-                Log.Logger.Information("POST body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Result: {result}",body,connection.ClusterUri,endpoint,result)
-            if (connection.SaveResultToDisk) then
-                saveResult(POST',connection,endpoint,Some body,result)
-            result
-        with 
-        | ex -> 
-            Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
-            raise ex
+                if (connection.IsTrackEnabled) then
+                    Log.Logger.Information("POST body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Result: {result}",body,connection.ClusterUri,endpoint,result)
+                if (connection.SaveResultToDisk) then
+                    saveResult(POST',connection,endpoint,Some body,result)
+                result
+            with 
+            | ex -> 
+                Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
+                raise ex
 
 
     let POST (connection : Connection) endpoint body =
-        let url = (combineUri connection.ClusterUri endpoint)
+        if connection.IsOfflineMode then 
+            OfflinePOST connection endpoint body
+        else
+            let url = (combineUri connection.ClusterUri endpoint)
 
-        try 
-            let result = Http.RequestString ( url , httpMethod = "POST",body   = TextRequest body )
+            try 
+                let result = Http.RequestString ( url , httpMethod = "POST",body   = TextRequest body )
 
-            if (connection.IsTrackEnabled) then
-                Log.Logger.Information("POST body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Result: {result}",body,connection.ClusterUri,endpoint,result)
-            if (connection.SaveResultToDisk) then
-                saveResult(POST',connection,endpoint,Some body,result)
-            result
-        with
-        | ex -> 
-            Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
-            raise ex
+                if (connection.IsTrackEnabled) then
+                    Log.Logger.Information("POST body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Result: {result}",body,connection.ClusterUri,endpoint,result)
+                if (connection.SaveResultToDisk) then
+                    saveResult(POST',connection,endpoint,Some body,result)
+                result
+            with
+            | ex -> 
+                Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
+                raise ex
 
 
 [<AutoOpen>]
