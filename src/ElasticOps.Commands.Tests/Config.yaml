@@ -1,4 +1,4 @@
-﻿IsOfflineMode : false
+﻿IsOfflineMode : true
 ReadPath : ..\\..\\data
 SavePath : ..\\..\\data
 ElasticSearchNodesEndpoints:
