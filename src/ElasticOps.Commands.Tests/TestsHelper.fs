@@ -2,7 +2,6 @@
 module TestHelpers
 open Config
 open ElasticOps.Com
-open Caliburn.Micro 
 open System.IO
 open System
 
@@ -50,7 +49,7 @@ let connections(set : string option) =
 
 let executeForAllConnectionsOverSet' (createCommand : Connection -> 'T when 'T :> Command<'R>) (set : string option) = 
     let cons = connections(set)
-    let bus = new CommandBus(new EventAggregator())
+    let bus = new CommandBus()
 
     let results = cons |> List.map createCommand  |> List.map  bus.Execute
 

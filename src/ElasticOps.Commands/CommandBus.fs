@@ -3,11 +3,9 @@ open System
 open System.Reflection
 open System.Linq
 open ElasticOps.Com
-open Caliburn.Micro
 open Serilog
 
-type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
-    let eventAggregator = eventAggregator
+type CommandBus() =
 
     member private this.buildErrorMessage (command : Command<'T>) (exception' : Exception) = 
         let version = match (command.Connection.Version) with
@@ -30,11 +28,9 @@ type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
             | ex ->
                 match ex.InnerException with
                 | null -> 
-                    eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Exception: {@ExceptionMessage}",command.GetType().Name,ex.Message)
                     new CommandResult<'TResult>((this.buildErrorMessage command ex),ex)
                 | inner -> 
-                    eventAggregator.PublishOnUIThread (new ErrorOccuredEvent(ex.InnerException.Message))
                     Log.Logger.Warning(ex, "Error when executing command {@Command}. Inner exception: {@ExceptionMessage}",command.GetType().Name,inner.Message)
                     new CommandResult<'TResult>((this.buildErrorMessage command inner),ex)
 
@@ -52,5 +48,5 @@ type CommandBus(eventAggregator : Caliburn.Micro.IEventAggregator) =
         | Some m -> (this.executeMethod<'TResult> m command)
         | None -> 
             let msg = String.Format("Handler for {0} not found.",requestedType.Name)
-            eventAggregator.PublishOnUIThread(new ErrorOccuredEvent(msg))
+            Log.Logger.Error("Handler for {handlerName} not found.",requestedType.Name)
             new CommandResult<'TResult>(msg)
