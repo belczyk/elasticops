@@ -15,7 +15,12 @@ open ElasticOps.Com
         let ``ClusterCountersCommand can be executed without errors`` () =
             (fun con -> new ClusterInfo.ClusterCountersCommand(con))
                 |> executeForAllConnections 
-                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> List.map (fun x -> 
+                                Assert.IsTrue(x.Success,x.ErrorMessage)
+                                Assert.AreEqual(1,x.Result.Nodes)
+                                Assert.AreEqual(110000,x.Result.Documents)
+                                Assert.AreEqual(1,x.Result.Indices)
+                                )
                 |> ignore
 
         [<Test>]

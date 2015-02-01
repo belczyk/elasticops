@@ -30,7 +30,7 @@ module ElasticOps.Com.ClusterInfo
                     |> asPropertyList
 
         let ic = ic1
-                    |> Seq.filter (fun i -> (fst i).StartsWith("."))
+                    |> Seq.filter (fun i -> not ((fst i).StartsWith(".")))
                     |> Seq.length
                
         let docCount = stats
@@ -38,9 +38,10 @@ module ElasticOps.Com.ClusterInfo
                         |> fun ps -> match  ps?_all?primaries.TryGetProperty("docs") with
                                         | None -> 0
                                         | Some d -> d?count.AsInteger()
+        let nodesJson = GET command.Connection "/_nodes"
+        let nodesCount = (JsonValue.Parse nodesJson)?nodes |> asPropertyList |> Seq.length
 
-        let nodesCount = GET command.Connection "/_nodes"
-                            |> propCount (fun p->p)
+
         new ClusterCounters(ic,docCount,nodesCount)
 
     [<ESVersionFrom(1)>]
@@ -53,7 +54,7 @@ module ElasticOps.Com.ClusterInfo
                     |> asPropertyList
 
         let ic = ic1
-                    |> Seq.filter (fun i -> (fst i).StartsWith("."))
+                    |> Seq.filter (fun i -> (not ((fst i).StartsWith("."))))
                     |> Seq.length
                
         let docCount = stats
@@ -61,9 +62,9 @@ module ElasticOps.Com.ClusterInfo
                         |> fun ps -> match  ps?_all?total.TryGetProperty("docs") with
                                         | None -> 0
                                         | Some d -> d?count.AsInteger()
+        let nodesJson = GET command.Connection "/_nodes"
+        let nodesCount = (JsonValue.Parse nodesJson)?nodes |> asPropertyList |> Seq.length
 
-        let nodesCount = GET command.Connection "/_nodes"
-                            |> propCount (fun p->p)
         new ClusterCounters(ic,docCount,nodesCount)
 
     type NodesInfoCommand(connection) = 

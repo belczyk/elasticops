@@ -30,8 +30,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             DisplayName = "Cluster";
 
-            LoadCounters();
-
         }
 
 

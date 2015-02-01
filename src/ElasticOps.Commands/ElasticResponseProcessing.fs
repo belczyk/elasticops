@@ -151,10 +151,5 @@ module JsonValueProcessing =
         |> Seq.map (fun pair -> new KeyValuePair<string,string>((fst pair),(snd pair).AsString()))
         |> List.ofSeq
         
-    let propCount selector json =
-        json 
-            |> JsonValue.Parse
-            |> selector
-            |> asPropertyList
-            |> Seq.length
+
 
