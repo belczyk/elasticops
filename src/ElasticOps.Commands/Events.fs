@@ -18,3 +18,6 @@ type AccentChangedEvent(accent) =
 
 type LogEntryCreatedEvent (logEvent : LogEvent) = 
     member this.LogEvent : LogEvent = logEvent
+
+type NewConnectionEvent (url : String) =
+    member this.URL = url

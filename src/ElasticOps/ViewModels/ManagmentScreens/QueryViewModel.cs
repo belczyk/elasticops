@@ -9,6 +9,7 @@ using ElasticOps.Attributes;
 using ElasticOps.ViewModels.Controls;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Newtonsoft.Json;
+using Serilog;
 using Screen = Caliburn.Micro.Screen;
 
 namespace ElasticOps.ViewModels
@@ -39,6 +40,7 @@ namespace ElasticOps.ViewModels
                   
             };
             Method = "GET";
+
         }
 
         public CodeEditorViewModel QueryEditor

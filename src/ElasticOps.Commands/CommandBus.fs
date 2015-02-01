@@ -28,10 +28,10 @@ type CommandBus() =
             | ex ->
                 match ex.InnerException with
                 | null -> 
-                    Log.Logger.Warning(ex, "Error when executing command {@Command}. Exception: {@ExceptionMessage}",command.GetType().Name,ex.Message)
+                    Log.Logger.Error(ex, "Error when executing command {@Command}. Exception: {@ExceptionMessage}",command.GetType().Name,ex.Message)
                     new CommandResult<'TResult>((this.buildErrorMessage command ex),ex)
                 | inner -> 
-                    Log.Logger.Warning(ex, "Error when executing command {@Command}. Inner exception: {@ExceptionMessage}",command.GetType().Name,inner.Message)
+                    Log.Logger.Error(ex, "Error when executing command {@Command}. Inner exception: {@ExceptionMessage}",command.GetType().Name,inner.Message)
                     new CommandResult<'TResult>((this.buildErrorMessage command inner),ex)
 
     member this.Execute<'TResult when 'TResult : null> (command : Command<'TResult>)  =

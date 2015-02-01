@@ -7,11 +7,15 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+
         </Grid.ColumnDefinitions>
-        <TextBlock Name="ErrorMessage" Grid.Column="0">
+        <StackPanel Orientation="Horizontal" Grid.Column="0">
+            <Label>Connected to:</Label>
+            <Label x:Name="CurrentClusterUri"></Label>
+        </StackPanel>
+        <Label x:Name="ErrorMessage" Grid.Column="1"></Label>
 
-
-        </TextBlock>
     </Grid>
 </UserControl>

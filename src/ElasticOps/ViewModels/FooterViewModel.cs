@@ -1,5 +1,4 @@
-﻿ using System.Reactive.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
@@ -7,17 +6,18 @@ using Humanizer;
 
 namespace ElasticOps.ViewModels
 {
-    public class FooterViewModel : PropertyChangedBase, IHandle<ErrorOccuredEvent>
+    public class FooterViewModel : PropertyChangedBase, IHandle<ErrorOccuredEvent>, IHandle<NewConnectionEvent>
     {
-        private IEventAggregator eventAggregator;
 
-        public FooterViewModel(IEventAggregator eventAggregator)
+        public FooterViewModel(Infrastructure infrastructure)
         {
-            this.eventAggregator = eventAggregator;
-            eventAggregator.Subscribe(this);
+            infrastructure.EventAggregator.Subscribe(this);
+
+            CurrentClusterUri = infrastructure.Connection.ClusterUri.ToString();
         }
 
         private string _errorMessage;
+        private string _currentClusterUri;
 
         public string ErrorMessage
         {
@@ -26,6 +26,17 @@ namespace ElasticOps.ViewModels
             {
                 _errorMessage = value;
                 NotifyOfPropertyChange(() => ErrorMessage);
+            }
+        }
+
+        public string CurrentClusterUri
+        {
+            get { return _currentClusterUri; }
+            set
+            {
+                if (value == _currentClusterUri) return;
+                _currentClusterUri = value;
+                NotifyOfPropertyChange(() => CurrentClusterUri);
             }
         }
 
@@ -40,5 +51,11 @@ namespace ElasticOps.ViewModels
 
             task.Start();
         }
+
+        public void Handle(NewConnectionEvent message)
+        {
+            CurrentClusterUri = message.URL;
+        }
+
     }
 }

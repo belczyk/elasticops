@@ -195,6 +195,9 @@
     <Compile Include="Views\ClusterConnectionView.xaml.cs">
       <DependentUpon>ClusterConnectionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FooterView.xaml.cs">
+      <DependentUpon>FooterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManagmentScreens\ConsoleView.xaml.cs">
       <DependentUpon>ConsoleView.xaml</DependentUpon>
     </Compile>
@@ -317,9 +320,6 @@
     </Compile>
     <Compile Include="Views\ElasticPropertyView.xaml.cs">
       <DependentUpon>ElasticPropertyView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FooterView.xaml.cs">
-      <DependentUpon>FooterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManagmentScreens\BasicInfoView.xaml.cs">
       <DependentUpon>BasicInfoView.xaml</DependentUpon>

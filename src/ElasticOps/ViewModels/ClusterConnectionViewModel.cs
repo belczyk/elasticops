@@ -40,6 +40,9 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => IsConnected);
                 NotifyOfPropertyChange(() => Version);
 
+                if(IsConnected)
+                    _eventAggregator.PublishOnUIThread(new NewConnectionEvent(ClusterUri));
+
                 if(!wasConnected && IsConnected)
                     _eventAggregator.PublishOnUIThread(new RefreashEvent());
 

@@ -19,13 +19,13 @@ namespace ElasticOps.ViewModels
             Infrastructure infrastructure,
             StudioViewModel studioViewModel, 
             SettingsViewModel _settingsViewModel,
-            FooterViewModel footerViewModel
+            FooterViewModel footer
             )
         {
             _infrastructure = infrastructure;
             this.studioViewModel = studioViewModel;
             this._settingsViewModel = _settingsViewModel;
-            FooterViewModel = footerViewModel;
+            Footer = footer;
 
             DisplayName = "Elastic Ops";
 
@@ -56,15 +56,15 @@ namespace ElasticOps.ViewModels
             if (accent!=null)
                 accent.DoChangeTheme(this);
         }
-        private FooterViewModel _footerViewModel;
+        private FooterViewModel _footer;
 
-        public FooterViewModel FooterViewModel
+        public FooterViewModel Footer
         {
-            get { return _footerViewModel; }
+            get { return _footer; }
             set
             {
-                _footerViewModel = value;
-                NotifyOfPropertyChange(() => FooterViewModel);
+                _footer = value;
+                NotifyOfPropertyChange(() => Footer);
             }
         }
 

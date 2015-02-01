@@ -6,6 +6,7 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="clr-namespace:ElasticOps.Views"
+                      xmlns:micro="http://www.caliburnproject.org"
                       Title="Elastic Ops"
                       Height="768"
                       Width="1024"
@@ -78,8 +79,8 @@
         </Menu>
         <Controls:TransitioningContentControl Name="ActiveItem"
                                               Transition="LeftReplace" Grid.Row="1"></Controls:TransitioningContentControl>
-      
-        <views:FooterView Grid.Row="2">
+
+        <views:FooterView Grid.Row="2" x:Name="Footer" micro:View.Model="{Binding Footer}" >
 
         </views:FooterView>
     </Grid>
