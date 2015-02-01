@@ -78,7 +78,12 @@ open ElasticOps.Com
         let ``ClusterCountersCommand can be executed without errors over empty ElasticSearch node (no indices)`` () =
             (fun con -> new ClusterInfo.ClusterCountersCommand(con))
                 |> executeForAllConnectionsOverSet "empty" 
-                |> List.map (fun x -> Assert.IsTrue(x.Success,x.ErrorMessage))
+                |> List.map (fun x -> 
+                                Assert.IsTrue(x.Success,x.ErrorMessage)
+                                Assert.AreEqual(1,x.Result.Nodes)
+                                Assert.AreEqual(0,x.Result.Documents)
+                                Assert.AreEqual(0,x.Result.Indices)
+                                )
                 |> ignore
 
         [<Test>]
