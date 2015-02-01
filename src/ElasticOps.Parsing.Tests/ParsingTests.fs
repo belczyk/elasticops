@@ -122,7 +122,7 @@ let ``parse huge json in less then half seconds`` () =
     json |> parse |> ignore
     stopWatch.Stop()
 
-    System.Console.WriteLine("Parse {0} lines of json {1} ms",(countSubstring json "\n"),stopWatch.ElapsedMilliseconds)
+    //System.Console.WriteLine("Parse {0} lines of json {1} ms",(countSubstring json "\n"),stopWatch.ElapsedMilliseconds)
 
     stopWatch.ElapsedMilliseconds |> should be (lessThan 500)
 
@@ -240,7 +240,7 @@ let ``can parse json terminated in a random place`` () =
 
 
     watch.Stop()
-    printfn "total time [ms]: %d" watch.ElapsedMilliseconds
+    //printfn "total time [ms]: %d" watch.ElapsedMilliseconds
 
     //fool test runner to not ignore this test
     Assert.True true
@@ -264,7 +264,7 @@ let ``can parse json terminated at any point`` () =
 
     watch.Stop()
 
-    printfn "total time [ms]: %d" watch.ElapsedMilliseconds
+    //printfn "total time [ms]: %d" watch.ElapsedMilliseconds
     //fool test runner to not ignore this test
     Assert.True true
         
