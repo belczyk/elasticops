@@ -6,16 +6,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Column="0">
+        <StackPanel Orientation="Horizontal">
             <Label>Connected to:</Label>
             <Label x:Name="CurrentClusterUri"></Label>
+            <Label x:Name="ErrorMessage"  Foreground="Red" Margin="25,0,0,0"></Label>
         </StackPanel>
-        <Label x:Name="ErrorMessage" Grid.Column="1"></Label>
-
     </Grid>
 </UserControl>

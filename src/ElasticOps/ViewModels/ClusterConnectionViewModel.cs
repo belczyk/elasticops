@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
 using Humanizer;
+using Serilog;
 
 namespace ElasticOps.ViewModels
 {
@@ -42,6 +43,8 @@ namespace ElasticOps.ViewModels
 
                 if(IsConnected)
                     _eventAggregator.PublishOnUIThread(new NewConnectionEvent(ClusterUri));
+                else
+                    Log.Logger.Error("Could not connect to: {clusterUri}", ClusterUri);
 
                 if(!wasConnected && IsConnected)
                     _eventAggregator.PublishOnUIThread(new RefreashEvent());

@@ -8,12 +8,15 @@ namespace ElasticOps.ViewModels
 {
     public class FooterViewModel : PropertyChangedBase, IHandle<ErrorOccuredEvent>, IHandle<NewConnectionEvent>
     {
+        private readonly Infrastructure _infrastructure;
 
         public FooterViewModel(Infrastructure infrastructure)
         {
+            _infrastructure = infrastructure;
             infrastructure.EventAggregator.Subscribe(this);
 
             CurrentClusterUri = infrastructure.Connection.ClusterUri.ToString();
+
         }
 
         private string _errorMessage;
@@ -45,7 +48,7 @@ namespace ElasticOps.ViewModels
             ErrorMessage = @event.ErrorMessage;
             var task = new Task(() =>
             {
-                Thread.Sleep(2.Seconds());
+                Thread.Sleep(_infrastructure.Config.Appearance.Footer.ErrorTimout.Seconds());
                 ErrorMessage = string.Empty;
             });
 
