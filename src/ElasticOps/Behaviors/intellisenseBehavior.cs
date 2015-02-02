@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
+using ElasticOps.Extensions;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -24,7 +24,16 @@ namespace ElasticOps.Behaviors
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            textArea.Document.Replace(completionSegment, string.Format("\"{0}\" : {{\n\n}}", Text));
+            var caretPosition = textArea.Caret.Position;
+
+            var text = textArea.Document.Text;
+            var codeTillCaret = text.GetTextBeforePosition(textArea.Caret.Line, textArea.Caret.Column);
+            var codeFromCaret = text.Substring(codeTillCaret.Length);
+            var lastQuotePos = codeTillCaret.LastIndexOf("\"");
+            var codeTillQuote = codeTillCaret.Substring(0, lastQuotePos+1);
+            
+            textArea.Document.Text = codeTillQuote + Text + "\" : " + codeFromCaret;
+            textArea.Caret.Position = new TextViewPosition(caretPosition.Line,lastQuotePos+Text.Length);
         }
 
         public object Content { get; set; }
@@ -57,14 +66,17 @@ namespace ElasticOps.Behaviors
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
-            var parseTree = Processing.parse(AssociatedObject.TextArea.Document.Text);
-            
-            if (Processing.endsOnPropertyName(parseTree.Value))
+            var codeTillCaret = AssociatedObject.TextArea.Document.Text.GetTextBeforePosition(AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
+
+            var parseTree = Processing.parse(codeTillCaret);
+            var isEndingWithPropertyName = Processing.endsOnPropertyName(parseTree.Value);
+            var suggest = new List<string> {"query", "filter", "aggregation", "query_match_all"};
+
+            if (isEndingWithPropertyName.Item1 && (string.IsNullOrEmpty(isEndingWithPropertyName.Item2) || !codeTillCaret.EndsWith("\"")))
             {
                 _completionWindow = new CompletionWindow(AssociatedObject.TextArea);
                 IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
-                data.Add(new DSLCompletionData("query"));
-                data.Add(new DSLCompletionData("query_match_all"));
+                suggest.Where(x=>x.StartsWith(isEndingWithPropertyName.Item2)).ForEach(x=>data.Add(new DSLCompletionData(x)));
                 _completionWindow.Show();
                 _completionWindow.Closed += delegate
                 {
@@ -73,9 +85,11 @@ namespace ElasticOps.Behaviors
             }
         }
 
+
+
         void TextEntering(object sender, TextCompositionEventArgs e)
         {
-            if (e.Text.Length > 0 && _completionWindow != null)
+             if (e.Text.Length > 0 && _completionWindow != null)
             {
                 if (!char.IsLetterOrDigit(e.Text[0]))
                 {
