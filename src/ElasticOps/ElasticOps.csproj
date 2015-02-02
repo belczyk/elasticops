@@ -140,6 +140,7 @@
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\AutoCompleteIndexNameBehavior.cs" />
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
+    <Compile Include="Behaviors\IntellisenseBehavior.cs" />
     <Compile Include="Behaviors\UrlSuggest.cs" />
     <Compile Include="Behaviors\SugegestionMode.cs" />
     <Compile Include="Behaviors\SuggestItem.cs" />
@@ -422,6 +423,10 @@
     <ProjectReference Include="..\ElasticOps.Configuration\ElasticOps.Configuration.fsproj">
       <Project>{f4a3b1c5-3c4f-4e2d-8fdc-02f891e2d3ca}</Project>
       <Name>ElasticOps.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">
+      <Project>{e9ef6fba-1dfd-4020-9caf-f77111c0bfdf}</Project>
+      <Name>ElasticOps.Parsing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
