@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
@@ -11,6 +10,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ElasticOps.Parsing;
+using ElasticOps;
 
 namespace ElasticOps.Behaviors
 {
@@ -20,6 +20,14 @@ namespace ElasticOps.Behaviors
         {
             Text = text;
             Content = text;
+        }
+
+        public DSLCompletionData(Intellisense.Context context , Intellisense.Suggestion suggestion)
+        {
+            Suggestion = suggestion;
+            Content = context;
+            Text = suggestion.Text;
+            Content = suggestion.Text;
         }
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
@@ -46,6 +54,10 @@ namespace ElasticOps.Behaviors
 
         public string Text { get; set; }
 
+        public Intellisense.Context Context { get; set; }
+
+        public Intellisense.Suggestion Suggestion { get; set; }
+
         public override string ToString()
         {
             return Text;
@@ -66,17 +78,13 @@ namespace ElasticOps.Behaviors
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
-            var codeTillCaret = AssociatedObject.TextArea.Document.Text.GetTextBeforePosition(AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
+            var intellisenseContext = Intellisense.TryComplete(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line,AssociatedObject.TextArea.Caret.Column);
 
-            var parseTree = Processing.parse(codeTillCaret);
-            var isEndingWithPropertyName = Processing.endsOnPropertyName(parseTree.Value);
-            var suggest = new List<string> {"query", "filter", "aggregation", "query_match_all"};
-
-            if (isEndingWithPropertyName.Item1 && (string.IsNullOrEmpty(isEndingWithPropertyName.Item2) || !codeTillCaret.EndsWith("\"")))
+            if (!intellisenseContext.Mode.IsNone && intellisenseContext.Suggestions.Length >0)
             {
                 _completionWindow = new CompletionWindow(AssociatedObject.TextArea);
                 IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
-                suggest.Where(x=>x.StartsWith(isEndingWithPropertyName.Item2)).ForEach(x=>data.Add(new DSLCompletionData(x)));
+                intellisenseContext.Suggestions.ForEach(x=> data.Add(new DSLCompletionData(intellisenseContext,x)));
                 _completionWindow.Show();
                 _completionWindow.Closed += delegate
                 {
@@ -84,8 +92,6 @@ namespace ElasticOps.Behaviors
                 };
             }
         }
-
-
 
         void TextEntering(object sender, TextCompositionEventArgs e)
         {

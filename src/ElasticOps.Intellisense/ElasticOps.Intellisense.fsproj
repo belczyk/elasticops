@@ -42,8 +42,15 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library1.fs" />
+    <Compile Include="Intellisense.fs" />
     <None Include="Script.fsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">
+      <Name>ElasticOps.Parsing</Name>
+      <Project>{e9ef6fba-1dfd-4020-9caf-f77111c0bfdf}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
