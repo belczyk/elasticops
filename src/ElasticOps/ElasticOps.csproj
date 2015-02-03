@@ -140,6 +140,7 @@
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\AutoCompleteIndexNameBehavior.cs" />
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
+    <Compile Include="Behaviors\DSLCompletionData.cs" />
     <Compile Include="Behaviors\IntellisenseBehavior.cs" />
     <Compile Include="Behaviors\UrlSuggest.cs" />
     <Compile Include="Behaviors\SugegestionMode.cs" />

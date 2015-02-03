@@ -38,7 +38,7 @@ let completitionMode (context : Context) =
         let endsWithPropName = Processing.endsOnPropertyName t
 
         match endsWithPropName with
-        | (true, name) -> if (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.EndsWith("\"")))) then
+        | (true, name) -> if (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.Trim().EndsWith("\"")))) then
                              (PropertyName(name)) 
                           else 
                             None
@@ -59,13 +59,14 @@ let complete (context : Context) =
         | _ -> context
 
 let TryComplete text caretLine caretColumn = 
-    let tree = Processing.parse text
+    let codeTillCaret = StringProcessing.stringTillPos text caretLine caretColumn
+    let tree = Processing.parse codeTillCaret
 
     let context = {
                     OriginalCode = text; 
                     OriginalCaretPosition = (caretLine,caretColumn); 
                     CodeFromCaret = null; 
-                    CodeTillCaret = StringProcessing.stringTillPos text caretLine caretColumn; 
+                    CodeTillCaret = codeTillCaret; 
                     ParseTree = tree; 
                     Mode = None;
                     NewCaretPosition = (caretLine, caretColumn) ;
