@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using ElasticOps.Extensions;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using ElasticOps.Parsing;
-using ElasticOps;
 
 namespace ElasticOps.Behaviors
 {

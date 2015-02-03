@@ -9,7 +9,6 @@ using ElasticOps.Attributes;
 using ElasticOps.ViewModels.Controls;
 using ElasticOps.ViewModels.ManagmentScreens;
 using Newtonsoft.Json;
-using Screen = Caliburn.Micro.Screen;
 
 namespace ElasticOps.ViewModels
 {

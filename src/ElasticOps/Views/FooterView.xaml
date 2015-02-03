@@ -9,8 +9,8 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <Label>Connected to:</Label>
-            <Label x:Name="CurrentClusterUri"></Label>
-            <Label x:Name="ErrorMessage"  Foreground="Red" Margin="25,0,0,0"></Label>
+            <Label x:Name="CurrentClusterUri" />
+            <Label x:Name="ErrorMessage"  Foreground="Red" Margin="25,0,0,0" />
         </StackPanel>
     </Grid>
 </UserControl>

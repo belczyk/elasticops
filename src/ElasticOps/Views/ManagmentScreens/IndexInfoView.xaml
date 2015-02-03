@@ -21,7 +21,7 @@
                     <ItemsControl Name="Types">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Label}"></TextBlock>
+                                <TextBlock Text="{Binding Label}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

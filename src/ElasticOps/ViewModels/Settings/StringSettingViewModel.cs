@@ -1,6 +1,4 @@
-﻿using Caliburn.Micro;
-
-namespace ElasticOps.ViewModels
+﻿namespace ElasticOps.ViewModels
 {
     public class StringSettingViewModel : SettingViewModel
     {

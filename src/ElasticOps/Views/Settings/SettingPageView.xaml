@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel>
             <TextBlock>Settings page</TextBlock>
-            <ItemsControl Name="Settings"></ItemsControl>
+            <ItemsControl Name="Settings" />
         </StackPanel>
     </Grid>
 </UserControl>

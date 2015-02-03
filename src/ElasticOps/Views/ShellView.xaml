@@ -56,9 +56,9 @@
         </Window.Resources>
             <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Menu DockPanel.Dock="Top"
               SnapsToDevicePixels="True"
@@ -78,10 +78,8 @@
 
         </Menu>
         <Controls:TransitioningContentControl Name="ActiveItem"
-                                              Transition="LeftReplace" Grid.Row="1"></Controls:TransitioningContentControl>
+                                              Transition="LeftReplace" Grid.Row="1" />
 
-        <views:FooterView Grid.Row="2" x:Name="Footer" micro:View.Model="{Binding Footer}" >
-
-        </views:FooterView>
-    </Grid>
+                <views:FooterView Grid.Row="2" x:Name="Footer" micro:View.Model="{Binding Footer}" />
+            </Grid>
 </Controls:MetroWindow>

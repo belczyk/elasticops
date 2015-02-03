@@ -8,16 +8,16 @@
              d:DesignHeight="300" d:DesignWidth="300">
         <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
                                        Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
-                                   Grid.Row="0"></controls:MetroProgressBar>
+                                   Grid.Row="0" />
 
-        <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ItemsControl Name="NodesInfo" Margin="0,20,0,0" />
         </ScrollViewer>
 

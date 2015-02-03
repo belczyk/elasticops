@@ -13,17 +13,17 @@
              >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="200"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <controls:MetroProgressBar Grid.Row="0" VerticalAlignment="Top"
                                    Height="15"
                                    IsIndeterminate="True"
-                                   Visibility="{Binding IsExecuting, Converter={StaticResource boolToVisiblityConverter}}"></controls:MetroProgressBar>
+                                   Visibility="{Binding IsExecuting, Converter={StaticResource boolToVisiblityConverter}}" />
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal">
             <Label>Method:</Label>
@@ -32,15 +32,13 @@
                       DisplayMemberPath="DisplayText"
                       SelectedValuePath="Value"
                       SelectedValue="{Binding Method}"
-                      Height="30">
-            </ComboBox>
+                      Height="30" />
             <Label  Margin="15,0,0,0">Endpoint:</Label>
             <TextBox Width="690"
                      Height="30"
                      Margin="15,0,0,0"
                      Name="Endpoint"
-                     cal:Message.Attach="[Event KeyDown] = [Action OnEndpointKeyDown($executionContext)]"
-                     ></TextBox>
+                     cal:Message.Attach="[Event KeyDown] = [Action OnEndpointKeyDown($executionContext)]" />
 
             <Button Width="80"
                     Margin="15,0,0,0"
@@ -51,11 +49,11 @@
 
         <DockPanel Grid.Row="3">
             <TextBox HorizontalAlignment="Stretch"
-                     VerticalAlignment="Stretch" Name="RequestBody"></TextBox>
+                     VerticalAlignment="Stretch" Name="RequestBody" />
         </DockPanel>
         <Label Grid.Row="4">Response:</Label>
         <DockPanel Grid.Row="5">
-            <TextBox Name="Response"></TextBox>
+            <TextBox Name="Response" />
 
         </DockPanel>
     </Grid>

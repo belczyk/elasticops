@@ -11,15 +11,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
                                        Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
-                                       Grid.Row="0"
-                ></controls:MetroProgressBar>
+                                       Grid.Row="0" />
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"  Grid.Row="1">
             <ItemsControl Name="ClusterHealthProperties" Margin="5,20,5,0"/>

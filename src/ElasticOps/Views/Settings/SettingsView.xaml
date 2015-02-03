@@ -8,9 +8,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            
+            <RowDefinition Height="45" />
+            <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
         
         <!--<StackPanel Orientation="Vertical">
@@ -34,6 +34,6 @@
                      Grid.Row="0">SETTINGS</TextBlock>
 
         <controls:MetroAnimatedTabControl Grid.Row="1"
-                                          Name="SettingsPages"></controls:MetroAnimatedTabControl>
+                                          Name="SettingsPages" />
     </Grid>
 </UserControl>

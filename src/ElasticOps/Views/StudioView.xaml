@@ -11,19 +11,17 @@
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            
+            <RowDefinition Height="0" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">
             <controls:TransitioningContentControl Name="ClusterConnectionViewModel"
-                                                  Transition="LeftReplace"></controls:TransitioningContentControl>
+                                                  Transition="LeftReplace" />
         </Grid>
         <controls:MetroAnimatedTabControl Grid.Row="2"
-                                          Name="ManagmentScreens">
-
-        </controls:MetroAnimatedTabControl>
+                                          Name="ManagmentScreens" />
 
     </Grid>
 </UserControl>

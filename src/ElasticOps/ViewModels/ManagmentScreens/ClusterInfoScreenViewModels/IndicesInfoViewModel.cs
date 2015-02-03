@@ -5,7 +5,6 @@ using Caliburn.Micro;
 using ElasticOps.Com;
 using Serilog;
 
-
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen

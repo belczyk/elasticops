@@ -18,9 +18,9 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Level}" Margin="10"></TextBlock>
-                            <TextBlock Text="{Binding Timestamp}" Margin="10"></TextBlock>
-                            <TextBlock Text="{Binding Text}" Margin="10"></TextBlock>
+                            <TextBlock Text="{Binding Level}" Margin="10" />
+                            <TextBlock Text="{Binding Timestamp}" Margin="10" />
+                            <TextBlock Text="{Binding Text}" Margin="10" />
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

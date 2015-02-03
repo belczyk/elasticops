@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace ElasticOps
 {
     public class IntSettingConstraintsAttribute : Attribute

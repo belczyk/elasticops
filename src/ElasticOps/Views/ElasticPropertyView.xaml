@@ -12,7 +12,7 @@
                    Width="150"/>
         <TextBlock Text="{Binding Value}" />
         <Button x:Name="CopyToCliboard" Style="{DynamicResource MetroCircleButtonStyle}" Width="32px" Height="32px">
-<Image Source="{StaticResource paste_icon}"></Image>
+<Image Source="{StaticResource paste_icon}" />
         </Button>
     </StackPanel>
 </UserControl>

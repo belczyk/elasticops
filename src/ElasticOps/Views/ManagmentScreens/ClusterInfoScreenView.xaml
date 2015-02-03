@@ -16,8 +16,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
@@ -27,39 +27,34 @@
                            Height="100"
                            HorizontalAlignment="Center"
                            Name="ShowClusterInfo"
-                           cal:Message.Attach="[Event Click] = [Action ShowBasicInfo()]"></controls:Tile>
+                           cal:Message.Attach="[Event Click] = [Action ShowBasicInfo()]" />
             <controls:Tile Title="Nodes"
                            TiltFactor="2"
                            Width="100"
                            Height="100"
                            HorizontalAlignment="Center"
                            Count="{Binding ClusterCounters.Nodes}"
-                           cal:Message.Attach="[Event Click] = [Action ShowNodesInfo()]">
-            </controls:Tile>
+                           cal:Message.Attach="[Event Click] = [Action ShowNodesInfo()]" />
             <controls:Tile Title="Indices"
                            TiltFactor="2"
                            Width="100"
                            Height="100"
                            HorizontalContentAlignment="Center"
                            Count="{Binding ClusterCounters.Indices, Converter={StaticResource BigNumbersConverter}}"
-                           cal:Message.Attach="[Event Click] = [Action ShowIndicesInfo()]">
-            </controls:Tile>
+                           cal:Message.Attach="[Event Click] = [Action ShowIndicesInfo()]" />
             <controls:Tile Title="Documents"
                            HorizontalAlignment="Center"
                            TiltFactor="2"
                            Width="100"
                            Height="100"
                            Count="{Binding ClusterCounters.Documents, Converter={StaticResource BigNumbersConverter}}"
-                           cal:Message.Attach="[Event Click] = [Action ShowDocumentsInfo()]"
-                           >
-            </controls:Tile>
+                           cal:Message.Attach="[Event Click] = [Action ShowDocumentsInfo()]" />
             <controls:Tile Title="Mappings"
                            HorizontalAlignment="Center"
                            TiltFactor="2"
                            Width="100"
                            Height="100"
-                           cal:Message.Attach="[Event Click] = [Action ShowMappingsInfo()]">
-            </controls:Tile>
+                           cal:Message.Attach="[Event Click] = [Action ShowMappingsInfo()]" />
         </StackPanel>
         <ContentControl Grid.Row="1" x:Name="ActiveItem" />
     </Grid>

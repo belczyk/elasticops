@@ -9,7 +9,7 @@
              d:DesignWidth="1024">
     <Border BorderThickness="0,0,0,1">
         <Border.BorderBrush>
-            <SolidColorBrush Color="{DynamicResource AccentColor4}"></SolidColorBrush>
+            <SolidColorBrush Color="{DynamicResource AccentColor4}" />
         </Border.BorderBrush>
         <StackPanel Orientation="Horizontal">
 
@@ -17,7 +17,7 @@
                    Height="40px"
                    HorizontalAlignment="Left"
                    Margin="0,3,0,0"
-                   FontSize="16"></Label>
+                   FontSize="16" />
             <TextBox Height="30"
                      HorizontalAlignment="Left"
                      Width="495"
@@ -49,7 +49,7 @@
             <TextBlock Name="Version"
                        Height="40"
                        Margin="7" 
-                       FontSize="16"></TextBlock>
+                       FontSize="16" />
         </StackPanel>
     </Border>
 </UserControl>
