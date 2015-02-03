@@ -23,7 +23,7 @@ namespace ElasticOps.Behaviors
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
 
-            var intellisenseResult = Intellisense.TryComplete(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
+            var intellisenseResult = Intellisense.TrySuggest(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 

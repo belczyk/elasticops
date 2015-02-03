@@ -42,22 +42,22 @@
             | _ -> None
         
         
-        let completeProperty context prefix = 
+        let suggestProperty context prefix = 
             let suggestions = ["query"; "query_match_all"; "aggregation" ; "filter" ]
         
             let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.PropertyName x})
         
             (context, Some options)
         
-        let complete (context : Context) = 
+        let  suggest (context : Context) = 
             match context.Mode with 
-                | PropertyName prop -> completeProperty context prop
+                | PropertyName prop -> suggestProperty context prop
                 | _ -> (context, Option.None)
         
-        let TryComplete text caretLine caretColumn = 
+        let TrySuggest text caretLine caretColumn = 
             let codeTillCaret = String.substring text caretLine caretColumn
             let tree = Processing.parse codeTillCaret
-        
+            
             let context = {
                             OriginalCode = text; 
                             OriginalCaretPosition = (caretLine,caretColumn); 
@@ -70,27 +70,28 @@
                           }
         
             let completitionMode = completitionMode context
-            
         
             match completitionMode with
             | None -> (context,Option.None)
-            | _ -> complete { context with Mode = completitionMode }
+            | _ -> suggest { context with Mode = completitionMode }
+
+        let completeProperty context suggestion = 
+            let codeFromCaret = context.OriginalCode.Substring(context.CodeTillCaret.Length)
+            let lastQuotePos = context.CodeTillCaret.LastIndexOf "\""
+            let codeTillQuote = context.CodeTillCaret.Substring(0,lastQuotePos+1)
+
+            let suggestText = suggestion.Text + "\" : "
+            let newCaretColumn = (Seq.last (codeTillQuote.Split('\n'))).LastIndexOf("\"")+suggestText.Length
+
+            {context with 
+                CodeFromCaret = codeFromCaret; 
+                NewText = codeTillQuote + suggestText + codeFromCaret; 
+                NewCaretPosition = ((fst context.OriginalCaretPosition), newCaretColumn)
+            }
 
         let Complete (context : Context) (suggestion : Suggestion) = 
             match context.Mode with 
-            | PropertyName _ -> 
-                let codeFromCaret = context.OriginalCode.Substring(context.CodeTillCaret.Length)
-                let lastQuotePos = context.CodeTillCaret.LastIndexOf "\""
-                let codeTillQuote = context.CodeTillCaret.Substring(0,lastQuotePos+1)
-
-                let suggestText = suggestion.Text + "\" : "
-                let newCaretColumn = (Seq.last (codeTillQuote.Split('\n'))).LastIndexOf("\"")+suggestText.Length
-
-                {context with 
-                    CodeFromCaret = codeFromCaret; 
-                    NewText = codeTillQuote + suggestText + codeFromCaret; 
-                    NewCaretPosition = ((fst context.OriginalCaretPosition), newCaretColumn)
-                }
+            | PropertyName _ -> completeProperty context suggestion
             | _ -> failwith "Not supported"
 
             

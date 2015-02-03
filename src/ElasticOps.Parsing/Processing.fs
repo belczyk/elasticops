@@ -15,9 +15,12 @@ let tokenizeAll (lexbuf : LexBuffer<char>) =
     tokenize lexbuf []
 
 let parse json = 
-    let lexbuf = LexBuffer<char>.FromString json
-    let res = Parser.start Lexer.read lexbuf
-    res
+    try 
+        let lexbuf = LexBuffer<char>.FromString json
+        let res = Parser.start Lexer.read lexbuf
+        res
+    with 
+    | _ -> None
 
 let rec endsOnPropertyName (tree : JsonValue) = 
      match tree with 
