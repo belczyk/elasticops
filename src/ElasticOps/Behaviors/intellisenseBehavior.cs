@@ -23,16 +23,18 @@ namespace ElasticOps.Behaviors
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
 
-            var intellisenseContext = Intellisense.TryComplete(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
+            var intellisenseResult = Intellisense.TryComplete(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
+            var context = intellisenseResult.Item1;
+            var suggestions = intellisenseResult.Item2;
 
-            if (!intellisenseContext.Mode.IsNone)
+            if (!context.Mode.IsNone)
             {
                 _completionWindow = new CompletionWindow(AssociatedObject.TextArea);
                 IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
 
-                if (intellisenseContext.Suggestions.Any())
+                if (suggestions!=null && suggestions.Value.Any())
                 {
-                    intellisenseContext.Suggestions.ForEach(suggestion => data.Add(new DSLCompletionData(intellisenseContext,suggestion)));
+                    suggestions.Value.ForEach(suggestion => data.Add(new CompletionData(context, suggestion)));
                     _completionWindow.Show();
                     _completionWindow.Closed += delegate
                     {
