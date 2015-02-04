@@ -81,12 +81,15 @@
             let codeTillQuote = context.CodeTillCaret.Substring(0,lastQuotePos+1)
 
             let suggestText = suggestion.Text + "\" : "
-            let newCaretColumn = (Seq.last (codeTillQuote.Split('\n'))).LastIndexOf("\"")+suggestText.Length
+            let lastLineTillCaret = ((String.split "\r\n" context.CodeTillCaret ) |> Seq.last);
+            let indexOfLastQuoteInLastLineTillCaret = lastLineTillCaret.LastIndexOf("\"")
+
+            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length) // (Seq.last (String.split codeTillQuote "\r\n")).LastIndexOf("\"")+suggestText.Length
 
             {context with 
                 CodeFromCaret = codeFromCaret; 
                 NewText = codeTillQuote + suggestText + codeFromCaret; 
-                NewCaretPosition = ((fst context.OriginalCaretPosition), newCaretColumn)
+                NewCaretPosition = newCaretColumn;
             }
 
         let Complete (context : Context) (suggestion : Suggestion) = 

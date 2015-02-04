@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Interactivity;
@@ -22,8 +23,10 @@ namespace ElasticOps.Behaviors
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
-
-            var intellisenseResult = Intellisense.TrySuggest(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, AssociatedObject.TextArea.Caret.Column);
+            var caretColumn = AssociatedObject.TextArea.Caret.Column;
+            var lines = AssociatedObject.TextArea.Document.Text.Split(new []{"\r\n"},StringSplitOptions.None);
+            
+            var intellisenseResult = Intellisense.TrySuggest(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, caretColumn);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 
