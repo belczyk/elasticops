@@ -4,52 +4,7 @@
         open ElasticOps.Parsing
         open ElasticOps.Parsing.Structures
         open Microsoft.FSharp.Core
-        
-        type Mode =
-            | PropertyName of string
-            | Value
-            | Snippet
-
-        type Suggestion = {
-            Text : string;
-            Mode : Mode;
-        }
-        
-        type Context = {
-            OriginalCode : string;
-            CodeTillCaret : string;
-            CodeFromCaret : string;
-            ParseTree : JsonValue option;
-            OriginalCaretPosition : int * int;
-            NewCaretPosition : int * int;
-            NewText : string
-        }
-
-        type DSLPathNodes =
-        | Object
-        | Property of string 
-        | Array 
-        | Value of JsonValue
-
-
-        let getDLSPath (context : Context) = 
-            let rec findPath tree acc =
-                match tree with
-                | JsonValue.Assoc props -> 
-                                            let lastProp = Seq.last props 
-                                            let propName = fst lastProp 
-                                            let value = snd lastProp 
-
-                                            findPath value (Object::Property(propName)::acc)
-                | JsonValue.List elements -> let lastElem = Seq.last elements 
-                                             findPath lastElem (Array::acc)
-                | _ -> failwith "Unsupported"
-
-            match context.ParseTree with 
-            | None -> None
-            | Some t -> findPath t []
-                    
-
+        open ElasticOps
 
         let suggestProperty context = 
             let propertyName = match context.ParseTree with 
@@ -78,19 +33,7 @@
             
         
         let TrySuggest text caretLine caretColumn = 
-            let codeTillCaret = String.substring text caretLine caretColumn
-            let tree = Processing.parse codeTillCaret
-            
-            let context = {
-                            OriginalCode = text; 
-                            OriginalCaretPosition = (caretLine,caretColumn); 
-                            CodeFromCaret = null; 
-                            CodeTillCaret = codeTillCaret; 
-                            ParseTree = tree; 
-                            NewCaretPosition = (caretLine, caretColumn) ;
-                            NewText = null;
-                          }
-        
+            let context = Context.create text caretLine caretColumn
             (suggest context)
 
         let completeProperty context suggestion = 

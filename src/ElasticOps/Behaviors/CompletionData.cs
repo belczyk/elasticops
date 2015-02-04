@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Media;
-using ElasticOps.Extensions;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -16,7 +15,7 @@ namespace ElasticOps.Behaviors
             Content = text;
         }
 
-        public CompletionData(Intellisense.Context context , Intellisense.Suggestion suggestion)
+        public CompletionData(Context context , Suggestion suggestion)
         {
             Suggestion = suggestion;
             Context = context;
@@ -42,9 +41,9 @@ namespace ElasticOps.Behaviors
 
         public string Text { get; set; }
 
-        public Intellisense.Context Context { get; set; }
+        public Context Context { get; set; }
 
-        public Intellisense.Suggestion Suggestion { get; set; }
+        public Suggestion Suggestion { get; set; }
 
         public override string ToString()
         {

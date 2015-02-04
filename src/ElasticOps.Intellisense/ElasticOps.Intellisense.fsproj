@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="String.fs" />
+    <Compile Include="Structures.fs" />
+    <Compile Include="DSLPath.fs" />
     <Compile Include="Intellisense.fsi" />
     <Compile Include="Intellisense.fs" />
     <None Include="Script.fsx" />
