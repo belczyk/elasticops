@@ -9,8 +9,7 @@
             | PropertyName of string
             | Value
             | Snippet
-            | None
-        
+
         type Suggestion = {
             Text : string;
             Mode : Mode;
@@ -21,38 +20,62 @@
             CodeTillCaret : string;
             CodeFromCaret : string;
             ParseTree : JsonValue option;
-            Mode : Mode;
             OriginalCaretPosition : int * int;
             NewCaretPosition : int * int;
             NewText : string
         }
-        
-        
-        let completitionMode (context : Context) =
+
+        type DSLPathNodes =
+        | Object
+        | Property of string 
+        | Array 
+        | Value of JsonValue
+
+
+        let getDLSPath (context : Context) = 
+            let rec findPath tree acc =
+                match tree with
+                | JsonValue.Assoc props -> 
+                                            let lastProp = Seq.last props 
+                                            let propName = fst lastProp 
+                                            let value = snd lastProp 
+
+                                            findPath value (Object::Property(propName)::acc)
+                | JsonValue.List elements -> let lastElem = Seq.last elements 
+                                             findPath lastElem (Array::acc)
+                | _ -> failwith "Unsupported"
+
             match context.ParseTree with 
-            | Some t -> 
-                let endsWithPropName = Processing.endsOnPropertyName t
+            | None -> None
+            | Some t -> findPath t []
+                    
+
+
+        let suggestProperty context = 
+            let propertyName = match context.ParseTree with 
+                                        | Some t -> 
+                                            let endsWithPropName = Processing.endsOnPropertyName t
         
-                match endsWithPropName with
-                | (true, name) -> if (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.Trim().EndsWith("\"")))) then
-                                     (PropertyName(name)) 
-                                  else 
-                                    None
-                | _ -> None
-            | _ -> None
+                                            match endsWithPropName with
+                                            | (true, name) -> if (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.Trim().EndsWith("\"")))) then
+                                                                 (Some name) 
+                                                              else 
+                                                                None
+                                            | _ -> None
+                                        | _ -> None
+
+            match propertyName with 
+            | None -> (context, None)
+            | Some prefix -> 
+                    let suggestions = ["query"; "query_match_all"; "aggregation" ; "filter" ]
         
+                    let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.PropertyName x})
         
-        let suggestProperty context prefix = 
-            let suggestions = ["query"; "query_match_all"; "aggregation" ; "filter" ]
-        
-            let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.PropertyName x})
-        
-            (context, Some options)
+                    (context, Some options)
         
         let  suggest (context : Context) = 
-            match context.Mode with 
-                | PropertyName prop -> suggestProperty context prop
-                | _ -> (context, Option.None)
+            (suggestProperty context)
+            
         
         let TrySuggest text caretLine caretColumn = 
             let codeTillCaret = String.substring text caretLine caretColumn
@@ -64,16 +87,11 @@
                             CodeFromCaret = null; 
                             CodeTillCaret = codeTillCaret; 
                             ParseTree = tree; 
-                            Mode = None;
                             NewCaretPosition = (caretLine, caretColumn) ;
                             NewText = null;
                           }
         
-            let completitionMode = completitionMode context
-        
-            match completitionMode with
-            | None -> (context,Option.None)
-            | _ -> suggest { context with Mode = completitionMode }
+            (suggest context)
 
         let completeProperty context suggestion = 
             let codeFromCaret = context.OriginalCode.Substring(context.CodeTillCaret.Length)
@@ -93,10 +111,6 @@
             }
 
         let Complete (context : Context) (suggestion : Suggestion) = 
-            match context.Mode with 
+            match suggestion.Mode with 
             | PropertyName _ -> completeProperty context suggestion
             | _ -> failwith "Not supported"
-
-            
-
-            

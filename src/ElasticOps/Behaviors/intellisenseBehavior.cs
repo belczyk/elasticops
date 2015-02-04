@@ -29,12 +29,12 @@ namespace ElasticOps.Behaviors
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 
-            if (!context.Mode.IsNone)
+            if (suggestions!=null)
             {
                 _completionWindow = new CompletionWindow(AssociatedObject.TextArea);
                 IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
 
-                if (suggestions!=null && suggestions.Value.Any())
+                if (suggestions.Value.Any())
                 {
                     suggestions.Value.ForEach(suggestion => data.Add(new CompletionData(context, suggestion)));
                     _completionWindow.Show();
@@ -44,11 +44,10 @@ namespace ElasticOps.Behaviors
                     };
 
                 }
-                else if (_completionWindow != null)
-                {
-                    _completionWindow.Close();
-                }
-
+            }
+            else if (_completionWindow != null)
+            {
+                _completionWindow.Close();
             }
         }
 
