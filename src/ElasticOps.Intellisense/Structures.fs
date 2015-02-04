@@ -4,7 +4,7 @@
     open Microsoft.FSharp.Core
 
     type Mode =
-            | PropertyName of string
+            | Property
             | Value
             | Snippet
 
@@ -44,5 +44,9 @@
         | Array 
         | Value of JsonValue
 
+        type Fuzzy  =
+        | AnyProperty
+        | AnyValue
+        | DSL of DSLPathNode
     
 

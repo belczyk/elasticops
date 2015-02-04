@@ -64,6 +64,7 @@
     <Compile Include="Lexer.fs" />
     <None Include="Parser.fsy" />
     <Compile Include="Processing.fs" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsLexYacc.Runtime">

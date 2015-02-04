@@ -5,7 +5,6 @@ open FsUnit
 open ElasticOps.Parsing.Processing
 open ElasticOps.Parsing.Structures
 open ElasticOps
-open ElasticOps.DSLPath
 open System.IO
 open System
 
@@ -14,7 +13,7 @@ let ``path for property in object`` () =
     let res = @"{ ""prop"" : 1" 
                 |> parse
                 |> Option.get
-                |> getDLSPath
+                |> DSLPath.find
     res |> should equal [DSLPathNode.Object;Property("prop");Value(JsonValue.Int(1))]
 
 
@@ -28,7 +27,7 @@ let ``can get path for for huge ElasticSearch query cut in the middle randomly``
         async {
             let subJson = json.Substring(0,random.Next(1,json.Length));
             try
-                let res = subJson |> parse |> Option.get |> getDLSPath 
+                let res = subJson |> parse |> Option.get |> DSLPath.find 
 
                 ()
             with
@@ -53,7 +52,7 @@ let ``can get path for json terminated at any point`` () =
         async {
             let subJson = json.Substring(0,i);
             try
-                subJson |> parse |> Option.get |> getDLSPath |> ignore
+                subJson |> parse |> Option.get |> DSLPath.find |> ignore
             with
             | ex -> raise ex
         }

@@ -2,7 +2,6 @@
     module Intellisense =
 
         open ElasticOps.Parsing
-        open ElasticOps.Parsing.Structures
         open Microsoft.FSharp.Core
         open ElasticOps
 
@@ -24,7 +23,7 @@
             | Some prefix -> 
                     let suggestions = ["query"; "query_match_all"; "aggregation" ; "filter" ]
         
-                    let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.PropertyName x})
+                    let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.Property})
         
                     (context, Some options)
         
@@ -55,5 +54,5 @@
 
         let Complete (context : Context) (suggestion : Suggestion) = 
             match suggestion.Mode with 
-            | PropertyName _ -> completeProperty context suggestion
+            | Mode.Property -> completeProperty context suggestion
             | _ -> failwith "Not supported"
