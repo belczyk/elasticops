@@ -52,6 +52,12 @@
     <None Include="packages.config" />
     <Compile Include="DSLPathTests.fs" />
     <None Include="app.config" />
+    <None Include="randomComplexTestsJson.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="hugeESJsonQuery.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

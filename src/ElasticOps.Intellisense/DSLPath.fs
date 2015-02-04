@@ -6,13 +6,19 @@
             let rec findPath tree acc =
                 match tree with
                 | JsonValue.Assoc props -> 
-                                            let lastProp = Seq.last props 
-                                            let propName = fst lastProp 
-                                            let value = snd lastProp 
+                                            match props with
+                                            | [] -> Object::acc
+                                            | _ -> 
+                                                    let lastProp = Seq.last props 
+                                                    let propName = fst lastProp 
+                                                    let value = snd lastProp 
 
-                                            findPath value (Object::Property(propName)::acc)
-                | JsonValue.List elements -> let lastElem = Seq.last elements 
-                                             findPath lastElem (Array::acc)
+                                                    findPath value (Property(propName)::Object::acc)
+                | JsonValue.List elements -> match elements with
+                                                | [] -> Array::acc
+                                                | _ -> 
+                                                    let lastElem = Seq.last elements 
+                                                    findPath lastElem (Array::acc)
                 | JsonValue.Bool _ 
                 | JsonValue.Colon 
                 | JsonValue.Int _
@@ -23,5 +29,5 @@
                 | JsonValue.String _
                 | JsonValue.UnfinishedValue _ -> Value(tree)::acc
 
-            findPath parseTree []
+            findPath parseTree [] |> List.rev
 

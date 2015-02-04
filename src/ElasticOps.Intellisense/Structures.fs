@@ -38,7 +38,7 @@
                   NewText = null;
                 }
 
-        type DSLPathNodes =
+        type DSLPathNode =
         | Object
         | Property of string 
         | Array 
