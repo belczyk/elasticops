@@ -84,7 +84,7 @@
             let lastLineTillCaret = ((String.split "\r\n" context.CodeTillCaret ) |> Seq.last);
             let indexOfLastQuoteInLastLineTillCaret = lastLineTillCaret.LastIndexOf("\"")
 
-            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length) // (Seq.last (String.split codeTillQuote "\r\n")).LastIndexOf("\"")+suggestText.Length
+            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length+2) // (Seq.last (String.split codeTillQuote "\r\n")).LastIndexOf("\"")+suggestText.Length
 
             {context with 
                 CodeFromCaret = codeFromCaret; 
