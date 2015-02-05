@@ -1,6 +1,7 @@
 ﻿namespace ElasticOps
     open ElasticOps.Parsing.Structures
     open ElasticOps.Rules
+    open ElasticOps
 
     module DSLPath = 
         let find (parseTree: JsonValue) = 
@@ -35,22 +36,22 @@
 
 
     module SuggestEngine = 
+
+        let rec matchRuleWithPath rule path = 
+                match (rule,path) with 
+                | ([],[]) -> true
+                | (_::_,[]) | ([],_::_) -> false
+                | ( rH::rT,pH::pT) ->  
+                                   match (rH,pH) with 
+                                   | (AnyProperty, Property _)
+                                   | (AnyValue, Value _) -> matchRuleWithPath rT pT
+                                   | (DSL node, pNode) when node = pNode -> matchRuleWithPath rT pT
+                                   | _ -> false
         let matchSuggestions (parseTree : JsonValue) = 
-            let rec filterRules path rules = 
-                match List.length rules with 
-                | 1 -> (snd (List.head rules))
-                | _ -> 
-                        let pathHd = List.head path
-                        rules
-                            |> List.filter (fun rule -> match ruleHd rule with
-                                                        | AnyProperty -> match pathHd with 
-                                                                         | Property _ -> true
-                                                                         | _ -> false
-                                                        | AnyValue -> match pathHd with
-                                                                          | Value _ -> true
-                                                                          | _ -> false
-                                                        | DSL jv -> jv = pathHd
-                                           )
-                            |> filterRules (List.tail path)
-        
-            filterRules (DSLPath.find parseTree) Rules.propertySuggestRules 
+            let path = parseTree |> DSLPath.find
+
+            let suggestions = Rules.propertySuggestRules 
+                                |> List.filter (fun rule -> matchRuleWithPath (sign rule) path) 
+                                |> List.collect (fun rule -> (prod rule) )
+                                    
+            suggestions
