@@ -25,7 +25,7 @@
                                                   {Text = "timeout"; Mode = Mode.Property};
                                                   {Text = "version"; Mode = Mode.Property}
                                                  ]);
-            ([DSL(Object);DSL(Property("query"));AnyProperty;AnyValue], [
+            ([DSL(Object);DSL(Property("query"));DSL(Object);AnyProperty;AnyValue], [
                                                                         {Text = "bool"; Mode = Mode.Property};
                                                                         {Text = "boosting"; Mode = Mode.Property};
                                                                         {Text = "constant_score"; Mode = Mode.Property};

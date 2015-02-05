@@ -6,7 +6,7 @@
         open ElasticOps
 
         let suggestProperty context = 
-            let propertyName = match context.ParseTree with 
+            let propertyName =  match context.ParseTree with 
                                         | Some t -> 
                                             let endsWithPropName = Processing.endsOnPropertyName t
         
@@ -21,11 +21,18 @@
             match propertyName with 
             | None -> (context, None)
             | Some prefix -> 
-                    let suggestions = ["query"; "query_match_all"; "aggregation" ; "filter" ]
+                    let suggestions = 
+                        SuggestEngine.matchSuggestions (Option.get context.ParseTree)
+                        |> List.filter (fun s -> match s.Mode with 
+                                                    | Mode.Property when s.Text.StartsWith prefix -> true 
+                                                    | Mode.Property -> false
+                                                    | _ -> true)
         
-                    let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.Property})
+                    
+
+                    //let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.Property})
         
-                    (context, Some options)
+                    (context, Some suggestions)
         
         let  suggest (context : Context) = 
             (suggestProperty context)
