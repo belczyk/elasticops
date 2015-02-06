@@ -1,6 +1,12 @@
 {
     "query": {
-        "bool": { },
+        "bool": {
+            "should"  |empty_array| : { },
+            "must"  |empty_array| : { },
+            "must_not" |empty_array| : { },
+            "boost" |colon| : { },
+            "minimum_number_should_match" |colon| : { }
+        },
         "boosting": { },
         "constant_score": { },
         "custom_filters_score": { },
@@ -38,11 +44,14 @@
         "top_children": { },
         "wildcard": { }
     },
-    "aggs": {
-        "$AnyProperty$": {
+    "aggs" : {
+        AnyProperty: {
             "aggs": { },
             "avg": { },
-            "cardinality": { "field": { } }
+            "cardinality": {
+                "field": { }
+            
+            }
         }
     },
     "explain": { },

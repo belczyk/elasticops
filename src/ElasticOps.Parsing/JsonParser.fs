@@ -238,7 +238,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 35 "JsonParser.fsy"
-                                                                Assoc _2 
+                                                                JsonValue.Assoc _2 
                    )
 # 35 "JsonParser.fsy"
                  : 'value));
@@ -249,7 +249,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 36 "JsonParser.fsy"
-                                                                Assoc _2 
+                                                                JsonValue.Assoc _2 
                    )
 # 36 "JsonParser.fsy"
                  : 'value));

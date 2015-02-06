@@ -2,7 +2,9 @@
 module IntellisenseParser
 type token = 
   | EOF
+  | ANY_PROPERTY
   | UNFINISHED_VALUE of (string * ElasticOps.Parsing.Structures.JsonValueType)
+  | COMPLETION_MACRO of (string)
   | COMMA
   | COLON
   | RIGHT_BRACK
@@ -19,7 +21,9 @@ type token =
   | INT of (int)
 type tokenId = 
     | TOKEN_EOF
+    | TOKEN_ANY_PROPERTY
     | TOKEN_UNFINISHED_VALUE
+    | TOKEN_COMPLETION_MACRO
     | TOKEN_COMMA
     | TOKEN_COLON
     | TOKEN_RIGHT_BRACK
@@ -43,7 +47,6 @@ type nonTerminalId =
     | NONTERM_value
     | NONTERM_object_fields
     | NONTERM_rev_object_fields
-    | NONTERM_array_values
     | NONTERM_rev_values
 /// This function maps integers indexes to symbolic token ids
 val tagOfToken: token -> int
@@ -56,4 +59,4 @@ val prodIdxToNonTerminal: int -> nonTerminalId
 
 /// This function gets the name of a token as a string
 val token_to_string: token -> string
-val start : (Microsoft.FSharp.Text.Lexing.LexBuffer<'cty> -> token) -> Microsoft.FSharp.Text.Lexing.LexBuffer<'cty> -> (ElasticOps.Parsing.Structures.JsonValue option) 
+val start : (Microsoft.FSharp.Text.Lexing.LexBuffer<'cty> -> token) -> Microsoft.FSharp.Text.Lexing.LexBuffer<'cty> -> (ElasticOps.Parsing.Structures.IntellisenseValue option) 

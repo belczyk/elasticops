@@ -4,7 +4,7 @@
     open Microsoft.FSharp.Core
 
     type Mode =
-            | Property
+            | Property of string
             | Value
             | Snippet
 
@@ -41,6 +41,7 @@
         type RuleSign = 
             | UnfinishedPropertyName
             | Property of string 
+            | AnyProperty
 
         type Rule = { Sign : RuleSign list ; Suggestions : Suggestion list}
 

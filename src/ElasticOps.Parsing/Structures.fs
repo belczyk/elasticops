@@ -61,3 +61,18 @@ and JsonValueType =
         | TString -> "String"
         | TNull -> "Null"
 
+type IntellisenseValue =
+  | Assoc of IntellisenseProperty list
+and IntellisenseProperty = 
+  | AnyProperty of IntellisenseValue
+  | Property of string * string * IntellisenseValue
+  | Macro
+  member x.getPropertyName() = 
+        match x with 
+        | Property(name,_,_) -> name
+        | _ -> "Can't extract name from this IntellisensePropertyType"
+  member x.getCompletionMode() = 
+        match x with 
+        | Property(_,mode,_) -> mode
+        | _ -> "Can't extract mode from this IntellisensePropertyType"
+

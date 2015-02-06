@@ -42,32 +42,42 @@
 
             findPath parseTree [] |> List.rev
 
-
-
-
+        let rulesCache = new System.Collections.Generic.Dictionary<string,Rule list>()
         let readRulesFromJson filePath = 
-            let json = System.IO.File.ReadAllText filePath
-            let parseTree = parse json
-
-            match parseTree with
-            | None -> []
-            | Some tree -> 
-                let rec discoverRules tree rulePrefix =
-                    match tree with 
-                    | Assoc props -> 
-                                     match props with 
-                                     | [] -> []
-                                     | _ ->
-                                             let mainRule = {Sign = rulePrefix ; Suggestions = props |> List.map(fun p -> {Text=p.getName(); Mode = Mode.Property})}
-                                             let subRules =  props
-                                                                   |> List.map (fun p -> match p with 
-                                                                                           | JsonProperty.PropertyWithValue(name, value) -> discoverRules value (RuleSign.Property(name)::rulePrefix)
-                                                                                           | _ -> failwith "Unsupported")
-                                             mainRule::(List.collect (fun sr -> sr) subRules)
-                    | _ -> failwith "Unsupported "
+            match rulesCache.ContainsKey filePath with
+            | true -> rulesCache.[filePath]
+            | false -> 
+                        let json = System.IO.File.ReadAllText filePath
+                        let parseTree = parseIntellisense json
+                        let isProperty x =
+                            match x with 
+                            | IntellisenseProperty.Property _ -> true
+                            | _ -> false
+                        match parseTree with
+                        | None -> []
+                        | Some tree -> 
+                            let rec discoverRules tree rulePrefix =
+                                match tree with 
+                                | IntellisenseValue.Assoc props -> 
+                                                 match props with 
+                                                 | [] -> []
+                                                 | _ ->
+                                                         let mainRule = {Sign = RuleSign.UnfinishedPropertyName::rulePrefix ; Suggestions = props 
+                                                                                                            |> List.filter isProperty 
+                                                                                                            |> List.map(fun p -> {Text=p.getPropertyName(); Mode = Mode.Property(p.getCompletionMode())})}
+                                                         let subRules =  props
+                                                                               |> List.map (fun p -> match p with 
+                                                                                                       | IntellisenseProperty.Property(name,_, value) -> discoverRules value (RuleSign.Property(name)::rulePrefix)
+                                                                                                       | IntellisenseProperty.AnyProperty(value) -> discoverRules value (RuleSign.AnyProperty::rulePrefix)
+                                                                                                       | _ -> failwith "Unsupported")
+                                                         mainRule::(List.collect (fun sr -> sr) subRules)
+                                | _ -> failwith "Unsupported "
                                   
-                discoverRules tree [RuleSign.UnfinishedPropertyName]
+                            let rules = discoverRules tree []
+                                        |> List.map (fun rule -> {rule with Sign = List.rev rule.Sign})
+                            rulesCache.Add(filePath,rules)
 
+                            rules
 
         let rec matchRuleWithPath rule path = 
                 match (rule,path) with 
@@ -79,16 +89,20 @@
                                    | (RuleSign.Property _ , _ ) -> false
                                    | (RuleSign.UnfinishedPropertyName, DSLPathNode.UnfinishedPropertyName _) -> true
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
+                                   | (RuleSign.AnyProperty, DSLPathNode.PropertyWithValue _) -> true
+                                   | (RuleSign.AnyProperty, _ ) -> false
                 | (rH::rT,pH::pT) -> 
                                    match (rH,pH) with
                                    | (RuleSign.Property rName, DSLPathNode.PropertyWithValue pName) when rName = pName -> matchRuleWithPath rT pT 
                                    | (RuleSign.Property _ , _ ) -> false
                                    | (RuleSign.UnfinishedPropertyName, DSLPathNode.UnfinishedPropertyName _) -> matchRuleWithPath rT pT
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
+                                   | (RuleSign.AnyProperty, DSLPathNode.PropertyWithValue _) -> matchRuleWithPath rT pT
+                                   | (RuleSign.AnyProperty, _ ) -> false
         let matchSuggestions (parseTree : JsonValue) rulesFile= 
             let path = parseTree |> findDSLPath
-
-            let suggestions = readRulesFromJson rulesFile 
+            let rules = readRulesFromJson rulesFile 
+            let suggestions = rules
                                 |> List.filter (fun rule -> matchRuleWithPath rule.Sign path) 
                                 |> List.collect (fun rule -> rule.Suggestions )
             suggestions

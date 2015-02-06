@@ -28,23 +28,48 @@ namespace ElasticOps.Behaviors
 
             _textEditor.TextEntered += TextEntered;
             _textEditor.TextEntering += TextEntering;
+            _textEditor.KeyDown += KeyDown;
+            _textEditor.KeyUp += KeyUp;
+        }
+
+        void KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete || e.Key == Key.Back)
+            {
+                TryComplete();
+            }
+        }
+
+        void KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                TryComplete();
+                e.Handled = true;
+            }
         }
 
         CompletionWindow _completionWindow;
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
-            var caretColumn = _textEditor.Caret.Line>1 ?_textEditor.Caret.Column -2 : _textEditor.Caret.Column;
+            TryComplete();
+        }
+
+        private void TryComplete()
+        {
+            var caretColumn = _textEditor.Caret.Line > 1 ? _textEditor.Caret.Column - 2 : _textEditor.Caret.Column;
             var endpoint = GetEndpoint();
 
             if (endpoint == null) return;
             if (!_config.IntellisenseEndpoints.Contains(endpoint)) return;
 
-            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, caretColumn, endpoint);
+            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, caretColumn,
+                endpoint);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 
-            if (suggestions!=null)
+            if (suggestions != null)
             {
                 _completionWindow = new CompletionWindow(_textEditor);
                 IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
@@ -53,16 +78,12 @@ namespace ElasticOps.Behaviors
                 {
                     suggestions.Value.ForEach(suggestion => data.Add(new CompletionData(context, suggestion)));
                     _completionWindow.Show();
-                    _completionWindow.Closed += delegate
-                    {
-                        _completionWindow = null;
-                    };
-
+                    _completionWindow.Closed += delegate { _completionWindow = null; };
                 }
             }
             else if (_completionWindow != null)
             {
-               // _completionWindow.Close();
+                _completionWindow.Close();
             }
         }
 

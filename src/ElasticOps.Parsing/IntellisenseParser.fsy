@@ -19,10 +19,13 @@ open ElasticOps.Parsing.Structures
 %token RIGHT_BRACK
 %token COLON
 %token COMMA
+%token <string> COMPLETION_MACRO
 %token <string * ElasticOps.Parsing.Structures.JsonValueType> UNFINISHED_VALUE
+%token ANY_PROPERTY
+
 %token EOF
 
-%type <ElasticOps.Parsing.Structures.JsonValue option> start
+%type <ElasticOps.Parsing.Structures.IntellisenseValue option> start
 
 %%
 start: prog {  $1 }
@@ -34,34 +37,18 @@ prog:
 value:
   | LEFT_BRACE object_fields RIGHT_BRACE { Assoc $2 }
   | LEFT_BRACE object_fields             { Assoc $2 }
-  | LEFT_BRACK array_values RIGHT_BRACK  { Array $2 }
-  | LEFT_BRACK array_values              { Array $2 }
-  | STRING                               { String $1 }
-  | INT                                  { Int $1 }
-  | FLOAT                                { Float $1 }
-  | TRUE                                 { Bool true }
-  | FALSE                                { Bool false }
-  | NULL                                 { Null }
-  | UNFINISHED_VALUE                     { UnfinishedValue $1 }
 
 object_fields: rev_object_fields { List.rev $1 };
 
 rev_object_fields:
-  |                                             { [] }
-  | STRING COLON value                          { [PropertyWithValue($1,$3)] }
-  | STRING COLON                                { [PropertyNameWithColon($1)] }
-  | STRING                                      { [PropertyName($1)] }
-  | UNTERMINATED_STRING                         { [UnfinishedPropertyName($1)] }
-  | rev_object_fields COMMA STRING COLON value  { PropertyWithValue($3,$5) :: $1 }
-  | rev_object_fields COMMA                     { $1 }
-  | rev_object_fields COMMA STRING              { PropertyName($3) :: $1 }
-  | rev_object_fields COMMA STRING COLON        { PropertyNameWithColon($3) :: $1 }
-  | rev_object_fields COMMA UNTERMINATED_STRING { UnfinishedPropertyName($3) :: $1 }
-
-array_values:
-  |                  { [] }
-  | rev_values       { List.rev $1 }
-  | rev_values COMMA { List.rev $1 }
+  |                                                   { [] }
+  | STRING COLON value                                { [IntellisenseProperty.Property($1,"|empty_object|",$3)] }
+  | rev_object_fields COMMA STRING COLON value        { IntellisenseProperty.Property($3,"|empty_object|",$5) :: $1 }
+  | STRING COMPLETION_MACRO COLON value                                { [IntellisenseProperty.Property($1,$2,$4)] }
+  | rev_object_fields COMMA STRING COMPLETION_MACRO COLON value        { IntellisenseProperty.Property($3,$4,$6) :: $1 }
+  | ANY_PROPERTY COLON value                          { [IntellisenseProperty.AnyProperty($3)] }
+  | rev_object_fields COMMA ANY_PROPERTY COLON value  { IntellisenseProperty.AnyProperty($5) :: $1 }
+  | rev_object_fields COMMA                           { $1 }
 
 rev_values:
   | value                  { [$1] }

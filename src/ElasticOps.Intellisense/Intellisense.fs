@@ -11,7 +11,7 @@
         let filterPropertySuggestions context suggestions =
             suggestions 
                 |> List.filter (fun s -> match s with 
-                                            | {Text = text ; Mode = Mode.Property} ->
+                                            | {Text = text ; Mode = Mode.Property(_)} ->
                                                                                         match  Processing.endsOnPropertyName (Option.get context.ParseTree) with
                                                                                                 | (true, name) ->   text.ToLower().StartsWith(name.ToLower()) 
                                                                                                 | _ -> false
@@ -33,25 +33,33 @@
 
                 (context, suggestions)
 
-        let completeProperty context suggestion = 
+        let postfixFromCompletionMode mode = 
+            match mode with
+            | "|colon|" -> (": ","")
+            | "|empty_object|" -> (": {","}")
+            | "|empty_array|" -> (": [","]")
+            | _ -> failwith "Unknown completion mode."
+
+        let completeProperty context suggestion mode = 
             let codeFromCaret = context.OriginalCode.Substring(context.CodeTillCaret.Length)
             let lastQuotePos = context.CodeTillCaret.LastIndexOf "\""
             let codeTillQuote = context.CodeTillCaret.Substring(0,lastQuotePos+1)
 
-            let suggestText = suggestion.Text + "\" : "
+            let postfix = postfixFromCompletionMode(mode)
+            let suggestText = suggestion.Text + "\" " 
             let lastLineTillCaret = ((String.split "\r\n" context.CodeTillCaret ) |> Seq.last);
             let indexOfLastQuoteInLastLineTillCaret = lastLineTillCaret.LastIndexOf("\"")
 
-            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length+2)
+            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length+((fst postfix).Length)+2)
 
             {context with 
                 CodeFromCaret = codeFromCaret; 
-                NewText = codeTillQuote + suggestText + codeFromCaret; 
+                NewText = codeTillQuote + suggestText+ (fst postfix) + (snd postfix) + codeFromCaret; 
                 NewCaretPosition = newCaretColumn;
             }
 
         let Complete (context : Context) (suggestion : Suggestion) = 
             match suggestion.Mode with 
-            | Mode.Property -> completeProperty context suggestion
+            | Mode.Property mode -> completeProperty context suggestion mode
             | _ -> failwith "Not supported"
         

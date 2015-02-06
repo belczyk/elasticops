@@ -30,29 +30,34 @@ let u_false = 'f' | "fa" | "fal" | "fals"
 let u_int = '-' | '+'
 let u_float = ['-' '+']? digit+ '.' digit* ['e' 'E']? ['+' '-']? digit*
 let u_null = 'n' | "nu" | "nul"
+let id = ['a'-'z' 'A'-'Z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
+let completionMacro = '|' id '|'
 
 rule read =
   parse
-  | white    { read lexbuf }
-  | newline  { newline lexbuf; read lexbuf }
-  | int      { INT (Int32.Parse(lexeme lexbuf)) }
-  | u_int    { UNFINISHED_VALUE(lexeme lexbuf, TInt) }
-  | float    { FLOAT (float (lexeme lexbuf)) }
-  | u_float  { UNFINISHED_VALUE(lexeme lexbuf, TFloat) }
-  | "true"   { TRUE }
-  | "false"  { FALSE }
-  | u_true   { UNFINISHED_VALUE(lexeme lexbuf, TBool) }
-  | u_false  { UNFINISHED_VALUE(lexeme lexbuf, TBool) }
-  | "null"   { NULL }
-  | u_null   { UNFINISHED_VALUE(lexeme lexbuf, TNull) }
-  | '"'      { read_string "" false lexbuf }
-  | '{'      { LEFT_BRACE }
-  | '}'      { RIGHT_BRACE }
-  | '['      { LEFT_BRACK }
-  | ']'      { RIGHT_BRACK }
-  | ':'      { COLON }
-  | ','      { COMMA }
-  | eof      { EOF }
+  | white           { read lexbuf }
+  | newline         { newline lexbuf; read lexbuf }
+  | int             { INT (Int32.Parse(lexeme lexbuf)) }
+  | u_int           { UNFINISHED_VALUE(lexeme lexbuf, TInt) }
+  | float           { FLOAT (float (lexeme lexbuf)) }
+  | u_float         { UNFINISHED_VALUE(lexeme lexbuf, TFloat) }
+  | "true"          { TRUE }
+  | "false"         { FALSE }
+  | u_true          { UNFINISHED_VALUE(lexeme lexbuf, TBool) }
+  | u_false         { UNFINISHED_VALUE(lexeme lexbuf, TBool) }
+  | "null"          { NULL }
+  | u_null          { UNFINISHED_VALUE(lexeme lexbuf, TNull) }
+  | '"'             { read_string "" false lexbuf }
+  | '{'             { LEFT_BRACE }
+  | '}'             { RIGHT_BRACE }
+  | '['             { LEFT_BRACK }
+  | ']'             { RIGHT_BRACK }
+  | ':'             { COLON }
+  | ','             { COMMA }
+  | "AnyProperty"   {ANY_PROPERTY}
+  | completionMacro {COMPLETION_MACRO (lexeme lexbuf)}
+  | id              { ID(lexeme lexbuf) }
+  | eof             { EOF }
   | _ { raise (Exception (sprintf "SyntaxError: Unexpected char: '%s' Line: %d Column: %d" (lexeme lexbuf) (lexbuf.StartPos.Line+1) lexbuf.StartPos.Column)) }
 
 

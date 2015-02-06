@@ -32,8 +32,8 @@ prog:
   | value { Some $1 }
 
 value:
-  | LEFT_BRACE object_fields RIGHT_BRACE { Assoc $2 }
-  | LEFT_BRACE object_fields             { Assoc $2 }
+  | LEFT_BRACE object_fields RIGHT_BRACE { JsonValue.Assoc $2 }
+  | LEFT_BRACE object_fields             { JsonValue.Assoc $2 }
   | LEFT_BRACK array_values RIGHT_BRACK  { Array $2 }
   | LEFT_BRACK array_values              { Array $2 }
   | STRING                               { String $1 }

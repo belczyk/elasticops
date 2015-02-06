@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParsingTests.fs" />
+    <Compile Include="IntellisenseParsingTests.fs" />
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="hugeJson.json">
