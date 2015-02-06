@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{979F7567-AD97-48A2-866C-3049A3F43DB9}"
 	ProjectSection(SolutionItems) = preProject
 		SolutionItems\Config.yaml = SolutionItems\Config.yaml
+		SolutionItems\IntellisenseConfig.yaml = SolutionItems\IntellisenseConfig.yaml
 		SolutionItems\IntellisenseRules_search.json = SolutionItems\IntellisenseRules_search.json
 	EndProjectSection
 EndProject

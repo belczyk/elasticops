@@ -5,7 +5,6 @@
     open ElasticOps
 
     module SuggestEngine = 
-
         type DSLPathNode  =
             | PropertyName of string
             | PropertyNameWithColon of string
@@ -86,10 +85,10 @@
                                    | (RuleSign.Property _ , _ ) -> false
                                    | (RuleSign.UnfinishedPropertyName, DSLPathNode.UnfinishedPropertyName _) -> matchRuleWithPath rT pT
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
-        let matchSuggestions (parseTree : JsonValue) endpoint= 
+        let matchSuggestions (parseTree : JsonValue) rulesFile= 
             let path = parseTree |> findDSLPath
 
-            let suggestions = readRulesFromJson(sprintf "IntellisenseRules%s.json" endpoint) 
+            let suggestions = readRulesFromJson rulesFile 
                                 |> List.filter (fun rule -> matchRuleWithPath rule.Sign path) 
                                 |> List.collect (fun rule -> rule.Suggestions )
             suggestions

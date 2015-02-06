@@ -13,10 +13,10 @@ namespace ElasticOps.Behaviors
     public class IntellisenseBehavior : Behavior<QueryView>
     {
         private TextArea _textEditor;
-        private ElasticOpsConfig _config;
+        private IntellisenseConfig _config;
         protected override void OnAttached()
         {
-            _config = AppBootstrapper.GetInstance<ElasticOpsConfig>();
+            _config = AppBootstrapper.GetInstance<IntellisenseConfig>();
 
             AssociatedObject.Loaded += AssociatedObject_Loaded;
             base.OnAttached();

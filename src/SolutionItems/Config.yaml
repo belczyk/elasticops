@@ -4,8 +4,6 @@ Appearance:
     Accent: Green
     Footer:
         ErrorTimout: 5
-IntellisenseEndpoints: 
-    - _search
 Endpoints :
     Indices :
         - _open

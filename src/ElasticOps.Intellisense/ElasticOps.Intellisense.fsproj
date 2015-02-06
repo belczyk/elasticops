@@ -35,8 +35,16 @@
     <DocumentationFile>bin\Release\ElasticOps.Intellisense.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Configuration">
+      <HintPath>..\packages\FSharp.Configuration.0.4.9\lib\net40\FSharp.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpYaml">
+      <HintPath>..\packages\FSharp.Configuration.0.4.9\lib\net40\SharpYaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -54,8 +62,15 @@
       <Link>IntellisenseRules_search.json</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ElasticOps.Configuration\ElasticOps.Configuration.fsproj">
+      <Name>ElasticOps.Configuration</Name>
+      <Project>{f4a3b1c5-3c4f-4e2d-8fdc-02f891e2d3ca}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">
       <Name>ElasticOps.Parsing</Name>
       <Project>{e9ef6fba-1dfd-4020-9caf-f77111c0bfdf}</Project>

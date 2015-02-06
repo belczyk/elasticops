@@ -1,12 +1,13 @@
 ﻿namespace ElasticOps
     module Intellisense =
-
         open ElasticOps.Parsing
         open Microsoft.FSharp.Core
+        open ElasticOps.Configuration
         open ElasticOps
 
+        let config = ConfigLoaders.LoadIntellisenseConfig()
         
-        
+
         let filterPropertySuggestions context suggestions =
             suggestions 
                 |> List.filter (fun s -> match s with 
@@ -16,13 +17,14 @@
                                                                                                 | _ -> false
                                             | _ -> true)
 
-        let TrySuggest text caretLine caretColumn endpoint= 
+        let TrySuggest text caretLine caretColumn (endpoint:string) = 
             let context = Context.create text caretLine caretColumn
 
             match context.ParseTree with
             | None -> (context, None)
             | Some tree -> 
-                let suggestions = SuggestEngine.matchSuggestions tree endpoint
+                let file = System.String.Format(config.RulesFileFomrat,endpoint)
+                let suggestions = SuggestEngine.matchSuggestions tree file
                                     |> filterPropertySuggestions context
                                     |> fun sgs -> match sgs  with
                                                     | [] -> None
@@ -52,3 +54,4 @@
             match suggestion.Mode with 
             | Mode.Property -> completeProperty context suggestion
             | _ -> failwith "Not supported"
+        

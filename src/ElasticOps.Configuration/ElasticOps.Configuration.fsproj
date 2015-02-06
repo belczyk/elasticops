@@ -57,6 +57,9 @@
     <None Include="..\SolutionItems\Config.yaml">
       <Link>Config.yaml</Link>
     </None>
+    <None Include="..\SolutionItems\IntellisenseConfig.yaml">
+      <Link>IntellisenseConfig.yaml</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Configuration">

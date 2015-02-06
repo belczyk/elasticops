@@ -63,10 +63,16 @@ namespace ElasticOps
             builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
             builder.Register((c) =>
             {
-                var config = new ElasticOpsConfig();
-                config.Load("config.yaml");
+                var config = ConfigLoaders.LoadElasticOpsConfig();
                 return config;
             }).As<ElasticOpsConfig>().SingleInstance();
+
+            builder.Register((c) =>
+            {
+                var config = ConfigLoaders.LoadIntellisenseConfig();
+                return config;
+            }).As<IntellisenseConfig>().SingleInstance();
+
             builder.RegisterType<Infrastructure>().AsSelf().SingleInstance();
 
         }
