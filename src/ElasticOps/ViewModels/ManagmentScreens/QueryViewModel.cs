@@ -39,6 +39,7 @@ namespace ElasticOps.ViewModels
                   
             };
             Method = "GET";
+            Url = _infrastructure.Config.DefaultQueryUrl;
 
         }
 

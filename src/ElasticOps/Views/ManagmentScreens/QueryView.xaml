@@ -34,7 +34,6 @@
                 <Label VerticalAlignment="Center" HorizontalAlignment="Center" Height="30">Url:</Label>
                 <t:AutoCompleteBox Width="600" 
                            IsTextCompletionEnabled="True"
-                           MinimumPrefixLength="2"
                            Padding="2,2,0,0"
                            FontSize="16" Height="30"
                            Name="URL"

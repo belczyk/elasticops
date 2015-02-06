@@ -38,7 +38,13 @@
         "top_children": { },
         "wildcard": { }
     },
-    "aggs": { },
+    "aggs": {
+        "$AnyProperty$": {
+            "aggs": { },
+            "avg": { },
+            "cardinality": { "field": { } }
+        }
+    },
     "explain": { },
     "facets": { },
     "fielddata_fields": { },
