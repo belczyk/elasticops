@@ -394,6 +394,10 @@
       <Link>Config.yaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\SolutionItems\IntellisenseConfig.yaml">
+      <Link>IntellisenseConfig.yaml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

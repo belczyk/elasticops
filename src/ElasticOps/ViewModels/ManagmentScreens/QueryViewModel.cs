@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.ViewModels.Controls;
@@ -121,7 +122,7 @@ namespace ElasticOps.ViewModels
                 }
                 var request = WebRequest.Create(requestUri);
                 var body = QueryEditor.Code;
-                request.Method = !string.IsNullOrEmpty(body) && Method == "GET" ? "POST"  : Method;
+                request.Method = !string.IsNullOrEmpty(body) && Method == "GET" ? "POST" : Method;
                 if (!string.IsNullOrEmpty(body))
                 {
                     byte[] byteArray = Encoding.UTF8.GetBytes(body);
@@ -133,13 +134,32 @@ namespace ElasticOps.ViewModels
                 WebResponse response = request.GetResponse();
                 var reader = new StreamReader(response.GetResponseStream());
 
-                dynamic parsedJson = JsonConvert.DeserializeObject(reader.ReadToEnd());
-                ResultEditor.Code = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+                var originalJson = reader.ReadToEnd();
+
+                ResultEditor.Code = TryFormatJson(originalJson);
             }
             catch (Exception ex)
             {
-                 ResultEditor.Code  = ex.ToString();
+                ResultEditor.Code = ex.ToString();
             }
+        }
+
+        private static string TryFormatJson(string originalJson)
+        {
+            try
+            {
+                dynamic parsedJson = JsonConvert.DeserializeObject(originalJson);
+                var json = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+                return json;
+            }
+            catch { }
+
+            return originalJson;
+        }
+
+        public void FormatCode()
+        {
+            QueryEditor.Code = TryFormatJson(QueryEditor.Code);
         }
 
         public bool IsExecuting
@@ -150,6 +170,19 @@ namespace ElasticOps.ViewModels
                 if (value.Equals(_isExecuting)) return;
                 _isExecuting = value;
                 NotifyOfPropertyChange(() => IsExecuting);
+            }
+        }
+
+        public void KeyPress(KeyEventArgs args)
+        {
+            if (args.Key == Key.F5)
+            {
+                ExecuteCall();
+            }
+
+            if (args.Key == Key.R && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            {
+                FormatCode();
             }
         }
     }

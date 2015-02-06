@@ -19,7 +19,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource AccentColorBrush}" Grid.Row="0"  Margin="10,0,0,10">
             <StackPanel Orientation="Horizontal" Margin="5,5,0,5">
@@ -42,16 +43,22 @@
                         <behaviors:UrlAutoCompleteBoxBehavior/>
                     </i:Interaction.Behaviors>
                 </t:AutoCompleteBox>
-                <Button Content="Execute" Width="75" Height="30" Margin="10,0,0,0" x:Name="Execute"/>
             </StackPanel>
         </Border>
-        <Grid Grid.Row="1">
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button x:Name="FormatCode" Width="75" Height="30" Margin="25,5,5,5" ToolTip="CTRL+R">Format</Button>
+            <Button Content="Execute" Width="75" Height="30" Margin="5" x:Name="Execute" ToolTip="F5"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor"  cal:Bind.Model="{Binding QueryEditor}" />
+
+            <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor"  cal:Bind.Model="{Binding QueryEditor}" cal:Message.Attach="[Event KeyUp] = [Action KeyPress($eventArgs)]" />
 
             <GridSplitter Grid.Column="1"
                       ResizeDirection="Columns"

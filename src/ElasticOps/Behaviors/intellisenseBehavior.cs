@@ -34,7 +34,7 @@ namespace ElasticOps.Behaviors
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
-            var caretColumn = _textEditor.Caret.Column;
+            var caretColumn = _textEditor.Caret.Line>1 ?_textEditor.Caret.Column -2 : _textEditor.Caret.Column;
             var endpoint = GetEndpoint();
 
             if (endpoint == null) return;
