@@ -37,7 +37,7 @@ let ``matchRuleWithPath: try match long path `` () =
 
 [<Test>]
 let ``can read rules from file`` () = 
-    let rules = readRulesFromJson "IntellisenseRules.json"
+    let rules = readRulesFromJson "IntellisenseRules_search.json"
 
 
     rules.Length |> should  be (greaterThan 0)

@@ -62,7 +62,7 @@ namespace ElasticOps.Behaviors
             }
             else if (_completionWindow != null)
             {
-                _completionWindow.Close();
+               // _completionWindow.Close();
             }
         }
 

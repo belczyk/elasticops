@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Converters="http://metro.mahapps.com/winfx/xaml/shared"
                     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:wpf="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+                    xmlns:wpf="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+                    xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit"
+                    xmlns:behaviors="clr-namespace:ElasticOps.Behaviors">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
@@ -84,6 +86,70 @@
 
 
 
+    <Style x:Key="{x:Type ae:CompletionWindow }" TargetType="{x:Type ae:CompletionWindow}">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="BorderThickness" Value="0"/>
 
+    </Style>
+
+
+
+    <Style x:Key="{x:Type ae:CompletionListBox }" TargetType="{x:Type ae:CompletionListBox}">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"></Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type ListBoxItem}" x:Key="CompletionListBoxItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background"
+                                    Value="{DynamicResource AccentColorBrush}"/>
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ae:CompletionList}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ae:CompletionList}">
+                    <ae:CompletionListBox x:Name="PART_ListBox"
+                        ItemContainerStyle="{StaticResource CompletionListBoxItem}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Image}" Width="16" Height="16" Margin="0,0,2,0"/>
+                                    <TextBlock Text="{Binding Text}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ae:CompletionListBox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
