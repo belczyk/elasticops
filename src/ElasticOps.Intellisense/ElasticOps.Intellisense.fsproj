@@ -51,6 +51,10 @@
     <Compile Include="Intellisense.fsi" />
     <Compile Include="Intellisense.fs" />
     <None Include="Script.fsx" />
+    <None Include="..\SolutionItems\IntellisenseRules.json">
+      <Link>IntellisenseRules.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">

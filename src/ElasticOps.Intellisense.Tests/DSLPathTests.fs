@@ -10,12 +10,11 @@ open System
 
 [<Test>]
 let ``path for property in object`` () = 
-    let res = @"{ ""prop"" : 1" 
+    let res = @"{ ""prop"" : { ""prop2""" 
                 |> parse
                 |> Option.get
                 |> DSLPath.find
-    res |> should equal [DSLPathNode.Object;Property("prop");Value(JsonValue.Int(1))]
-
+    res |> should equal [DSLPath.PropertyWithValue("prop");DSLPath.PropertyName("prop2")]
 
 [<Test>]
 let ``can get path for for huge ElasticSearch query cut in the middle randomly`` () =

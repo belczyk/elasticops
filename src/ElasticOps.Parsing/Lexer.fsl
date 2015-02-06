@@ -61,4 +61,4 @@ and read_string str ignorequote =
   | '"' { if ignorequote  then (read_string (str+"\\\"") false lexbuf) else STRING (str)}
   | '\\'  { read_string str true lexbuf}
   | [^ '"' '\\']+ { read_string (str+(lexeme lexbuf)) false lexbuf}
-  | eof { STRING str }
+  | eof { UNTERMINATED_STRING str }

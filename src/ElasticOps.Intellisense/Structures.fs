@@ -38,15 +38,10 @@
                   NewText = null;
                 }
 
-        type DSLPathNode =
-        | Object
-        | Property of string 
-        | Array 
-        | Value of JsonValue
+        type RuleSign = 
+            | UnfinishedPropertyName
+            | Property of string 
 
-        type Fuzzy  =
-        | AnyProperty
-        | AnyValue
-        | DSL of DSLPathNode
-    
+        type Rule = { Sign : RuleSign list ; Suggestions : Suggestion list}
+
 

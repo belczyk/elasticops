@@ -1,0 +1,14 @@
+{
+    "query": {
+        "bool": { },
+        "boosting": { },
+        "constant_score": { },
+        "custom_filters_score": { },
+        "dis_max": { },
+        "field": { }
+    },
+    "aggs": { },
+    "explain": { },
+    "facets": { },
+    "fielddata_fields": { }
+}

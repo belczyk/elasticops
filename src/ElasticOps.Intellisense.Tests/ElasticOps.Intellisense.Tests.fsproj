@@ -59,6 +59,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="SuggestEngineTests.fs" />
+    <None Include="..\SolutionItems\IntellisenseRules.json">
+      <Link>IntellisenseRules.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

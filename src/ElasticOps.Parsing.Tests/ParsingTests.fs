@@ -8,7 +8,7 @@ open System.IO
 
 let countSubstring (where :string) (what : string) =
     match what with
-    | "" -> 0 // just a definition; infinity is not an int
+    | "" -> 0 
     | _ -> (where.Length - where.Replace(what, @"").Length) / what.Length
 
 [<Test>]
@@ -17,8 +17,8 @@ let ``parse values ``() =
     "false"  |> parse |> should equal (Some(JsonValue.Bool(false)))
     "1"  |> parse |> should equal (Some(JsonValue.Int(1)))
     "1.23"  |> parse |> should equal (Some(JsonValue.Float(1.23)))
-    "[1]"  |> parse |> should equal (Some(JsonValue.List([JsonValue.Int(1)])))
-    "[1,2,3]"  |> parse |> should equal (Some(JsonValue.List([JsonValue.Int(1);JsonValue.Int(2);JsonValue.Int(3)])))
+    "[1]"  |> parse |> should equal (Some(JsonValue.Array([JsonValue.Int(1)])))
+    "[1,2,3]"  |> parse |> should equal (Some(JsonValue.Array([JsonValue.Int(1);JsonValue.Int(2);JsonValue.Int(3)])))
     "\"abc\"" |> parse |> should equal (Some(JsonValue.String("abc")))
 
 [<Test>]
@@ -81,12 +81,13 @@ let ``parse simple objects`` () =
     //no peroperties
     "{}" |> parse |> should equal (Some(JsonValue.Assoc([])))
     //one property object
-    "{ \"prop\" : 1.25 }" |> parse |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.Float(1.25))])))
+    "{ \"prop\" : 1.25 }" |> parse |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Float(1.25))])))
     //multiple properties
-    "{ \"prop\" : +12, \"prop2\" : \"123\" }" |> parse |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.Int(12));("prop2",JsonValue.String("123"))])))
+    "{ \"prop\" : +12, \"prop2\" : \"123\" }" 
+        |> parse 
+        |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Int(12));JsonProperty.PropertyWithValue("prop2",JsonValue.String("123"))])))
     //property of type array 
-    "{ \"prop\" : [1,23] }" |> parse |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.List([JsonValue.Int(1); JsonValue.Int(23)]))])))
-
+    "{ \"prop\" : [1,23] }" |> parse |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Array([JsonValue.Int(1); JsonValue.Int(23)]))])))
 
 [<Test>]
 let ``parse complex objects`` () = 
@@ -100,19 +101,17 @@ let ``parse complex objects`` () =
 
 
     res |> should equal (Some( JsonValue.Assoc(
-                                                [("title",JsonValue.String("Cities"));
-                                                 ("cities", JsonValue.List([
-                                                                           JsonValue.Assoc([
-                                                                                           ("name",JsonValue.String("Chicago"));
-                                                                                           ("zips",JsonValue.List([JsonValue.Int(60601);JsonValue.Int(60600)]))
-                                                                           ]);
-                                                                           JsonValue.Assoc([
-                                                                                           ("name",JsonValue.String("New York"));
-                                                                                           ("zips",JsonValue.List([JsonValue.Int(10001)]))
-                                                                           ])
-                                                 ]))]
-                                              )
-    ))
+                                                [(JsonProperty.PropertyWithValue("title", JsonValue.String("Cities")));
+                                                  JsonProperty.PropertyWithValue("cities", JsonValue.Array([
+                                                                                                              JsonValue.Assoc([
+                                                                                                                              JsonProperty.PropertyWithValue("name",JsonValue.String("Chicago"));
+                                                                                                                              JsonProperty.PropertyWithValue("zips",JsonValue.Array([JsonValue.Int(60601);JsonValue.Int(60600)]))
+                                                                                                              ]);
+                                                                                                              JsonValue.Assoc([
+                                                                                                                              JsonProperty.PropertyWithValue("name",JsonValue.String("New York"));
+                                                                                                                              JsonProperty.PropertyWithValue("zips",JsonValue.Array([JsonValue.Int(10001)]))
+                                                ])]))])))
+
 
 [<Test>]
 let ``parse huge json in less then half seconds`` () =
@@ -137,55 +136,55 @@ let ``can parse json terminated before ending }`` () =
     let json = "{ \"prop\" : 1"
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.Int(1))])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Int(1))])))
 
 [<Test>]
 let ``can parse json ending with colon`` () = 
     let json = "{ \"prop\" : "
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.Colon)])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyNameWithColon("prop")])))
     
 [<Test>]
 let ``can parse json after property name`` () = 
     let json = "{ \"prop\" "
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.Missing)])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyName("prop")])))
 
 [<Test>]
 let ``can parse json terminated in the middle of array`` () = 
     let json = "{ \"prop\" : [ 1,2 "
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.List([JsonValue.Int(1);JsonValue.Int(2)]))])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Array([JsonValue.Int(1);JsonValue.Int(2)]))])))
 
 [<Test>]
 let ``can parse json terminated in the middle of array with colon`` () = 
     let json = "{ \"prop\" : [ 1,2, "
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.List([JsonValue.Int(1);JsonValue.Int(2)]))])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Array([JsonValue.Int(1);JsonValue.Int(2)]))])))
 
 [<Test>]
 let ``can parse json terminated in the middle with incomplete object`` () = 
     let json = "{ \"prop\" : [ { \"x\"  "
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("prop",JsonValue.List([JsonValue.Assoc([("x",JsonValue.Missing)])]))])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("prop",JsonValue.Array([JsonValue.Assoc([JsonProperty.PropertyName("x")])]))])))
 
 [<Test>]
 let ``parser json ending with object terminated with comma after full property`` () = 
     let json = "[{\"id\": 1,\"name\": \"Kathie Steele\"},{\"id\": 2,"
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.List([
+    res |> should equal (Some(JsonValue.Array([
                                              JsonValue.Assoc([
-                                                             ("id", JsonValue.Int(1));
-                                                             ("name", JsonValue.String("Kathie Steele"))
+                                                             JsonProperty.PropertyWithValue("id",JsonValue.Int(1));
+                                                             JsonProperty.PropertyWithValue("name", JsonValue.String("Kathie Steele"))
                                              ]);
                                              JsonValue.Assoc([
-                                                             ("id", JsonValue.Int(2))
+                                                             JsonProperty.PropertyWithValue("id",JsonValue.Int(2));
                                              ])
     ])))
 
@@ -194,7 +193,7 @@ let ``can parse json terminated in the middle of property name`` () =
     let json = "{ \"pro"
     let res = json |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("pro",JsonValue.Missing)])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.UnfinishedPropertyName("pro")])))
 
 [<Test>]
 let ``can parse json terminated after colon`` () = 
@@ -207,10 +206,10 @@ let ``can parse json terminated after colon`` () =
     let res3 = json3 |> parse
     let res4 = json4 |> parse
 
-    res |> should equal (Some(JsonValue.Assoc([("pro",JsonValue.Colon)])))
-    res2 |> should equal (Some(JsonValue.Assoc([("pro",JsonValue.Colon)])))
-    res3 |> should equal (Some(JsonValue.Assoc([("pro",JsonValue.Colon)])))
-    res4 |> should equal (Some(JsonValue.Assoc([("p",JsonValue.Int(1));("pro",JsonValue.Colon)])))
+    res |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyNameWithColon("pro")])))
+    res2 |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyNameWithColon("pro")])))
+    res3 |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyNameWithColon("pro")])))
+    res4 |> should equal (Some(JsonValue.Assoc([JsonProperty.PropertyWithValue("p",JsonValue.Int(1));JsonProperty.PropertyNameWithColon("pro")])))
 
 
 [<Test>]

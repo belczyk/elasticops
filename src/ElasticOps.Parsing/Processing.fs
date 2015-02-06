@@ -27,9 +27,11 @@ let rec endsOnPropertyName (tree : JsonValue) =
         | Assoc props-> match props with 
                         | [] -> (false,String.Empty)
                         | _ -> match (Seq.last props) with
-                                | (name, List els) -> endsOnPropertyName (Seq.last els)
-                                | (name, Assoc props) -> endsOnPropertyName (Assoc props)
-                                | (name, Missing) -> (true,name)
+                                | PropertyWithValue(_,Array els) -> endsOnPropertyName (Seq.last els)
+                                | PropertyWithValue(_,Assoc props) -> endsOnPropertyName (Assoc props)
+                                | PropertyNameWithColon name -> (true,name)
+                                | PropertyName name -> (true,name)
+                                | UnfinishedPropertyName name -> (true,name)
                                 | _ -> (false,String.Empty)
-        | List els -> endsOnPropertyName (Seq.last els)
+        | Array els -> endsOnPropertyName (Seq.last els)
         | _ -> (false,String.Empty)

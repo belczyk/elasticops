@@ -24,14 +24,9 @@
                     let suggestions = 
                         SuggestEngine.matchSuggestions (Option.get context.ParseTree)
                         |> List.filter (fun s -> match s.Mode with 
-                                                    | Mode.Property when s.Text.StartsWith prefix -> true 
+                                                    | Mode.Property when s.Text.ToLower().StartsWith (prefix.ToLower()) -> true 
                                                     | Mode.Property -> false
                                                     | _ -> true)
-        
-                    
-
-                    //let options = suggestions |> List.filter (fun x -> x.StartsWith(prefix)) |> List.map (fun x-> {Text = x; Mode = Mode.Property})
-        
                     (context, Some suggestions)
         
         let  suggest (context : Context) = 

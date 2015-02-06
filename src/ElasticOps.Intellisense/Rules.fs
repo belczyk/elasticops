@@ -1,14 +1,35 @@
 ﻿namespace ElasticOps
     open ElasticOps
-
+    open ElasticOps.Parsing.Processing
+    open ElasticOps.Parsing.Structures
+    
     module Rules = 
         let sign rule = fst rule
         let prod rule = snd rule
         let ruleHd rule = 
             List.head (fst rule)
 
-        let propertySuggestRules = [
-            ([DSL(Object);AnyProperty;AnyValue], [{Text = "aggs"; Mode = Mode.Property};
+//        let readRulesFromJson = 
+//            let json = System.IO.File.ReadAllText "IntellisenseRules.json"
+//            let parseTree = parse json
+//
+//            match parseTree with
+//            | None -> []
+//            | Some tree -> 
+//                let rec discoverRules tree rulePrefix =
+//                    match tree with 
+//                    | Assoc props -> let rules = props 
+//                                                    |> List.map (fun prop -> DSL(Property((fst prop)))::rulePrefix)
+//                                     let lowerLevelRules = props
+//                                                           |> List.map (fun prop -> discoverRules (snd prop) (DSL(Property(fst prop))::rulePrefix))
+//                                                           |> List.collect (fun x -> x)
+//                                 
+//                                     rules@lowerLevelRules
+//                                  
+//                discoverRules tree []
+
+        let propertySuggestRules =  [
+            {Sign = [RuleSign.UnfinishedPropertyName]; Suggestions = [{Text = "aggs"; Mode = Mode.Property};
                                                   {Text = "explain"; Mode = Mode.Property};
                                                   {Text = "facets"; Mode = Mode.Property};
                                                   {Text = "fielddata_fields"; Mode = Mode.Property};
@@ -24,8 +45,8 @@
                                                   {Text = "stats"; Mode = Mode.Property};
                                                   {Text = "timeout"; Mode = Mode.Property};
                                                   {Text = "version"; Mode = Mode.Property}
-                                                 ]);
-            ([DSL(Object);DSL(Property("query"));DSL(Object);AnyProperty;AnyValue], [
+                                                 ]};
+            { Sign = [RuleSign.Property("query");RuleSign.UnfinishedPropertyName]; Suggestions = [
                                                                         {Text = "bool"; Mode = Mode.Property};
                                                                         {Text = "boosting"; Mode = Mode.Property};
                                                                         {Text = "constant_score"; Mode = Mode.Property};
@@ -63,17 +84,6 @@
                                                                         {Text = "terms"; Mode = Mode.Property};
                                                                         {Text = "top_children"; Mode = Mode.Property};
                                                                         {Text = "wildcard"; Mode = Mode.Property};
-                                                 ]);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                 ]};
         ]
 
