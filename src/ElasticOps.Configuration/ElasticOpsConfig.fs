@@ -14,6 +14,6 @@ module ConfigLoaders =
         config
 
     let LoadElasticOpsConfig () =
-        let config = new IntellisenseConfig()
+        let config = new ElasticOpsConfig()
         config.Load("Config.yaml")
         config
