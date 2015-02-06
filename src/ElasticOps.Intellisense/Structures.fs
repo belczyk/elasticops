@@ -25,8 +25,8 @@
                 NewText : string
             }
             static member create json caretLine caretColumn=
-                let tree = parse json
                 let codeTillCaret = String.substring json caretLine caretColumn
+                let tree = parse codeTillCaret
             
                 {
                   OriginalCode = json; 

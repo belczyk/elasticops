@@ -86,10 +86,10 @@
                                    | (RuleSign.Property _ , _ ) -> false
                                    | (RuleSign.UnfinishedPropertyName, DSLPathNode.UnfinishedPropertyName _) -> matchRuleWithPath rT pT
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
-        let matchSuggestions (parseTree : JsonValue) = 
+        let matchSuggestions (parseTree : JsonValue) endpoint= 
             let path = parseTree |> findDSLPath
 
-            let suggestions = readRulesFromJson("IntellisenseRules.json") 
+            let suggestions = readRulesFromJson(sprintf "IntellisenseRules%s.json" endpoint) 
                                 |> List.filter (fun rule -> matchRuleWithPath rule.Sign path) 
                                 |> List.collect (fun rule -> rule.Suggestions )
             suggestions

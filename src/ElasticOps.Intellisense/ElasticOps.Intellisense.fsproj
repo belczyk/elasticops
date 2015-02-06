@@ -50,8 +50,8 @@
     <Compile Include="Intellisense.fsi" />
     <Compile Include="Intellisense.fs" />
     <None Include="Script.fsx" />
-    <None Include="..\SolutionItems\IntellisenseRules.json">
-      <Link>IntellisenseRules.json</Link>
+    <None Include="..\SolutionItems\IntellisenseRules_search.json">
+      <Link>IntellisenseRules_search.json</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

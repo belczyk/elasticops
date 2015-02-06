@@ -1,37 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using ElasticOps.Configuration;
 using ElasticOps.Extensions;
-using ICSharpCode.AvalonEdit;
+using ElasticOps.Views;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Editing;
 
 namespace ElasticOps.Behaviors
 {
-    public class IntellisenseBehavior : Behavior<TextEditor>
+    public class IntellisenseBehavior : Behavior<QueryView>
     {
+        private TextArea _textEditor;
+        private ElasticOpsConfig _config;
         protected override void OnAttached()
         {
+            _config = AppBootstrapper.GetInstance<ElasticOpsConfig>();
 
-            AssociatedObject.TextArea.TextEntered += TextEntered;
-            AssociatedObject.TextArea.TextEntering += TextEntering;
+            AssociatedObject.Loaded += AssociatedObject_Loaded;
             base.OnAttached();
+        }
+
+        void AssociatedObject_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _textEditor = AssociatedObject.QueryEditor.TextEditor.TextArea;
+
+            _textEditor.TextEntered += TextEntered;
+            _textEditor.TextEntering += TextEntering;
         }
 
         CompletionWindow _completionWindow;
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
-            var caretColumn = AssociatedObject.TextArea.Caret.Column;
+            var caretColumn = _textEditor.Caret.Column;
+            var endpoint = GetEndpoint();
 
-            var intellisenseResult = Intellisense.TrySuggest(AssociatedObject.TextArea.Document.Text, AssociatedObject.TextArea.Caret.Line, caretColumn);
+            if (endpoint == null) return;
+            if (!_config.IntellisenseEndpoints.Contains(endpoint)) return;
+
+            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, caretColumn, endpoint);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 
             if (suggestions!=null)
             {
-                _completionWindow = new CompletionWindow(AssociatedObject.TextArea);
+                _completionWindow = new CompletionWindow(_textEditor);
                 IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
 
                 if (suggestions.Value.Any())
@@ -49,6 +64,19 @@ namespace ElasticOps.Behaviors
             {
                 _completionWindow.Close();
             }
+        }
+
+        private string GetEndpoint()
+        {
+            var url = AssociatedObject.URL.Text;
+
+            if (string.IsNullOrEmpty(url)) return null;
+
+            var parts = url.Split('/');
+
+            if (parts.Last().StartsWith("_")) return parts.Last();
+
+            return null;
         }
 
         void TextEntering(object sender, TextCompositionEventArgs e)

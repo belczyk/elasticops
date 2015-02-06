@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +9,23 @@ using ElasticOps.Extensions;
 
 namespace ElasticOps.Behaviors
 {
+    public  class IndexTypes
+    {
+        public List<string> Types { get; set; }
+        public DateTime LastUpdated { get; set; }
+
+        public IndexTypes(List<string> types)
+        {
+            Types = types;
+            LastUpdated = DateTime.Now;
+        }
+    }
+
     public class UrlSuggest : ObservableCollection<SuggestItem>, IHandle<RefreashEvent>
     {
         private readonly Infrastructure _infrastructure;
         private readonly List<string> _indices = new List<string>();
-        private readonly Dictionary<string, List<string>> _types = new Dictionary<string, List<string>>();
+        private readonly Dictionary<string, IndexTypes> _types = new Dictionary<string, IndexTypes>();
         public UrlSuggest(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
@@ -40,18 +53,19 @@ namespace ElasticOps.Behaviors
 
         private void SuggestType(IEnumerable<string> parts)
         {
-            var index = parts.First();
+            var index = parts.First().ToLower();
             var typePrefix = parts.ElementAt(1);
 
-            if (!_types.ContainsKey(index.ToLower()))
+            if (!_types.ContainsKey(index))
             {
                 UpdateTypes(index);
             }
 
-            if (!_types.ContainsKey(index.ToLower())) return;
+            if (!_types.ContainsKey(index)) return;
 
             Clear();
-            _types[index.ToLower()]
+            _types[index]
+                .Types
                 .Where(x => x.StartsWith(typePrefix))
                 .Select(type => new SuggestItem(string.Format("{0}/{1}", index, type), SugegestionMode.Type))
                 .ForEach(Add);
@@ -65,10 +79,14 @@ namespace ElasticOps.Behaviors
 
         private void UpdateTypes(string index)
         {
+            if (!_indices.Contains(index)) return;
+
+            if (_types.ContainsKey(index) && DateTime.Now - _types[index].LastUpdated < TimeSpan.FromSeconds(5)) return;
+
             var result = _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Connection, index));
             if (result.Success)
             {
-                _types[index] = result.Result;
+                _types[index] = new IndexTypes(result.Result);
             }
         }
 

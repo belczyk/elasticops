@@ -12,17 +12,17 @@
                 |> List.filter (fun s -> match s with 
                                             | {Text = text ; Mode = Mode.Property} ->
                                                                                         match  Processing.endsOnPropertyName (Option.get context.ParseTree) with
-                                                                                                | (true, name) ->   text.ToLower().StartsWith(name.ToLower()) // (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.Trim().EndsWith("\""))))
+                                                                                                | (true, name) ->   text.ToLower().StartsWith(name.ToLower()) 
                                                                                                 | _ -> false
                                             | _ -> true)
 
-        let TrySuggest text caretLine caretColumn = 
+        let TrySuggest text caretLine caretColumn endpoint= 
             let context = Context.create text caretLine caretColumn
 
             match context.ParseTree with
             | None -> (context, None)
             | Some tree -> 
-                let suggestions = SuggestEngine.matchSuggestions tree
+                let suggestions = SuggestEngine.matchSuggestions tree endpoint
                                     |> filterPropertySuggestions context
                                     |> fun sgs -> match sgs  with
                                                     | [] -> None

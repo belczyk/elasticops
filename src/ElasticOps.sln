@@ -16,7 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{979F7567-AD97-48A2-866C-3049A3F43DB9}"
 	ProjectSection(SolutionItems) = preProject
 		SolutionItems\Config.yaml = SolutionItems\Config.yaml
-		SolutionItems\IntellisenseRules.json = SolutionItems\IntellisenseRules.json
+		SolutionItems\IntellisenseRules_search.json = SolutionItems\IntellisenseRules_search.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticOps.TestData", "ElasticOps.TestData\ElasticOps.TestData.csproj", "{33BAB35E-8F36-4E58-92C2-5F4809551FF0}"

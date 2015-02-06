@@ -10,7 +10,7 @@
     <Grid >
         <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    Name="textEditor"
+                    Name="TextEditor"
                     FontFamily="Consolas"
                     ShowLineNumbers="True"
                     FontSize="12pt"
@@ -20,7 +20,6 @@
                     >
             <i:Interaction.Behaviors>
                 <behaviors:AvalonEditBehavior Code="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <behaviors:IntellisenseBehavior/>
             </i:Interaction.Behaviors>
         </avalonEdit:TextEditor>
     </Grid>

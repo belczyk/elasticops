@@ -12,6 +12,10 @@
              d:DesignHeight="500"
              d:DesignWidth="900"
              >
+
+    <i:Interaction.Behaviors>
+        <behaviors:IntellisenseBehavior/>
+    </i:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -32,6 +36,7 @@
                            MinimumPrefixLength="2"
                            Padding="2,2,0,0"
                            FontSize="16" Height="30"
+                           Name="URL"
                            Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <behaviors:UrlAutoCompleteBoxBehavior/>

@@ -14,7 +14,7 @@ namespace ElasticOps.Views.Controls
         {
             InitializeComponent();
 
-            textEditor.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(Color.FromRgb(0x68,0xCE,0xF9));
+            TextEditor.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(Color.FromRgb(0x68,0xCE,0xF9));
 
             SetupFolding();
         }
@@ -22,9 +22,9 @@ namespace ElasticOps.Views.Controls
         private void SetupFolding()
         {
             var foldingStrategy = new BraceFoldingStrategy();
-            var foldingManager = FoldingManager.Install(textEditor.TextArea);
-            foldingStrategy.UpdateFoldings(foldingManager, textEditor.Document);
-            textEditor.TextChanged += (sender, args) => { foldingStrategy.UpdateFoldings(foldingManager, textEditor.Document); };
+            var foldingManager = FoldingManager.Install(TextEditor.TextArea);
+            foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document);
+            TextEditor.TextChanged += (sender, args) => { foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document); };
         }
     }
 }

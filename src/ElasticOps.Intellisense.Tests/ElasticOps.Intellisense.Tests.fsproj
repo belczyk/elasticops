@@ -59,9 +59,8 @@
     <None Include="hugeESJsonQuery.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\SolutionItems\IntellisenseRules.json">
-      <Link>IntellisenseRules.json</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="..\SolutionItems\IntellisenseRules_search.json">
+      <Link>IntellisenseRules_search.json</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
