@@ -5,14 +5,8 @@ open ElasticOps.Parsing.Structures
 
 %start start
 
-%token <int> INT
-%token <float> FLOAT
 %token <string> ID
 %token <string> STRING
-%token <string> UNTERMINATED_STRING
-%token TRUE
-%token FALSE
-%token NULL
 %token LEFT_BRACE
 %token RIGHT_BRACE
 %token LEFT_BRACK

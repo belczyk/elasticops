@@ -11,14 +11,8 @@ type token =
   | LEFT_BRACK
   | RIGHT_BRACE
   | LEFT_BRACE
-  | NULL
-  | FALSE
-  | TRUE
-  | UNTERMINATED_STRING of (string)
   | STRING of (string)
   | ID of (string)
-  | FLOAT of (float)
-  | INT of (int)
 type tokenId = 
     | TOKEN_EOF
     | TOKEN_ANY_PROPERTY
@@ -30,14 +24,8 @@ type tokenId =
     | TOKEN_LEFT_BRACK
     | TOKEN_RIGHT_BRACE
     | TOKEN_LEFT_BRACE
-    | TOKEN_NULL
-    | TOKEN_FALSE
-    | TOKEN_TRUE
-    | TOKEN_UNTERMINATED_STRING
     | TOKEN_STRING
     | TOKEN_ID
-    | TOKEN_FLOAT
-    | TOKEN_INT
     | TOKEN_end_of_input
     | TOKEN_error
 type nonTerminalId = 
