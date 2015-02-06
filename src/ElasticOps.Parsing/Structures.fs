@@ -40,6 +40,13 @@ and JsonProperty =
             | PropertyNameWithColon name -> sprintf @"""%s"" : " name
             | UnfinishedPropertyName name -> sprintf @"""%s" name
             | PropertyWithValue (name, value) -> sprintf @"""%s"" : %s" name (value.ToString())
+  member x.getName () = 
+      match x with 
+      | JsonProperty.PropertyName name -> name
+      | JsonProperty.PropertyNameWithColon name -> name
+      | JsonProperty.PropertyWithValue(name,_) -> name
+      | JsonProperty.UnfinishedPropertyName name -> name
+
 and JsonValueType =
     | TBool
     | TFloat

@@ -51,6 +51,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Compile Include="DSLPathTests.fs" />
+    <Compile Include="SuggestEngineTests.fs" />
     <None Include="app.config" />
     <None Include="randomComplexTestsJson.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -58,7 +59,6 @@
     <None Include="hugeESJsonQuery.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="SuggestEngineTests.fs" />
     <None Include="..\SolutionItems\IntellisenseRules.json">
       <Link>IntellisenseRules.json</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

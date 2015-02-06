@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="String.fs" />
     <Compile Include="Structures.fs" />
-    <Compile Include="Rules.fs" />
     <Compile Include="SuggestEngine.fs" />
     <Compile Include="Intellisense.fsi" />
     <Compile Include="Intellisense.fs" />

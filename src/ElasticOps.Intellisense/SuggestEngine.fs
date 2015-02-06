@@ -1,8 +1,11 @@
 ﻿namespace ElasticOps
     open ElasticOps.Parsing.Structures
+    open ElasticOps.Parsing
+    open ElasticOps.Parsing.Processing
     open ElasticOps
 
-    module DSLPath = 
+    module SuggestEngine = 
+
         type DSLPathNode  =
             | PropertyName of string
             | PropertyNameWithColon of string
@@ -11,7 +14,7 @@
             | Array
             | Value of JsonValue
 
-        let find (parseTree: JsonValue) = 
+        let findDSLPath (parseTree: JsonValue) = 
             let rec findPath tree acc =
                 match tree with
                 | JsonValue.Assoc props -> 
@@ -42,9 +45,30 @@
 
 
 
-    module SuggestEngine = 
-        open DSLPath
-        open ElasticOps
+
+        let readRulesFromJson filePath = 
+            let json = System.IO.File.ReadAllText filePath
+            let parseTree = parse json
+
+            match parseTree with
+            | None -> []
+            | Some tree -> 
+                let rec discoverRules tree rulePrefix =
+                    match tree with 
+                    | Assoc props -> 
+                                     match props with 
+                                     | [] -> []
+                                     | _ ->
+                                             let mainRule = {Sign = rulePrefix ; Suggestions = props |> List.map(fun p -> {Text=p.getName(); Mode = Mode.Property})}
+                                             let subRules =  props
+                                                                   |> List.map (fun p -> match p with 
+                                                                                           | JsonProperty.PropertyWithValue(name, value) -> discoverRules value (RuleSign.Property(name)::rulePrefix)
+                                                                                           | _ -> failwith "Unsupported")
+                                             mainRule::(List.collect (fun sr -> sr) subRules)
+                    | _ -> failwith "Unsupported "
+                                  
+                discoverRules tree [RuleSign.UnfinishedPropertyName]
+
 
         let rec matchRuleWithPath rule path = 
                 match (rule,path) with 
@@ -63,9 +87,9 @@
                                    | (RuleSign.UnfinishedPropertyName, DSLPathNode.UnfinishedPropertyName _) -> matchRuleWithPath rT pT
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
         let matchSuggestions (parseTree : JsonValue) = 
-            let path = parseTree |> DSLPath.find
+            let path = parseTree |> findDSLPath
 
-            let suggestions = Rules.propertySuggestRules 
+            let suggestions = readRulesFromJson("IntellisenseRules.json") 
                                 |> List.filter (fun rule -> matchRuleWithPath rule.Sign path) 
                                 |> List.collect (fun rule -> rule.Suggestions )
             suggestions

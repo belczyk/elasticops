@@ -5,37 +5,31 @@
         open Microsoft.FSharp.Core
         open ElasticOps
 
-        let suggestProperty context = 
-            let propertyName =  match context.ParseTree with 
-                                        | Some t -> 
-                                            let endsWithPropName = Processing.endsOnPropertyName t
         
-                                            match endsWithPropName with
-                                            | (true, name) -> if (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.Trim().EndsWith("\"")))) then
-                                                                 (Some name) 
-                                                              else 
-                                                                None
-                                            | _ -> None
-                                        | _ -> None
+        
+        let filterPropertySuggestions context suggestions =
+            suggestions 
+                |> List.filter (fun s -> match s with 
+                                            | {Text = text ; Mode = Mode.Property} ->
+                                                                                        match  Processing.endsOnPropertyName (Option.get context.ParseTree) with
+                                                                                                | (true, name) ->   text.ToLower().StartsWith(name.ToLower()) // (System.String.IsNullOrEmpty(name) || (not (context.CodeTillCaret.Trim().EndsWith("\""))))
+                                                                                                | _ -> false
+                                            | _ -> true)
 
-            match propertyName with 
-            | None -> (context, None)
-            | Some prefix -> 
-                    let suggestions = 
-                        SuggestEngine.matchSuggestions (Option.get context.ParseTree)
-                        |> List.filter (fun s -> match s.Mode with 
-                                                    | Mode.Property when s.Text.ToLower().StartsWith (prefix.ToLower()) -> true 
-                                                    | Mode.Property -> false
-                                                    | _ -> true)
-                    (context, Some suggestions)
-        
-        let  suggest (context : Context) = 
-            (suggestProperty context)
-            
-        
         let TrySuggest text caretLine caretColumn = 
             let context = Context.create text caretLine caretColumn
-            (suggest context)
+
+            match context.ParseTree with
+            | None -> (context, None)
+            | Some tree -> 
+                let suggestions = SuggestEngine.matchSuggestions tree
+                                    |> filterPropertySuggestions context
+                                    |> fun sgs -> match sgs  with
+                                                    | [] -> None
+                                                    | _ -> Some sgs
+                                                    
+
+                (context, suggestions)
 
         let completeProperty context suggestion = 
             let codeFromCaret = context.OriginalCode.Substring(context.CodeTillCaret.Length)
@@ -46,7 +40,7 @@
             let lastLineTillCaret = ((String.split "\r\n" context.CodeTillCaret ) |> Seq.last);
             let indexOfLastQuoteInLastLineTillCaret = lastLineTillCaret.LastIndexOf("\"")
 
-            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length+2) // (Seq.last (String.split codeTillQuote "\r\n")).LastIndexOf("\"")+suggestText.Length
+            let newCaretColumn =((fst context.OriginalCaretPosition),indexOfLastQuoteInLastLineTillCaret+suggestText.Length+2)
 
             {context with 
                 CodeFromCaret = codeFromCaret; 
