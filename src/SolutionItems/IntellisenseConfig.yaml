@@ -1,3 +1,6 @@
 IntellisenseEndpoints: 
     - _search
 RulesFileFomrat : IntellisenseRules{0}.json
+AutoCompleteChars :
+    - "["
+    - "{"

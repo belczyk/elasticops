@@ -5,6 +5,7 @@ using System.Windows.Interactivity;
 using ElasticOps.Configuration;
 using ElasticOps.Extensions;
 using ElasticOps.Views;
+using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 
@@ -53,7 +54,27 @@ namespace ElasticOps.Behaviors
 
         void TextEntered(object sender, TextCompositionEventArgs e)
         {
+            TryCompleteChar(e.Text[0]);
             TryComplete();
+        }
+
+        private void TryCompleteChar(char c)
+        {
+            if (c == '{' && _config.AutoCompleteChars.Contains("{"))
+            {
+                _textEditor.Document.Insert(_textEditor.Caret.Offset, "}");
+                _textEditor.Caret.Position = new TextViewPosition(_textEditor.Caret.Line, _textEditor.Caret.Column - 1);
+            }
+            if (c == '"' && _config.AutoCompleteChars.Contains("\""))
+            {
+                _textEditor.Document.Insert(_textEditor.Caret.Offset, "\"");
+                _textEditor.Caret.Position = new TextViewPosition(_textEditor.Caret.Line, _textEditor.Caret.Column - 1);
+            }
+            if (c == '[' && _config.AutoCompleteChars.Contains("["))
+            {
+                _textEditor.Document.Insert(_textEditor.Caret.Offset, "]");
+                _textEditor.Caret.Position = new TextViewPosition(_textEditor.Caret.Line, _textEditor.Caret.Column - 1);
+            }
         }
 
         private void TryComplete()
