@@ -71,7 +71,6 @@
                                                                                                        | IntellisenseProperty.AnyPath(value) -> discoverRules value (RuleSign.AnyPath::rulePrefix)
                                                                                                        | _ -> failwith "Unsupported")
                                                          mainRule::(List.collect (fun sr -> sr) subRules)
-                                | _ -> failwith "Unsupported "
                                   
                             let rules = discoverRules tree []
                                         |> List.map (fun rule -> {rule with Sign = List.rev rule.Sign})
