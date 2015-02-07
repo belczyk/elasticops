@@ -13,6 +13,9 @@ let ``parse object with property with default completion mode``() =
 let ``parse anyproperty token with default completion mode``() =
          @"{ ""prop"" : { AnyProperty : {} }}" |> parseIntellisense |> should equal (Some(IntellisenseValue.Assoc([IntellisenseProperty.Property("prop","|empty_object|", IntellisenseValue.Assoc([AnyProperty(IntellisenseValue.Assoc([]))]))])))
 
+[<Test>]
+let ``parse anypath token with default completion mode``() =
+         @"{ ""prop"" : { AnyPath : {} }}" |> parseIntellisense |> should equal (Some(IntellisenseValue.Assoc([IntellisenseProperty.Property("prop","|empty_object|", IntellisenseValue.Assoc([AnyPath(IntellisenseValue.Assoc([]))]))])))
 
 [<Test>]
 let ``parse completion mode``() =

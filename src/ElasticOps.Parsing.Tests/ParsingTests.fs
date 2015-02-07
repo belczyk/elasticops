@@ -179,13 +179,13 @@ let ``parser json ending with object terminated with comma after full property``
     let res = json |> parse
 
     res |> should equal (Some(JsonValue.Array([
-                                             JsonValue.Assoc([
-                                                             JsonProperty.PropertyWithValue("id",JsonValue.Int(1));
-                                                             JsonProperty.PropertyWithValue("name", JsonValue.String("Kathie Steele"))
-                                             ]);
-                                             JsonValue.Assoc([
-                                                             JsonProperty.PropertyWithValue("id",JsonValue.Int(2));
-                                             ])
+                                                 JsonValue.Assoc([
+                                                                 JsonProperty.PropertyWithValue("id",JsonValue.Int(1));
+                                                                 JsonProperty.PropertyWithValue("name", JsonValue.String("Kathie Steele"))
+                                                 ]);
+                                                 JsonValue.Assoc([
+                                                                 JsonProperty.PropertyWithValue("id",JsonValue.Int(2));
+                                                 ])
     ])))
 
 [<Test>]

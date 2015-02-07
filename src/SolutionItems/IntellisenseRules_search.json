@@ -1,8 +1,8 @@
 {
     "query": {
         "bool": {
-            "should"  |empty_array| : { },
-            "must"  |empty_array| : { },
+            "should" |empty_array| : { },
+            "must" |empty_array| : { },
             "must_not" |empty_array| : { },
             "boost" |colon| : { },
             "minimum_number_should_match" |colon| : { }
@@ -44,13 +44,81 @@
         "top_children": { },
         "wildcard": { }
     },
-    "aggs" : {
-        AnyProperty: {
-            "aggs": { },
-            "avg": { },
-            "cardinality": {
-                "field": { }
-            
+    "aggs" : {},
+    AnyPath : {
+        "aggs": {
+            AnyProperty: {
+                "aggs": { },
+                "avg" |field| : {
+                    "field": { }
+                },
+                "cardinality" |field| : {
+                    "field" |empty_string| : { },
+                    "lang" |groovy| : { },
+                    "params": { },
+                    "precision_threshold" |int_100|: {},
+                    "rehash" |true| : {},
+                    "script" |empty_string| : {},
+                    "script_id" |empty_string| : {}
+                },
+                "date_histogram" |field| : {
+                    "field" |empty_string| : {},
+                    "interval" |empty_string| : {},
+                    "factor" |int_1000| : {} ,
+                    "format" |date_format| : {},
+                    "keyed" |true| : {},
+                    "min_doc_count" |int_0| : {},
+                    "order": {
+                      "_key" |asc| : {},
+                      "_count" |asc| : {}
+                    },
+                    "post_offset"  |empty_string|  :{},
+                    "post_zone" |empty_string| : {},
+                    "pre_offset" |empty_string| : {},
+                    "pre_zone" |empty_string| : {},
+                    "pre_zone_adjust_large_interval" |true|: {},
+                    "time_zone" |empty_string| : {}
+                },
+                "date_range": {
+                    "format" |MMyyy| : {},
+                    "keyed" |true| : {},
+                    "lang" |groovy| : {},
+                    "params" : {},
+                    "ranges" |empty_array| : 
+                      {
+                        "from" |empty_string|: {},
+                        "key"  |empty_string|: {},
+                        "to"  |empty_string|: {}
+                      },
+                    "script"  |empty_string|: {},
+                    "script_id"  |empty_string|: {},
+                    "field"  |empty_string|: {}
+                },
+                "extended_stats" |field| : {
+                  "field" |empty_string|: {},
+                  "lang" |groovy| : {},
+                  "params": {},
+                  "script" |empty_string|: {}
+                },
+                "filter": {},
+                "geo_bounds": {
+                  "field" |empty_string| : {},
+                  "wrap_longitude" |true| : {}
+                },
+                "geo_distance": {
+                  "field" |empty_string| : {},
+                  "origin": {
+                    "lat" |colon| : {},
+                    "lon" |colon| : {}
+                  },
+                  "ranges" |empty_array| : 
+                    {
+                      "from" |colon|: {},
+                      "to" |colon| : {}
+                    },
+                  "distance_type" |empty_string| : {},
+                  "unit" |empty_string|:  {}
+                }
             }
         }
     },
@@ -67,5 +135,6 @@
     "sort": { },
     "stats": { },
     "timeout": { },
-    "version": { }
+    "version": { },
+
 }

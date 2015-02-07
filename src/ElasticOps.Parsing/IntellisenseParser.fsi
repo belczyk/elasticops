@@ -2,6 +2,7 @@
 module IntellisenseParser
 type token = 
   | EOF
+  | ANY_PATH
   | ANY_PROPERTY
   | UNFINISHED_VALUE of (string * ElasticOps.Parsing.Structures.JsonValueType)
   | COMPLETION_MACRO of (string)
@@ -15,6 +16,7 @@ type token =
   | ID of (string)
 type tokenId = 
     | TOKEN_EOF
+    | TOKEN_ANY_PATH
     | TOKEN_ANY_PROPERTY
     | TOKEN_UNFINISHED_VALUE
     | TOKEN_COMPLETION_MACRO

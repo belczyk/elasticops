@@ -16,6 +16,7 @@ open ElasticOps.Parsing.Structures
 %token <string> COMPLETION_MACRO
 %token <string * ElasticOps.Parsing.Structures.JsonValueType> UNFINISHED_VALUE
 %token ANY_PROPERTY
+%token ANY_PATH
 
 %token EOF
 
@@ -35,14 +36,16 @@ value:
 object_fields: rev_object_fields { List.rev $1 };
 
 rev_object_fields:
-  |                                                   { [] }
-  | STRING COLON value                                { [IntellisenseProperty.Property($1,"|empty_object|",$3)] }
-  | rev_object_fields COMMA STRING COLON value        { IntellisenseProperty.Property($3,"|empty_object|",$5) :: $1 }
+  |                                                                    { [] }
+  | STRING COLON value                                                 { [IntellisenseProperty.Property($1,"|empty_object|",$3)] }
+  | rev_object_fields COMMA STRING COLON value                         { IntellisenseProperty.Property($3,"|empty_object|",$5) :: $1 }
   | STRING COMPLETION_MACRO COLON value                                { [IntellisenseProperty.Property($1,$2,$4)] }
   | rev_object_fields COMMA STRING COMPLETION_MACRO COLON value        { IntellisenseProperty.Property($3,$4,$6) :: $1 }
-  | ANY_PROPERTY COLON value                          { [IntellisenseProperty.AnyProperty($3)] }
-  | rev_object_fields COMMA ANY_PROPERTY COLON value  { IntellisenseProperty.AnyProperty($5) :: $1 }
-  | rev_object_fields COMMA                           { $1 }
+  | ANY_PROPERTY COLON value                                           { [IntellisenseProperty.AnyProperty($3)] }
+  | rev_object_fields COMMA ANY_PROPERTY COLON value                   { IntellisenseProperty.AnyProperty($5) :: $1 }
+  | ANY_PATH COLON value                                               { [IntellisenseProperty.AnyPath($3)] }
+  | rev_object_fields COMMA ANY_PATH COLON value                       { IntellisenseProperty.AnyPath($5) :: $1 }
+  | rev_object_fields COMMA                                            { $1 }
 
 rev_values:
   | value                  { [$1] }

@@ -10,7 +10,6 @@
             | PropertyNameWithColon of string
             | UnfinishedPropertyName of string
             | PropertyWithValue of string
-            | Array
             | Value of JsonValue
 
         let findDSLPath (parseTree: JsonValue) = 
@@ -27,10 +26,10 @@
                                                     | JsonProperty.UnfinishedPropertyName  name -> (DSLPathNode.UnfinishedPropertyName name )::acc
                                                     | JsonProperty.PropertyWithValue(name,value) -> findPath value (DSLPathNode.PropertyWithValue(name)::acc)
                 | JsonValue.Array elements -> match elements with
-                                                | [] -> Array::acc
+                                                | [] -> acc
                                                 | _ -> 
                                                     let lastElem = Seq.last elements 
-                                                    findPath lastElem (Array::acc)
+                                                    findPath lastElem acc
                 | JsonValue.Bool _ 
                 | JsonValue.Int _
                 | JsonValue.Float _
@@ -69,6 +68,7 @@
                                                                                |> List.map (fun p -> match p with 
                                                                                                        | IntellisenseProperty.Property(name,_, value) -> discoverRules value (RuleSign.Property(name)::rulePrefix)
                                                                                                        | IntellisenseProperty.AnyProperty(value) -> discoverRules value (RuleSign.AnyProperty::rulePrefix)
+                                                                                                       | IntellisenseProperty.AnyPath(value) -> discoverRules value (RuleSign.AnyPath::rulePrefix)
                                                                                                        | _ -> failwith "Unsupported")
                                                          mainRule::(List.collect (fun sr -> sr) subRules)
                                 | _ -> failwith "Unsupported "
@@ -91,6 +91,7 @@
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
                                    | (RuleSign.AnyProperty, DSLPathNode.PropertyWithValue _) -> true
                                    | (RuleSign.AnyProperty, _ ) -> false
+                                   | (RuleSign.AnyPath, _ ) -> true
                 | (rH::rT,pH::pT) -> 
                                    match (rH,pH) with
                                    | (RuleSign.Property rName, DSLPathNode.PropertyWithValue pName) when rName = pName -> matchRuleWithPath rT pT 
@@ -99,6 +100,21 @@
                                    | (RuleSign.UnfinishedPropertyName, _ ) -> false
                                    | (RuleSign.AnyProperty, DSLPathNode.PropertyWithValue _) -> matchRuleWithPath rT pT
                                    | (RuleSign.AnyProperty, _ ) -> false
+                                   | (RuleSign.AnyPath, _ ) -> let nextInRule = (List.head rT)
+                                                               match nextInRule with 
+                                                               | RuleSign.Property name -> let reversedPath = List.rev path
+                                                                                           let rec matchingTillMarker path rem = 
+                                                                                                match path with
+                                                                                                | h::t -> match h with
+                                                                                                            | DSLPathNode.PropertyWithValue pName when pName = name -> (true,h::rem)
+                                                                                                            | _ -> matchingTillMarker t (h::rem)
+                                                                                                | [] -> (false,rem)
+                                                                                           let (matched,rem) = (matchingTillMarker reversedPath [])
+
+                                                                                           if matched then matchRuleWithPath rT rem
+                                                                                           else false
+                                                               | _ -> false
+
         let matchSuggestions (parseTree : JsonValue) rulesFile= 
             let path = parseTree |> findDSLPath
             let rules = readRulesFromJson rulesFile 

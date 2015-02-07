@@ -85,8 +85,7 @@ namespace ElasticOps.Behaviors
             if (endpoint == null) return;
             if (!_config.IntellisenseEndpoints.Contains(endpoint)) return;
 
-            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, caretColumn,
-                endpoint);
+            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, caretColumn,endpoint);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 

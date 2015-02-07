@@ -42,6 +42,7 @@
             | UnfinishedPropertyName
             | Property of string 
             | AnyProperty
+            | AnyPath
 
         type Rule = { Sign : RuleSign list ; Suggestions : Suggestion list}
 

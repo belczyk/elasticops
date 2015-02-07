@@ -3,9 +3,7 @@
 open NUnit.Framework
 open FsUnit
 open ElasticOps.Parsing.Processing
-open ElasticOps.Parsing.Structures
 open ElasticOps
-open System.IO
 open ElasticOps.SuggestEngine
 
 [<Test>]
@@ -49,3 +47,19 @@ let ``can read rules from file`` () =
 
 
     rules.Length |> should  be (greaterThan 0)
+
+[<Test>]
+let ``matchRuleWithPath: match any path`` () = 
+    let path = @"{ ""prop"" : { ""query"" : { ""filter"" : { ""xxx" |> parse  |> Option.get |> findDSLPath
+
+    let rule = [RuleSign.AnyPath;RuleSign.Property("filter");RuleSign.UnfinishedPropertyName]
+
+    SuggestEngine.matchRuleWithPath rule path |> should be True
+
+[<Test>]
+let ``matchRuleWithPath: match any path when in array `` () = 
+    let path = @"{ ""prop"" : { ""query"" : [{ ""filter"" : { ""xxx" |> parse  |> Option.get |> findDSLPath
+
+    let rule = [RuleSign.AnyPath;RuleSign.Property("filter");RuleSign.UnfinishedPropertyName]
+
+    SuggestEngine.matchRuleWithPath rule path |> should be True

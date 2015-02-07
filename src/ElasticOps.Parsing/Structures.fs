@@ -65,6 +65,7 @@ type IntellisenseValue =
   | Assoc of IntellisenseProperty list
 and IntellisenseProperty = 
   | AnyProperty of IntellisenseValue
+  | AnyPath of IntellisenseValue
   | Property of string * string * IntellisenseValue
   | Macro
   member x.getPropertyName() = 

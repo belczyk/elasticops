@@ -29,6 +29,7 @@ namespace ElasticOps.Behaviors
 
             textArea.Document.Text = result.NewText;
             textArea.Caret.Position = new TextViewPosition(result.NewCaretPosition.Item1, result.NewCaretPosition.Item2);
+            textArea.Caret.BringCaretToView();
         }
 
         public object Content { get; set; }

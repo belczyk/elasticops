@@ -35,9 +35,19 @@
 
         let postfixFromCompletionMode mode = 
             match mode with
-            | "|colon|" -> (": ","")
-            | "|empty_object|" -> (": {","}")
-            | "|empty_array|" -> (": [","]")
+            | "|colon|" -> (" : ","")
+            | "|empty_object|" -> (" : {","}")
+            | "|empty_array|" -> (" : [","]")
+            | "|field|" -> (@" : { ""field"" : ""","\" } ")
+            | "|groovy|" -> (" : \"groovy\" ","")
+            | "|int_100|" -> (" : 100 ","")
+            | "|int_1000|" -> (" : 1000 ","")
+            | "|int_0|" -> (" : 0 ","")
+            | "|true|" -> (" : true ","")
+            | "|asc|" -> (" : \"asc\" ","")
+            | "|empty_string|" -> (" : \"","\" ")
+            | "|date_format|" -> (" : \"yyyy-MM-dd\" ","")
+            | "|MMyyy|" -> (" : \"MM-yyy\" ","")
             | _ -> failwith "Unknown completion mode."
 
         let completeProperty context suggestion mode = 
