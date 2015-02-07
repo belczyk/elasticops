@@ -79,13 +79,12 @@ namespace ElasticOps.Behaviors
 
         private void TryComplete()
         {
-            var caretColumn = _textEditor.Caret.Line > 1 ? _textEditor.Caret.Column - 2 : _textEditor.Caret.Column;
             var endpoint = GetEndpoint();
 
             if (endpoint == null) return;
             if (!_config.IntellisenseEndpoints.Contains(endpoint)) return;
 
-            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, caretColumn,endpoint);
+            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, _textEditor.Caret.Column, endpoint);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 

@@ -58,7 +58,7 @@
                     "params",
                     "precision_threshold" |int_100|,
                     "rehash" |true|,
-                    "script" |empty_string|,
+                    "script" |_value|,
                     "script_id" |empty_string|
                 },
                 "date_histogram" |field| : {
@@ -98,7 +98,7 @@
                   "field" |empty_string|,
                   "lang" |groovy|,
                   "params",
-                  "script" |empty_string|
+                  "script" |_value|
                 },
                 "filter",
                 "geo_bounds": {
@@ -108,33 +108,198 @@
                 "geo_distance": {
                   "field" |empty_string|,
                   "origin": {
-                    "lat" |colon|,
-                    "lon" |colon|
+                    "lat" |example_lat|,
+                    "lon" |example_lon|
                   },
                   "ranges" |empty_array| : 
                     {
-                      "from" |colon|,
-                      "to" |colon|
+                      "from" |int_100|,
+                      "to" |int_300|
                     },
                   "distance_type" |empty_string|,
                   "unit" |empty_string|
+                },
+                "geohash_grid": {
+                    "field" |empty_string|,
+                    "precision" |int_3|,
+                    "shard_size" |int_10|,
+                    "size" |int_10|
+                },
+                "global",
+                "histogram": {
+                    "field" |empty_string|,
+                    "interval" |int_50|,
+                    "keyed" |true|,
+                    "min_doc_count" |int_0|,
+                    "order": {
+                      "_key" |asc|,
+                      "_count" |asc|
+                    }
+                },      
+                "ip_range": {
+                    "field" |empty_string|,
+                    "format" |MMyyyy|,
+                    "keyed" |true|,
+                    "lang" |groovy|,
+                    "params",
+                    "ranges":{
+                        "from" |empty_string|,
+                        "to" |empty_string|,
+                        "key" |empty_string|,
+                        "mask" |ip_mask|
+                      },
+                    "script" |_value|,
+                    "script_id" |empty_string|
+                },
+                "max": {
+                  "field" |empty_string|,
+                  "lang" |groovy|,
+                  "params",
+                  "script" |empty_string|
+                },
+                "min": {
+                  "field" |empty_string|,
+                  "lang" |groovy|,
+                  "params",
+                  "script" |empty_string|
+                },
+                "missing": {
+                  "field" |empty_string|
+                },
+                "nested": {
+                  "path" |empty_string|
+                },
+                "percentile_ranks": {
+                  "field" |empty_string|,
+                  "values" |percentile_ranks_values|
+                },
+                "percentiles": {
+                  "field" |empty_string|,
+                  "percents" |percentiles_percents|,
+                  "compression" |int_100|,
+                  "lang" |groovy|,
+                  "params",
+                  "script" |_value|,
+                  "script_id" |empty_string|
+                },
+                "range": {
+                  "field" |empty_string|,
+                  "keyed" |true|,
+                  "lang" |groovy|,
+                  "params",
+                  "script" |_value|,
+                  "script_id" |empty_string|,
+                  "ranges":{
+                      "from" |int_50|,
+                      "to" |int_100|,
+                      "key" |empty_string|
+                    }
+                },
+                "reverse_nested": {
+                  "path" |empty_string|
+                },
+                "scripted_metric": {
+                  "init_script" |empty_string|,
+                  "map_script" |empty_string|,
+                  "combine_script" |empty_string|,
+                  "reduce_script" |empty_string|,
+                  "combine_script_file" |empty_string|,
+                  "combine_script_id" |empty_string|,
+                  "init_script_file" |empty_string|,
+                  "init_script_id" |empty_string|,
+                  "lang" |groovy|,
+                  "map_script_file" |empty_string|,
+                  "map_script_id" |empty_string|,
+                  "params",
+                  "reduce_params",
+                  "reduce_script_file" |empty_string|,
+                  "reduce_script_id" |empty_string|
+                },
+                "significant_terms" |field| : {
+                  "field" |empty_string|,
+                  "background_filter",
+                  "chi_square": {
+                    "background_is_superset" |true|,
+                    "include_negatives" |true|
+                  },
+                  "exclude" |asterisk|,
+                  "execution_hint" |empty_string|,
+                  "gnd": {
+                    "background_is_superset" |true|
+                  },
+                  "include" |asterisk|,
+                  "min_doc_count" |int_10|,
+                  "mutual_information": {
+                    "include_negatives" |true|
+                  },
+                  "shard_min_doc_count" |int_10|,
+                  "shard_size" |int_10|,
+                  "size" |int_10|
+                },
+                "stats" |field| : {
+                  "field" |empty_string|,
+                  "lang" |groovy|,
+                  "params",
+                  "script" |empty_string|
+                },
+                "terms" |field| : {
+                  "field" |empty_string|,
+                  "size" |int_10|,
+                  "collect_mode" |depth_first|,
+                  "exclude" |asterisk|,
+                  "execution_hint" |empty_string|,
+                  "include" |asterisk|,
+                  "lang" |groovy|,
+                  "min_doc_count" |int_10|,
+                  "order": {
+                    "_term" |asc|,
+                    "_count" |asc|
+                  },
+                  "params",
+                  "script" |_value|,
+                  "script_id" |empty_string|,
+                  "shard_size" |int_10|,
+                  "show_term_doc_count_error" |true|
+                },
+                "top_hits": {
+                  "size" |int_10|,
+                  "sort" |empty_array|,
+                  "version" |true|,
+                  "_source",
+                  "explain" |true|,
+                  "fielddata_fields" |empty_array|,
+                  "from" |int_0|,
+                  "highlight": {
+                    "fields",
+                    "post_tags",
+                    "pre_tags",
+                    "tags_schema"
+                  },
+                  "script_fields"
+                },
+                "value_count" |field| : {
+                  "field" |empty_string|,
+                  "lang" |groovy|,
+                  "params",
+                  "script" |_value|,
+                  "script_id" |empty_string|
                 }
             }
         }
     },
-    "explain",
     "facets",
     "fielddata_fields",
     "fields",
-    "from",
     "highlight",
     "partial_fields",
     "post_filter",
     "script_fields",
-    "size",
-    "sort",
-    "stats",
-    "timeout",
-    "version",
+    "sort" |empty_array|,
+    "stats" ,
+    "explain" |true|,
+    "from" |int_0|,
+    "size" |int_20|,
+    "timeout" |_1s|,
+    "version" |true|,
 
 }

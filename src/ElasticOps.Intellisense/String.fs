@@ -12,6 +12,6 @@ let substring (str : string) (line : int) col =
     | (l::[],_) -> str.Substring(0,col-1)
     | (lines,1) -> str.Substring(0,col-1)
     | (lines,_) -> let leadingLines = lines|> Seq.ofList |> Seq.take (line - 1) |> List.ofSeq
-                   let lastLine = (Seq.nth (line - 1) lines)
+                   let lastLine = (Seq.nth (line - 1) lines).Substring(0,col-1)
                    (leadingLines |> String.concat "\r\n")+"\r\n"+lastLine
 
