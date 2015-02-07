@@ -9,18 +9,6 @@ using ElasticOps.Extensions;
 
 namespace ElasticOps.Behaviors
 {
-    public  class IndexTypes
-    {
-        public List<string> Types { get; set; }
-        public DateTime LastUpdated { get; set; }
-
-        public IndexTypes(List<string> types)
-        {
-            Types = types;
-            LastUpdated = DateTime.Now;
-        }
-    }
-
     public class UrlSuggest : ObservableCollection<SuggestItem>, IHandle<RefreashEvent>
     {
         private readonly Infrastructure _infrastructure;

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.Com;
 using ElasticOps.Extensions;
@@ -26,6 +27,26 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             Tokens = new BindableCollection<AnalyzedToken>();
         }
 
+
+        public string CurrentEndpoint
+        {
+            get
+            {
+                NotifyOfPropertyChange(() => CanAnalyze);
+
+                if (IsAnalyzerModeSelected && string.IsNullOrEmpty(IndexName))
+                    return string.Format("/_analyze?analyzer={0}", string.IsNullOrEmpty(AnalyzerName) ? "[missing analyzer name]" : AnalyzerName);
+
+                if (IsAnalyzerModeSelected && !string.IsNullOrEmpty(IndexName))
+                    return string.Format("/{0}/_analyze?analyzer={1}",IndexName, string.IsNullOrEmpty(AnalyzerName) ? "[missing index name]" : AnalyzerName);
+
+                if (IsFieldModeSlected )
+                    return string.Format("/{0}/_analyze?field={1}", string.IsNullOrEmpty(IndexName) ? "[missing index name]" : IndexName, string.IsNullOrEmpty(FieldName) ? "[missing field name]" : FieldName);
+
+                return "";
+            }
+        }
+
         public bool CanAnalyze
         {
             get
@@ -44,7 +65,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 if (value.Equals(_isAnalyzerModeSelected)) return;
                 _isAnalyzerModeSelected = value;
                 NotifyOfPropertyChange(() => IsAnalyzerModeSelected);
-                NotifyOfPropertyChange(() => CanAnalyze);
+                NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
 
@@ -56,7 +77,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 if (value.Equals(_isFieldModeSlected)) return;
                 _isFieldModeSlected = value;
                 NotifyOfPropertyChange(() => IsFieldModeSlected);
-                NotifyOfPropertyChange(() => CanAnalyze);
+                NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
 
@@ -68,7 +89,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 if (value == _analyzerName) return;
                 _analyzerName = value;
                 NotifyOfPropertyChange(() => AnalyzerName);
-                NotifyOfPropertyChange(() => CanAnalyze);
+                NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
 
@@ -80,7 +101,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 if (value == _text) return;
                 _text = value;
                 NotifyOfPropertyChange(() => Text);
-                NotifyOfPropertyChange(() => CanAnalyze);
+                NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
 
@@ -92,7 +113,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 if (value == _fieldName) return;
                 _fieldName = value;
                 NotifyOfPropertyChange(() => FieldName);
-                NotifyOfPropertyChange(() => CanAnalyze);
+                NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
 
@@ -104,7 +125,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 if (value == _indexName) return;
                 _indexName = value;
                 NotifyOfPropertyChange(() => IndexName);
-                NotifyOfPropertyChange(() => CanAnalyze);
+                NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
 
@@ -113,36 +134,41 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public void Analyze()
         {
             if (IsAnalyzerModeSelected && !string.IsNullOrEmpty(IndexName))
-                AnalyzeUsingIndexAnalyzer();
+                AnalyzeWithIndexAnalyzer();
 
             if (IsFieldModeSlected)
-                AnalyzeIndexFieldAnalyzer();
+                AnalyzeWithFieldAnalyzer();
 
             if (IsAnalyzerModeSelected && string.IsNullOrEmpty(IndexName))
-                AnalyzeClusterAnalyzer();
+                AnalyzeWithClusterAnalyzer();
+        }
 
-            var tokens = _infrastructure.CommandBus.Execute(new Analyze.AnalyzeCommand(_infrastructure.Connection, AnalyzerName,Text));
+        private void AnalyzeWithClusterAnalyzer()
+        {
+            Analyze(new Analyze.AnalyzeCommand(_infrastructure.Connection, AnalyzerName, Text));
+        }
+
+        private void AnalyzeWithFieldAnalyzer()
+        {
+            Analyze(new Analyze.AnalyzeWithFieldAnalyzerCommand(_infrastructure.Connection, IndexName,FieldName,Text));
+        }
+
+        private void AnalyzeWithIndexAnalyzer()
+        {
+            Analyze(new Analyze.AnalyzeWithIndexAnalyzerCommand(_infrastructure.Connection, IndexName, AnalyzerName, Text));
+        }
+
+        private void Analyze<T>(T command) where T : Command<IEnumerable<AnalyzedToken>>
+        {
+            var tokens =
+                _infrastructure.CommandBus.Execute(command);
 
             if (tokens.Failed) return;
 
             Tokens.Clear();
 
-            tokens.Result.ForEach(x=>Tokens.Add(x));
+            tokens.Result.ForEach(x => Tokens.Add(x));
         }
 
-        private void AnalyzeClusterAnalyzer()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void AnalyzeIndexFieldAnalyzer()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void AnalyzeUsingIndexAnalyzer()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

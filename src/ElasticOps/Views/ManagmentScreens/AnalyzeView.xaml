@@ -4,21 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:ElasticOps.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="120"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Height="30">Index:</Label>
-            <controls:AutoCompleteBox Text="{Binding IndexName}" ></controls:AutoCompleteBox>
+            <controls:AutoCompleteBox Width="300" Text="{Binding IndexName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <i:Interaction.Behaviors>
+                    <behaviors:IndexAutoCompleteBoxBehavior/>
+                </i:Interaction.Behaviors>
+            </controls:AutoCompleteBox>
             
             <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsAnalyzerModeSelected}"></RadioButton>
             <Label Height="30">Analyzer: </Label>
-            <controls:AutoCompleteBox Text="fasdfadfadf"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
+            <controls:AutoCompleteBox Text="{Binding AnalyzerName}"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
             
             <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsFieldModeSlected}"></RadioButton>
             <Label Height="30">Field:</Label>
@@ -26,8 +33,11 @@
             
             <Button Height="30" Margin="15,0,0,0" Name="Analyze" IsEnabled="{Binding CanAnalyze}">Analyze</Button>
         </StackPanel>
-        <TextBox Name="Text"  Grid.Row="1"  Style="{StaticResource MultiLineTextBox}"></TextBox>
-        <DataGrid ItemsSource="{Binding Tokens}" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True">
+        
+        <TextBlock Name="CurrentEndpoint" Grid.Row="1"></TextBlock>
+        
+        <TextBox Name="Text"  Grid.Row="2"  Style="{StaticResource MultiLineTextBox}"></TextBox>
+        <DataGrid ItemsSource="{Binding Tokens}" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Token" Width="*" Binding="{Binding Token}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start offset" Width="100" Binding="{Binding StartOffset}"></DataGridTextColumn>

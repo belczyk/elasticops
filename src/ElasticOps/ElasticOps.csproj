@@ -138,7 +138,10 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
-    <Compile Include="Behaviors\AutoCompleteIndexNameBehavior.cs" />
+    <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
+    <Compile Include="Behaviors\IndexSuggest.cs" />
+    <Compile Include="Behaviors\IndexTypes.cs" />
+    <Compile Include="Behaviors\UrlAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
     <Compile Include="Behaviors\CompletionData.cs" />
     <Compile Include="Behaviors\IntellisenseBehavior.cs" />
