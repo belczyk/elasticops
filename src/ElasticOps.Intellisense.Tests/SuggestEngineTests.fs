@@ -58,8 +58,8 @@ let ``matchRuleWithPath: match any path`` () =
 
 [<Test>]
 let ``matchRuleWithPath: match any path when in array `` () = 
-    let path = @"{ ""prop"" : { ""query"" : [{ ""filter"" : { ""xxx" |> parse  |> Option.get |> findDSLPath
+    let path = @"{ ""prop"" : { ""query"" : [{ ""filter"" : { ""boost""  : { ""xxx" |> parse  |> Option.get |> findDSLPath
 
-    let rule = [RuleSign.AnyPath;RuleSign.Property("filter");RuleSign.UnfinishedPropertyName]
+    let rule = [RuleSign.AnyPath;RuleSign.Property("filter"); RuleSign.Property("boost");RuleSign.UnfinishedPropertyName]
 
     SuggestEngine.matchRuleWithPath rule path |> should be True

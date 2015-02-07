@@ -46,6 +46,10 @@ rev_object_fields:
   | ANY_PATH COLON value                                               { [IntellisenseProperty.AnyPath($3)] }
   | rev_object_fields COMMA ANY_PATH COLON value                       { IntellisenseProperty.AnyPath($5) :: $1 }
   | rev_object_fields COMMA                                            { $1 }
+  | STRING                                                             { [IntellisenseProperty.Property($1,"|empty_object|",Assoc([]))] }
+  | STRING COMPLETION_MACRO                                            { [IntellisenseProperty.Property($1,$2,Assoc([]))] }
+  | rev_object_fields COMMA STRING                                     { IntellisenseProperty.Property($3,"|empty_object|",Assoc([])) :: $1 }
+  | rev_object_fields COMMA STRING  COMPLETION_MACRO                   { IntellisenseProperty.Property($3,$4,Assoc([])) :: $1 }
 
 rev_values:
   | value                  { [$1] }
