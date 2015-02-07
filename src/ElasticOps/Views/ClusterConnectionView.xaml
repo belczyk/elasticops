@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:ElasticOps.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="40"
+             d:DesignHeight="70"
              d:DesignWidth="1024">
-    <Border BorderThickness="0,0,0,1">
+    <Border BorderThickness="0,0,0,2">
         <Border.BorderBrush>
-            <SolidColorBrush Color="{DynamicResource AccentColor4}" />
+            <SolidColorBrush Color="{DynamicResource AccentColor}" />
         </Border.BorderBrush>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="30,15,0,15">
 
             <Label Content="Server:"
                    Height="40px"

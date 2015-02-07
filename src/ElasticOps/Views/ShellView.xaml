@@ -51,35 +51,40 @@
                         Value="{Binding Name, Mode=OneWay}" />
             </Style>
 
-     
+
         </ResourceDictionary>
-        </Window.Resources>
-            <Grid Margin="15">
+    </Window.Resources>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Menu Background="Transparent" DockPanel.Dock="Top"
+              SnapsToDevicePixels="True"
+              Margin="2,0,0,0">
+
+                <MenuItem Header="THEME"
+                          Background="Transparent"
+                          Foreground="{DynamicResource TextBrush}"
+                          ItemsSource="{Binding AppThemes, Mode=OneWay}"
+                          ItemContainerStyle="{StaticResource AppThemeMenuItemStyle}" />
+                            
+                <MenuItem Header="ACCENT"
+                          Background="Transparent"
+                          ItemsSource="{Binding AccentColors, Mode=OneWay}"
+                          ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}" 
+                          Foreground="{DynamicResource TextBrush}"
+                          />
+            </Menu>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <Menu DockPanel.Dock="Top"
-              SnapsToDevicePixels="True"
-              Margin="2,0,0,0">
-            
-            <MenuItem Header="STUDIO" x:Name="ShowStudio"/>
-            <MenuItem Header="SETTINGS" x:Name="ShowSettings"/>
-            
-            <MenuItem Header="THEME"
-                          ItemsSource="{Binding AppThemes, Mode=OneWay}"
-                          ItemContainerStyle="{StaticResource AppThemeMenuItemStyle}" />
-            
-            <MenuItem Header="ACCENT"
-                          ItemsSource="{Binding AccentColors, Mode=OneWay}"
-                          ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}" />
 
-
-        </Menu>
         <Controls:TransitioningContentControl Name="ActiveItem"
-                                              Transition="LeftReplace" Grid.Row="1" />
+                                              Transition="LeftReplace" Grid.Row="0" />
 
-                <views:FooterView Grid.Row="2" x:Name="Footer" micro:View.Model="{Binding Footer}" />
-            </Grid>
+        <views:FooterView Grid.Row="1" x:Name="Footer" micro:View.Model="{Binding Footer}" />
+    </Grid>
+
 </Controls:MetroWindow>

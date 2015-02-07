@@ -215,18 +215,6 @@
     <Compile Include="Views\ManagmentScreens\QueryView.xaml.cs">
       <DependentUpon>QueryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings\IntSettingView.xaml.cs">
-      <DependentUpon>IntSettingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingPageView.xaml.cs">
-      <DependentUpon>SettingPageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\StringSettingView.xaml.cs">
-      <DependentUpon>StringSettingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\UriSettingView.xaml.cs">
-      <DependentUpon>UriSettingView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\StudioView.xaml.cs">
       <DependentUpon>StudioView.xaml</DependentUpon>
     </Compile>
@@ -305,26 +293,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings\IntSettingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingPageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\StringSettingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\UriSettingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -362,9 +330,6 @@
     </Compile>
     <Compile Include="Views\ManagmentScreens\RESTScreenView.xaml.cs">
       <DependentUpon>RESTScreenView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>

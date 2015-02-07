@@ -11,18 +11,15 @@ namespace ElasticOps.ViewModels
     {
         private readonly Infrastructure _infrastructure;
         private StudioViewModel studioViewModel;
-        private SettingsViewModel _settingsViewModel;
 
         public ShellViewModel( 
             Infrastructure infrastructure,
             StudioViewModel studioViewModel, 
-            SettingsViewModel _settingsViewModel,
             FooterViewModel footer
             )
         {
             _infrastructure = infrastructure;
             this.studioViewModel = studioViewModel;
-            this._settingsViewModel = _settingsViewModel;
             Footer = footer;
 
             DisplayName = "Elastic Ops";
@@ -64,16 +61,6 @@ namespace ElasticOps.ViewModels
                 _footer = value;
                 NotifyOfPropertyChange(() => Footer);
             }
-        }
-
-        public void ShowSettings()
-        {
-            ActivateItem(_settingsViewModel);
-        }
-
-        public void ShowStudio()
-        {
-            ActivateItem(studioViewModel);
         }
 
         public List<AccentColorMenuData> AccentColors { get; set; }
