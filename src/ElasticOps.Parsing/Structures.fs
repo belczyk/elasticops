@@ -10,7 +10,6 @@ type JsonValue =
   | Null
   | String of string
   | UnfinishedValue of string * JsonValueType
-  | Property of JsonProperty
   //below function is not important, it simply prints values 
   override x.ToString() = 
             match x with
@@ -19,7 +18,6 @@ type JsonValue =
             | Int d -> sprintf "Int(%d)" d
             | String s -> sprintf "String(%s)" s
             | Null ->  "Null()"
-            | Property prop -> sprintf "%s" (prop.ToString())
             | Assoc props ->  props 
                                |> List.map (fun p -> sprintf "%s" (p.ToString())) 
                                |> String.concat ","
