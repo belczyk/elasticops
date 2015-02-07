@@ -7,15 +7,15 @@ using ICSharpCode.AvalonEdit.Editing;
 
 namespace ElasticOps.Behaviors
 {
-    public class CompletionData : ICompletionData
+    public class CodeCompletionData : ICompletionData
     {
-        public CompletionData(string text)
+        public CodeCompletionData(string text)
         {
             Text = text;
             Content = text;
         }
 
-        public CompletionData(Context context , Suggestion suggestion)
+        public CodeCompletionData(Context context , Suggestion suggestion)
         {
             Suggestion = suggestion;
             Context = context;

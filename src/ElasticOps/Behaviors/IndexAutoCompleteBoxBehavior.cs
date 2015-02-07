@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ElasticOps.Behaviors.Suggesters;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
@@ -14,7 +15,7 @@ namespace ElasticOps.Behaviors
             AssociatedObject.IsTextCompletionEnabled = true;
             AssociatedObject.MinimumPrefixLength = 0;
 
-            _indexSuggest = new IndexSuggest(AppBootstrapper.GetInstance<Infrastructure>());
+            _indexSuggest = AppBootstrapper.GetInstance<IndexSuggest>();
 
             AssociatedObject.ItemsSource = _indexSuggest;
             AssociatedObject.TextChanged += AssociatedObject_TextChanged;

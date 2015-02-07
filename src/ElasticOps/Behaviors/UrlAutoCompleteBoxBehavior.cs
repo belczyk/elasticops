@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
+using ElasticOps.Behaviors.Suggesters;
 
 namespace ElasticOps.Behaviors
 {
@@ -11,8 +12,9 @@ namespace ElasticOps.Behaviors
         protected override void OnAttached()
         {
             AssociatedObject.ItemTemplate = Application.Current.FindResource("UrlAutoCompleteBoxItemTemplate") as DataTemplate;
-            _urlSuggest = new UrlSuggest(AppBootstrapper.GetInstance<Infrastructure>());
-
+            _urlSuggest = AppBootstrapper.GetInstance<UrlSuggest>();
+            AssociatedObject.IsTextCompletionEnabled = true;
+            AssociatedObject.MinimumPrefixLength = 0;
             AssociatedObject.ItemsSource = _urlSuggest;
 
             AssociatedObject.TextChanged += AssociatedObject_TextChanged;

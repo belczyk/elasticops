@@ -97,7 +97,7 @@ namespace ElasticOps.Behaviors
 
                 if (suggestions.Value.Any())
                 {
-                    suggestions.Value.ForEach(suggestion => data.Add(new CompletionData(context, suggestion)));
+                    suggestions.Value.ForEach(suggestion => data.Add(new CodeCompletionData(context, suggestion)));
                     _completionWindow.Show();
                     _completionWindow.Closed += delegate { _completionWindow = null; };
                 }

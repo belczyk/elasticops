@@ -6,6 +6,7 @@ using System.Windows;
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
+using ElasticOps.Behaviors.Suggesters;
 using ElasticOps.Com;
 using ElasticOps.Configuration;
 using ElasticOps.Services;
@@ -18,23 +19,23 @@ namespace ElasticOps
 {
     public class AppBootstrapper : AutofacBootstrapper<ShellViewModel>
     {
-        private static IContainer AContainer { get; set; }
+        private static IContainer AutofacContainer { get; set; }
         private static ThemeService ThemeService { get; set; }
         private static ConfigService ConfigService { get; set; }
         public AppBootstrapper()
         {
             Initialize();
-            AContainer = Container;
+            AutofacContainer = Container;
         }
 
         public static IEnumerable<T> GetAllInstances<T>()
         {
-            return AContainer.Resolve<IEnumerable<T>>();
+            return AutofacContainer.Resolve<IEnumerable<T>>();
         }
 
         public static T GetInstance<T>()
         {
-            return AContainer.Resolve<T>();
+            return AutofacContainer.Resolve<T>();
         }
 
         protected override void ConfigureContainer(ContainerBuilder builder)
@@ -61,6 +62,9 @@ namespace ElasticOps
             builder.RegisterType<CommandBus>().AsSelf();
             builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
             builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
+            builder.RegisterType<ClusterDataCache>().AsSelf().SingleInstance();
+            builder.RegisterType<UrlSuggest>().AsSelf().SingleInstance();
+            builder.RegisterType<IndexSuggest>().AsSelf().SingleInstance();
             builder.Register((c) =>
             {
                 var config = ConfigLoaders.LoadElasticOpsConfig();
@@ -85,7 +89,7 @@ namespace ElasticOps
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            var eventsAggr = AContainer.Resolve<IEventAggregator>();
+            var eventsAggr = AutofacContainer.Resolve<IEventAggregator>();
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile("logs/log-{Date}.log")
@@ -97,8 +101,8 @@ namespace ElasticOps
                 })))
                 .CreateLogger();
 
-            ConfigService = AContainer.Resolve<ConfigService>();
-            ThemeService = AContainer.Resolve<ThemeService>();
+            ConfigService = AutofacContainer.Resolve<ConfigService>();
+            ThemeService = AutofacContainer.Resolve<ThemeService>();
 
             DisplayRootViewFor<ShellViewModel>();
         }

@@ -15,6 +15,7 @@ namespace ElasticOps
             EventAggregator = eventAggregator;
             WindowManager = windowManager;
             Config = config;
+
             Connection = new Connection();
         }
 

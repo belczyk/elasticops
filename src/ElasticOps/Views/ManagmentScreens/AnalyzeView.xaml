@@ -34,18 +34,17 @@
             <Button Height="30" Margin="15,0,0,0" Name="Analyze" IsEnabled="{Binding CanAnalyze}">Analyze</Button>
         </StackPanel>
         
-        <TextBlock Name="CurrentEndpoint" Grid.Row="1"></TextBlock>
+        <TextBlock Name="CurrentEndpoint" Grid.Row="1" FontSize="16"></TextBlock>
         
         <TextBox Name="Text"  Grid.Row="2"  Style="{StaticResource MultiLineTextBox}"></TextBox>
-        <DataGrid ItemsSource="{Binding Tokens}" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Name="TokensGrid" ItemsSource="{Binding Tokens}" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="Selector_OnSelectionChanged">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Position" Width="100"  Binding="{Binding Position}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Token" Width="*" Binding="{Binding Token}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start offset" Width="100" Binding="{Binding StartOffset}"></DataGridTextColumn>
                 <DataGridTextColumn Header="End offset" Width="100"  Binding="{Binding EndOffset}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Width="200"  Binding="{Binding Type}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Position" Width="100"  Binding="{Binding Position}"></DataGridTextColumn>
             </DataGrid.Columns>
-
         </DataGrid>
     </Grid>
 </UserControl>

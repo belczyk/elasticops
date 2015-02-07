@@ -139,18 +139,19 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
-    <Compile Include="Behaviors\IndexSuggest.cs" />
-    <Compile Include="Behaviors\IndexTypes.cs" />
+    <Compile Include="Behaviors\Suggesters\IndexSuggest.cs" />
+    <Compile Include="Services\Index.cs" />
     <Compile Include="Behaviors\UrlAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
-    <Compile Include="Behaviors\CompletionData.cs" />
+    <Compile Include="Behaviors\CodeCompletionData.cs" />
     <Compile Include="Behaviors\IntellisenseBehavior.cs" />
-    <Compile Include="Behaviors\UrlSuggest.cs" />
-    <Compile Include="Behaviors\SugegestionMode.cs" />
-    <Compile Include="Behaviors\SuggestItem.cs" />
+    <Compile Include="Behaviors\Suggesters\UrlSuggest.cs" />
+    <Compile Include="Behaviors\Suggesters\SugegestionMode.cs" />
+    <Compile Include="Behaviors\Suggesters\SuggestItem.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Services\ClusterDataCache.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="ViewModels\AccentColorMenuData.cs" />
@@ -462,6 +463,7 @@
   <ItemGroup>
     <None Include="Assets\SplashScreen.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

@@ -66,9 +66,7 @@
     <Style TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="16" />
     </Style>
-    <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="16" />
-    </Style>
+
     <DataTemplate x:Key="UrlAutoCompleteBoxItemTemplate">
         <Grid>
             <Grid.ColumnDefinitions>

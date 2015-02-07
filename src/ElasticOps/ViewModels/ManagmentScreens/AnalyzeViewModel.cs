@@ -160,12 +160,12 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         private void Analyze<T>(T command) where T : Command<IEnumerable<AnalyzedToken>>
         {
+            Tokens.Clear();
+
             var tokens =
                 _infrastructure.CommandBus.Execute(command);
 
             if (tokens.Failed) return;
-
-            Tokens.Clear();
 
             tokens.Result.ForEach(x => Tokens.Add(x));
         }
