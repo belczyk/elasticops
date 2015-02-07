@@ -4,7 +4,7 @@ using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(2)]
+    [Priority(20)]
     public class ClusterInfoScreenViewModel : Conductor<object>, IManagmentScreen, IHandle<RefreashEvent>
     {
         private readonly Infrastructure _infrastructure;

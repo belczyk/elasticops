@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Caliburn.Micro;
+using ElasticOps.Attributes;
 using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
@@ -12,6 +13,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public DateTimeOffset Timestamp { get; set; }
     }
 
+    [Priority(100)]
     public class ConsoleViewModel : Screen, IManagmentScreen, IHandle<LogEntryCreatedEvent>
     {
         public ConsoleViewModel(Infrastructure infrastructure)

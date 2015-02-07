@@ -8,6 +8,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.buttons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -24,7 +25,7 @@
         <Setter Property="FontFamily"
                 Value="{DynamicResource ContentFontFamily}" />
         <Setter Property="FontSize"
-                Value="{DynamicResource ContentFontSize}" />
+                Value="16" />
         <Setter Property="BorderThickness"
                 Value="1" />
         <Setter Property="MinHeight"
@@ -34,12 +35,32 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource TextBrush}" />
         <Setter Property="Padding"
-                Value="0" />
+                Value="2" />
 
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
         <Setter Property="Validation.ErrorTemplate"
                 Value="{DynamicResource ValidationErrorTemplate}" />
+        
+        <Setter Property="Width" Value="200"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Width" Value="200"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="Padding" Value="2"></Setter>
+    </Style>
+    
+    <Style x:Key="MultiLineTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="AcceptsReturn" Value="True"></Setter>
+        <Setter Property="Margin" Value="0,10,0,10"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+    </Style>
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="Width" Value="75"></Setter>
     </Style>
 
     <Style TargetType="{x:Type Label}">

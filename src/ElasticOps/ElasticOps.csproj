@@ -151,6 +151,7 @@
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="ViewModels\AccentColorMenuData.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\AnalyzeViewModel.cs" />
     <Compile Include="ViewModels\AppThemeMenuData.cs" />
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
     <Compile Include="SimpleCommand.cs" />
@@ -201,6 +202,9 @@
     <Compile Include="Views\FooterView.xaml.cs">
       <DependentUpon>FooterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManagmentScreens\AnalyzeView.xaml.cs">
+      <DependentUpon>AnalyzeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManagmentScreens\ConsoleView.xaml.cs">
       <DependentUpon>ConsoleView.xaml</DependentUpon>
     </Compile>
@@ -246,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FooterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagmentScreens\AnalyzeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

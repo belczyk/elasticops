@@ -109,8 +109,6 @@ module ElasticOps.Com.ClusterInfo
                             OS = el?os |> asPropertyListOfScalars |> Seq.map humanizeKeys |> asKeyValuePairList;
                         })
                     |> CList.ofSeq
-
-
  
     type IndicesInfoCommand(connection) = 
         inherit Command<IEnumerable<IndexInfo>>(connection)
@@ -140,7 +138,6 @@ module ElasticOps.Com.ClusterInfo
                        { Name = indexName; Types = mappings; Settings = settings; State = state.[indexName]?state.AsString()}
             )
 
-
     type DocumentsInfoCommand(connection) = 
         inherit Command<IDictionary<string,string>>(connection)
 
@@ -155,7 +152,6 @@ module ElasticOps.Com.ClusterInfo
                                 |> fun el -> el.AsArray()
                                 |> Seq.map (fun el -> (el?term.AsString(), el?count.AsString()))
                                 |> dict
-
 
     type ListIndicesCommand(connection) =
         inherit Command<IEnumerable<String>>(connection)

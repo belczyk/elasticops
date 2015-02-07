@@ -52,6 +52,7 @@
     <Compile Include="Config.fs" />
     <Compile Include="TestsHelper.fs" />
     <Compile Include="ClusterInfoCommands.fs" />
+    <Compile Include="AnalyzeCommandsTests.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
     <None Include="Config.yaml">

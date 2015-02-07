@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using Nest;
 using Serilog;
@@ -14,11 +15,15 @@ namespace ElasticOps.TestData
                 .WriteTo.ColoredConsole()
                 .CreateLogger();
 
-            var uri = ConfigurationManager.AppSettings["clusterUri"];
-            Log.Logger.Information("Start creating data for: {clusterUri}", uri);
-            var client = GetClient(uri);
 
-            CreateIndex("products", client);
+            var section = ConfigurationManager.GetSection("Nodes") as NameValueCollection;
+            foreach (var key in section.AllKeys)
+            {
+                var uri = section[key];
+                Log.Logger.Information("Start creating data for: {clusterUri}", uri);
+                var client = GetClient(uri);
+                CreateIndex("products", client);
+            }
         }
 
         private static ElasticClient GetClient(string uri)

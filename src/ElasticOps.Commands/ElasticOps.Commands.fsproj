@@ -82,6 +82,7 @@
     <Compile Include="ElasticResponseProcessing.fs" />
     <Compile Include="ClusterInfoModels.fs" />
     <Compile Include="ClusterInfo.fs" />
+    <Compile Include="Analyze.fs" />
     <None Include="Script.fsx" />
     <Compile Include="HandlerFinder.fs" />
     <Compile Include="CommandBus.fs" />

@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace ElasticOps.ViewModels
 {
-    [Priority(1)]
+    [Priority(30)]
     public class QueryViewModel : Screen, IManagmentScreen
     {
         private CodeEditorViewModel _queryEditor;

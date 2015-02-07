@@ -9,7 +9,7 @@ using ElasticOps.Attributes;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(30)]
+    [Priority(40)]
     public class RESTScreenViewModel : Screen, IManagmentScreen
     {
         private readonly Infrastructure _infrastructure;

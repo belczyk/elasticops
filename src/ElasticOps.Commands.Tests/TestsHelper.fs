@@ -3,7 +3,6 @@ module TestHelpers
 open Config
 open ElasticOps.Com
 open System.IO
-open System
 
 let config = new CommandsTestsConfig()
 config.Load("Config.yaml")

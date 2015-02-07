@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ElasticOps.Views.ManagmentScreens.AnalyzeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Label Height="30">Index:</Label>
+            <controls:AutoCompleteBox Text="{Binding IndexName}" ></controls:AutoCompleteBox>
+            
+            <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsAnalyzerModeSelected}"></RadioButton>
+            <Label Height="30">Analyzer: </Label>
+            <controls:AutoCompleteBox Text="fasdfadfadf"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
+            
+            <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsFieldModeSlected}"></RadioButton>
+            <Label Height="30">Field:</Label>
+            <TextBox IsEnabled="{Binding IsFieldModeSlected}" Name="FieldName"></TextBox>
+            
+            <Button Height="30" Margin="15,0,0,0" Name="Analyze" IsEnabled="{Binding CanAnalyze}">Analyze</Button>
+        </StackPanel>
+        <TextBox Name="Text"  Grid.Row="1"  Style="{StaticResource MultiLineTextBox}"></TextBox>
+        <DataGrid ItemsSource="{Binding Tokens}" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Token" Width="*" Binding="{Binding Token}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start offset" Width="100" Binding="{Binding StartOffset}"></DataGridTextColumn>
+                <DataGridTextColumn Header="End offset" Width="100"  Binding="{Binding EndOffset}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Width="200"  Binding="{Binding Type}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Position" Width="100"  Binding="{Binding Position}"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>
