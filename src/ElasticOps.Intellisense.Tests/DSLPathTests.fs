@@ -50,10 +50,9 @@ let ``can get path for json terminated at any point`` () =
     let testAsync i = 
         async {
             let subJson = json.Substring(0,i);
-            try
-                subJson |> parse |> Option.get |> findDSLPath |> ignore
-            with
-            | ex -> raise ex
+
+            subJson |> parse |> Option.get |> findDSLPath |> ignore
+
         }
 
     [1..(json.Length-1)] |> Seq.map testAsync |> Async.Parallel |> Async.RunSynchronously |> ignore

@@ -9,6 +9,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
+        private readonly Infrastructure _infrastructure;
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
         private IEnumerable<IndexInfoViewModel> _indicesInfo;
 
@@ -26,6 +27,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public IndicesInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
         {
+            _infrastructure = infrastructure;
             IndicesInfo = new BindableCollection<IndexInfoViewModel>();
         }
 
@@ -38,7 +40,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
                 AllIndicesInfo.Clear();
                 foreach (var indexInfo in result.Result)
-                    AllIndicesInfo.Add(new IndexInfoViewModel(indexInfo));
+                    AllIndicesInfo.Add(new IndexInfoViewModel(indexInfo, _infrastructure, RefreshData));
 
                 FilterIndices();
             }

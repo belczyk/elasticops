@@ -134,8 +134,9 @@ module ElasticOps.Com.ClusterInfo
                                          |> Seq.map humanizeKeys
                                          |> asKeyValuePairList 
                                          |> CList.ofSeq
+                       let status = state.[indexName]?state.AsString()
 
-                       { Name = indexName; Types = mappings; Settings = settings; State = state.[indexName]?state.AsString()}
+                       { Name = indexName; Types = mappings; Settings = settings; State = state.[indexName]?state.AsString(); IsOpen = not(status.Trim().StartsWith("close"))}
             )
 
     type DocumentsInfoCommand(connection) = 

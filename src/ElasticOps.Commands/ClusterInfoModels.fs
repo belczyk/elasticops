@@ -1,6 +1,7 @@
 ﻿namespace ElasticOps.Com
 
 open System.Collections.Generic
+open System
 
 [<AllowNullLiteral>]
 type ClusterCounters(i, d, n) =
@@ -19,7 +20,8 @@ type NodeInfo = { Name: string;
 type IndexInfo = { Name: string; 
                    State: string; 
                    Types: List<KeyValuePair<string, string>>;
-                   Settings: List<KeyValuePair<string, string>>}
+                   Settings: List<KeyValuePair<string, string>>;
+                   IsOpen : bool }
 
 type DocumentInfo = { Name : string; Count : int}
 

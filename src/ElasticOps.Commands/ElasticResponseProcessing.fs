@@ -24,6 +24,7 @@ module REST =
 
     let GET' = "GET"
     let POST' = "POST"
+    let DELETE' = "DELETE"
 
     let combineUri ( uri : Uri) endpoint =
         match endpoint with 
@@ -48,6 +49,7 @@ module REST =
         if (not dir.Exists) then dir.Create()
 
         match (verb,body) with 
+        | ("DELETE", _)
         | ("GET", _) -> 
             File.WriteAllText(Path.Combine(dir.FullName, "result.json"),result)
         | ("POST",Some body) -> 
@@ -60,6 +62,10 @@ module REST =
 
     let OfflineGET (connection : Connection ) endpoint = 
         Path.Combine(connection.ReadPath, connection.DiskVersion.ToString(), (endpointToDirName endpoint),GET',"result.json")
+            |> File.ReadAllText
+
+    let OfflineDELETE (connection : Connection ) endpoint = 
+        Path.Combine(connection.ReadPath, connection.DiskVersion.ToString(), (endpointToDirName endpoint),DELETE',"result.json")
             |> File.ReadAllText
 
     let OfflinePOST (connection : Connection ) endpoint body= 
@@ -84,7 +90,26 @@ module REST =
             with
             | ex -> 
                 Log.Logger.Error("Error when executing GET. ClusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",connection.ClusterUri,endpoint,ex)
-                raise ex
+                reraise()
+
+    let DELETE (connection : Connection) endpoint =
+        if connection.IsOfflineMode then 
+            OfflineDELETE connection endpoint
+        else
+            let url = combineUri connection.ClusterUri endpoint
+
+            try 
+                let result = Http.RequestString(url ,httpMethod= DELETE')
+
+                if (connection.IsTrackEnabled) then
+                    Log.Logger.Information("DELETE   clusterUri: {clusterUri}  and endpoint: {endpoint}.  Result:  {result}",connection.ClusterUri,endpoint,result)
+                if (connection.SaveResultToDisk) then
+                    saveResult(DELETE',connection,endpoint,None,result)
+                result
+            with
+            | ex -> 
+                Log.Logger.Error("Error when executing DELETE. ClusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",connection.ClusterUri,endpoint,ex)
+                reraise()
 
     let POSTJson (connection : Connection) endpoint body =
         if connection.IsOfflineMode then 
@@ -105,7 +130,7 @@ module REST =
             with 
             | ex -> 
                 Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
-                raise ex
+                reraise()
 
 
     let POST (connection : Connection) endpoint body =
@@ -125,7 +150,7 @@ module REST =
             with
             | ex -> 
                 Log.Logger.Error("Error when executing POST. Body: {body} to clusterUri: {clusterUri} and endpoint: {endpoint}. Error: {Exception}",body,connection.ClusterUri,endpoint,ex)
-                raise ex
+                reraise()
 
 
 [<AutoOpen>]
