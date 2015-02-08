@@ -12,16 +12,16 @@ It became my pet project (also [Weronika Łabaj](https://github.com/weralabaj) h
 Ideas explored in the project:
 * F#, C# integration (success) 
 * Working with multi version REST API (success, read more about it on [my blog post](http://belczyk.com/2014/06/working-effectively-with-multi-version-apis/)
-* intellisense system for ElasticSearch DSL writen in F#; Parsing partial and invalid JSON to support intellisense. (looks promising, huge topic though, in progress)
+* intellisense system for ElasticSearch DSL writen in F#; Parsing partial and invalid JSON to support intellisense. (WORKS LIKE A CHARM!)
 
 I'm hoping to add below features:
 * Viewing cluster, nodes and indices status and health information (DONE)
-* Indices managment 
-* Quering (IN PROGRESS)
+* Indices managment (DONE)
+* Quering (DONE)
 * Running any REST call to ElasticSearch
-* Reviewing _analyze endpoint results 
+* Reviewing _analyze endpoint results (DONE) 
 * Backup and restore 
 * Indexing SQL tables 
-* Reviewing mappings
+* Reviewing mappings (DONE)
 
 ![ElsticOps main screen](/docs/images/elastic.png)
