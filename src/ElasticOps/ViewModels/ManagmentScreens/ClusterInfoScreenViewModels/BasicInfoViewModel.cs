@@ -1,12 +1,24 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Caliburn.Micro;
 using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class BasicInfoViewModel : ClusterConnectedAutorefreashScreen
     {
+        private IEnumerable<ElasticPropertyViewModel> _clusterHealthProperties;
 
-        public IObservableCollection<ElasticPropertyViewModel> ClusterHealthProperties { get; set; }
+        public IEnumerable<ElasticPropertyViewModel> ClusterHealthProperties
+        {
+            get { return _clusterHealthProperties; }
+            set
+            {
+                if (Equals(value, _clusterHealthProperties)) return;
+                _clusterHealthProperties = value;
+                NotifyOfPropertyChange(() => ClusterHealthProperties);
+            }
+        }
 
         public BasicInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
@@ -20,12 +32,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             if (result.Failed) return;
 
-            ClusterHealthProperties.Clear();
-            foreach (var element in result.Result)
-            {
-                ClusterHealthProperties.Add(
-                    new ElasticPropertyViewModel {Label = element.Key, Value = element.Value});
-            }
+            ClusterHealthProperties = result.Result.Select(element => new ElasticPropertyViewModel {Label = element.Key, Value = element.Value});
         }
     }
 }

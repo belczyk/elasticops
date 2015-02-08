@@ -10,7 +10,18 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
-        public IObservableCollection<IndexInfoViewModel> IndicesInfo { get; set; }
+        private IEnumerable<IndexInfoViewModel> _indicesInfo;
+
+        public IEnumerable<IndexInfoViewModel> IndicesInfo
+        {
+            get { return _indicesInfo; }
+            set
+            {
+                if (Equals(value, _indicesInfo)) return;
+                _indicesInfo = value;
+                NotifyOfPropertyChange(() => IndicesInfo);
+            }
+        }
 
         public IndicesInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
@@ -39,8 +50,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         private void FilterIndices()
         {
-            IndicesInfo.Clear();
-            IndicesInfo.AddRange(AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWith(Predef.MarvelIndexPrefix)));
+            IndicesInfo = AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWith(Predef.MarvelIndexPrefix));
         }
 
         private bool _showMarvelIndices;

@@ -1,5 +1,6 @@
 ﻿DefaultClusterUrl : http://localhost:9200
 DefaultQueryUrl : _search
+RefreashInterval : 2
 Appearance:
     Theme: BaseLight
     Accent: Green

@@ -3,35 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="900">
     <StackPanel Style="{StaticResource Content}">
-        <StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Vertical"
+                    Margin="0,0,0,25"
                     Style="{StaticResource Content}">
-            <TextBlock Text="Name"
-                   Width="150"
-                   />
-            <TextBlock Text="{Binding Name}"
-                  />
+            <controls:Tile Width="Auto" HorizontalAlignment="Left" Title="{Binding Name}" Height="40" FontWeight="Bold" Margin="0,0,0,10"></controls:Tile>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Hostname" Width="150"/>
+                <TextBlock Text="{Binding Hostname}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Http Address" Width="150"/>
+                <TextBlock Text="{Binding HttpAddress}" />
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Hostname" Width="150"/>
-            <TextBlock Text="{Binding Hostname}"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="HttpAddress" Width="150"/>
-            <TextBlock Text="{Binding HttpAddress}"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Settings" Width="150"/>
+
+        <StackPanel Orientation="Vertical" Margin="0,0,0,25">
+            <TextBlock Text="Settings" Width="150"   Style="{DynamicResource Header1}" HorizontalAlignment="Left"/>
             <ItemsControl Name="Settings"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="OS" Width="150"/>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,25">
+            <TextBlock Text="OS" Width="150"  Style="{DynamicResource Header1}" HorizontalAlignment="Left"/>
             <ItemsControl Name="OS"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="CPU" Width="150"/>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,25">
+            <TextBlock HorizontalAlignment="Left" Text="CPU" Width="150" Style="{DynamicResource Header1}"/>
             <ItemsControl Name="CPU"/>
         </StackPanel>
     </StackPanel>

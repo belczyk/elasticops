@@ -11,6 +11,16 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.buttons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Style x:Key="Header1" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"></Setter>
+    </Style>
+
+    <Style x:Key="Highlight" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}"></Setter>
+    </Style>
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />

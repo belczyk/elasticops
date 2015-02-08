@@ -8,11 +8,10 @@
     <StackPanel Orientation="Horizontal"
                Style="{StaticResource Content}" >
         <TextBlock Text="{Binding Label}"
-                   
                    Width="150"/>
         <TextBlock Text="{Binding Value}" />
         <Button x:Name="CopyToCliboard" Style="{DynamicResource MetroCircleButtonStyle}" Width="32px" Height="32px">
-<Image Source="{StaticResource paste_icon}" />
+            <Image Source="{StaticResource paste_icon}" />
         </Button>
     </StackPanel>
 </UserControl>

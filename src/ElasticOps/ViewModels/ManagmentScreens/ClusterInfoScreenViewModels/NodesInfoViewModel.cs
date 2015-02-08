@@ -1,11 +1,24 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Caliburn.Micro;
 using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
     public class NodesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
-        public IObservableCollection<NodeInfoViewModel> NodesInfo { get; set; }
+        private IEnumerable<NodeInfoViewModel> _nodesInfo;
+
+        public IEnumerable<NodeInfoViewModel> NodesInfo
+        {
+            get { return _nodesInfo; }
+            set
+            {
+                if (Equals(value, _nodesInfo)) return;
+                _nodesInfo = value;
+                NotifyOfPropertyChange(() => NodesInfo);
+            }
+        }
 
         public NodesInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
@@ -20,12 +33,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
             if (!result.Success) return;
 
-            NodesInfo.Clear();
-            foreach (var node in result.Result)
-            {
-                NodesInfo.Add(new NodeInfoViewModel(node));
-            }
-
+            NodesInfo = result.Result.Select(node => new NodeInfoViewModel(node));
         }
     }
 }

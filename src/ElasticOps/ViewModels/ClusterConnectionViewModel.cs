@@ -17,7 +17,7 @@ namespace ElasticOps.ViewModels
             _infrastructure = infrastructure;
             _eventAggregator = infrastructure.EventAggregator;
 
-            var observable = Observable.Interval(10.Seconds()).TimeInterval();
+            var observable = Observable.Interval(_infrastructure.Config.RefreashInterval.Seconds()).TimeInterval();
             observable.Subscribe((o) =>
             {
                 if (infrastructure.Connection.IsConnected)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
 using Serilog;
@@ -22,15 +24,12 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
                 if (result.Failed) return;
 
-                Documents.Clear();
-                foreach (var docInfo in result.Result)
+                var docs = result.Result.Select(docInfo => new ElasticPropertyViewModel
                 {
-                    Documents.Add(new ElasticPropertyViewModel
-                        {
-                            Label = docInfo.Key,
-                            Value = docInfo.Value
-                        });
-                }
+                    Label = docInfo.Key, Value = docInfo.Value
+                });
+
+                Documents = docs;
             }
             catch (Exception ex)
             {
@@ -38,14 +37,14 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        private IObservableCollection<ElasticPropertyViewModel> _Documents;
+        private IEnumerable<ElasticPropertyViewModel> _documents;
 
-        public IObservableCollection<ElasticPropertyViewModel> Documents
+        public IEnumerable<ElasticPropertyViewModel> Documents
         {
-            get { return _Documents; }
+            get { return _documents; }
             set
             {
-                _Documents = value;
+                _documents = value;
                 NotifyOfPropertyChange(() => Documents);
             }
         }
