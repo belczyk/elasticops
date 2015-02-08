@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(40)]
+    [Priority(50)]
     public class RESTScreenViewModel : Screen, IManagmentScreen
     {
         private readonly Infrastructure _infrastructure;

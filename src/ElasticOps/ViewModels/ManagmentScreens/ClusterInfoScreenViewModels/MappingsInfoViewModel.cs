@@ -12,7 +12,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public MappingsInfoViewModel(TypesListViewModel typesListViewModel, Infrastructure infrastructure) : base(infrastructure)
         {
             _infrastructure = infrastructure;
-            this.TypesList = typesListViewModel;
+            TypesList = typesListViewModel;
             TypesList.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName != "SelectedType") return;
@@ -24,8 +24,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         public override void RefreshData()
         {
             TypesList.RefreashData();
-
-
         }
 
         private void LoadMapping()

@@ -84,6 +84,7 @@
     <Compile Include="ClusterInfo.fs" />
     <Compile Include="Analyze.fs" />
     <Compile Include="Index.fs" />
+    <Compile Include="DataView.fs" />
     <None Include="Script.fsx" />
     <Compile Include="HandlerFinder.fs" />
     <Compile Include="CommandBus.fs" />

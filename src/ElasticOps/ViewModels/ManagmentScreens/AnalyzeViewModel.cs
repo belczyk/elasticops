@@ -6,7 +6,7 @@ using ElasticOps.Extensions;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
-    [Priority(10)]
+    [Priority(30)]
     public class AnalyzeViewModel : Conductor<object>, IManagmentScreen
     {
         private readonly Infrastructure _infrastructure;

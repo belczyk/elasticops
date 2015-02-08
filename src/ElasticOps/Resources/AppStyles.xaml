@@ -22,6 +22,7 @@
         <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}"></Setter>
     </Style>
 
+    
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <!--TextBox Style-->

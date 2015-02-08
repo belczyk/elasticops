@@ -24,6 +24,7 @@
                 <ResourceDictionary>
                     <converters:BoolToOpositeVisiblityConverter x:Key="boolToOpositeVisiblityConverter" />
                     <converters:BoolToVisiblityConverter x:Key="boolToVisiblityConverter" />
+                    <converters:HumanizeBigNumbersConverter x:Key="humanizeBigNumbersConverter" />
                 </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>

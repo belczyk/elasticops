@@ -13,7 +13,6 @@
              d:DesignWidth="900"
              cal:Message.Attach="[Event KeyUp] = [Action KeyPress($eventArgs)]"
              >
-
     <i:Interaction.Behaviors>
         <behaviors:IntellisenseBehavior/>
     </i:Interaction.Behaviors>

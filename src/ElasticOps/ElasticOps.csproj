@@ -68,6 +68,10 @@
       <Private>True</Private>
       <HintPath>..\packages\FSharp.Core.3.1.2.1\lib\net40\FSharp.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FSharp.Data, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FSharp.Data.2.0.5\lib\net40\FSharp.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Humanizer">
       <HintPath>..\packages\Humanizer.1.33.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
     </Reference>
@@ -139,7 +143,10 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
+    <Compile Include="Behaviors\OnlyDigitsInTextBoxBehavior.cs" />
     <Compile Include="Behaviors\Suggesters\IndexSuggest.cs" />
+    <Compile Include="Extensions\IntExtenstions.cs" />
+    <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Services\Index.cs" />
     <Compile Include="Behaviors\UrlAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
@@ -160,6 +167,8 @@
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
     <Compile Include="SimpleCommand.cs" />
     <Compile Include="ViewModels\ManagmentScreens\ConsoleViewModel.cs" />
+    <Compile Include="ViewModels\ManagmentScreens\DataViewerViewModel.cs" />
+    <Compile Include="ViewModels\PaggerViewModel.cs" />
     <Compile Include="Views\Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
@@ -212,8 +221,14 @@
     <Compile Include="Views\ManagmentScreens\ConsoleView.xaml.cs">
       <DependentUpon>ConsoleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManagmentScreens\DataViewerView.xaml.cs">
+      <DependentUpon>DataViewerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManagmentScreens\QueryView.xaml.cs">
       <DependentUpon>QueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pagger.xaml.cs">
+      <DependentUpon>Pagger.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudioView.xaml.cs">
       <DependentUpon>StudioView.xaml</DependentUpon>
@@ -261,6 +276,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ManagmentScreens\DataViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ManagmentScreens\DocumentsInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -290,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManagmentScreens\RESTScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pagger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

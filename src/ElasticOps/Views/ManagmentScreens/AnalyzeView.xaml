@@ -34,7 +34,7 @@
             <Button Height="30" Margin="15,0,0,0" Name="Analyze" IsEnabled="{Binding CanAnalyze}">Analyze</Button>
         </StackPanel>
         
-        <TextBlock Name="CurrentEndpoint" Grid.Row="1" FontSize="16"></TextBlock>
+        <TextBlock Name="CurrentEndpoint" Grid.Row="1"></TextBlock>
         
         <TextBox Name="Text"  Grid.Row="2"  Style="{StaticResource MultiLineTextBox}"></TextBox>
         <DataGrid Name="TokensGrid" ItemsSource="{Binding Tokens}" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="Selector_OnSelectionChanged">

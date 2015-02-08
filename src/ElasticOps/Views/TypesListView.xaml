@@ -6,12 +6,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="900">
     <StackPanel Orientation="Horizontal">
-        <ComboBox Name="AllIndices" IsSynchronizedWithCurrentItem="True" Width="200">
+        <ComboBox Name="AllIndices" IsSynchronizedWithCurrentItem="True" Width="200" Height="30">
             <ComboBox.SelectedItem>
                 <Binding Path="SelectedIndex" />
             </ComboBox.SelectedItem>
         </ComboBox>
-        <ComboBox Name="TypesForSelectedIndex"  IsSynchronizedWithCurrentItem="True" Width="200" Margin="20,0,0,0">
+        <ComboBox Name="TypesForSelectedIndex"  IsSynchronizedWithCurrentItem="True" Width="200" Margin="20,0,0,0" Height="30">
             <ComboBox.SelectedItem>
                 <Binding Path="SelectedType" />
             </ComboBox.SelectedItem>

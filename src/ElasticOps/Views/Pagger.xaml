@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ElasticOps.Views.Pagger"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:ElasticOps.Behaviors"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="30" d:DesignWidth="900">
+    <StackPanel Orientation="Horizontal" Height="30">
+        <Button Name="PreviousPage" Width="40" Margin="0,0,10,0">
+            <Rectangle Fill="Black" Height="10" Width="10">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Visual="{StaticResource appbar_chevron_left}" Stretch="Fill" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
+        <ComboBox Name="PageSizes" Width="60" Margin="0,0,10,0" SelectedItem="{Binding PageSize}"></ComboBox>
+        <TextBox Name="Page" Width="120" Margin="0,0,10,0" >
+            <i:Interaction.Behaviors>
+                <behaviors:OnlyDigitsInTextBoxBehavior/>
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBlock Margin="0,5,10,0"  FontSize="16" >of</TextBlock>
+        <TextBlock Margin="0,5,10,0" Width="50" FontSize="16" Text="{Binding TotalPages, Converter={StaticResource humanizeBigNumbersConverter}}"></TextBlock>
+        <Button Name="NextPage" Width="40">
+            <Rectangle Fill="Black" Height="10" Width="10">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Visual="{StaticResource appbar_chevron_right}" Stretch="Fill" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
+        <TextBlock  Margin="10,5,10,0" FontSize="16" >Total: </TextBlock>
+        <TextBlock  Margin="0,5,10,0" FontSize="16" Text="{Binding Total}"></TextBlock>
+    </StackPanel>
+</UserControl>
