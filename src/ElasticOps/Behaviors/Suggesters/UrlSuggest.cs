@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ElasticOps.Configuration;
 using ElasticOps.Extensions;
 using ElasticOps.Services;
 
@@ -8,12 +10,12 @@ namespace ElasticOps.Behaviors.Suggesters
 {
     public class UrlSuggest : ObservableCollection<SuggestItem>
     {
-        private readonly Infrastructure _infrastructure;
+        private readonly ElasticOpsConfig _config;
         private readonly ClusterDataCache _clusterData;
 
-        public UrlSuggest(Infrastructure infrastructure, ClusterDataCache clusterData)
+        public UrlSuggest(ElasticOpsConfig config, ClusterDataCache clusterData)
         {
-            _infrastructure = infrastructure;
+            _config = config;
             _clusterData = clusterData;
         }
 
@@ -28,12 +30,25 @@ namespace ElasticOps.Behaviors.Suggesters
 
             var parts = text.Split('/').ToList();
 
-            if (parts.Count() == 1)
+            if (parts.Count() < 2)
                 SuggestIndex(parts);
 
             if (parts.Count() == 2)
                 SuggestType(parts);
 
+            if (parts.Count() == 3)
+                SuggestTypeEndpoint(parts);
+        }
+
+        private void SuggestTypeEndpoint(List<string> parts)
+        {
+            var prefix = parts[2];
+
+            Clear();
+            _config.URLSuggest.Endpoints.Type
+                .Where(x => x.StartsWith(prefix))
+                .Select(x => new SuggestItem(String.Format("{0}/{1}/{2}",parts[0],parts[1],x), SugegestionMode.Endpoint))
+                .ForEach(Add);
         }
 
         private void SuggestType(IEnumerable<string> parts)
@@ -55,19 +70,25 @@ namespace ElasticOps.Behaviors.Suggesters
                 .Select(type => new SuggestItem(string.Format("{0}/{1}", index, type), SugegestionMode.Type))
                 .ForEach(Add);
 
-            _infrastructure.Config.Endpoints.Indices
+            _config.URLSuggest.Endpoints.Indices
                 .Where(x => x.StartsWith(typePrefix))
                 .Select(x => new SuggestItem(string.Format("{0}/{1}", index, x), SugegestionMode.Endpoint))
                 .ForEach(Add);
 
         }
 
-
         private void SuggestIndex(IEnumerable<string> parts)
         {
             var text = parts.First();
             Clear();
-            _clusterData.Indices.Where(x => x.StartsWith(text)).Select(x => new SuggestItem(x, SugegestionMode.Index)).ForEach(Add);
+            _clusterData.Indices
+                .Where(x=> _config.URLSuggest.IncludeMarvelIndices || !x.ToLower().StartsWith(".marvel"))
+                .Where(x => x.StartsWith(text)).Select(x => new SuggestItem(x, SugegestionMode.Index)).ForEach(Add);
+
+            _config.URLSuggest.Endpoints.Cluster
+                .Where(x => x.StartsWith(text))
+                .Select(x => new SuggestItem(x, SugegestionMode.Endpoint))
+                .ForEach(Add);
         }
 
 

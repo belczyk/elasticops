@@ -6,22 +6,49 @@ Appearance:
     Accent: Green
     Footer:
         ErrorTimout: 5
-Endpoints :
-    Indices :
-        - _open
-        - _close
-        - _aliases
-        - _warmers
-        - _mappings
-        - _settings
-        - _mapping
-        - _aliases
-        - _analyze
-        - _status
-        - _stats
-        - _segments
-        - _recovery
-        - _cache/clear
-        - _refresh
-        - _flush
-        - _upgrade
+URLSuggest : 
+    IncludeMarvelIndices : false
+    Endpoints :
+        Indices :
+            - _open
+            - _close
+            - _aliases
+            - _warmers
+            - _mappings
+            - _settings
+            - _mapping
+            - _aliases
+            - _analyze
+            - _status
+            - _stats
+            - _segments
+            - _recovery
+            - _cache/clear
+            - _refresh
+            - _flush
+            - _upgrade
+        Cluster : 
+            - _aliases
+            - _all
+            - _cache/clear
+            - _cluster/health
+            - _cluster/settings
+            - _cluster/state
+            - _count
+            - _mapping
+            - _nodes
+            - _nodes/hot_threads
+            - _refresh
+            - _segments
+            - _settings
+            - _search
+            - _cluster/state
+            - _stats
+            - _status
+            - _warmer
+            - _template
+        Type : 
+            - _count
+            - _warmer
+            - _mapping
+            - _search
