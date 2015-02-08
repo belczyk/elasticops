@@ -18,7 +18,7 @@ I'm hoping to add below features:
 * Viewing cluster, nodes and indices status and health information (DONE)
 * Indices managment (DONE)
 * Quering (DONE)
-* Running any REST call to ElasticSearch
+* Running any REST call to ElasticSearch or any other API (DONE)
 * Reviewing _analyze endpoint results (DONE) 
 * Backup and restore 
 * Indexing SQL tables 
