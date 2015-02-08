@@ -11,6 +11,7 @@
              mc:Ignorable="d"
              d:DesignHeight="500"
              d:DesignWidth="900"
+             cal:Message.Attach="[Event KeyUp] = [Action KeyPress($eventArgs)]"
              >
 
     <i:Interaction.Behaviors>
@@ -57,7 +58,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor"  cal:Bind.Model="{Binding QueryEditor}" cal:Message.Attach="[Event KeyUp] = [Action KeyPress($eventArgs)]" />
+            <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor"  cal:Bind.Model="{Binding QueryEditor}"  />
 
             <GridSplitter Grid.Column="1"
                       ResizeDirection="Columns"

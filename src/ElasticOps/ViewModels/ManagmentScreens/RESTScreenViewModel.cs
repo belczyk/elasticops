@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -6,6 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
+using ElasticOps.ViewModels.Controls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagmentScreens
 {
@@ -13,41 +17,38 @@ namespace ElasticOps.ViewModels.ManagmentScreens
     public class RESTScreenViewModel : Screen, IManagmentScreen
     {
         private readonly Infrastructure _infrastructure;
-        private IEventAggregator eventAggregator;
+        private IEventAggregator _eventAggregator;
 
-        public RESTScreenViewModel(Infrastructure infrastructure)
+        public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel rquestBodyViewModel, CodeEditorViewModel resultViewModel)
         {
+            ResultEditor = resultViewModel;
+            RequestBodyEditor = rquestBodyViewModel;
+
             _infrastructure = infrastructure;
             DisplayName = "REST";
-            this.eventAggregator = infrastructure.EventAggregator;
+            _eventAggregator = infrastructure.EventAggregator;
 
-            Methods = new BindableCollection<ComboBoxItemViewModel>
+            Methods = new List<ComboBoxItemViewModel>
             {
                  ComboBoxItemViewModel.FromString("GET"),
                  ComboBoxItemViewModel.FromString("POST"),
                  ComboBoxItemViewModel.FromString("PUT"),
                  ComboBoxItemViewModel.FromString("DELETE"),
                  ComboBoxItemViewModel.FromString("HEAD"),
-                  
+                 ComboBoxItemViewModel.FromString("OPTIONS"),
+                 ComboBoxItemViewModel.FromString("TRACE"),
+                 ComboBoxItemViewModel.FromString("PATCH"),
             };
             Method = "GET";
         }
 
-        private BindableCollection<ComboBoxItemViewModel> _Methods;
 
-        public BindableCollection<ComboBoxItemViewModel> Methods
-        {
-            get { return _Methods; }
-            set
-            {
-                _Methods = value;
-                NotifyOfPropertyChange(() => Methods);
-            }
-        }
+        public IEnumerable<ComboBoxItemViewModel> Methods { get; set; }
 
+        public CodeEditorViewModel ResultEditor { get; set; }
+        public CodeEditorViewModel RequestBodyEditor { get; set; }
 
         private string _Method;
-
         public string Method
         {
             get { return _Method; }
@@ -58,32 +59,7 @@ namespace ElasticOps.ViewModels.ManagmentScreens
             }
         }
 
-        private string _RequestBody;
-
-        public string RequestBody
-        {
-            get { return _RequestBody; }
-            set
-            {
-                _RequestBody = value;
-                NotifyOfPropertyChange(() => RequestBody);
-            }
-        }
-
-        private string _Response;
-
-        public string Response
-        {
-            get { return _Response; }
-            set
-            {
-                _Response = value;
-                NotifyOfPropertyChange(() => Response);
-            }
-        }
-
         private string _Endpoint;
-
         public string Endpoint
         {
             get { return _Endpoint; }
@@ -95,7 +71,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         }
 
         private bool _IsExecuting;
-
         public bool IsExecuting
         {
             get { return _IsExecuting; }
@@ -105,7 +80,6 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 NotifyOfPropertyChange(() => IsExecuting);
             }
         }
-
 
         public void Execute()
         {
@@ -119,16 +93,12 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                var requestUri = _infrastructure.Connection.ClusterUri;
-                if (!string.IsNullOrEmpty(Endpoint))
-                {
-                    requestUri = new Uri(_infrastructure.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
-                }
+                var requestUri = GetRequestUri();
                 var request = WebRequest.Create(requestUri);
                 request.Method = Method;
-                if (!string.IsNullOrEmpty(RequestBody))
+                if (!string.IsNullOrEmpty(RequestBodyEditor.Code))
                 {
-                    byte[] byteArray = Encoding.UTF8.GetBytes(RequestBody);
+                    byte[] byteArray = Encoding.UTF8.GetBytes(RequestBodyEditor.Code);
                     request.ContentLength = byteArray.Length;
                     Stream dataStream = request.GetRequestStream();
                     dataStream.Write(byteArray, 0, byteArray.Length);
@@ -137,12 +107,25 @@ namespace ElasticOps.ViewModels.ManagmentScreens
                 WebResponse response = request.GetResponse();
                 var reader = new StreamReader(response.GetResponseStream());
 
-                Response = TryFormatIfJson(reader.ReadToEnd());
+                ResultEditor.Code = TryFormatIfJson(reader.ReadToEnd());
             }
             catch (Exception ex)
             {
-                Response = ex.ToString();
+                ResultEditor.Code = ex.Message;
             }
+        }
+
+        private Uri GetRequestUri()
+        {
+            var requestUri = _infrastructure.Connection.ClusterUri;
+            if (!string.IsNullOrEmpty(Endpoint))
+            {
+                Uri tmpUri;
+                var uri = Uri.TryCreate(Endpoint, UriKind.Absolute, out tmpUri);
+
+                requestUri = uri ? tmpUri : new Uri(_infrastructure.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
+            }
+            return requestUri;
         }
 
         public void OnEndpointKeyDown(ActionExecutionContext context)
@@ -159,9 +142,8 @@ namespace ElasticOps.ViewModels.ManagmentScreens
         {
             try
             {
-                //dynamic obj = JObject.Parse(response);
-                //return JsonConvert.SerializeObject(obj,Formatting.Indented);
-                return null;
+                dynamic obj = JObject.Parse(response);
+                return JsonConvert.SerializeObject(obj, Formatting.Indented);
             }
             catch
             {
@@ -172,14 +154,28 @@ namespace ElasticOps.ViewModels.ManagmentScreens
 
         protected override void OnActivate()
         {
-            eventAggregator.Subscribe(this);
+            _eventAggregator.Subscribe(this);
             base.OnActivate();
         }
 
         protected override void OnDeactivate(bool close)
         {
-            eventAggregator.Unsubscribe(this);
+            _eventAggregator.Unsubscribe(this);
             base.OnDeactivate(close);
+        }
+
+
+        public void KeyPress(KeyEventArgs args)
+        {
+            if (args.Key == Key.F5)
+            {
+                ExecuteCall();
+            }
+
+            if (args.Key == Key.R && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            {
+                RequestBodyEditor.Code = TryFormatIfJson(RequestBodyEditor.Code);
+            }
         }
     }
 }
