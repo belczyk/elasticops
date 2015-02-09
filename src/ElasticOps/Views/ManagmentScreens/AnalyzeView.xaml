@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:ElasticOps.Behaviors"
+             xmlns:dependencyProperties="clr-namespace:ElasticOps.DependencyProperties"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1200">
     <Grid>
@@ -25,7 +26,7 @@
             
             <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsAnalyzerModeSelected}"></RadioButton>
             <Label Height="30">Analyzer: </Label>
-            <controls:AutoCompleteBox Text="{Binding AnalyzerName}"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
+            <controls:AutoCompleteBox  dependencyProperties:AutoCompleteBoxProperties.SelectedIndex = "{Binding IndexName}"  Text="{Binding AnalyzerName}"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
             
             <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsFieldModeSlected}"></RadioButton>
             <Label Height="30">Field:</Label>

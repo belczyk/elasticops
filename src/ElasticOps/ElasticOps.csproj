@@ -145,6 +145,7 @@
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\OnlyDigitsInTextBoxBehavior.cs" />
     <Compile Include="Behaviors\Suggesters\IndexSuggest.cs" />
+    <Compile Include="DependencyProperties\AutoCompleteBoxProperties.cs" />
     <Compile Include="Extensions\IntExtenstions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Services\Index.cs" />
