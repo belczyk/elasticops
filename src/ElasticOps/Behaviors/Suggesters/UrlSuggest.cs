@@ -56,15 +56,15 @@ namespace ElasticOps.Behaviors.Suggesters
             var index = parts.First().ToLower();
             var typePrefix = parts.ElementAt(1);
 
-            if (!_clusterData.Types.ContainsKey(index))
+            if (!_clusterData.IndexData.ContainsKey(index))
             {
                 _clusterData.UpdateTypes(index);
             }
 
-            if (!_clusterData.Types.ContainsKey(index)) return;
+            if (!_clusterData.IndexData.ContainsKey(index)) return;
 
             Clear();
-            _clusterData.Types[index]
+            _clusterData.IndexData[index]
                 .Types
                 .Where(x => x.StartsWith(typePrefix))
                 .Select(type => new SuggestItem(string.Format("{0}/{1}", index, type), SugegestionMode.Type))

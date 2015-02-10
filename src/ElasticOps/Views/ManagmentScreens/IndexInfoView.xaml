@@ -33,7 +33,7 @@
                 </StackPanel>
                 
                 <StackPanel Margin="0,0,0,25">
-                    <TextBlock Text="Types" Style="{DynamicResource Header1}"/>
+                    <TextBlock Text="IndexData" Style="{DynamicResource Header1}"/>
                     <ItemsControl Name="Types">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>

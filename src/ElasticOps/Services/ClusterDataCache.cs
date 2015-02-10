@@ -18,17 +18,17 @@ namespace ElasticOps.Services
             _infrastructure.EventAggregator.Subscribe(this);
 
             _indices = new List<string>();
-            _types = new Dictionary<string, Index>();
+            _indexData = new Dictionary<string, Index>();
 
             if (_infrastructure.Connection.IsConnected)
                 RefreashData();
         }
 
         private readonly List<string> _indices = new List<string>();
-        private readonly Dictionary<string, Index> _types = new Dictionary<string, Index>();
+        private readonly Dictionary<string, Index> _indexData = new Dictionary<string, Index>();
 
         public IEnumerable<string> Indices { get { return _indices; } }
-        public IDictionary<string, Index> Types { get { return _types; } }
+        public IDictionary<string, Index> IndexData { get { return _indexData; } }
 
         public void Handle(RefreashEvent message)
         {
@@ -44,12 +44,12 @@ namespace ElasticOps.Services
         {
             if (!_indices.Contains(index)) return;
 
-            if (_types.ContainsKey(index) && DateTime.Now - _types[index].LastUpdated < TimeSpan.FromSeconds(5)) return;
+            if (_indexData.ContainsKey(index) && DateTime.Now - _indexData[index].LastUpdated < TimeSpan.FromSeconds(5)) return;
 
             var result = _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Connection, index));
             if (result.Success)
             {
-                _types[index] = new Index(result.Result);
+                _indexData[index] = new Index(result.Result);
             }
         }
 
@@ -67,9 +67,25 @@ namespace ElasticOps.Services
                     _indices.AddRange(otherIndices.Union(marvelIndices));
                 }
 
-                _types.Keys.Intersect(_indices.Where(x => !x.StartsWith(_marvel))).ToList().ForEach(UpdateTypes);
+                _indices.Intersect(_indices.Where(x => !x.StartsWith(_marvel))).ToList()
+                    .ForEach(i =>
+                    {
+                        UpdateTypes(i);
+                        UpdateAnalyzers(i);
+                    });
             });
             task.Start();
+        }
+
+        private void UpdateAnalyzers(string index)
+        {
+            if (!_indices.Contains(index)) return;
+
+            var result = _infrastructure.CommandBus.Execute(new Analyze.ListAnalyzers(_infrastructure.Connection, index));
+
+            if (result.Failed) return;
+
+            IndexData[index].Analyzers = result.Result;
         }
     }
 }

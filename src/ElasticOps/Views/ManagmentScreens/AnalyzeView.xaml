@@ -26,8 +26,8 @@
             
             <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsAnalyzerModeSelected}"></RadioButton>
             <Label Height="30">Analyzer: </Label>
-            <controls:AutoCompleteBox  dependencyProperties:AutoCompleteBoxProperties.SelectedIndex = "{Binding IndexName}"  Text="{Binding AnalyzerName}"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
-            
+            <controls:AutoCompleteBox   Text="{Binding AnalyzerName}"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
+            <!--dependencyProperties:AutoCompleteBoxProperties.SelectedIndex = "{Binding IndexName}"-->
             <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsFieldModeSlected}"></RadioButton>
             <Label Height="30">Field:</Label>
             <TextBox IsEnabled="{Binding IsFieldModeSlected}" Name="FieldName"></TextBox>

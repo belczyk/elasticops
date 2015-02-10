@@ -27,6 +27,19 @@
             member val Field = field with get,set
             member val Index = index with get,set
 
+        type ListAnalyzers(connection : Connection, index : string) = 
+            inherit Command<IEnumerable<string>>(connection)
+            member val Index = index with get,set
+
+        let listAnalyzers( command: ListAnalyzers) =
+            let res = GET command.Connection (command.Index+"/_settings?flatten_settings=false")
+                        |> JsonValue.Parse 
+                        |> fun x -> x.[command.Index]?settings?index?analysis?analyzer
+                        |> asPropertyList
+                        |> List.ofArray
+                        |> List.map (fun x -> (fst x))
+            res
+
         let extractTokens tokens = 
             tokens|> JsonValue.Parse 
                   |> (fun x -> x?tokens.AsArray())

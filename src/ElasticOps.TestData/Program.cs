@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.IO;
+using System.Threading;
 using Nest;
 using Serilog;
 
@@ -24,6 +26,10 @@ namespace ElasticOps.TestData
                 var client = GetClient(uri);
                 CreateIndex("products", client);
             }
+
+
+            Log.Logger.Information("DONE!");
+            Console.ReadLine();
         }
 
         private static ElasticClient GetClient(string uri)
@@ -37,6 +43,15 @@ namespace ElasticOps.TestData
 
         private static void CreateIndex(string name, ElasticClient client)
         {
+            if (client.IndexExists(x => x.Index(name)).Exists)
+            {
+                Log.Logger.Information("Delete index {indexName}", name);
+
+                client.DeleteIndex(x => x.Index(name));
+            }
+           
+            client.OpenIndex(x => x.Index(name));
+
             Log.Logger.Information("Create index {indexName}",name);
             client.CreateIndex(name, c => c
             .NumberOfReplicas(0)
@@ -45,8 +60,19 @@ namespace ElasticOps.TestData
             .AddMapping<CD>(m => m.MapFromAttributes()));
             Log.Logger.Information("Index {indexName} created", name);
 
-            RandomBooks(100000, name, client);
-            RandomCDs(10000, name, client);
+            Log.Logger.Information("Closing index {indexName}", name);
+            client.CloseIndex(x => x.Index(name));
+
+            Log.Logger.Information("Add analyzer to index {indexName}", name);
+            var res = client.Raw.IndicesPutSettings(name, File.ReadAllText("Analyzer.json"));
+
+            if (!res.Success)
+                Log.Logger.Error("Could not create analyzer: {error}", res.OriginalException.ToString());
+
+            Log.Logger.Information("Open index {indexName}", name);
+
+            RandomBooks(1000, name, client);
+            RandomCDs(1000, name, client);
         }
 
         private static void RandomBooks(int n,string indexName, ElasticClient client)
