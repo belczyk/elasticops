@@ -34,11 +34,15 @@
         let listAnalyzers( command: ListAnalyzers) =
             let res = GET command.Connection (command.Index+"/_settings?flatten_settings=false")
                         |> JsonValue.Parse 
-                        |> fun x -> x.[command.Index]?settings?index?analysis?analyzer
+                        |> fun x -> x.[command.Index]?settings?index
+
+            match (res.TryGetProperty("analysis")) with
+            | Some r -> r?analysis?analyzer
                         |> asPropertyList
                         |> List.ofArray
                         |> List.map (fun x -> (fst x))
-            res
+            | None -> []
+
 
         let extractTokens tokens = 
             tokens|> JsonValue.Parse 

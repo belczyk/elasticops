@@ -36,21 +36,8 @@ namespace ElasticOps.ViewModels
                                            .Select(a => new AppThemeMenuData() { Name = a.Name, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush })
                                            .ToList();
 
-            InintThemeAndAccent();
-
         }
 
-        private void InintThemeAndAccent()
-        {
-            var theme = AppThemes.SingleOrDefault(x => x.Name == _infrastructure.Config.Appearance.Theme);
-            var accent = AccentColors.SingleOrDefault(x => x.Name == _infrastructure.Config.Appearance.Accent);
-
-            if (theme!=null)
-                theme.DoChangeTheme(this);
-
-            if (accent!=null)
-                accent.DoChangeTheme(this);
-        }
         private FooterViewModel _footer;
 
         public FooterViewModel Footer

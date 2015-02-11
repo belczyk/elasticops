@@ -2,7 +2,7 @@
 DefaultQueryUrl : _search
 RefreashInterval : 10
 Appearance:
-    Theme: BaseLight
+    Theme: BaseDark
     Accent: Green
     Footer:
         ErrorTimout: 5

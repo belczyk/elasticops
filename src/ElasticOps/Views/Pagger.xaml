@@ -6,7 +6,6 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:ElasticOps.Behaviors"
              mc:Ignorable="d" 
-             Background="White"
              d:DesignHeight="30" d:DesignWidth="900">
     <StackPanel Orientation="Horizontal" Height="30">
         <Button Name="PreviousPage" Width="40" Margin="0,0,10,0">
