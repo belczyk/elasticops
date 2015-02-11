@@ -21,3 +21,6 @@ type LogEntryCreatedEvent (logEvent : LogEvent) =
 
 type NewConnectionEvent (url : String) =
     member this.URL = url
+
+type PreviewValueEvent (value : String) = 
+    member this.Value = value

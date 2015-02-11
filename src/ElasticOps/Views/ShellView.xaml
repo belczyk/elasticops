@@ -4,12 +4,20 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:views="clr-namespace:ElasticOps.Views"
                       xmlns:micro="http://www.caliburnproject.org"
+                      xmlns:controls="clr-namespace:ElasticOps.Views.Controls"
                       Title="Elastic Ops"
                       Height="768"
                       Width="1024"
                       WindowStartupLocation="CenterScreen"
                       WindowState="Maximized"
                       ResizeMode="CanResizeWithGrip">
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Preview" Position="Right"  IsOpen="{Binding IsValuePreviewFlayoutOpen}" Theme="Accent">
+                <controls:CodeEditor  micro:Bind.Model="{Binding ValuePreviewModel}"  > </controls:CodeEditor>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
     <Window.Resources>
         <ResourceDictionary>
 

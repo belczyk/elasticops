@@ -23,6 +23,12 @@
             <views:Pagger  cal:Bind.Model="{Binding PaggerModel}" ></views:Pagger>
         </StackPanel>
         <DataGrid Grid.Row="2" IsReadOnly="True" ItemsSource="{Binding Documents}" MaxColumnWidth="1000" RowHeight="25">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler"></EventSetter>
+                    
+                </Style>
+            </DataGrid.Resources>
         </DataGrid>
     </Grid>
 </UserControl>

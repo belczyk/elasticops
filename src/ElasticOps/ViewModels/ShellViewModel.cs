@@ -3,11 +3,12 @@ using System.Linq;
 using System.Windows.Media;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.ViewModels.Controls;
 using MahApps.Metro;
 
 namespace ElasticOps.ViewModels
 {
-    public class ShellViewModel : Conductor<object>.Collection.OneActive, IHandle<GoToStudioEvent>, IHandle<ThemeChangedEvent>, IHandle<AccentChangedEvent>
+    public class ShellViewModel : Conductor<object>.Collection.OneActive, IHandle<GoToStudioEvent>, IHandle<ThemeChangedEvent>, IHandle<AccentChangedEvent>, IHandle<PreviewValueEvent>
     {
         private readonly Infrastructure _infrastructure;
         private StudioViewModel studioViewModel;
@@ -15,13 +16,16 @@ namespace ElasticOps.ViewModels
         public ShellViewModel( 
             Infrastructure infrastructure,
             StudioViewModel studioViewModel, 
-            FooterViewModel footer
+            FooterViewModel footer,
+            CodeEditorViewModel valuePreviewModel
             )
         {
             _infrastructure = infrastructure;
             this.studioViewModel = studioViewModel;
             Footer = footer;
 
+            valuePreviewModel.IsReadOnly = true;
+            ValuePreviewModel = valuePreviewModel;
             DisplayName = "Elastic Ops";
 
             ActivateItem(studioViewModel);
@@ -38,7 +42,21 @@ namespace ElasticOps.ViewModels
 
         }
 
+        public CodeEditorViewModel ValuePreviewModel { get; set; }
+
+        public bool IsValuePreviewFlayoutOpen
+        {
+            get { return _isValuePreviewFlayoutOpen; }
+            set
+            {
+                if (value.Equals(_isValuePreviewFlayoutOpen)) return;
+                _isValuePreviewFlayoutOpen = value;
+                NotifyOfPropertyChange(() => IsValuePreviewFlayoutOpen);
+            }
+        }
+
         private FooterViewModel _footer;
+        private bool _isValuePreviewFlayoutOpen;
 
         public FooterViewModel Footer
         {
@@ -70,6 +88,12 @@ namespace ElasticOps.ViewModels
             _infrastructure.Config.Appearance.Accent = message.Accent;
             _infrastructure.Config.Save("config.yaml");
 
+        }
+
+        public void Handle(PreviewValueEvent message)
+        {
+            ValuePreviewModel.Code = message.Value;
+            IsValuePreviewFlayoutOpen = true;
         }
     }
 }
