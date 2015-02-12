@@ -45,7 +45,7 @@ namespace ElasticOps.ViewModels
         public IObservableCollection<string> AllIndices
         {
             get { return _allIndices; }
-            set
+            private set
             {
                 _allIndices = value;
                 NotifyOfPropertyChange(() => AllIndices);
@@ -55,7 +55,7 @@ namespace ElasticOps.ViewModels
         public IObservableCollection<string> TypesForSelectedIndex
         {
             get { return _typesForSelectedIndex; }
-            set
+            private set
             {
                 _typesForSelectedIndex = value;
                 NotifyOfPropertyChange(() => TypesForSelectedIndex);

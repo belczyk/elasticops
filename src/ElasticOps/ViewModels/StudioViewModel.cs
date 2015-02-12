@@ -27,6 +27,6 @@ namespace ElasticOps.ViewModels
             set { _clusterConnectionViewModel = value; NotifyOfPropertyChange(() => ClusterConnectionViewModel); }
         }
 
-        public BindableCollection<IManagementScreen> ManagmentScreens { get; set; }
+        public IObservableCollection<IManagementScreen> ManagmentScreens { get; private set; }
     }
 }

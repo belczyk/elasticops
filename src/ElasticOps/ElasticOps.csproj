@@ -206,13 +206,6 @@
     <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\NodesInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagementScreens\RESTScreenViewModel.cs" />
     <Compile Include="ViewModels\ManagementScreens\QueryViewModel.cs" />
-    <Compile Include="ViewModels\Settings\IntSettingViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingPageViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingToViewModelMapper.cs" />
-    <Compile Include="ViewModels\Settings\SettingViewModel.cs" />
-    <Compile Include="ViewModels\Settings\StringSettingViewModel.cs" />
-    <Compile Include="ViewModels\Settings\UriSettingViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ClusterConnectionViewModel.cs" />
     <Compile Include="ViewModels\StudioViewModel.cs" />

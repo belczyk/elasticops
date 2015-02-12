@@ -33,12 +33,11 @@ namespace ElasticOps.ViewModels.Controls
         {
             Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
 
-            using (var s = (GetType()).Assembly.GetManifestResourceStream(String.Format("ElasticOps.Query{0}HighlightingRules.xshd", theme)))
+            var schemaStream = (GetType()).Assembly.GetManifestResourceStream(String.Format("ElasticOps.Query{0}HighlightingRules.xshd", theme));
+
+            using (var reader = new XmlTextReader(schemaStream))
             {
-                using (var reader = new XmlTextReader(s))
-                {
                     HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
-                }
             }
         }
 

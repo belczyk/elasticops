@@ -18,12 +18,12 @@ namespace ElasticOps.ViewModels.ManagementScreens
     {
         public ConsoleViewModel(Infrastructure infrastructure)
         {
-            DisplayName = "Logs";
+            base.DisplayName = "Logs";
             LogEntries = new ObservableCollection<LogEventViewModel>();
             infrastructure.EventAggregator.Subscribe(this);
         }
 
-        public ObservableCollection<LogEventViewModel> LogEntries { get; set; } 
+        public ObservableCollection<LogEventViewModel> LogEntries { get; private set; } 
 
         public void Handle(LogEntryCreatedEvent @event)
         {

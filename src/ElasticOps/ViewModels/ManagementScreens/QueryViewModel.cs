@@ -23,7 +23,7 @@ namespace ElasticOps.ViewModels
 
         public QueryViewModel(CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel, Infrastructure infrastructure)
         {
-            DisplayName = "Query";
+            base.DisplayName = "Query";
             _queryEditor = queryEditorModel;
             _resultEditor = resultEditorModel;
             _infrastructure = infrastructure;
@@ -82,7 +82,7 @@ namespace ElasticOps.ViewModels
         public ObservableCollection<ComboBoxItemViewModel> Methods
         {
             get { return _Methods; }
-            set
+            private set
             {
                 _Methods = value;
                 NotifyOfPropertyChange(() => Methods);

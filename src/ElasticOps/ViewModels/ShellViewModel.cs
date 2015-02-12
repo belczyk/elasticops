@@ -26,9 +26,9 @@ namespace ElasticOps.ViewModels
 
             valuePreviewModel.IsReadOnly = true;
             ValuePreviewModel = valuePreviewModel;
-            DisplayName = "Elastic Ops";
+            base.DisplayName = "Elastic Ops";
 
-            ActivateItem(studioViewModel);
+            base.ActivateItem(studioViewModel);
             infrastructure.EventAggregator.Subscribe(this);
 
 
@@ -68,8 +68,8 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        public List<AccentColorMenuData> AccentColors { get; set; }
-        public List<AppThemeMenuData> AppThemes { get; set; }
+        public List<AccentColorMenuData> AccentColors { get; private set; }
+        public List<AppThemeMenuData> AppThemes { get; private set; }
 
         public void Handle(GoToStudioEvent message)
         {

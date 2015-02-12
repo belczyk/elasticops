@@ -46,7 +46,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public IObservableCollection<ElasticPropertyViewModel> OS
         {
             get { return _OS; }
-            set
+            private set
             {
                 _OS = value;
                 NotifyOfPropertyChange(() => OS);
@@ -58,7 +58,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public IObservableCollection<ElasticPropertyViewModel> CPU
         {
             get { return _CPU; }
-            set
+            private set
             {
                 _CPU = value;
                 NotifyOfPropertyChange(() => CPU);
@@ -70,7 +70,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public IObservableCollection<ElasticPropertyViewModel> Settings
         {
             get { return _Settings; }
-            set
+            private set
             {
                 _Settings = value;
                 NotifyOfPropertyChange(() => Settings);

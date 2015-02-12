@@ -21,12 +21,11 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public AnalyzeViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
-            DisplayName = "Analyze";
             AnalyzerName = "standard";
             IsAnalyzerModeSelected = true;
             Tokens = new BindableCollection<AnalyzedToken>();
+            base.DisplayName = "Analyze";
         }
-
 
         public string CurrentEndpoint
         {
@@ -129,7 +128,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        public IObservableCollection<AnalyzedToken> Tokens { get; set; }
+        public IObservableCollection<AnalyzedToken> Tokens { get; private set; }
 
         public void Analyze()
         {

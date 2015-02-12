@@ -10,7 +10,7 @@ namespace ElasticOps.DependencyProperties
 {
     public class AutoCompleteBoxProperties : DependencyObject
     {
-        public static DependencyProperty SelectedIndexProperty = DependencyProperty.RegisterAttached("SelectedIndex", typeof(string), typeof(AutoCompleteBox));
+        public static readonly DependencyProperty SelectedIndexProperty = DependencyProperty.RegisterAttached("SelectedIndex", typeof(string), typeof(AutoCompleteBox));
 
         public static bool GetSelectedIndex(DependencyObject obj)
         {

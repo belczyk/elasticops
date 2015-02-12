@@ -25,7 +25,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             RequestBodyEditor = rquestBodyViewModel;
 
             _infrastructure = infrastructure;
-            DisplayName = "REST";
+            base.DisplayName = "REST";
             _eventAggregator = infrastructure.EventAggregator;
 
             Methods = new List<ComboBoxItemViewModel>

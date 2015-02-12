@@ -19,7 +19,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         {
             _infrastructure = infrastructure;
             TypesList = typesListViewModel;
-            DisplayName = "Data Viewer";
+            base.DisplayName = "Data Viewer";
             PaggerModel = paggerModel;
             paggerModel.OnPageChanged = View;
         }

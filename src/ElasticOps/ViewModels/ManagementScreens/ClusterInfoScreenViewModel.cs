@@ -26,12 +26,9 @@ namespace ElasticOps.ViewModels.ManagementScreens
             DocumentsInfoViewModel = documentsInfoViewModel;
             MappingsInfoViewModel = mappingsInfoViewModel;
             
-            ActivateItem(BasicInfoViewModel);
-
-            DisplayName = "Cluster";
-
+            base.ActivateItem(BasicInfoViewModel);
+            base.DisplayName = "Cluster";
         }
-
 
         private BasicInfoViewModel BasicInfoViewModel { get; set; }
         private NodesInfoViewModel NodesInfoViewModel { get; set; }
