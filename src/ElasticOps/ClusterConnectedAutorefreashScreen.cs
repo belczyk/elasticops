@@ -56,9 +56,9 @@ namespace ElasticOps
         private void StartRefreshingData()
         {
             IsRefreshing = true;
-            var task = new Task(RefreshData);
-            task.ContinueWith(t => IsRefreshing = false);
-            task.Start();
+            Task.Factory.StartNew(RefreshData)
+                .ContinueWith(t => IsRefreshing = false);
+
         }
 
         public abstract void RefreshData();

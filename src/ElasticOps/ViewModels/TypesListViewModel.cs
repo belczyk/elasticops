@@ -7,12 +7,10 @@ namespace ElasticOps.ViewModels
     public class TypesListViewModel : PropertyChangedBase
     {
         private readonly Infrastructure _infrastructure;
-        private readonly Connection _connection;
 
         public TypesListViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
-            _connection = infrastructure.Connection;
             AllIndices = new BindableCollection<string>();
             TypesForSelectedIndex = new BindableCollection<string>();
         }

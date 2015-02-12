@@ -46,13 +46,11 @@ namespace ElasticOps.ViewModels
         public void Handle(ErrorOccuredEvent @event)
         {
             ErrorMessage = @event.ErrorMessage;
-            var task = new Task(() =>
+            Parallel.Invoke(() =>
             {
                 Thread.Sleep(_infrastructure.Config.Appearance.Footer.ErrorTimout.Seconds());
                 ErrorMessage = string.Empty;
             });
-
-            task.Start();
         }
 
         public void Handle(NewConnectionEvent message)

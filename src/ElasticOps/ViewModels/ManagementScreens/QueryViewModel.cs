@@ -107,9 +107,9 @@ namespace ElasticOps.ViewModels
         public void Execute()
         {
             IsExecuting = true;
-            var task = new Task(ExecuteCall);
-            task.ContinueWith((t) => IsExecuting = false);
-            task.Start();
+            Task.Factory.StartNew(ExecuteCall)
+                .ContinueWith((t) => IsExecuting = false);
+
         }
 
         private void ExecuteCall()

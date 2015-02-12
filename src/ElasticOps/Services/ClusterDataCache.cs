@@ -55,7 +55,7 @@ namespace ElasticOps.Services
 
         private void RefreashData()
         {
-            var task = new Task(() =>
+            Parallel.Invoke(() =>
             {
                 var result =
                     _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
@@ -74,7 +74,6 @@ namespace ElasticOps.Services
                         UpdateAnalyzers(i);
                     });
             });
-            task.Start();
         }
 
         private void UpdateAnalyzers(string index)
