@@ -5,9 +5,9 @@ using ElasticOps.Com;
 
 namespace ElasticOps
 {
-    internal abstract class ClusterConnectedAutorefreashScreen : Screen, IHandle<RefreashEvent>
+    internal abstract class ClusterConnectedAutoRefreshScreen : Screen, IHandle<RefreashEvent>
     {
-        protected ClusterConnectedAutorefreashScreen(Infrastructure infrastructure)
+        protected ClusterConnectedAutoRefreshScreen(Infrastructure infrastructure)
         {
             if (infrastructure==null)
                 throw new ArgumentNullException("infrastructure");

@@ -8,7 +8,7 @@ using Serilog;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    internal class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class IndicesInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
         private readonly Infrastructure _infrastructure;
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();

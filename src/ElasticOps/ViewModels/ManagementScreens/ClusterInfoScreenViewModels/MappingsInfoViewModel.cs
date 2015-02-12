@@ -3,7 +3,7 @@ using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    internal class MappingsInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class MappingsInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
         private readonly Infrastructure _infrastructure;
 

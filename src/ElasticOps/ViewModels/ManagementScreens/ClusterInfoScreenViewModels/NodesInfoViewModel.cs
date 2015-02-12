@@ -5,7 +5,7 @@ using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    internal class NodesInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class NodesInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
         private IEnumerable<NodeInfoViewModel> _nodesInfo;
 
