@@ -20,8 +20,7 @@ namespace ElasticOps
     public class AppBootstrapper : AutofacBootstrapper<ShellViewModel>
     {
         private static IContainer AutofacContainer { get; set; }
-        private static ThemeService ThemeService { get; set; }
-        private static ConfigService ConfigService { get; set; }
+
         public AppBootstrapper()
         {
             Initialize();
@@ -101,8 +100,8 @@ namespace ElasticOps
                 })))
                 .CreateLogger();
 
-            ConfigService = AutofacContainer.Resolve<ConfigService>();
-            ThemeService = AutofacContainer.Resolve<ThemeService>();
+            AutofacContainer.Resolve<ThemeService>();
+            AutofacContainer.Resolve<ConfigService>();
 
             DisplayRootViewFor<ShellViewModel>();
         }

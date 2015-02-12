@@ -3,7 +3,7 @@
 namespace ElasticOps
 {
     [AttributeUsage(AttributeTargets.Property,AllowMultiple = false)]
-    public class SettingAttribute : Attribute
+    public sealed class SettingAttribute : Attribute
     {
         private int priority;
         private string displayName;

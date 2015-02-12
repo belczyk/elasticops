@@ -138,7 +138,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        private string TryFormatIfJson(string response)
+        private static string TryFormatIfJson(string response)
         {
             try
             {

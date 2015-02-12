@@ -2,7 +2,7 @@
 
 namespace ElasticOps
 {
-    public class IntSettingConstraintsAttribute : Attribute
+    public sealed class IntSettingConstraintsAttribute : Attribute
     {
         public int Minimum { get; set; }
         public int Maximum { get; set; }

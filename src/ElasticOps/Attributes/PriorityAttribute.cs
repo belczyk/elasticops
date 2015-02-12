@@ -4,7 +4,7 @@ using System;
 namespace ElasticOps.Attributes
 {
 
-    public class PriorityAttribute : Attribute
+    public sealed class PriorityAttribute : Attribute
     {
         public int Priority { get; set; }
 
