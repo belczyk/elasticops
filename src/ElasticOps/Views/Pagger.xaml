@@ -23,7 +23,7 @@
         </TextBox>
         <TextBlock Margin="0,5,10,0" FontSize="16">of</TextBlock>
         <TextBlock Margin="0,5,10,0" Width="50" FontSize="16"
-                   Text="{Binding TotalPages, Converter={StaticResource humanizeBigNumbersConverter}}" />
+                   Text="{Binding TotalPages, Converter={StaticResource HumanizeBigNumbersConverter}}" />
         <Button Name="NextPage" Width="40">
             <Rectangle Fill="Black" Height="10" Width="10">
                 <Rectangle.OpacityMask>

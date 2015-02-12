@@ -24,7 +24,7 @@
         <controls:MetroProgressBar Grid.Row="0" VerticalAlignment="Top"
                                    Height="15"
                                    IsIndeterminate="True"
-                                   Visibility="{Binding IsExecuting, Converter={StaticResource boolToVisibilityConverter}}" />
+                                   Visibility="{Binding IsExecuting, Converter={StaticResource BoolToVisibilityConverter}}" />
         <Border Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource AccentColorBrush}"
                 Margin="10,0,0,10">
             <StackPanel

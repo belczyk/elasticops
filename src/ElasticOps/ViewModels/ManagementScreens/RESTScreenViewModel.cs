@@ -18,7 +18,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
     public class RESTScreenViewModel : Screen, IManagementScreen
     {
         private readonly Infrastructure _infrastructure;
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
             "CA1062:Validate arguments of public methods", MessageId = "0")]

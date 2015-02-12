@@ -10,7 +10,7 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
                 <ResourceDictionary>
-                    <elasticOps:AppBootstrapper x:Key="bootstrap" />
+                    <elasticOps:AppBootstrapper x:Key="Bootstrap" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
@@ -24,9 +24,9 @@
                 <ResourceDictionary Source="/Resources/CustomIcons.xaml" />
                 <ResourceDictionary Source="/Resources/AppStyles.xaml" />
                 <ResourceDictionary>
-                    <converters:BoolToOppositeVisibilityConverter x:Key="boolToOpositeVisibilityConverter" />
-                    <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-                    <converters:HumanizeBigNumbersConverter x:Key="humanizeBigNumbersConverter" />
+                    <converters:BoolToOppositeVisibilityConverter x:Key="BoolToOpositeVisibilityConverter" />
+                    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                    <converters:HumanizeBigNumbersConverter x:Key="HumanizeBigNumbersConverter" />
                 </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>

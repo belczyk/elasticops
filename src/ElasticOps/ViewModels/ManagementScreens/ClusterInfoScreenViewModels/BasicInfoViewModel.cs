@@ -28,7 +28,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public override void RefreshData()
         {
-            var result = commandBus.Execute(new ClusterInfo.HealthCommand(connection));
+            var result = CommandBus.Execute(new ClusterInfo.HealthCommand(Connection));
 
             if (result.Failed) return;
 

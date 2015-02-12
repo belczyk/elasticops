@@ -12,7 +12,7 @@ namespace ElasticOps.ViewModels
         IHandle<ThemeChangedEvent>, IHandle<AccentChangedEvent>, IHandle<PreviewValueEvent>
     {
         private readonly Infrastructure _infrastructure;
-        private StudioViewModel studioViewModel;
+        private readonly StudioViewModel studioViewModel;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
             "CA1062:Validate arguments of public methods", MessageId = "0"),

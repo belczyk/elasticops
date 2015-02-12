@@ -11,7 +11,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
     internal class IndicesInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
         private readonly Infrastructure _infrastructure;
-        private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
+        private readonly List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
         private IEnumerable<IndexInfoViewModel> _indicesInfo;
 
         public IEnumerable<IndexInfoViewModel> IndicesInfo
@@ -37,7 +37,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         {
             try
             {
-                var result = commandBus.Execute(new ClusterInfo.IndicesInfoCommand(connection));
+                var result = CommandBus.Execute(new ClusterInfo.IndicesInfoCommand(Connection));
                 if (result.Failed) return;
 
                 AllIndicesInfo.Clear();

@@ -36,11 +36,11 @@
                         Refresh
                     </Button>
                     <Button Name="Close"
-                            Visibility="{Binding IsOpen, Converter={StaticResource boolToVisibilityConverter}}">
+                            Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisibilityConverter}}">
                         Close
                     </Button>
                     <Button Name="Open"
-                            Visibility="{Binding IsOpen, Converter={StaticResource boolToOpositeVisibilityConverter}}">
+                            Visibility="{Binding IsOpen, Converter={StaticResource BoolToOpositeVisibilityConverter}}">
                         Open
                     </Button>
                     <Button Name="Delete">Delete</Button>

@@ -10,7 +10,7 @@ namespace ElasticOps.Services
 {
     public class ClusterDataCache : IHandle<NewConnectionEvent>, IHandle<RefreshEvent>
     {
-        private const string _marvel = ".marvel";
+        private const string Marvel = ".marvel";
         private readonly Infrastructure _infrastructure;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
@@ -76,12 +76,12 @@ namespace ElasticOps.Services
                 if (result.Success)
                 {
                     _indices.Clear();
-                    var marvelIndices = result.Result.Where(x => x.StartsWithIgnoreCase(_marvel)).OrderBy(x => x);
-                    var otherIndices = result.Result.Where(x => !x.StartsWithIgnoreCase(_marvel)).OrderBy(x => x);
+                    var marvelIndices = result.Result.Where(x => x.StartsWithIgnoreCase(Marvel)).OrderBy(x => x);
+                    var otherIndices = result.Result.Where(x => !x.StartsWithIgnoreCase(Marvel)).OrderBy(x => x);
                     _indices.AddRange(otherIndices.Union(marvelIndices));
                 }
 
-                _indices.Intersect(_indices.Where(x => !x.StartsWithIgnoreCase(_marvel))).ToList()
+                _indices.Intersect(_indices.Where(x => !x.StartsWithIgnoreCase(Marvel))).ToList()
                     .ForEach(i =>
                     {
                         UpdateTypes(i);

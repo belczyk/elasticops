@@ -20,7 +20,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         {
             try
             {
-                var result = commandBus.Execute(new ClusterInfo.DocumentsInfoCommand(connection));
+                var result = CommandBus.Execute(new ClusterInfo.DocumentsInfoCommand(Connection));
 
                 if (result.Failed) return;
 

@@ -11,14 +11,14 @@ namespace ElasticOps.ViewModels
         public Brush BorderColorBrush { get; set; }
         public Brush ColorBrush { get; set; }
 
-        private ICommand changeAccentCommand;
+        private ICommand _changeAccentCommand;
 
         public ICommand ChangeAccentCommand
         {
             get
             {
-                return this.changeAccentCommand ??
-                       (changeAccentCommand =
+                return this._changeAccentCommand ??
+                       (_changeAccentCommand =
                            new SimpleCommand
                            {
                                CanExecuteDelegate = x => true,

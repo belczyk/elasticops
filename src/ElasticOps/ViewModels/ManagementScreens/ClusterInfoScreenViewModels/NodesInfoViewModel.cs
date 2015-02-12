@@ -29,7 +29,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public override void RefreshData()
         {
             var result =
-                commandBus.Execute(new ClusterInfo.NodesInfoCommand(connection));
+                CommandBus.Execute(new ClusterInfo.NodesInfoCommand(Connection));
 
             if (!result.Success) return;
 
