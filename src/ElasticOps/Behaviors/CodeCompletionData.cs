@@ -17,6 +17,9 @@ namespace ElasticOps.Behaviors
 
         public CodeCompletionData(Context context , Suggestion suggestion)
         {
+            if (suggestion == null)
+                throw new ArgumentNullException("suggestion");
+
             Suggestion = suggestion;
             Context = context;
             Text = suggestion.Text;
@@ -25,6 +28,9 @@ namespace ElasticOps.Behaviors
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
+            if (textArea == null)
+                throw new ArgumentNullException("textArea");
+
             var result = Intellisense.Complete(Context, Suggestion);
 
             textArea.Document.Text = result.NewText;

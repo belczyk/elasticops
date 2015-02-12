@@ -13,6 +13,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private readonly Action _refreashIndexList;
         private bool _isOpen;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public IndexInfoViewModel(IndexInfo indexInfo, Infrastructure infrastructure, Action refreashIndexList)
         {
             _infrastructure = infrastructure;

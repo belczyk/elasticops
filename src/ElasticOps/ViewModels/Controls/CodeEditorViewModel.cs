@@ -16,6 +16,7 @@ namespace ElasticOps.ViewModels.Controls
         private Brush _foreground;
         private bool _isReadOnly;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public CodeEditorViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
@@ -77,6 +78,7 @@ namespace ElasticOps.ViewModels.Controls
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ThemeChangedEvent message)
         {
             LoadHighlightRules(message.IsDark ? Theme.Dark : Theme.Light);

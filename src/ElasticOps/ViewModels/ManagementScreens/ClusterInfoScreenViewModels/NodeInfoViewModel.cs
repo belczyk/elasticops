@@ -77,6 +77,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public NodeInfoViewModel(NodeInfo nodeInfo)
         {
             Name = nodeInfo.Name;

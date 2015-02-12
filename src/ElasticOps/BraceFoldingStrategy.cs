@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 
@@ -28,8 +30,11 @@ namespace ElasticOps
             this.ClosingBrace = '}';
         }
 
-        public void UpdateFoldings(FoldingManager manager, TextDocument document)
+        public void UpdateFoldings(FoldingManager manager, ITextSource document)
         {
+            if (manager==null)
+                throw new ArgumentNullException("manager");
+
             int firstErrorOffset;
             IEnumerable<NewFolding> newFoldings = CreateNewFoldings(document, out firstErrorOffset);
             manager.UpdateFoldings(newFoldings, firstErrorOffset);
@@ -38,7 +43,8 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
-        public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
+        public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document, out int firstErrorOffset)
         {
             firstErrorOffset = -1;
             return CreateNewFoldings(document);
@@ -49,6 +55,9 @@ namespace ElasticOps
         /// </summary>
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
         {
+            if (document==null)
+                throw new ArgumentNullException("document");
+
             List<NewFolding> newFoldings = new List<NewFolding>();
 
             Stack<int> startOffsets = new Stack<int>();

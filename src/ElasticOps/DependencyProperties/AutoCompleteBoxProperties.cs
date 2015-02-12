@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,11 +10,17 @@ namespace ElasticOps.DependencyProperties
 
         public static bool GetSelectedIndex(DependencyObject obj)
         {
+            if (obj==null)
+                throw new ArgumentNullException("obj");
+
             return (bool)obj.GetValue(SelectedIndexProperty);
         }
 
         public static void SetSelectedIndex(DependencyObject obj, bool value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(SelectedIndexProperty, value);
         }
 

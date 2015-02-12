@@ -19,6 +19,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private readonly Infrastructure _infrastructure;
         private IEventAggregator _eventAggregator;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel rquestBodyViewModel, CodeEditorViewModel resultViewModel)
         {
             ResultEditor = resultViewModel;
@@ -89,6 +90,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 .ContinueWith((t) => IsExecuting = false);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private void ExecuteCall()
         {
             try
@@ -128,6 +130,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             return requestUri;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void OnEndpointKeyDown(ActionExecutionContext context)
         {
             var keyArgs = context.EventArgs as KeyEventArgs;
@@ -138,6 +141,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private static string TryFormatIfJson(string response)
         {
             try
@@ -165,6 +169,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void KeyPress(KeyEventArgs args)
         {
             if (args.Key == Key.F5)

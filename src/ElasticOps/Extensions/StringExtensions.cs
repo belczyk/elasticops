@@ -7,7 +7,10 @@ namespace ElasticOps.Extensions
     {
         public static string GetTextBeforePosition(this string text, int line, int column)
         {
-            if (column<1)
+            if (text == null)
+                throw new ArgumentException("text can't be null");
+
+            if (column < 1)
                 throw new ArgumentException("column number can't be less then 1");
 
             var lines = text.Split('\n');

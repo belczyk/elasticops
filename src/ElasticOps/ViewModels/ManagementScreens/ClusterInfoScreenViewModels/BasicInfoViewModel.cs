@@ -5,7 +5,7 @@ using ElasticOps.Com;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    public class BasicInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class BasicInfoViewModel : ClusterConnectedAutorefreashScreen
     {
         private IEnumerable<ElasticPropertyViewModel> _clusterHealthProperties;
 

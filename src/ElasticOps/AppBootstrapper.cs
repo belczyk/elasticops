@@ -39,44 +39,8 @@ namespace ElasticOps
 
         protected override void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<WindowManager>().As<IWindowManager>();
-            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagementScreen).Name) != null)
-                .As<IManagementScreen>();
-
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(x => x.BaseType == typeof(UserSettings))
-                .As<UserSettings>();
-
-
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("ViewModel"))
-                .AsSelf().InstancePerDependency();
-
-            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
-              .Where(type => type.Name.EndsWith("View"))
-              .AsSelf().InstancePerDependency();
-            builder.RegisterType<CommandBus>().AsSelf();
-            builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
-            builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
-            builder.RegisterType<ClusterDataCache>().AsSelf().SingleInstance();
-            builder.RegisterType<UrlSuggest>().AsSelf().SingleInstance();
-            builder.RegisterType<IndexSuggest>().AsSelf().SingleInstance();
-            builder.Register((c) =>
-            {
-                var config = ConfigLoaders.LoadElasticOpsConfig();
-                return config;
-            }).As<ElasticOpsConfig>().SingleInstance();
-
-            builder.Register((c) =>
-            {
-                var config = ConfigLoaders.LoadIntellisenseConfig();
-                return config;
-            }).As<IntellisenseConfig>().SingleInstance();
-
-            builder.RegisterType<Infrastructure>().AsSelf().SingleInstance();
+ 
 
         }
 

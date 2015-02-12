@@ -153,6 +153,9 @@
     <Compile Include="Behaviors\OnlyDigitsInTextBoxBehavior.cs" />
     <Compile Include="Behaviors\Suggesters\IndexSuggest.cs" />
     <Compile Include="DependencyProperties\AutoCompleteBoxProperties.cs" />
+    <Compile Include="DIModules\CaliburnMicroModule.cs" />
+    <Compile Include="DIModules\InfrastractureModel.cs" />
+    <Compile Include="DIModules\ViewsModule.cs" />
     <Compile Include="Extensions\IntExtenstions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Services\Index.cs" />
@@ -182,11 +185,6 @@
     </Compile>
     <Compile Include="Infrastructure.cs" />
     <Compile Include="Predef.cs" />
-    <Compile Include="UserSettings\GeneralSettings.cs" />
-    <Compile Include="UserSettings\IntSettingConstraints.cs" />
-    <Compile Include="UserSettings\SettingAttribute.cs" />
-    <Compile Include="UserSettings\UserSettings.cs" />
-    <Compile Include="UserSettings\ViewSettings.cs" />
     <Compile Include="ViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="ViewModels\ElasticPropertyViewModel.cs" />
     <Compile Include="Converters\BoolToOpositeVisiblityConverter.cs" />

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace ElasticOps.ViewModels.ManagementScreens
 {
     [Priority(40)]
-    public class DataViewerViewModel : ClusterConnectedAutorefreashScreen, IManagementScreen
+    internal class DataViewerViewModel : ClusterConnectedAutorefreashScreen, IManagementScreen
     {
         private readonly Infrastructure _infrastructure;
 

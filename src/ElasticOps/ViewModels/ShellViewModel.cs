@@ -13,6 +13,7 @@ namespace ElasticOps.ViewModels
         private readonly Infrastructure _infrastructure;
         private StudioViewModel studioViewModel;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "3")]
         public ShellViewModel( 
             Infrastructure infrastructure,
             StudioViewModel studioViewModel, 
@@ -68,8 +69,8 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        public List<AccentColorMenuData> AccentColors { get; private set; }
-        public List<AppThemeMenuData> AppThemes { get; private set; }
+        public IEnumerable<AccentColorMenuData> AccentColors { get; private set; }
+        public IEnumerable<AppThemeMenuData> AppThemes { get; private set; }
 
         public void Handle(GoToStudioEvent message)
         {
@@ -77,12 +78,14 @@ namespace ElasticOps.ViewModels
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ThemeChangedEvent message)
         {
             _infrastructure.Config.Appearance.Theme = message.Theme;
             _infrastructure.Config.Save("config.yaml");
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(AccentChangedEvent message)
         {
             _infrastructure.Config.Appearance.Accent = message.Accent;
@@ -90,6 +93,7 @@ namespace ElasticOps.ViewModels
 
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(PreviewValueEvent message)
         {
             ValuePreviewModel.Code = message.Value;

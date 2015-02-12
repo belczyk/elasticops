@@ -21,6 +21,7 @@ namespace ElasticOps.ViewModels
         private readonly Infrastructure _infrastructure;
         private string _url;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1")]
         public QueryViewModel(CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel, Infrastructure infrastructure)
         {
             base.DisplayName = "Query";
@@ -66,6 +67,7 @@ namespace ElasticOps.ViewModels
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public string Url
         {
             get { return _url; }
@@ -112,6 +114,7 @@ namespace ElasticOps.ViewModels
 
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private void ExecuteCall()
         {
             try
@@ -145,6 +148,7 @@ namespace ElasticOps.ViewModels
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private static string TryFormatJson(string originalJson)
         {
             try
@@ -174,6 +178,7 @@ namespace ElasticOps.ViewModels
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void KeyPress(KeyEventArgs args)
         {
             if (args.Key == Key.F5)

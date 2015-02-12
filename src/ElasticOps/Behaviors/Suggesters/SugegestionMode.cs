@@ -2,7 +2,7 @@ namespace ElasticOps.Behaviors.Suggesters
 {
     public enum SugegestionMode
     {
-        Index = 1,
+        Index ,
         Type,
         Endpoint
     }

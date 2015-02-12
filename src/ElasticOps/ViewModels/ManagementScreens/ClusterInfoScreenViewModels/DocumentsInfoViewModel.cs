@@ -7,7 +7,7 @@ using Serilog;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    public class DocumentsInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class DocumentsInfoViewModel : ClusterConnectedAutorefreashScreen
     {
 
         public DocumentsInfoViewModel(Infrastructure infrastructure)
@@ -16,6 +16,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             Documents = new BindableCollection<ElasticPropertyViewModel>();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public override void RefreshData()
         {
             try

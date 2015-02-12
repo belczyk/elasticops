@@ -1,17 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
 
 namespace ElasticOps
 {
-    public abstract class ClusterConnectedAutorefreashScreen : Screen, IHandle<RefreashEvent>
+    internal abstract class ClusterConnectedAutorefreashScreen : Screen, IHandle<RefreashEvent>
     {
         protected ClusterConnectedAutorefreashScreen(Infrastructure infrastructure)
         {
-            this.eventAggregator = infrastructure.EventAggregator;
-            this.commandBus = infrastructure.CommandBus;
-            this.connection = infrastructure.Connection;
+            if (infrastructure==null)
+                throw new ArgumentNullException("infrastructure");
 
+            eventAggregator = infrastructure.EventAggregator;
+            commandBus = infrastructure.CommandBus;
+            connection = infrastructure.Connection;
         }
 
         protected IEventAggregator eventAggregator;

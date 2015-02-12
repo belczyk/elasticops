@@ -23,8 +23,9 @@ namespace ElasticOps.ViewModels.ManagementScreens
             infrastructure.EventAggregator.Subscribe(this);
         }
 
-        public ObservableCollection<LogEventViewModel> LogEntries { get; private set; } 
+        public ObservableCollection<LogEventViewModel> LogEntries { get; private set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(LogEntryCreatedEvent @event)
         {
             LogEntries.Add(new LogEventViewModel

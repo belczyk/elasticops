@@ -7,7 +7,7 @@ using Serilog;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    public class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class IndicesInfoViewModel : ClusterConnectedAutorefreashScreen
     {
         private readonly Infrastructure _infrastructure;
         private List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
@@ -31,6 +31,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             IndicesInfo = new BindableCollection<IndexInfoViewModel>();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public override void RefreshData()
         {
             try

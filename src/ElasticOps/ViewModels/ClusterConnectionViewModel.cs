@@ -26,7 +26,8 @@ namespace ElasticOps.ViewModels
             ClusterUri= infrastructure.Config.DefaultClusterUrl.ToString();
         }
 
-        public string clusterUri;
+        private string clusterUri;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public string ClusterUri
         {
             get { return clusterUri; }
