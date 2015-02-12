@@ -9,6 +9,7 @@ using Caliburn.Micro.Autofac;
 using ElasticOps.Behaviors.Suggesters;
 using ElasticOps.Com;
 using ElasticOps.Configuration;
+using ElasticOps.DIModules;
 using ElasticOps.Services;
 using ElasticOps.ViewModels;
 using ElasticOps.ViewModels.ManagementScreens;
@@ -39,9 +40,9 @@ namespace ElasticOps
 
         protected override void ConfigureContainer(ContainerBuilder builder)
         {
-
- 
-
+            builder.RegisterModule<CaliburnMicroModule>();
+            builder.RegisterModule<ViewsModule>();
+            builder.RegisterModule<InfrastractureModel>();
         }
 
         protected override void ConfigureBootstrapper()

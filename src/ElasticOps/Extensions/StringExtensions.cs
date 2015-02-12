@@ -23,5 +23,12 @@ namespace ElasticOps.Extensions
 
             return leadingLines + "\n" + caretLinePrefix;
         }
+
+        public static bool StartsWithIgnoreCase(this string value, string prefix)
+        {
+            if (value == null)
+                throw new ArgumentNullException("value");
+            return value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

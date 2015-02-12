@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Caliburn.Micro;
@@ -7,6 +8,7 @@ using Module = Autofac.Module;
 
 namespace ElasticOps.DIModules
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     internal class ViewsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -16,11 +18,11 @@ namespace ElasticOps.DIModules
                 .As<IManagementScreen>();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("ViewModel"))
+                .Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("ViewModel",StringComparison.Ordinal))
                 .AsSelf().InstancePerDependency();
 
             builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
-              .Where(type => type.Name.EndsWith("View"))
+              .Where(type => type.Name.EndsWith("View", StringComparison.Ordinal))
               .AsSelf().InstancePerDependency();
 
             base.Load(builder);

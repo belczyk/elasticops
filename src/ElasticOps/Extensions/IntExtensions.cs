@@ -1,6 +1,6 @@
 ﻿namespace ElasticOps.Extensions
 {
-    public static class IntExtenstions
+    public static class IntExtensions
     {
 
         public static string Humanize(this int number)

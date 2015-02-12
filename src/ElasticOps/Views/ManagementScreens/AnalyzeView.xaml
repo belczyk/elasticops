@@ -28,9 +28,9 @@
             <Label Height="30">Analyzer: </Label>
             <controls:AutoCompleteBox   Text="{Binding AnalyzerName}"  IsEnabled="{Binding IsAnalyzerModeSelected}"></controls:AutoCompleteBox>
             <!--dependencyProperties:AutoCompleteBoxProperties.SelectedIndex = "{Binding IndexName}"-->
-            <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsFieldModeSlected}"></RadioButton>
+            <RadioButton GroupName="IsInferedAnalyzer" Margin="15,0,0,0" IsChecked="{Binding IsFieldModeSelected}"></RadioButton>
             <Label Height="30">Field:</Label>
-            <TextBox IsEnabled="{Binding IsFieldModeSlected}" Name="FieldName"></TextBox>
+            <TextBox IsEnabled="{Binding IsFieldModeSelected}" Name="FieldName"></TextBox>
             
             <Button Height="30" Margin="15,0,0,0" Name="Analyze" IsEnabled="{Binding CanAnalyze}">Analyze</Button>
         </StackPanel>

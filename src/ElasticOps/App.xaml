@@ -22,8 +22,8 @@
                 <ResourceDictionary Source="/Resources/CustomIcons.xaml" />
                 <ResourceDictionary Source="/Resources/AppStyles.xaml" />
                 <ResourceDictionary>
-                    <converters:BoolToOpositeVisiblityConverter x:Key="boolToOpositeVisiblityConverter" />
-                    <converters:BoolToVisiblityConverter x:Key="boolToVisiblityConverter" />
+                    <converters:BoolToOppositeVisibilityConverter x:Key="boolToOpositeVisibilityConverter" />
+                    <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
                     <converters:HumanizeBigNumbersConverter x:Key="humanizeBigNumbersConverter" />
                 </ResourceDictionary>
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Extensions;
 using Serilog;
 
 namespace ElasticOps.ViewModels.ManagementScreens
@@ -53,7 +54,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         private void FilterIndices()
         {
-            IndicesInfo = AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWith(Predef.MarvelIndexPrefix));
+            IndicesInfo = AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWithIgnoreCase(Predef.MarvelIndexPrefix));
         }
 
         private bool _showMarvelIndices;

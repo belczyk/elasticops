@@ -5,6 +5,7 @@ using Action = System.Action;
 
 namespace ElasticOps.ViewModels
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Pagger")]
     public class PaggerViewModel : PropertyChangedBase
     {
         private long _total;
@@ -90,7 +91,7 @@ namespace ElasticOps.ViewModels
                 Page += 1;
         }
 
-        public void PrevPage()
+        public void PreviousPage()
         {
             if (Page > 1)
                 Page -= 1;

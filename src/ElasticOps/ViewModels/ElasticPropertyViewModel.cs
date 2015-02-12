@@ -29,7 +29,7 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        public void CopyToCliboard()
+        public void CopyToClipboard()
         {
             Clipboard.SetText(Value);
         }

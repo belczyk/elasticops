@@ -6,7 +6,8 @@ using ElasticOps.Services;
 
 namespace ElasticOps.DIModules
 {
-    internal class InfrastractureModel :Module
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
+    internal class InfrastractureModel : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -14,8 +15,8 @@ namespace ElasticOps.DIModules
             builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
             builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
             builder.RegisterType<ClusterDataCache>().AsSelf().SingleInstance();
-            builder.RegisterType<UrlSuggest>().AsSelf().SingleInstance();
-            builder.RegisterType<IndexSuggest>().AsSelf().SingleInstance();
+            builder.RegisterType<UrlSuggestCollection>().AsSelf().SingleInstance();
+            builder.RegisterType<IndexSuggestCollection>().AsSelf().SingleInstance();
 
             builder.Register((c) =>
             {

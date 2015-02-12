@@ -9,6 +9,7 @@ namespace ElasticOps
     /// <summary>
     /// Allows producing foldings from a document based on braces.
     /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
     public class BraceFoldingStrategy
     {
         /// <summary>
@@ -30,6 +31,8 @@ namespace ElasticOps
             this.ClosingBrace = '}';
         }
 
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
         public void UpdateFoldings(FoldingManager manager, ITextSource document)
         {
             if (manager==null)
@@ -43,7 +46,7 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings"), SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document, out int firstErrorOffset)
         {
             firstErrorOffset = -1;
@@ -53,6 +56,7 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
         {
             if (document==null)

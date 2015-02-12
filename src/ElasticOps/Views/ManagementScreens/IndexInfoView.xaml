@@ -23,8 +23,8 @@
                     <Button Name="ClearCache" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Clear cache</Button>
                     <Button Name="Optimize" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Optimize</Button>
                     <Button Name="RefreshIndex" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Refresh</Button>
-                    <Button Name="Close" Visibility="{Binding IsOpen, Converter={StaticResource boolToVisiblityConverter}}">Close</Button>
-                    <Button Name="Open" Visibility="{Binding IsOpen, Converter={StaticResource boolToOpositeVisiblityConverter}}">Open</Button>
+                    <Button Name="Close" Visibility="{Binding IsOpen, Converter={StaticResource boolToVisibilityConverter}}">Close</Button>
+                    <Button Name="Open" Visibility="{Binding IsOpen, Converter={StaticResource boolToOpositeVisibilityConverter}}">Open</Button>
                     <Button Name="Delete">Delete</Button>
                 </StackPanel>
                 <StackPanel Margin="0,0,0,25">

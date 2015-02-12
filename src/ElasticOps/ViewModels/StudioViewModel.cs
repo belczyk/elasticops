@@ -9,13 +9,13 @@ namespace ElasticOps.ViewModels
     public class StudioViewModel : Conductor<IManagementScreen>.Collection.OneActive
     {
 
-        public StudioViewModel(IEnumerable<IManagementScreen> managmentScreens, ClusterConnectionViewModel clusterConnectionViewModel)
+        public StudioViewModel(IEnumerable<IManagementScreen> managementScreens, ClusterConnectionViewModel clusterConnectionViewModel)
         {
             ClusterConnectionViewModel = clusterConnectionViewModel;
-            ManagmentScreens = new BindableCollection<IManagementScreen>();
-            ManagmentScreens.AddRange(managmentScreens.OrderByPriority());
+            ManagementScreens = new BindableCollection<IManagementScreen>();
+            ManagementScreens.AddRange(managementScreens.OrderByPriority());
 
-            ManagmentScreens.ToList().ForEach(x => x.ConductWith(this));
+            ManagementScreens.ToList().ForEach(x => x.ConductWith(this));
             
 
         }
@@ -27,6 +27,6 @@ namespace ElasticOps.ViewModels
             set { _clusterConnectionViewModel = value; NotifyOfPropertyChange(() => ClusterConnectionViewModel); }
         }
 
-        public IObservableCollection<IManagementScreen> ManagmentScreens { get; private set; }
+        public IObservableCollection<IManagementScreen> ManagementScreens { get; private set; }
     }
 }

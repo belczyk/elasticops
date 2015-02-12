@@ -11,7 +11,7 @@
             <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
-                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}" />
+                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisibilityConverter}}" />
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <TextBlock Text="Document name" Width="150"/>

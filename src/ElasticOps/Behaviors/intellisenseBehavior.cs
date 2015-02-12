@@ -58,6 +58,7 @@ namespace ElasticOps.Behaviors
             TryComplete();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "ICSharpCode.AvalonEdit.Document.TextDocument.Insert(System.Int32,System.String)")]
         private void TryCompleteChar(char c)
         {
             if (c == '{' && _config.AutoCompleteChars.Contains("{"))
@@ -114,7 +115,7 @@ namespace ElasticOps.Behaviors
 
             var parts = url.Split('/');
 
-            if (parts.Last().StartsWith("_")) return parts.Last();
+            if (parts.Last().StartsWithIgnoreCase("_")) return parts.Last();
 
             return null;
         }

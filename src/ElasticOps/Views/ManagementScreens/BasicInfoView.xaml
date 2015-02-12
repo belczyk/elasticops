@@ -17,7 +17,7 @@
         <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
-                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
+                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisibilityConverter}}"
                                        Grid.Row="0" />
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"  Grid.Row="1">

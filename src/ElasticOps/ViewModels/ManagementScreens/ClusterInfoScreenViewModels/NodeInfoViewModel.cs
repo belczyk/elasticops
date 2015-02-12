@@ -17,26 +17,26 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        private string _Hostname;
+        private string _hostName;
 
-        public string Hostname
+        public string HostName
         {
-            get { return _Hostname; }
+            get { return _hostName; }
             set
             {
-                _Hostname = value;
-                NotifyOfPropertyChange(() => Hostname);
+                _hostName = value;
+                NotifyOfPropertyChange(() => HostName);
             }
         }
 
-        private string _HttpAddress;
+        private string _httpAddress;
 
         public string HttpAddress
         {
-            get { return _HttpAddress; }
+            get { return _httpAddress; }
             set
             {
-                _HttpAddress = value;
+                _httpAddress = value;
                 NotifyOfPropertyChange(() => HttpAddress);
             }
         }
@@ -55,6 +55,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         private IObservableCollection<ElasticPropertyViewModel> _CPU;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "CPU")]
         public IObservableCollection<ElasticPropertyViewModel> CPU
         {
             get { return _CPU; }
@@ -81,7 +82,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public NodeInfoViewModel(NodeInfo nodeInfo)
         {
             Name = nodeInfo.Name;
-            Hostname = nodeInfo.Hostname;
+            HostName = nodeInfo.Hostname;
             HttpAddress = nodeInfo.HttpAddress;
             OS = new BindableCollection<ElasticPropertyViewModel>();
             if (nodeInfo.OS != null)

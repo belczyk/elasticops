@@ -10,14 +10,14 @@ namespace ElasticOps.ViewModels.ManagementScreens
     public class IndexInfoViewModel : PropertyChangedBase
     {
         private readonly Infrastructure _infrastructure;
-        private readonly Action _refreashIndexList;
+        private readonly Action _refreshIndexList;
         private bool _isOpen;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public IndexInfoViewModel(IndexInfo indexInfo, Infrastructure infrastructure, Action refreashIndexList)
+        public IndexInfoViewModel(IndexInfo indexInfo, Infrastructure infrastructure, Action refreshIndexList)
         {
             _infrastructure = infrastructure;
-            _refreashIndexList = refreashIndexList;
+            _refreshIndexList = refreshIndexList;
             Name = indexInfo.Name;
             IsOpen = indexInfo.IsOpen;
             Settings = indexInfo.Settings.Select(setting => new ElasticPropertyViewModel
@@ -93,7 +93,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public void Delete()
         {
             _infrastructure.CommandBus.Execute(new Index.DeleteCommand(_infrastructure.Connection, Name));
-            _refreashIndexList();
+            _refreshIndexList();
         }
 
     }

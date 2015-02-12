@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Media;
 using System.Xml;
 using Caliburn.Micro;
@@ -34,7 +35,7 @@ namespace ElasticOps.ViewModels.Controls
         {
             Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
 
-            var schemaStream = (GetType()).Assembly.GetManifestResourceStream(String.Format("ElasticOps.Query{0}HighlightingRules.xshd", theme));
+            var schemaStream = (GetType()).Assembly.GetManifestResourceStream(String.Format(CultureInfo.InvariantCulture,"ElasticOps.Query{0}HighlightingRules.xshd", theme));
 
             using (var reader = new XmlTextReader(schemaStream))
             {

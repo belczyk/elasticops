@@ -13,17 +13,17 @@ using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    [Priority(50)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "REST"), Priority(50)]
     public class RESTScreenViewModel : Screen, IManagementScreen
     {
         private readonly Infrastructure _infrastructure;
         private IEventAggregator _eventAggregator;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel rquestBodyViewModel, CodeEditorViewModel resultViewModel)
+        public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel requestBodyViewModel, CodeEditorViewModel resultViewModel)
         {
             ResultEditor = resultViewModel;
-            RequestBodyEditor = rquestBodyViewModel;
+            RequestBodyEditor = requestBodyViewModel;
 
             _infrastructure = infrastructure;
             base.DisplayName = "REST";

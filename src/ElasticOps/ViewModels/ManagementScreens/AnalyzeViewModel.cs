@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.Com;
@@ -14,7 +15,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private string _text;
         private string _analyzerName;
         private bool _isAnalyzerModeSelected;
-        private bool _isFieldModeSlected;
+        private bool _isFieldModeSelected;
         private string _fieldName;
         private string _indexName;
 
@@ -34,13 +35,13 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 NotifyOfPropertyChange(() => CanAnalyze);
 
                 if (IsAnalyzerModeSelected && string.IsNullOrEmpty(IndexName))
-                    return string.Format("/_analyze?analyzer={0}", string.IsNullOrEmpty(AnalyzerName) ? "[missing analyzer name]" : AnalyzerName);
+                    return string.Format(CultureInfo.InvariantCulture,"/_analyze?analyzer={0}", string.IsNullOrEmpty(AnalyzerName) ? "[missing analyzer name]" : AnalyzerName);
 
                 if (IsAnalyzerModeSelected && !string.IsNullOrEmpty(IndexName))
-                    return string.Format("/{0}/_analyze?analyzer={1}",IndexName, string.IsNullOrEmpty(AnalyzerName) ? "[missing index name]" : AnalyzerName);
+                    return string.Format(CultureInfo.InvariantCulture, "/{0}/_analyze?analyzer={1}", IndexName, string.IsNullOrEmpty(AnalyzerName) ? "[missing index name]" : AnalyzerName);
 
-                if (IsFieldModeSlected )
-                    return string.Format("/{0}/_analyze?field={1}", string.IsNullOrEmpty(IndexName) ? "[missing index name]" : IndexName, string.IsNullOrEmpty(FieldName) ? "[missing field name]" : FieldName);
+                if (IsFieldModeSelected )
+                    return string.Format(CultureInfo.InvariantCulture, "/{0}/_analyze?field={1}", string.IsNullOrEmpty(IndexName) ? "[missing index name]" : IndexName, string.IsNullOrEmpty(FieldName) ? "[missing field name]" : FieldName);
 
                 return "";
             }
@@ -52,7 +53,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             {
                 return !string.IsNullOrEmpty(Text) &&
                        ((IsAnalyzerModeSelected && !string.IsNullOrEmpty(AnalyzerName)) ||
-                        (IsFieldModeSlected && !string.IsNullOrEmpty(FieldName) && !string.IsNullOrEmpty(IndexName)));
+                        (IsFieldModeSelected && !string.IsNullOrEmpty(FieldName) && !string.IsNullOrEmpty(IndexName)));
             }
         }
 
@@ -68,14 +69,14 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        public bool IsFieldModeSlected
+        public bool IsFieldModeSelected
         {
-            get { return _isFieldModeSlected; }
+            get { return _isFieldModeSelected; }
             set
             {
-                if (value.Equals(_isFieldModeSlected)) return;
-                _isFieldModeSlected = value;
-                NotifyOfPropertyChange(() => IsFieldModeSlected);
+                if (value.Equals(_isFieldModeSelected)) return;
+                _isFieldModeSelected = value;
+                NotifyOfPropertyChange(() => IsFieldModeSelected);
                 NotifyOfPropertyChange(() => CurrentEndpoint);
             }
         }
@@ -135,7 +136,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             if (IsAnalyzerModeSelected && !string.IsNullOrEmpty(IndexName))
                 AnalyzeWithIndexAnalyzer();
 
-            if (IsFieldModeSlected)
+            if (IsFieldModeSelected)
                 AnalyzeWithFieldAnalyzer();
 
             if (IsAnalyzerModeSelected && string.IsNullOrEmpty(IndexName))

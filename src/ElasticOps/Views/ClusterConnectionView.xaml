@@ -28,7 +28,7 @@
             <Rectangle  Width="16"
                         Height="16"
                         Margin="0,0,0,0"
-                        Visibility="{Binding IsConnected, Converter={StaticResource boolToOpositeVisiblityConverter}}">
+                        Visibility="{Binding IsConnected, Converter={StaticResource boolToOpositeVisibilityConverter}}">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{StaticResource appbar_connect_fail}"
                                  Opacity="0.5" />
@@ -37,7 +37,7 @@
             <Rectangle  Width="16"
                         Height="16"
                         Margin="0,0,0,0"
-                        Visibility="{Binding IsConnected, Converter={StaticResource boolToVisiblityConverter}}">
+                        Visibility="{Binding IsConnected, Converter={StaticResource boolToVisibilityConverter}}">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{StaticResource appbar_connect_ok}"
                                  Opacity="0.5" />

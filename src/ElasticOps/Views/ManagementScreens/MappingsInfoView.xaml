@@ -16,7 +16,7 @@
                                    Grid.Row="0"
                                    Height="15"
                                    IsIndeterminate="True"
-                                   Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
+                                   Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisibilityConverter}}"
                                    Margin="5" />
         <Grid  Grid.Row="1">
             <Grid.RowDefinitions>

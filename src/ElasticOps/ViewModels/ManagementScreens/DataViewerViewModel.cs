@@ -53,7 +53,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public override void RefreshData()
         {
-            TypesList.RefreashData();
+            TypesList.RefreshData();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ElasticOps.Tests.ViewModels
         {
             var pagger = new PaggerViewModel {Page = 1};
 
-            pagger.PrevPage();
+            pagger.PreviousPage();
 
             Assert.Equal(1,pagger.Page);
         }
@@ -41,7 +41,7 @@ namespace ElasticOps.Tests.ViewModels
         {
             var pagger = new PaggerViewModel {TotalPages = 10, Page = 5};
 
-            pagger.PrevPage();
+            pagger.PreviousPage();
 
             Assert.Equal(4, pagger.Page);
         }

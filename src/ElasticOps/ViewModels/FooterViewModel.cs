@@ -46,9 +46,9 @@ namespace ElasticOps.ViewModels
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public void Handle(ErrorOccuredEvent @event)
+        public void Handle(ErrorOccuredEvent message)
         {
-            ErrorMessage = @event.ErrorMessage;
+            ErrorMessage = message.ErrorMessage;
             Parallel.Invoke(() =>
             {
                 Thread.Sleep(_infrastructure.Config.Appearance.Footer.ErrorTimout.Seconds());

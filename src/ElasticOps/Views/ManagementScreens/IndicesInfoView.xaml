@@ -11,7 +11,7 @@
             <controls:MetroProgressBar VerticalAlignment="Top"
                                        Height="15"
                                        IsIndeterminate="True"
-                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisiblityConverter}}"
+                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisibilityConverter}}"
                                        Margin="5,5,5,5" />
             <StackPanel >
                 <CheckBox Name="ShowMarvelIndices" Content="Show Marvel indices" Margin="10,20,0,0"/>

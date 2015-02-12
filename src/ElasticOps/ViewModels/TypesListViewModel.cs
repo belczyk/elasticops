@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Extensions;
 
 namespace ElasticOps.ViewModels
 {
@@ -20,14 +21,14 @@ namespace ElasticOps.ViewModels
         private string _selectedType;
 
 
-        public void RefreashData()
+        public void RefreshData()
         {
             IsRefreshing = true;
 
             var indices = _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
             var selectedIndex = SelectedIndex;
             AllIndices.Clear();
-            indices.Result.OrderBy(x=>x).Where(x => !x.StartsWith(Predef.MarvelIndexPrefix) || _ShowMarvelIndices).ToList().ForEach(AllIndices.Add);
+            indices.Result.OrderBy(x=>x).Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _ShowMarvelIndices).ToList().ForEach(AllIndices.Add);
             if (AllIndices.Contains(selectedIndex))
             {
                 SelectedIndex = selectedIndex;
@@ -40,6 +41,7 @@ namespace ElasticOps.ViewModels
 
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
         public IObservableCollection<string> AllIndices
         {
             get { return _allIndices; }
@@ -108,6 +110,7 @@ namespace ElasticOps.ViewModels
 
         private bool _ShowMarvelIndices;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
         public bool ShowMarvelIndices
         {
             get { return _ShowMarvelIndices; }
@@ -115,7 +118,7 @@ namespace ElasticOps.ViewModels
             {
                 _ShowMarvelIndices = value;
                 NotifyOfPropertyChange(() => ShowMarvelIndices);
-                RefreashData();
+                RefreshData();
             }
         }
 

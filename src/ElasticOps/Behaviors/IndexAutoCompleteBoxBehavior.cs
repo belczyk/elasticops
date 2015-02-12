@@ -7,7 +7,7 @@ namespace ElasticOps.Behaviors
 {
     public class IndexAutoCompleteBoxBehavior : Behavior<AutoCompleteBox>
     {
-        private IndexSuggest _indexSuggest;
+        private IndexSuggestCollection _indexSuggestCollection;
 
         protected override void OnAttached()
         {
@@ -15,9 +15,9 @@ namespace ElasticOps.Behaviors
             AssociatedObject.IsTextCompletionEnabled = true;
             AssociatedObject.MinimumPrefixLength = 0;
 
-            _indexSuggest = AppBootstrapper.GetInstance<IndexSuggest>();
+            _indexSuggestCollection = AppBootstrapper.GetInstance<IndexSuggestCollection>();
 
-            AssociatedObject.ItemsSource = _indexSuggest;
+            AssociatedObject.ItemsSource = _indexSuggestCollection;
             AssociatedObject.TextChanged += AssociatedObject_TextChanged;
         }
 
@@ -29,7 +29,7 @@ namespace ElasticOps.Behaviors
 
         void AssociatedObject_TextChanged(object sender, RoutedEventArgs e)
         {
-            _indexSuggest.UpdateSuggestions(AssociatedObject.Text);
+            _indexSuggestCollection.UpdateSuggestions(AssociatedObject.Text);
         }
 
     }

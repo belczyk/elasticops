@@ -17,6 +17,6 @@
                                                   Transition="LeftReplace" />
         </Grid>
         <controls:MetroAnimatedTabControl  Margin="30,30,30,0" Grid.Row="1"
-                                          Name="ManagmentScreens" />
+                                          Name="ManagementScreens" />
     </Grid>
 </UserControl>

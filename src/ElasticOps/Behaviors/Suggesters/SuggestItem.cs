@@ -3,7 +3,7 @@ namespace ElasticOps.Behaviors.Suggesters
 {
     public class SuggestItem
     {
-        public SuggestItem(string text, SugegestionMode mode)
+        public SuggestItem(string text, SuggestionMode mode)
         {
             Text = text;
             Mode = mode;
@@ -16,6 +16,6 @@ namespace ElasticOps.Behaviors.Suggesters
             return Text;
         }
 
-        public SugegestionMode Mode { get; set; }
+        public SuggestionMode Mode { get; set; }
     }
 }

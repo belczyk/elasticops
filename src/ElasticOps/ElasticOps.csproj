@@ -54,6 +54,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -151,20 +161,21 @@
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\OnlyDigitsInTextBoxBehavior.cs" />
-    <Compile Include="Behaviors\Suggesters\IndexSuggest.cs" />
+    <Compile Include="Behaviors\Suggesters\IndexSuggestCollection.cs" />
     <Compile Include="DependencyProperties\AutoCompleteBoxProperties.cs" />
     <Compile Include="DIModules\CaliburnMicroModule.cs" />
     <Compile Include="DIModules\InfrastractureModel.cs" />
     <Compile Include="DIModules\ViewsModule.cs" />
-    <Compile Include="Extensions\IntExtenstions.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Services\Index.cs" />
     <Compile Include="Behaviors\UrlAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
     <Compile Include="Behaviors\CodeCompletionData.cs" />
     <Compile Include="Behaviors\IntellisenseBehavior.cs" />
-    <Compile Include="Behaviors\Suggesters\UrlSuggest.cs" />
-    <Compile Include="Behaviors\Suggesters\SugegestionMode.cs" />
+    <Compile Include="Behaviors\Suggesters\UrlSuggestCollection.cs" />
+    <Compile Include="Behaviors\Suggesters\SuggestionMode.cs" />
     <Compile Include="Behaviors\Suggesters\SuggestItem.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
     <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
@@ -187,11 +198,10 @@
     <Compile Include="Predef.cs" />
     <Compile Include="ViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="ViewModels\ElasticPropertyViewModel.cs" />
-    <Compile Include="Converters\BoolToOpositeVisiblityConverter.cs" />
-    <Compile Include="Converters\BoolToVisiblityConverter.cs" />
+    <Compile Include="Converters\BoolToOppositeVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\HumanizeBigNumbersConverter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="ViewModels\FlyoutBaseViewModel.cs" />
     <Compile Include="ViewModels\FooterViewModel.cs" />
     <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\BasicInfoViewModel.cs" />
     <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModel.cs" />

@@ -29,7 +29,6 @@ namespace ElasticOps.ViewModels
             ValuePreviewModel = valuePreviewModel;
             base.DisplayName = "Elastic Ops";
 
-            base.ActivateItem(studioViewModel);
             infrastructure.EventAggregator.Subscribe(this);
 
 
@@ -41,10 +40,12 @@ namespace ElasticOps.ViewModels
                                            .Select(a => new AppThemeMenuData() { Name = a.Name, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush })
                                            .ToList();
 
+            base.ActivateItem(studioViewModel);
         }
 
         public CodeEditorViewModel ValuePreviewModel { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Flayout")]
         public bool IsValuePreviewFlayoutOpen
         {
             get { return _isValuePreviewFlayoutOpen; }

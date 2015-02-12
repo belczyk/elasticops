@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace ElasticOps.Converters
 {
-    public class BoolToOpositeVisiblityConverter : IValueConverter
+    public class BoolToOppositeVisibilityConverter : IValueConverter
     {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {

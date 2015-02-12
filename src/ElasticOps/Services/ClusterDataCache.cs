@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Extensions;
 
 namespace ElasticOps.Services
 {
@@ -28,6 +29,7 @@ namespace ElasticOps.Services
         private readonly List<string> _indices = new List<string>();
         private readonly Dictionary<string, Index> _indexData = new Dictionary<string, Index>();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
         public IEnumerable<string> Indices { get { return _indices; } }
         public IDictionary<string, Index> IndexData { get { return _indexData; } }
 
@@ -63,12 +65,12 @@ namespace ElasticOps.Services
                 if (result.Success)
                 {
                     _indices.Clear();
-                    var marvelIndices = result.Result.Where(x => x.StartsWith(_marvel)).OrderBy(x => x);
-                    var otherIndices = result.Result.Where(x => !x.StartsWith(_marvel)).OrderBy(x => x);
+                    var marvelIndices = result.Result.Where(x => x.StartsWithIgnoreCase(_marvel)).OrderBy(x => x);
+                    var otherIndices = result.Result.Where(x => !x.StartsWithIgnoreCase(_marvel)).OrderBy(x => x);
                     _indices.AddRange(otherIndices.Union(marvelIndices));
                 }
 
-                _indices.Intersect(_indices.Where(x => !x.StartsWith(_marvel))).ToList()
+                _indices.Intersect(_indices.Where(x => !x.StartsWithIgnoreCase(_marvel))).ToList()
                     .ForEach(i =>
                     {
                         UpdateTypes(i);
