@@ -25,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>GlobalizationRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisTreatWarningsAsErrors>False</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -170,12 +170,12 @@
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="ViewModels\AccentColorMenuData.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\AnalyzeViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\AnalyzeViewModel.cs" />
     <Compile Include="ViewModels\AppThemeMenuData.cs" />
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
     <Compile Include="SimpleCommand.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ConsoleViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\DataViewerViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ConsoleViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\DataViewerViewModel.cs" />
     <Compile Include="ViewModels\PaggerViewModel.cs" />
     <Compile Include="Views\Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
@@ -195,17 +195,17 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="ViewModels\FlyoutBaseViewModel.cs" />
     <Compile Include="ViewModels\FooterViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\BasicInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\DocumentsInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\IManagmentScreen.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\IndexInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\IndicesInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\MappingsInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodeInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\ClusterInfoScreenViewModels\NodesInfoViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\RESTScreenViewModel.cs" />
-    <Compile Include="ViewModels\ManagmentScreens\QueryViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\BasicInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\DocumentsInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\IManagementScreen.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\IndexInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\IndicesInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\MappingsInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\NodeInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\ClusterInfoScreenViewModels\NodesInfoViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\RESTScreenViewModel.cs" />
+    <Compile Include="ViewModels\ManagementScreens\QueryViewModel.cs" />
     <Compile Include="ViewModels\Settings\IntSettingViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
@@ -223,16 +223,16 @@
     <Compile Include="Views\FooterView.xaml.cs">
       <DependentUpon>FooterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\AnalyzeView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\AnalyzeView.xaml.cs">
       <DependentUpon>AnalyzeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\ConsoleView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\ConsoleView.xaml.cs">
       <DependentUpon>ConsoleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\DataViewerView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\DataViewerView.xaml.cs">
       <DependentUpon>DataViewerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\QueryView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\QueryView.xaml.cs">
       <DependentUpon>QueryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pagger.xaml.cs">
@@ -268,55 +268,55 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\AnalyzeView.xaml">
+    <Page Include="Views\ManagementScreens\AnalyzeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\BasicInfoView.xaml">
+    <Page Include="Views\ManagementScreens\BasicInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\ClusterInfoScreenView.xaml">
+    <Page Include="Views\ManagementScreens\ClusterInfoScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\ConsoleView.xaml">
+    <Page Include="Views\ManagementScreens\ConsoleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\DataViewerView.xaml">
+    <Page Include="Views\ManagementScreens\DataViewerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\DocumentsInfoView.xaml">
+    <Page Include="Views\ManagementScreens\DocumentsInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\IndexInfoView.xaml">
+    <Page Include="Views\ManagementScreens\IndexInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\IndicesInfoView.xaml">
+    <Page Include="Views\ManagementScreens\IndicesInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\MappingsInfoView.xaml">
+    <Page Include="Views\ManagementScreens\MappingsInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\NodeInfoView.xaml">
+    <Page Include="Views\ManagementScreens\NodeInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\NodesInfoView.xaml">
+    <Page Include="Views\ManagementScreens\NodesInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\QueryView.xaml">
+    <Page Include="Views\ManagementScreens\QueryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagmentScreens\RESTScreenView.xaml">
+    <Page Include="Views\ManagementScreens\RESTScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -335,31 +335,31 @@
     <Compile Include="Views\ElasticPropertyView.xaml.cs">
       <DependentUpon>ElasticPropertyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\BasicInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\BasicInfoView.xaml.cs">
       <DependentUpon>BasicInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\ClusterInfoScreenView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\ClusterInfoScreenView.xaml.cs">
       <DependentUpon>ClusterInfoScreenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\DocumentsInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\DocumentsInfoView.xaml.cs">
       <DependentUpon>DocumentsInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\IndexInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\IndexInfoView.xaml.cs">
       <DependentUpon>IndexInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\IndicesInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\IndicesInfoView.xaml.cs">
       <DependentUpon>IndicesInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\MappingsInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\MappingsInfoView.xaml.cs">
       <DependentUpon>MappingsInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\NodeInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\NodeInfoView.xaml.cs">
       <DependentUpon>NodeInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\NodesInfoView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\NodesInfoView.xaml.cs">
       <DependentUpon>NodesInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagmentScreens\RESTScreenView.xaml.cs">
+    <Compile Include="Views\ManagementScreens\RESTScreenView.xaml.cs">
       <DependentUpon>RESTScreenView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">

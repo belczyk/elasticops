@@ -11,7 +11,7 @@ using ElasticOps.Com;
 using ElasticOps.Configuration;
 using ElasticOps.Services;
 using ElasticOps.ViewModels;
-using ElasticOps.ViewModels.ManagmentScreens;
+using ElasticOps.ViewModels.ManagementScreens;
 using Serilog;
 using Serilog.Events;
 
@@ -44,8 +44,8 @@ namespace ElasticOps
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagmentScreen).Name) != null)
-                .As<IManagmentScreen>();
+                .Where(x => !x.IsAbstract && x.IsClass && x.GetInterface(typeof(IManagementScreen).Name) != null)
+                .As<IManagementScreen>();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(x => x.BaseType == typeof(UserSettings))
