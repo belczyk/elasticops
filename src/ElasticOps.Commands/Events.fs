@@ -5,7 +5,7 @@ open Serilog.Events
 type ErrorOccuredEvent(msg) =
     member this.ErrorMessage : String = msg
 
-type RefreashEvent() = class end
+type RefreshEvent() = class end
 
 type GoToStudioEvent() = class end  
 

@@ -17,11 +17,11 @@ namespace ElasticOps.ViewModels
             _infrastructure = infrastructure;
             _eventAggregator = infrastructure.EventAggregator;
 
-            var observable = Observable.Interval(_infrastructure.Config.RefreashInterval.Seconds()).TimeInterval();
+            var observable = Observable.Interval(_infrastructure.Config.RefreshInterval.Seconds()).TimeInterval();
             observable.Subscribe((o) =>
             {
                 if (infrastructure.Connection.IsConnected)
-                    _eventAggregator.PublishOnUIThread(new RefreashEvent());
+                    _eventAggregator.PublishOnUIThread(new RefreshEvent());
             });
             ClusterUri= infrastructure.Config.DefaultClusterUrl.ToString();
         }
@@ -48,7 +48,7 @@ namespace ElasticOps.ViewModels
                     Log.Logger.Error("Could not connect to: {clusterUri}", ClusterUri);
 
                 if(!wasConnected && IsConnected)
-                    _eventAggregator.PublishOnUIThread(new RefreashEvent());
+                    _eventAggregator.PublishOnUIThread(new RefreshEvent());
 
             }
         }

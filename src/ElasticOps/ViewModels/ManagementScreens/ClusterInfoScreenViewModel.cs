@@ -5,7 +5,7 @@ using ElasticOps.Com;
 namespace ElasticOps.ViewModels.ManagementScreens
 {
     [Priority(0)]
-    internal class ClusterInfoScreenViewModel : Conductor<object>, IManagementScreen, IHandle<RefreashEvent>
+    internal class ClusterInfoScreenViewModel : Conductor<object>, IManagementScreen, IHandle<RefreshEvent>
     {
         private readonly Infrastructure _infrastructure;
 
@@ -98,7 +98,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             
         }
 
-        public void Handle(RefreashEvent message)
+        public void Handle(RefreshEvent message)
         {
             LoadCounters();
         }

@@ -8,7 +8,7 @@ using ElasticOps.Extensions;
 
 namespace ElasticOps.Services
 {
-    public class ClusterDataCache : IHandle<NewConnectionEvent>, IHandle<RefreashEvent>
+    public class ClusterDataCache : IHandle<NewConnectionEvent>, IHandle<RefreshEvent>
     {
         private const string _marvel = ".marvel";
         private readonly Infrastructure _infrastructure;
@@ -23,7 +23,7 @@ namespace ElasticOps.Services
             _indexData = new Dictionary<string, Index>();
 
             if (_infrastructure.Connection.IsConnected)
-                RefreashData();
+                RefreshData();
         }
 
         private readonly List<string> _indices = new List<string>();
@@ -33,14 +33,14 @@ namespace ElasticOps.Services
         public IEnumerable<string> Indices { get { return _indices; } }
         public IDictionary<string, Index> IndexData { get { return _indexData; } }
 
-        public void Handle(RefreashEvent message)
+        public void Handle(RefreshEvent message)
         {
-            RefreashData();
+            RefreshData();
         }
 
         public void Handle(NewConnectionEvent message)
         {
-            RefreashData();
+            RefreshData();
         }
 
         public void UpdateTypes(string index)
@@ -56,7 +56,7 @@ namespace ElasticOps.Services
             }
         }
 
-        private void RefreashData()
+        private void RefreshData()
         {
             Parallel.Invoke(() =>
             {

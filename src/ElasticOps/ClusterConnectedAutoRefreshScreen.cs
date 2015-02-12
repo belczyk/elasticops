@@ -5,7 +5,7 @@ using ElasticOps.Com;
 
 namespace ElasticOps
 {
-    internal abstract class ClusterConnectedAutoRefreshScreen : Screen, IHandle<RefreashEvent>
+    internal abstract class ClusterConnectedAutoRefreshScreen : Screen, IHandle<RefreshEvent>
     {
         protected ClusterConnectedAutoRefreshScreen(Infrastructure infrastructure)
         {
@@ -50,7 +50,7 @@ namespace ElasticOps
             base.OnActivate();
         }
 
-        public void Handle(RefreashEvent message)
+        public void Handle(RefreshEvent message)
         {
             if (!IsRefreshing)
                 StartRefreshingData();

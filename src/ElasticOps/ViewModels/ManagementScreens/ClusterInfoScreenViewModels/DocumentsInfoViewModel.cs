@@ -7,7 +7,7 @@ using Serilog;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    internal class DocumentsInfoViewModel : ClusterConnectedAutorefreashScreen
+    internal class DocumentsInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
 
         public DocumentsInfoViewModel(Infrastructure infrastructure)

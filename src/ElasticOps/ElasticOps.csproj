@@ -178,7 +178,7 @@
     <Compile Include="Behaviors\Suggesters\SuggestionMode.cs" />
     <Compile Include="Behaviors\Suggesters\SuggestItem.cs" />
     <Compile Include="BraceFoldingStrategy.cs" />
-    <Compile Include="ClusterConnectedAutorefreashScreen.cs" />
+    <Compile Include="ClusterConnectedAutoRefreshScreen.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Services\ClusterDataCache.cs" />
     <Compile Include="Services\ConfigService.cs" />

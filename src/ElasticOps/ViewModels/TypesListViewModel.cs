@@ -28,7 +28,7 @@ namespace ElasticOps.ViewModels
             var indices = _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
             var selectedIndex = SelectedIndex;
             AllIndices.Clear();
-            indices.Result.OrderBy(x=>x).Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _ShowMarvelIndices).ToList().ForEach(AllIndices.Add);
+            indices.Result.OrderBy(x=>x).Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _showMarvelIndices).ToList().ForEach(AllIndices.Add);
             if (AllIndices.Contains(selectedIndex))
             {
                 SelectedIndex = selectedIndex;
@@ -108,26 +108,20 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        private bool _ShowMarvelIndices;
+        private bool _showMarvelIndices;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
         public bool ShowMarvelIndices
         {
-            get { return _ShowMarvelIndices; }
+            get { return _showMarvelIndices; }
             set
             {
-                _ShowMarvelIndices = value;
+                _showMarvelIndices = value;
                 NotifyOfPropertyChange(() => ShowMarvelIndices);
                 RefreshData();
             }
         }
 
-        private bool _isRefreashing;
-
-        public bool IsRefreshing
-        {
-            get { return _isRefreashing; }
-            set { _isRefreashing = value; }
-        }
+        public bool IsRefreshing { get; set; }
     }
 }
