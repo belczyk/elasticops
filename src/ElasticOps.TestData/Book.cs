@@ -1,5 +1,4 @@
-﻿
-namespace ElasticOps.TestData
+﻿namespace ElasticOps.TestData
 {
     public class Book
     {

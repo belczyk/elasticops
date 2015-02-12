@@ -17,7 +17,8 @@ namespace ElasticOps.ViewModels.Controls
         private Brush _foreground;
         private bool _isReadOnly;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public CodeEditorViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
@@ -35,11 +36,13 @@ namespace ElasticOps.ViewModels.Controls
         {
             Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
 
-            var schemaStream = (GetType()).Assembly.GetManifestResourceStream(String.Format(CultureInfo.InvariantCulture,"ElasticOps.Query{0}HighlightingRules.xshd", theme));
+            var schemaStream =
+                (GetType()).Assembly.GetManifestResourceStream(String.Format(CultureInfo.InvariantCulture,
+                    "ElasticOps.Query{0}HighlightingRules.xshd", theme));
 
             using (var reader = new XmlTextReader(schemaStream))
             {
-                    HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
             }
         }
 
@@ -56,10 +59,7 @@ namespace ElasticOps.ViewModels.Controls
 
         public Brush Foreground
         {
-            get
-            {
-                return _foreground;
-            }
+            get { return _foreground; }
             set
             {
                 if (Equals(value, _foreground)) return;
@@ -79,7 +79,8 @@ namespace ElasticOps.ViewModels.Controls
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ThemeChangedEvent message)
         {
             LoadHighlightRules(message.IsDark ? Theme.Dark : Theme.Light);

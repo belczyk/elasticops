@@ -7,8 +7,8 @@ namespace ElasticOps.ViewModels
     {
         public override void DoChangeTheme(object sender)
         {
-
-            AppBootstrapper.GetInstance<IEventAggregator>().PublishOnUIThread(new ThemeChangedEvent(Name,Name.Contains("Dark")));
+            AppBootstrapper.GetInstance<IEventAggregator>()
+                .PublishOnUIThread(new ThemeChangedEvent(Name, Name.Contains("Dark")));
         }
     }
 }

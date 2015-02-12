@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace ElasticOps.Attributes
 {
@@ -12,6 +11,5 @@ namespace ElasticOps.Attributes
         {
             Priority = priority;
         }
-
     }
 }

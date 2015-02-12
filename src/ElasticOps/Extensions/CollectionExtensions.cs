@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
-using FSharp.Data;
 
 namespace ElasticOps.Extensions
 {
@@ -24,7 +23,7 @@ namespace ElasticOps.Extensions
 
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
-            if (enumerable==null)
+            if (enumerable == null)
                 throw new ArgumentNullException("enumerable");
 
             if (action == null)
@@ -35,6 +34,5 @@ namespace ElasticOps.Extensions
                 action(t);
             }
         }
-
     }
 }

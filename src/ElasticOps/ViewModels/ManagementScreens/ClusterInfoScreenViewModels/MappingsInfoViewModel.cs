@@ -9,7 +9,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         private string _mapping;
 
-        public MappingsInfoViewModel(TypesListViewModel typesListViewModel, Infrastructure infrastructure) : base(infrastructure)
+        public MappingsInfoViewModel(TypesListViewModel typesListViewModel, Infrastructure infrastructure)
+            : base(infrastructure)
         {
             _infrastructure = infrastructure;
             TypesList = typesListViewModel;
@@ -30,7 +31,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         {
             if (string.IsNullOrEmpty(TypesList.SelectedIndex) || string.IsNullOrEmpty(TypesList.SelectedType)) return;
 
-            var res =_infrastructure.CommandBus.Execute(new ClusterInfo.GetMappingCommand(_infrastructure.Connection,
+            var res = _infrastructure.CommandBus.Execute(new ClusterInfo.GetMappingCommand(_infrastructure.Connection,
                 TypesList.SelectedIndex, TypesList.SelectedType));
 
             if (res.Success) Mapping = res.Result;

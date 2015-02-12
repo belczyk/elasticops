@@ -6,8 +6,8 @@ namespace ElasticOps
 {
     public class Infrastructure
     {
-        public Infrastructure(CommandBus commandBus, 
-            IEventAggregator eventAggregator, 
+        public Infrastructure(CommandBus commandBus,
+            IEventAggregator eventAggregator,
             IWindowManager windowManager,
             ElasticOpsConfig config)
         {

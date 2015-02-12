@@ -11,10 +11,9 @@
              mc:Ignorable="d"
              d:DesignHeight="500"
              d:DesignWidth="900"
-             cal:Message.Attach="[Event KeyUp] = [Action KeyPress($eventArgs)]"
-             >
+             cal:Message.Attach="[Event KeyUp] = [Action KeyPress($eventArgs)]">
     <i:Interaction.Behaviors>
-        <behaviors:IntellisenseBehavior/>
+        <behaviors:IntellisenseBehavior />
     </i:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,24 +21,25 @@
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource AccentColorBrush}" Grid.Row="0"  Margin="10,0,0,10">
+        <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource AccentColorBrush}" Grid.Row="0"
+                Margin="10,0,0,10">
             <StackPanel Orientation="Horizontal" Margin="5,5,0,5">
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Height="30">Method:</Label>
                 <ComboBox Margin="15,0,0,0"
-                      ItemsSource="{Binding  Methods}"
-                      DisplayMemberPath="DisplayText"
-                      SelectedValuePath="Value"
-                      SelectedValue="{Binding Method}"
-                      Height="30"/>
+                          ItemsSource="{Binding  Methods}"
+                          DisplayMemberPath="DisplayText"
+                          SelectedValuePath="Value"
+                          SelectedValue="{Binding Method}"
+                          Height="30" />
                 <Label VerticalAlignment="Center" HorizontalAlignment="Center" Height="30">Url:</Label>
-                <t:AutoCompleteBox Width="600" 
-                           IsTextCompletionEnabled="True"
-                           Padding="2,2,0,0"
-                           FontSize="16" Height="30"
-                           Name="URL"
-                           Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <t:AutoCompleteBox Width="600"
+                                   IsTextCompletionEnabled="True"
+                                   Padding="2,2,0,0"
+                                   FontSize="16" Height="30"
+                                   Name="URL"
+                                   Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
-                        <behaviors:UrlAutoCompleteBoxBehavior/>
+                        <behaviors:UrlAutoCompleteBoxBehavior />
                     </i:Interaction.Behaviors>
                 </t:AutoCompleteBox>
             </StackPanel>
@@ -47,7 +47,7 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button x:Name="FormatCode" Width="75" Height="30" Margin="25,5,5,5" ToolTip="CTRL+R">Format</Button>
-            <Button Content="Execute" Width="75" Height="30" Margin="5" x:Name="Execute" ToolTip="F5"/>
+            <Button Content="Execute" Width="75" Height="30" Margin="5" x:Name="Execute" ToolTip="F5" />
         </StackPanel>
 
         <Grid Grid.Row="2">
@@ -57,17 +57,17 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor"  cal:Bind.Model="{Binding QueryEditor}"  />
+            <controls:CodeEditor Grid.Column="0" x:Name="QueryEditor" cal:Bind.Model="{Binding QueryEditor}" />
 
             <GridSplitter Grid.Column="1"
-                      ResizeDirection="Columns"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      ResizeBehavior="PreviousAndNext"
-                      Background="#43671E"
-                      x:Name="ResponseEditor" />
+                          ResizeDirection="Columns"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          ResizeBehavior="PreviousAndNext"
+                          Background="#43671E"
+                          x:Name="ResponseEditor" />
 
-            <controls:CodeEditor Grid.Column="2" x:Name="ResultEditor"  cal:Bind.Model="{Binding ResultEditor}" />
+            <controls:CodeEditor Grid.Column="2" x:Name="ResultEditor" cal:Bind.Model="{Binding ResultEditor}" />
         </Grid>
     </Grid>
 </UserControl>

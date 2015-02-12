@@ -8,6 +8,7 @@ namespace ElasticOps.Behaviors.Suggesters
     public class IndexSuggestCollection : ObservableCollection<SuggestItem>
     {
         private readonly ClusterDataCache _clusterData;
+
         public IndexSuggestCollection(ClusterDataCache clusterData)
         {
             _clusterData = clusterData;
@@ -30,8 +31,9 @@ namespace ElasticOps.Behaviors.Suggesters
                 text = text.Substring(1);
 
             Clear();
-            _clusterData.Indices.Where(x => x.StartsWithIgnoreCase(text)).Select(x => new SuggestItem(x, SuggestionMode.Index)).ForEach(Add);
+            _clusterData.Indices.Where(x => x.StartsWithIgnoreCase(text))
+                .Select(x => new SuggestItem(x, SuggestionMode.Index))
+                .ForEach(Add);
         }
-
     }
 }

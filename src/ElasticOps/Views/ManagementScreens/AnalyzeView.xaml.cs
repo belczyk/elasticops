@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Input;
 using ElasticOps.Com;
 
 namespace ElasticOps.Views.ManagementScreens
@@ -16,7 +15,7 @@ namespace ElasticOps.Views.ManagementScreens
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TokensGrid.SelectedItem!=null)
+            if (TokensGrid.SelectedItem != null)
             {
                 var token = TokensGrid.SelectedItem as AnalyzedToken;
 
@@ -24,10 +23,8 @@ namespace ElasticOps.Views.ManagementScreens
 
                 Text.Focus();
                 Text.CaretIndex = token.StartOffset;
-                Text.Select(token.StartOffset,token.EndOffset - token.StartOffset);
-
+                Text.Select(token.StartOffset, token.EndOffset - token.StartOffset);
             }
         }
-
     }
 }

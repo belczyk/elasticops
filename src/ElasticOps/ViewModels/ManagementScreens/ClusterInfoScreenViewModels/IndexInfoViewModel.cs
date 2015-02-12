@@ -13,7 +13,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private readonly Action _refreshIndexList;
         private bool _isOpen;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public IndexInfoViewModel(IndexInfo indexInfo, Infrastructure infrastructure, Action refreshIndexList)
         {
             _infrastructure = infrastructure;
@@ -30,7 +31,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 Label = type.Key.Humanize(LetterCasing.Sentence),
                 Value = type.Value
             });
-
         }
 
 
@@ -60,7 +60,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public void ClearCache()
         {
             _infrastructure.CommandBus.Execute(new Index.ClearCacheCommand(_infrastructure.Connection, Name));
-
         }
 
         public void Optimize()
@@ -79,7 +78,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
             if (res.Success)
                 IsOpen = false;
-
         }
 
         public void Open()
@@ -95,6 +93,5 @@ namespace ElasticOps.ViewModels.ManagementScreens
             _infrastructure.CommandBus.Execute(new Index.DeleteCommand(_infrastructure.Connection, Name));
             _refreshIndexList();
         }
-
     }
 }

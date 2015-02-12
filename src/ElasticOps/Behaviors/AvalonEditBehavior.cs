@@ -8,12 +8,13 @@ namespace ElasticOps.Behaviors
     public sealed class AvalonEditBehavior : Behavior<TextEditor>
     {
         public static readonly DependencyProperty CodeProperty =
-            DependencyProperty.Register("Code", typeof(string), typeof(AvalonEditBehavior),
-            new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChangedCallback));
+            DependencyProperty.Register("Code", typeof (string), typeof (AvalonEditBehavior),
+                new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    PropertyChangedCallback));
 
         public string Code
         {
-            get { return (string)GetValue(CodeProperty); }
+            get { return (string) GetValue(CodeProperty); }
             set { SetValue(CodeProperty, value); }
         }
 

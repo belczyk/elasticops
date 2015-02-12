@@ -10,9 +10,9 @@ namespace ElasticOps.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is int)
-                return ((int)value).Humanize();
+                return ((int) value).Humanize();
             if (value is long)
-                return ((long)value).Humanize();
+                return ((long) value).Humanize();
 
             return string.Empty;
         }

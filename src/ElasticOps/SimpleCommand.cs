@@ -12,7 +12,7 @@ namespace ElasticOps
         {
             if (CanExecuteDelegate != null)
                 return CanExecuteDelegate(parameter);
-            return true; 
+            return true;
         }
 
         public event EventHandler CanExecuteChanged

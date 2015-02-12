@@ -15,6 +15,7 @@ namespace ElasticOps.ViewModels
             AllIndices = new BindableCollection<string>();
             TypesForSelectedIndex = new BindableCollection<string>();
         }
+
         private IObservableCollection<string> _allIndices;
         private IObservableCollection<string> _typesForSelectedIndex;
         private string _selectedIndex;
@@ -25,10 +26,14 @@ namespace ElasticOps.ViewModels
         {
             IsRefreshing = true;
 
-            var indices = _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
+            var indices =
+                _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
             var selectedIndex = SelectedIndex;
             AllIndices.Clear();
-            indices.Result.OrderBy(x=>x).Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _showMarvelIndices).ToList().ForEach(AllIndices.Add);
+            indices.Result.OrderBy(x => x)
+                .Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _showMarvelIndices)
+                .ToList()
+                .ForEach(AllIndices.Add);
             if (AllIndices.Contains(selectedIndex))
             {
                 SelectedIndex = selectedIndex;
@@ -38,10 +43,10 @@ namespace ElasticOps.ViewModels
                 SelectedIndex = AllIndices.First();
             }
             IsRefreshing = false;
-
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms",
+            MessageId = "Indices")]
         public IObservableCollection<string> AllIndices
         {
             get { return _allIndices; }
@@ -70,7 +75,6 @@ namespace ElasticOps.ViewModels
                 _selectedIndex = value;
                 NotifyOfPropertyChange(() => SelectedIndex);
                 ReloadTypes();
-
             }
         }
 
@@ -84,7 +88,7 @@ namespace ElasticOps.ViewModels
 
             var selectedType = SelectedType;
             TypesForSelectedIndex.Clear();
-            result.Result.OrderBy(x=>x).ToList().ForEach(TypesForSelectedIndex.Add);
+            result.Result.OrderBy(x => x).ToList().ForEach(TypesForSelectedIndex.Add);
 
             if (TypesForSelectedIndex.Contains(selectedType))
             {
@@ -104,13 +108,13 @@ namespace ElasticOps.ViewModels
             {
                 _selectedType = value;
                 NotifyOfPropertyChange(() => SelectedType);
-
             }
         }
 
         private bool _showMarvelIndices;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms",
+            MessageId = "Indices")]
         public bool ShowMarvelIndices
         {
             get { return _showMarvelIndices; }

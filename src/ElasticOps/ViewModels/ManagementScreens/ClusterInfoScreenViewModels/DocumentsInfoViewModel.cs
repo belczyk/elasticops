@@ -9,7 +9,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
 {
     internal class DocumentsInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
-
         public DocumentsInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
         {
@@ -27,7 +26,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
                 var docs = result.Result.Select(docInfo => new ElasticPropertyViewModel
                 {
-                    Label = docInfo.Key, Value = docInfo.Value
+                    Label = docInfo.Key,
+                    Value = docInfo.Value
                 });
 
                 Documents = docs;

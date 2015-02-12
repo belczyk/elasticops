@@ -1,43 +1,61 @@
 ﻿<UserControl x:Class="ElasticOps.Views.ManagementScreens.IndexInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900">
     <Grid>
-        <Border  Margin="0,0,0,10" BorderThickness="0,0,0,1" BorderBrush="#60A917"  >
+        <Border Margin="0,0,0,10" BorderThickness="0,0,0,1" BorderBrush="#60A917">
             <StackPanel>
-                <controls:Tile FontWeight="Bold" Width="Auto" HorizontalAlignment="Left" Title="{Binding Name}" Height="40"  Margin="0,0,0,10">
-                </controls:Tile>
+                <controls:Tile FontWeight="Bold" Width="Auto" HorizontalAlignment="Left" Title="{Binding Name}"
+                               Height="40" Margin="0,0,0,10" />
                 <StackPanel Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Margin" Value="5"></Setter>
-                            <Setter Property="Height" Value="30"></Setter>
-                            <Setter Property="Width" Value="75"></Setter>
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="Height" Value="30" />
+                            <Setter Property="Width" Value="75" />
                         </Style>
                     </StackPanel.Resources>
-                    <Button Name="Flush" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Flush</Button>
-                    <Button Name="ClearCache" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Clear cache</Button>
-                    <Button Name="Optimize" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Optimize</Button>
-                    <Button Name="RefreshIndex" Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">Refresh</Button>
-                    <Button Name="Close" Visibility="{Binding IsOpen, Converter={StaticResource boolToVisibilityConverter}}">Close</Button>
-                    <Button Name="Open" Visibility="{Binding IsOpen, Converter={StaticResource boolToOpositeVisibilityConverter}}">Open</Button>
+                    <Button Name="Flush"
+                            Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Flush
+                    </Button>
+                    <Button Name="ClearCache"
+                            Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Clear cache
+                    </Button>
+                    <Button Name="Optimize"
+                            Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Optimize
+                    </Button>
+                    <Button Name="RefreshIndex"
+                            Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Refresh
+                    </Button>
+                    <Button Name="Close"
+                            Visibility="{Binding IsOpen, Converter={StaticResource boolToVisibilityConverter}}">
+                        Close
+                    </Button>
+                    <Button Name="Open"
+                            Visibility="{Binding IsOpen, Converter={StaticResource boolToOpositeVisibilityConverter}}">
+                        Open
+                    </Button>
                     <Button Name="Delete">Delete</Button>
                 </StackPanel>
                 <StackPanel Margin="0,0,0,25">
-                    <TextBlock Text="Settings" Style="{DynamicResource Header1}"/>
-                    <ItemsControl Name="Settings"/>
+                    <TextBlock Text="Settings" Style="{DynamicResource Header1}" />
+                    <ItemsControl Name="Settings" />
                 </StackPanel>
-                
+
                 <StackPanel Margin="0,0,0,25">
-                    <TextBlock Text="IndexData" Style="{DynamicResource Header1}"/>
+                    <TextBlock Text="IndexData" Style="{DynamicResource Header1}" />
                     <ItemsControl Name="Types">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Label}" Margin="5"/>
+                                <TextBlock Text="{Binding Label}" Margin="5" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

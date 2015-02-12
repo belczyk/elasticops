@@ -35,13 +35,17 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 NotifyOfPropertyChange(() => CanAnalyze);
 
                 if (IsAnalyzerModeSelected && string.IsNullOrEmpty(IndexName))
-                    return string.Format(CultureInfo.InvariantCulture,"/_analyze?analyzer={0}", string.IsNullOrEmpty(AnalyzerName) ? "[missing analyzer name]" : AnalyzerName);
+                    return string.Format(CultureInfo.InvariantCulture, "/_analyze?analyzer={0}",
+                        string.IsNullOrEmpty(AnalyzerName) ? "[missing analyzer name]" : AnalyzerName);
 
                 if (IsAnalyzerModeSelected && !string.IsNullOrEmpty(IndexName))
-                    return string.Format(CultureInfo.InvariantCulture, "/{0}/_analyze?analyzer={1}", IndexName, string.IsNullOrEmpty(AnalyzerName) ? "[missing index name]" : AnalyzerName);
+                    return string.Format(CultureInfo.InvariantCulture, "/{0}/_analyze?analyzer={1}", IndexName,
+                        string.IsNullOrEmpty(AnalyzerName) ? "[missing index name]" : AnalyzerName);
 
-                if (IsFieldModeSelected )
-                    return string.Format(CultureInfo.InvariantCulture, "/{0}/_analyze?field={1}", string.IsNullOrEmpty(IndexName) ? "[missing index name]" : IndexName, string.IsNullOrEmpty(FieldName) ? "[missing field name]" : FieldName);
+                if (IsFieldModeSelected)
+                    return string.Format(CultureInfo.InvariantCulture, "/{0}/_analyze?field={1}",
+                        string.IsNullOrEmpty(IndexName) ? "[missing index name]" : IndexName,
+                        string.IsNullOrEmpty(FieldName) ? "[missing field name]" : FieldName);
 
                 return "";
             }
@@ -150,12 +154,13 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         private void AnalyzeWithFieldAnalyzer()
         {
-            Analyze(new Analyze.AnalyzeWithFieldAnalyzerCommand(_infrastructure.Connection, IndexName,FieldName,Text));
+            Analyze(new Analyze.AnalyzeWithFieldAnalyzerCommand(_infrastructure.Connection, IndexName, FieldName, Text));
         }
 
         private void AnalyzeWithIndexAnalyzer()
         {
-            Analyze(new Analyze.AnalyzeWithIndexAnalyzerCommand(_infrastructure.Connection, IndexName, AnalyzerName, Text));
+            Analyze(new Analyze.AnalyzeWithIndexAnalyzerCommand(_infrastructure.Connection, IndexName, AnalyzerName,
+                Text));
         }
 
         private void Analyze<T>(T command) where T : Command<IEnumerable<AnalyzedToken>>
@@ -169,6 +174,5 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
             tokens.Result.ForEach(x => Tokens.Add(x));
         }
-
     }
 }

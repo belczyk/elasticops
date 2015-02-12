@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
-using System.Threading;
 using Nest;
 using Serilog;
 
@@ -10,8 +9,7 @@ namespace ElasticOps.TestData
 {
     public class Program
     {
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.ColoredConsole()
@@ -49,15 +47,15 @@ namespace ElasticOps.TestData
 
                 client.DeleteIndex(x => x.Index(name));
             }
-           
+
             client.OpenIndex(x => x.Index(name));
 
-            Log.Logger.Information("Create index {indexName}",name);
+            Log.Logger.Information("Create index {indexName}", name);
             client.CreateIndex(name, c => c
-            .NumberOfReplicas(0)
-            .NumberOfShards(1)
-            .AddMapping<Book>(m => m.MapFromAttributes())
-            .AddMapping<CD>(m => m.MapFromAttributes()));
+                .NumberOfReplicas(0)
+                .NumberOfShards(1)
+                .AddMapping<Book>(m => m.MapFromAttributes())
+                .AddMapping<CD>(m => m.MapFromAttributes()));
             Log.Logger.Information("Index {indexName} created", name);
 
             Log.Logger.Information("Closing index {indexName}", name);
@@ -75,25 +73,24 @@ namespace ElasticOps.TestData
             RandomCDs(1000, name, client);
         }
 
-        private static void RandomBooks(int n,string indexName, ElasticClient client)
+        private static void RandomBooks(int n, string indexName, ElasticClient client)
         {
-            Log.Logger.Information("Creating {numberOfDocs} book documents in index {indexName}",n, indexName);
+            Log.Logger.Information("Creating {numberOfDocs} book documents in index {indexName}", n, indexName);
 
             for (var i = 0; i < n; i++)
             {
                 var book = new Book
                 {
                     Id = i,
-                    Description = LoremNET.Lorem.Paragraph(20,10),
-                    Title =  LoremNET.Lorem.Words(1,5),
-                    Year = (int)LoremNET.Lorem.Number(1965, 2015)
+                    Description = LoremNET.Lorem.Paragraph(20, 10),
+                    Title = LoremNET.Lorem.Words(1, 5),
+                    Year = (int) LoremNET.Lorem.Number(1965, 2015)
                 };
 
                 client.Index(book, ind => ind.Index(indexName));
 
                 if (i%1000 == 0)
                     Log.Logger.Information("Created {numberOfDocs} book documents in index {indexName}", i, indexName);
-
             }
         }
 
@@ -108,15 +105,14 @@ namespace ElasticOps.TestData
                 {
                     Id = i,
                     Title = LoremNET.Lorem.Words(1, 5),
-                    Genere= LoremNET.Lorem.Words(1, 2),
+                    Genere = LoremNET.Lorem.Words(1, 2),
                     ReleaseDate = LoremNET.Lorem.DateTime(1990)
                 };
 
                 client.Index(book, ind => ind.Index(indexName));
 
-                if (i % 1000 == 0)
+                if (i%1000 == 0)
                     Log.Logger.Information("Created {numberOfDocs} CD documents in index {indexName}", i, indexName);
-
             }
         }
     }

@@ -25,30 +25,32 @@
                      Margin="0,0,5,0"
                      FontSize="16"
                      Text="{Binding ClusterUri}" />
-            <Rectangle  Width="16"
-                        Height="16"
-                        Margin="0,0,0,0"
-                        Visibility="{Binding IsConnected, Converter={StaticResource boolToOpositeVisibilityConverter}}">
+            <Rectangle Width="16"
+                       Height="16"
+                       Margin="0,0,0,0"
+                       Visibility="{Binding IsConnected, Converter={StaticResource boolToOpositeVisibilityConverter}}">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{StaticResource appbar_connect_fail}"
                                  Opacity="0.5" />
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle  Width="16"
-                        Height="16"
-                        Margin="0,0,0,0"
-                        Visibility="{Binding IsConnected, Converter={StaticResource boolToVisibilityConverter}}">
+            <Rectangle Width="16"
+                       Height="16"
+                       Margin="0,0,0,0"
+                       Visibility="{Binding IsConnected, Converter={StaticResource boolToVisibilityConverter}}">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{StaticResource appbar_connect_ok}"
                                  Opacity="0.5" />
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock Height="40" 
-                       FontSize="16" 
-                       Margin="7">ver: </TextBlock>
+            <TextBlock Height="40"
+                       FontSize="16"
+                       Margin="7">
+                ver:
+            </TextBlock>
             <TextBlock Name="Version"
                        Height="40"
-                       Margin="7" 
+                       Margin="7"
                        FontSize="16" />
         </StackPanel>
     </Border>

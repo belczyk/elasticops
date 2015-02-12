@@ -9,17 +9,17 @@ namespace ElasticOps
     {
         protected ClusterConnectedAutoRefreshScreen(Infrastructure infrastructure)
         {
-            if (infrastructure==null)
+            if (infrastructure == null)
                 throw new ArgumentNullException("infrastructure");
 
-            eventAggregator = infrastructure.EventAggregator;
-            commandBus = infrastructure.CommandBus;
-            connection = infrastructure.Connection;
+            EventAggregator = infrastructure.EventAggregator;
+            CommandBus = infrastructure.CommandBus;
+            Connection = infrastructure.Connection;
         }
 
-        protected IEventAggregator eventAggregator;
-        protected CommandBus commandBus;
-        protected Connection connection;
+        protected IEventAggregator EventAggregator { get; set; }
+        protected CommandBus CommandBus { get; set; }
+        protected Connection Connection { get; set; }
         private bool _isRefreshing;
 
         public bool IsRefreshing
@@ -39,13 +39,13 @@ namespace ElasticOps
 
         public void Deactivate(bool close)
         {
-            eventAggregator.Unsubscribe(this);
+            EventAggregator.Unsubscribe(this);
             base.OnDeactivate(close);
         }
 
         protected override void OnActivate()
         {
-            eventAggregator.Subscribe(this);
+            EventAggregator.Subscribe(this);
             StartRefreshingData();
             base.OnActivate();
         }
@@ -61,10 +61,8 @@ namespace ElasticOps
             IsRefreshing = true;
             Task.Factory.StartNew(RefreshData)
                 .ContinueWith(t => IsRefreshing = false);
-
         }
 
         public abstract void RefreshData();
-
     }
 }

@@ -1,10 +1,8 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using MahApps.Metro.Controls;
 
 namespace ElasticOps.Views
 {
-
     public partial class ShellView : MetroWindow
     {
         public ShellView()
@@ -14,10 +12,9 @@ namespace ElasticOps.Views
             this.Closed += ShellView_Closed;
         }
 
-        void ShellView_Closed(object sender, System.EventArgs e)
+        private void ShellView_Closed(object sender, System.EventArgs e)
         {
-             Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
-
     }
 }

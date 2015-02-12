@@ -4,20 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-        <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <controls:MetroProgressBar VerticalAlignment="Top"
-                                       Height="15"
-                                       IsIndeterminate="True"
-                                       Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisibilityConverter}}"
+                                   Height="15"
+                                   IsIndeterminate="True"
+                                   Visibility="{Binding IsRefreshing, Converter={StaticResource boolToVisibilityConverter}}"
                                    Grid.Row="0" />
 
-            <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ItemsControl Name="NodesInfo" Margin="0,20,0,0" />
         </ScrollViewer>
 

@@ -32,10 +32,11 @@ namespace ElasticOps
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
         public void UpdateFoldings(FoldingManager manager, ITextSource document)
         {
-            if (manager==null)
+            if (manager == null)
                 throw new ArgumentNullException("manager");
 
             int firstErrorOffset;
@@ -46,7 +47,9 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings"), SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings"),
+         SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document, out int firstErrorOffset)
         {
             firstErrorOffset = -1;
@@ -56,10 +59,11 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
         {
-            if (document==null)
+            if (document == null)
                 throw new ArgumentNullException("document");
 
             List<NewFolding> newFoldings = new List<NewFolding>();

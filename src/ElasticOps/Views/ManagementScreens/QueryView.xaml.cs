@@ -10,8 +10,6 @@ namespace ElasticOps.Views
         public QueryView()
         {
             InitializeComponent();
-
         }
-
     }
 }

@@ -21,8 +21,10 @@ namespace ElasticOps.ViewModels
         private readonly Infrastructure _infrastructure;
         private string _url;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1")]
-        public QueryViewModel(CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel, Infrastructure infrastructure)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "1")]
+        public QueryViewModel(CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel,
+            Infrastructure infrastructure)
         {
             base.DisplayName = "Query";
             _queryEditor = queryEditorModel;
@@ -32,16 +34,14 @@ namespace ElasticOps.ViewModels
 
             Methods = new BindableCollection<ComboBoxItemViewModel>
             {
-                 ComboBoxItemViewModel.FromString("GET"),
-                 ComboBoxItemViewModel.FromString("POST"),
-                 ComboBoxItemViewModel.FromString("PUT"),
-                 ComboBoxItemViewModel.FromString("DELETE"),
-                 ComboBoxItemViewModel.FromString("HEAD"),
-                  
+                ComboBoxItemViewModel.FromString("GET"),
+                ComboBoxItemViewModel.FromString("POST"),
+                ComboBoxItemViewModel.FromString("PUT"),
+                ComboBoxItemViewModel.FromString("DELETE"),
+                ComboBoxItemViewModel.FromString("HEAD"),
             };
             Method = "GET";
             Url = _infrastructure.Config.DefaultQueryUrl;
-
         }
 
         public CodeEditorViewModel QueryEditor
@@ -111,7 +111,6 @@ namespace ElasticOps.ViewModels
             IsExecuting = true;
             Task.Factory.StartNew(ExecuteCall)
                 .ContinueWith((t) => IsExecuting = false);
-
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -157,7 +156,9 @@ namespace ElasticOps.ViewModels
                 var json = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
                 return json;
             }
-            catch { }
+            catch
+            {
+            }
 
             return originalJson;
         }
@@ -178,7 +179,8 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void KeyPress(KeyEventArgs args)
         {
             if (args.Key == Key.F5)

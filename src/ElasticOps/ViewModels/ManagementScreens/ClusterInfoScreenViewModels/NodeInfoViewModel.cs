@@ -55,7 +55,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         private IObservableCollection<ElasticPropertyViewModel> _CPU;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "CPU")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly",
+            MessageId = "CPU")]
         public IObservableCollection<ElasticPropertyViewModel> CPU
         {
             get { return _CPU; }
@@ -78,7 +79,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public NodeInfoViewModel(NodeInfo nodeInfo)
         {
             Name = nodeInfo.Name;
@@ -87,15 +89,15 @@ namespace ElasticOps.ViewModels.ManagementScreens
             OS = new BindableCollection<ElasticPropertyViewModel>();
             if (nodeInfo.OS != null)
                 foreach (var val in nodeInfo.OS)
-                    OS.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
+                    OS.Add(new ElasticPropertyViewModel {Label = val.Key, Value = val.Value});
             Settings = new BindableCollection<ElasticPropertyViewModel>();
             if (nodeInfo.Settings != null)
                 foreach (var val in nodeInfo.Settings)
-                    Settings.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
+                    Settings.Add(new ElasticPropertyViewModel {Label = val.Key, Value = val.Value});
             CPU = new BindableCollection<ElasticPropertyViewModel>();
             if (nodeInfo.CPU != null)
                 foreach (var val in nodeInfo.CPU)
-                    CPU.Add(new ElasticPropertyViewModel { Label = val.Key, Value = val.Value });
+                    CPU.Add(new ElasticPropertyViewModel {Label = val.Key, Value = val.Value});
         }
     }
 }

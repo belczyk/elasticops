@@ -4,7 +4,6 @@ using ICSharpCode.AvalonEdit.Folding;
 
 namespace ElasticOps.Views.Controls
 {
-
     /// <summary>
     /// Interaction logic for CodeEditor.xaml
     /// </summary>
@@ -14,7 +13,7 @@ namespace ElasticOps.Views.Controls
         {
             InitializeComponent();
 
-            TextEditor.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(Color.FromRgb(0x68,0xCE,0xF9));
+            TextEditor.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(Color.FromRgb(0x68, 0xCE, 0xF9));
 
             SetupFolding();
         }
@@ -24,7 +23,8 @@ namespace ElasticOps.Views.Controls
             var foldingStrategy = new BraceFoldingStrategy();
             var foldingManager = FoldingManager.Install(TextEditor.TextArea);
             foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document);
-            TextEditor.TextChanged += (sender, args) => { foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document); };
+            TextEditor.TextChanged +=
+                (sender, args) => { foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document); };
         }
     }
 }

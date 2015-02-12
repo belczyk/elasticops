@@ -15,7 +15,16 @@ namespace ElasticOps.ViewModels
 
         public ICommand ChangeAccentCommand
         {
-            get { return this.changeAccentCommand ?? (changeAccentCommand = new SimpleCommand { CanExecuteDelegate = x => true, ExecuteDelegate = x => this.DoChangeTheme(x) }); }
+            get
+            {
+                return this.changeAccentCommand ??
+                       (changeAccentCommand =
+                           new SimpleCommand
+                           {
+                               CanExecuteDelegate = x => true,
+                               ExecuteDelegate = x => this.DoChangeTheme(x)
+                           });
+            }
         }
 
         public virtual void DoChangeTheme(object sender)

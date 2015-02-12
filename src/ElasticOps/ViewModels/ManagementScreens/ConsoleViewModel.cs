@@ -16,7 +16,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
     [Priority(100)]
     public class ConsoleViewModel : Screen, IManagementScreen, IHandle<LogEntryCreatedEvent>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public ConsoleViewModel(Infrastructure infrastructure)
         {
             base.DisplayName = "Logs";
@@ -26,7 +27,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public ObservableCollection<LogEventViewModel> LogEntries { get; private set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(LogEntryCreatedEvent message)
         {
             LogEntries.Add(new LogEventViewModel
@@ -36,6 +38,5 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 Timestamp = message.LogEvent.Timestamp,
             });
         }
-
     }
 }

@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
-using System.Reflection;
 using System.Windows;
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
-using ElasticOps.Behaviors.Suggesters;
 using ElasticOps.Com;
-using ElasticOps.Configuration;
 using ElasticOps.DIModules;
 using ElasticOps.Services;
 using ElasticOps.ViewModels;
-using ElasticOps.ViewModels.ManagementScreens;
 using Serilog;
 using Serilog.Events;
 
@@ -60,7 +55,7 @@ namespace ElasticOps
                 .WriteTo.Observers(o => o.Subscribe(Observer.Create<LogEvent>((le) =>
                 {
                     eventsAggr.PublishOnUIThread(new LogEntryCreatedEvent(le));
-                    if(le.Level == LogEventLevel.Error || le.Level == LogEventLevel.Fatal)
+                    if (le.Level == LogEventLevel.Error || le.Level == LogEventLevel.Fatal)
                         eventsAggr.PublishOnUIThread(new ErrorOccuredEvent(le.RenderMessage()));
                 })))
                 .CreateLogger();
@@ -71,6 +66,4 @@ namespace ElasticOps
             DisplayRootViewFor<ShellViewModel>();
         }
     }
-
 }
-

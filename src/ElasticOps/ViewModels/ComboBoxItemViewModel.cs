@@ -36,7 +36,5 @@ namespace ElasticOps.ViewModels
                 DisplayText = value,
             };
         }
-
-
     }
 }

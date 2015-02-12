@@ -13,14 +13,17 @@ using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "REST"), Priority(50)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly",
+        MessageId = "REST"), Priority(50)]
     public class RESTScreenViewModel : Screen, IManagementScreen
     {
         private readonly Infrastructure _infrastructure;
         private IEventAggregator _eventAggregator;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel requestBodyViewModel, CodeEditorViewModel resultViewModel)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel requestBodyViewModel,
+            CodeEditorViewModel resultViewModel)
         {
             ResultEditor = resultViewModel;
             RequestBodyEditor = requestBodyViewModel;
@@ -31,14 +34,14 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
             Methods = new List<ComboBoxItemViewModel>
             {
-                 ComboBoxItemViewModel.FromString("GET"),
-                 ComboBoxItemViewModel.FromString("POST"),
-                 ComboBoxItemViewModel.FromString("PUT"),
-                 ComboBoxItemViewModel.FromString("DELETE"),
-                 ComboBoxItemViewModel.FromString("HEAD"),
-                 ComboBoxItemViewModel.FromString("OPTIONS"),
-                 ComboBoxItemViewModel.FromString("TRACE"),
-                 ComboBoxItemViewModel.FromString("PATCH"),
+                ComboBoxItemViewModel.FromString("GET"),
+                ComboBoxItemViewModel.FromString("POST"),
+                ComboBoxItemViewModel.FromString("PUT"),
+                ComboBoxItemViewModel.FromString("DELETE"),
+                ComboBoxItemViewModel.FromString("HEAD"),
+                ComboBoxItemViewModel.FromString("OPTIONS"),
+                ComboBoxItemViewModel.FromString("TRACE"),
+                ComboBoxItemViewModel.FromString("PATCH"),
             };
             Method = "GET";
         }
@@ -50,6 +53,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public CodeEditorViewModel RequestBodyEditor { get; set; }
 
         private string _Method;
+
         public string Method
         {
             get { return _Method; }
@@ -61,6 +65,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         }
 
         private string _Endpoint;
+
         public string Endpoint
         {
             get { return _Endpoint; }
@@ -72,6 +77,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         }
 
         private bool _IsExecuting;
+
         public bool IsExecuting
         {
             get { return _IsExecuting; }
@@ -125,12 +131,15 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 Uri tmpUri;
                 var uri = Uri.TryCreate(Endpoint, UriKind.Absolute, out tmpUri);
 
-                requestUri = uri ? tmpUri : new Uri(_infrastructure.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
+                requestUri = uri
+                    ? tmpUri
+                    : new Uri(_infrastructure.Connection.ClusterUri, new Uri(Endpoint, UriKind.Relative));
             }
             return requestUri;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void OnEndpointKeyDown(ActionExecutionContext context)
         {
             var keyArgs = context.EventArgs as KeyEventArgs;
@@ -153,7 +162,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             {
                 return response;
             }
-
         }
 
         protected override void OnActivate()
@@ -169,7 +177,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void KeyPress(KeyEventArgs args)
         {
             if (args.Key == Key.F5)

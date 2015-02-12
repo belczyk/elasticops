@@ -20,7 +20,8 @@ namespace ElasticOps.Views.ManagementScreens
             var cell = (DataGridCell) sender;
 
             if (cell.Content is TextBlock)
-                AppBootstrapper.GetInstance<IEventAggregator>().PublishOnUIThread(new PreviewValueEvent(((TextBlock)cell.Content).Text));
+                AppBootstrapper.GetInstance<IEventAggregator>()
+                    .PublishOnUIThread(new PreviewValueEvent(((TextBlock) cell.Content).Text));
         }
     }
 }

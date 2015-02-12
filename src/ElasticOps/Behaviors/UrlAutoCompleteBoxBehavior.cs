@@ -11,7 +11,8 @@ namespace ElasticOps.Behaviors
 
         protected override void OnAttached()
         {
-            AssociatedObject.ItemTemplate = Application.Current.FindResource("UrlAutoCompleteBoxItemTemplate") as DataTemplate;
+            AssociatedObject.ItemTemplate =
+                Application.Current.FindResource("UrlAutoCompleteBoxItemTemplate") as DataTemplate;
             _urlSuggestCollection = AppBootstrapper.GetInstance<UrlSuggestCollection>();
             AssociatedObject.IsTextCompletionEnabled = true;
             AssociatedObject.MinimumPrefixLength = 0;
@@ -26,10 +27,9 @@ namespace ElasticOps.Behaviors
             base.OnDetaching();
         }
 
-        void AssociatedObject_TextChanged(object sender, RoutedEventArgs e)
+        private void AssociatedObject_TextChanged(object sender, RoutedEventArgs e)
         {
             _urlSuggestCollection.UpdateSuggestions(AssociatedObject.Text);
         }
-
     }
 }

@@ -4,7 +4,6 @@ using ElasticOps.Attributes;
 using ElasticOps.Com;
 using Newtonsoft.Json;
 
-
 namespace ElasticOps.ViewModels.ManagementScreens
 {
     [Priority(40)]
@@ -14,7 +13,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public PaggerViewModel PaggerModel { get; set; }
 
-        public DataViewerViewModel(Infrastructure infrastructure,TypesListViewModel typesListViewModel, PaggerViewModel paggerModel)
+        public DataViewerViewModel(Infrastructure infrastructure, TypesListViewModel typesListViewModel,
+            PaggerViewModel paggerModel)
             : base(infrastructure)
         {
             _infrastructure = infrastructure;
@@ -24,7 +24,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             paggerModel.OnPageChanged = View;
         }
 
-        
 
         public TypesListViewModel TypesList { get; set; }
 
@@ -43,7 +42,9 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public void View()
         {
-            var res = _infrastructure.CommandBus.Execute(new DataView.PageCommand(_infrastructure.Connection, TypesList.SelectedIndex, TypesList.SelectedType, PaggerModel.PageSize, PaggerModel.Page));
+            var res =
+                _infrastructure.CommandBus.Execute(new DataView.PageCommand(_infrastructure.Connection,
+                    TypesList.SelectedIndex, TypesList.SelectedType, PaggerModel.PageSize, PaggerModel.Page));
             if (res.Success)
             {
                 Documents = res.Result.Documents.Select(x => JsonConvert.DeserializeObject(x.ToString()));

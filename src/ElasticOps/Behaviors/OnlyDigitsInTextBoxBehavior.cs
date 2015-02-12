@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
@@ -18,7 +13,7 @@ namespace ElasticOps.Behaviors
             base.OnAttached();
         }
 
-        void AssociatedObject_KeyDown(object sender, KeyEventArgs e)
+        private void AssociatedObject_KeyDown(object sender, KeyEventArgs e)
         {
             if (!char.IsDigit((char) KeyInterop.VirtualKeyFromKey(e.Key)))
             {
@@ -28,7 +23,6 @@ namespace ElasticOps.Behaviors
 
         protected override void OnDetaching()
         {
-
             AssociatedObject.KeyDown -= AssociatedObject_KeyDown;
 
             base.OnDetaching();

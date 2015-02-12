@@ -15,7 +15,7 @@ namespace ElasticOps.Behaviors
             Content = text;
         }
 
-        public CodeCompletionData(Context context , Suggestion suggestion)
+        public CodeCompletionData(Context context, Suggestion suggestion)
         {
             if (suggestion == null)
                 throw new ArgumentNullException("suggestion");

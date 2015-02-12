@@ -13,8 +13,9 @@
                       ResizeMode="CanResizeWithGrip">
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout Header="Preview" Position="Right"  IsOpen="{Binding IsValuePreviewFlayoutOpen}" Theme="Accent">
-                <controls:CodeEditor  micro:Bind.Model="{Binding ValuePreviewModel}"  > </controls:CodeEditor>
+            <Controls:Flyout Header="Preview" Position="Right" IsOpen="{Binding IsValuePreviewFlayoutOpen}"
+                             Theme="Accent">
+                <controls:CodeEditor micro:Bind.Model="{Binding ValuePreviewModel}" />
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
@@ -62,21 +63,20 @@
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Menu Background="Transparent" DockPanel.Dock="Top"
-              SnapsToDevicePixels="True"
-              Margin="2,0,0,0">
+                  SnapsToDevicePixels="True"
+                  Margin="2,0,0,0">
 
                 <MenuItem Header="THEME"
                           Background="Transparent"
                           Foreground="{DynamicResource TextBrush}"
                           ItemsSource="{Binding AppThemes, Mode=OneWay}"
                           ItemContainerStyle="{StaticResource AppThemeMenuItemStyle}" />
-                            
+
                 <MenuItem Header="ACCENT"
                           Background="Transparent"
                           ItemsSource="{Binding AccentColors, Mode=OneWay}"
-                          ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}" 
-                          Foreground="{DynamicResource TextBrush}"
-                          />
+                          ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}"
+                          Foreground="{DynamicResource TextBrush}" />
             </Menu>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>

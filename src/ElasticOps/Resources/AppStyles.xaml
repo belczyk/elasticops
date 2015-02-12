@@ -12,17 +12,17 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="Header1" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
-        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"></Setter>
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
     </Style>
 
     <Style x:Key="Highlight" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="16"></Setter>
-        <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}"></Setter>
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}" />
     </Style>
 
-    
+
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <!--TextBox Style-->
@@ -52,26 +52,26 @@
                 Value="True" />
         <Setter Property="Validation.ErrorTemplate"
                 Value="{DynamicResource ValidationErrorTemplate}" />
-        
-        <Setter Property="Width" Value="200"></Setter>
-        <Setter Property="Height" Value="30"></Setter>
+
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="30" />
     </Style>
 
     <Style TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="16"></Setter>
-        <Setter Property="Width" Value="200"></Setter>
-        <Setter Property="Height" Value="30"></Setter>
-        <Setter Property="Padding" Value="2"></Setter>
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="2" />
     </Style>
-    
+
     <Style x:Key="MultiLineTextBox" TargetType="{x:Type TextBox}">
-        <Setter Property="AcceptsReturn" Value="True"></Setter>
-        <Setter Property="Margin" Value="0,10,0,10"></Setter>
-        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="Margin" Value="0,10,0,10" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Height" Value="30"></Setter>
-        <Setter Property="Width" Value="75"></Setter>
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="75" />
     </Style>
 
     <Style TargetType="{x:Type Label}">
@@ -116,22 +116,19 @@
                  UriSource="/Resources/Icons/paste.png" />
 
 
-
-
     <Style x:Key="{x:Type ae:CompletionWindow }" TargetType="{x:Type ae:CompletionWindow}">
-        <Setter Property="WindowStyle" Value="None"/>
-        <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
 
     </Style>
 
 
-
     <Style x:Key="{x:Type ae:CompletionListBox }" TargetType="{x:Type ae:CompletionListBox}">
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
-        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"></Setter>
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"></Setter>
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
     </Style>
 
 
@@ -148,15 +145,15 @@
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="true">
                             <Setter Property="Background"
-                                    Value="{DynamicResource AccentColorBrush}"/>
+                                    Value="{DynamicResource AccentColorBrush}" />
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -169,12 +166,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ae:CompletionList}">
                     <ae:CompletionListBox x:Name="PART_ListBox"
-                        ItemContainerStyle="{StaticResource CompletionListBoxItem}">
+                                          ItemContainerStyle="{StaticResource CompletionListBoxItem}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Image}" Width="16" Height="16" Margin="0,0,2,0"/>
-                                    <TextBlock Text="{Binding Text}"></TextBlock>
+                                    <Image Source="{Binding Image}" Width="16" Height="16" Margin="0,0,2,0" />
+                                    <TextBlock Text="{Binding Text}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

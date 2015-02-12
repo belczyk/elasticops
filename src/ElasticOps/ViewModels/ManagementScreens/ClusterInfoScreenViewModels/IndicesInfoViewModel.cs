@@ -48,13 +48,14 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
             catch (Exception ex)
             {
-                Log.Logger.Warning(ex,"Exception while refreshing data.");
+                Log.Logger.Warning(ex, "Exception while refreshing data.");
             }
         }
 
         private void FilterIndices()
         {
-            IndicesInfo = AllIndicesInfo.Where(x=>ShowMarvelIndices || !x.Name.StartsWithIgnoreCase(Predef.MarvelIndexPrefix));
+            IndicesInfo =
+                AllIndicesInfo.Where(x => ShowMarvelIndices || !x.Name.StartsWithIgnoreCase(Predef.MarvelIndexPrefix));
         }
 
         private bool _showMarvelIndices;

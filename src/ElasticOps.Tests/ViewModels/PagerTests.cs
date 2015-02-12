@@ -3,7 +3,6 @@ using Xunit;
 
 namespace ElasticOps.Tests.ViewModels
 {
-    
     public class PagerTests
     {
         [Fact]
@@ -13,7 +12,7 @@ namespace ElasticOps.Tests.ViewModels
 
             pagger.PreviousPage();
 
-            Assert.Equal(1,pagger.Page);
+            Assert.Equal(1, pagger.Page);
         }
 
         [Fact]
@@ -53,7 +52,7 @@ namespace ElasticOps.Tests.ViewModels
             pagger.PageSize = 100;
 
             pagger.Total = 200;
-            Assert.Equal(2,pagger.TotalPages);
+            Assert.Equal(2, pagger.TotalPages);
 
             pagger.Total = 201;
             Assert.Equal(3, pagger.TotalPages);
@@ -72,45 +71,43 @@ namespace ElasticOps.Tests.ViewModels
 
             pagger.Total = 100;
 
-            Assert.Equal(1,pagger.Page);
+            Assert.Equal(1, pagger.Page);
         }
 
         [Fact]
         public void When_page_size_changes_reset_page_to_1()
         {
-            var pagger = new PaggerViewModel { PageSize = 100, Total = 1000, Page = 8 };
+            var pagger = new PaggerViewModel {PageSize = 100, Total = 1000, Page = 8};
 
             pagger.PageSize = 50;
 
-            Assert.Equal(1,pagger.Page);
-
+            Assert.Equal(1, pagger.Page);
         }
 
         [Fact]
         public void When_page_size_changes_total_pages_changes()
         {
-            var pagger = new PaggerViewModel { PageSize = 100, Total = 1000, Page = 8 };
+            var pagger = new PaggerViewModel {PageSize = 100, Total = 1000, Page = 8};
 
             pagger.PageSize = 50;
 
             Assert.Equal(1, pagger.Page);
-
         }
 
         [Fact]
         public void Cant_set_page_bigger_then_total_pages()
         {
-            var pagger = new PaggerViewModel { PageSize = 100, Total = 1000, Page = 8 };
+            var pagger = new PaggerViewModel {PageSize = 100, Total = 1000, Page = 8};
 
             pagger.Page = 100000000;
 
-            Assert.Equal(10,pagger.Page);
+            Assert.Equal(10, pagger.Page);
         }
 
         [Fact]
         public void Calls_OnPageChanged_when_page_size_changes()
         {
-            var pagger = new PaggerViewModel { PageSize = 100, Total = 1000, Page = 1 };
+            var pagger = new PaggerViewModel {PageSize = 100, Total = 1000, Page = 1};
             var called = false;
             pagger.OnPageChanged = () => called = true;
 

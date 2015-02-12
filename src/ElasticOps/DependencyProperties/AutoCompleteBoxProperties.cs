@@ -6,14 +6,15 @@ namespace ElasticOps.DependencyProperties
 {
     public class AutoCompleteBoxProperties : DependencyObject
     {
-        public static readonly DependencyProperty SelectedIndexProperty = DependencyProperty.RegisterAttached("SelectedIndex", typeof(string), typeof(AutoCompleteBox));
+        public static readonly DependencyProperty SelectedIndexProperty =
+            DependencyProperty.RegisterAttached("SelectedIndex", typeof (string), typeof (AutoCompleteBox));
 
         public static bool GetSelectedIndex(DependencyObject obj)
         {
-            if (obj==null)
+            if (obj == null)
                 throw new ArgumentNullException("obj");
 
-            return (bool)obj.GetValue(SelectedIndexProperty);
+            return (bool) obj.GetValue(SelectedIndexProperty);
         }
 
         public static void SetSelectedIndex(DependencyObject obj, bool value)
@@ -23,6 +24,5 @@ namespace ElasticOps.DependencyProperties
 
             obj.SetValue(SelectedIndexProperty, value);
         }
-
     }
 }

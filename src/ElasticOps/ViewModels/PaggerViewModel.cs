@@ -5,7 +5,8 @@ using Action = System.Action;
 
 namespace ElasticOps.ViewModels
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Pagger")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly",
+        MessageId = "Pagger")]
     public class PaggerViewModel : PropertyChangedBase
     {
         private long _total;
@@ -15,13 +16,13 @@ namespace ElasticOps.ViewModels
 
         public PaggerViewModel()
         {
-            PageSizes = new List<long> { 25, 50, 100, 250, 500, 1000 };
+            PageSizes = new List<long> {25, 50, 100, 250, 500, 1000};
             PageSize = PageSizes.First();
             Page = 1;
             TotalPages = 1;
         }
 
-        public IEnumerable<long> PageSizes { get; set; } 
+        public IEnumerable<long> PageSizes { get; set; }
 
         public long Total
         {
@@ -99,9 +100,9 @@ namespace ElasticOps.ViewModels
 
         private void UpdateTotalPages()
         {
-            _totalPages = Total / PageSize;
+            _totalPages = Total/PageSize;
 
-            if (Total % PageSize > 0)
+            if (Total%PageSize > 0)
                 _totalPages += 1;
 
             if (_totalPages < 1)

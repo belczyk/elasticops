@@ -15,6 +15,7 @@ namespace ElasticOps.Behaviors
     {
         private TextArea _textEditor;
         private IntellisenseConfig _config;
+
         protected override void OnAttached()
         {
             _config = AppBootstrapper.GetInstance<IntellisenseConfig>();
@@ -23,7 +24,7 @@ namespace ElasticOps.Behaviors
             base.OnAttached();
         }
 
-        void AssociatedObject_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void AssociatedObject_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             _textEditor = AssociatedObject.QueryEditor.TextEditor.TextArea;
 
@@ -33,7 +34,7 @@ namespace ElasticOps.Behaviors
             _textEditor.KeyUp += KeyUp;
         }
 
-        void KeyUp(object sender, KeyEventArgs e)
+        private void KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete || e.Key == Key.Back)
             {
@@ -41,7 +42,7 @@ namespace ElasticOps.Behaviors
             }
         }
 
-        void KeyDown(object sender, KeyEventArgs e)
+        private void KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Space && Keyboard.Modifiers == ModifierKeys.Control)
             {
@@ -50,15 +51,17 @@ namespace ElasticOps.Behaviors
             }
         }
 
-        CompletionWindow _completionWindow;
+        private CompletionWindow _completionWindow;
 
-        void TextEntered(object sender, TextCompositionEventArgs e)
+        private void TextEntered(object sender, TextCompositionEventArgs e)
         {
             TryCompleteChar(e.Text[0]);
             TryComplete();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "ICSharpCode.AvalonEdit.Document.TextDocument.Insert(System.Int32,System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
+            "CA1303:Do not pass literals as localized parameters",
+            MessageId = "ICSharpCode.AvalonEdit.Document.TextDocument.Insert(System.Int32,System.String)")]
         private void TryCompleteChar(char c)
         {
             if (c == '{' && _config.AutoCompleteChars.Contains("{"))
@@ -85,7 +88,8 @@ namespace ElasticOps.Behaviors
             if (endpoint == null) return;
             if (!_config.IntellisenseEndpoints.Contains(endpoint)) return;
 
-            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line, _textEditor.Caret.Column, endpoint);
+            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line,
+                _textEditor.Caret.Column, endpoint);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;
 
@@ -120,7 +124,7 @@ namespace ElasticOps.Behaviors
             return null;
         }
 
-        void TextEntering(object sender, TextCompositionEventArgs e)
+        private void TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && _completionWindow != null)
             {
@@ -130,6 +134,5 @@ namespace ElasticOps.Behaviors
                 }
             }
         }
-
     }
 }

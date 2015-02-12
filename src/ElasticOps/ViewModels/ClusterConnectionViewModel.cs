@@ -23,10 +23,11 @@ namespace ElasticOps.ViewModels
                 if (infrastructure.Connection.IsConnected)
                     _eventAggregator.PublishOnUIThread(new RefreshEvent());
             });
-            ClusterUri= infrastructure.Config.DefaultClusterUrl.ToString();
+            ClusterUri = infrastructure.Config.DefaultClusterUrl.ToString();
         }
 
         private string clusterUri;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public string ClusterUri
         {
@@ -42,21 +43,19 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => IsConnected);
                 NotifyOfPropertyChange(() => Version);
 
-                if(IsConnected)
+                if (IsConnected)
                     _eventAggregator.PublishOnUIThread(new NewConnectionEvent(ClusterUri));
                 else
                     Log.Logger.Error("Could not connect to: {clusterUri}", ClusterUri);
 
-                if(!wasConnected && IsConnected)
+                if (!wasConnected && IsConnected)
                     _eventAggregator.PublishOnUIThread(new RefreshEvent());
-
             }
         }
 
         public bool IsConnected
         {
             get { return _infrastructure.Connection.IsConnected; }
-
         }
 
         public string Version
@@ -77,8 +76,6 @@ namespace ElasticOps.ViewModels
                 Uri uri;
                 return Uri.TryCreate(ClusterUri, UriKind.Absolute, out uri);
             }
-        
         }
-
     }
 }

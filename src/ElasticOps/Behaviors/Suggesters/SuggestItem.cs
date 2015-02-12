@@ -1,4 +1,3 @@
-
 namespace ElasticOps.Behaviors.Suggesters
 {
     public class SuggestItem

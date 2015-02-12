@@ -6,7 +6,8 @@ using ElasticOps.Services;
 
 namespace ElasticOps.DIModules
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+        "CA1812:AvoidUninstantiatedInternalClasses")]
     internal class InfrastractureModel : Module
     {
         protected override void Load(ContainerBuilder builder)

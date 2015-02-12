@@ -10,13 +10,13 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private readonly Infrastructure _infrastructure;
 
         public ClusterInfoScreenViewModel(
-            BasicInfoViewModel basicInfoViewModel, 
+            BasicInfoViewModel basicInfoViewModel,
             NodesInfoViewModel nodesInfoViewModel,
             IndicesInfoViewModel indicesInfoViewModel,
             DocumentsInfoViewModel documentsInfoViewModel,
             MappingsInfoViewModel mappingsInfoViewModel,
             Infrastructure infrastructure
-           )
+            )
         {
             _infrastructure = infrastructure;
             _infrastructure.EventAggregator.Subscribe(this);
@@ -25,7 +25,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             IndicesInfoViewModel = indicesInfoViewModel;
             DocumentsInfoViewModel = documentsInfoViewModel;
             MappingsInfoViewModel = mappingsInfoViewModel;
-            
+
             base.ActivateItem(BasicInfoViewModel);
             base.DisplayName = "Cluster";
         }
@@ -34,7 +34,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private NodesInfoViewModel NodesInfoViewModel { get; set; }
         private IndicesInfoViewModel IndicesInfoViewModel { get; set; }
         private DocumentsInfoViewModel DocumentsInfoViewModel { get; set; }
-        private MappingsInfoViewModel MappingsInfoViewModel { get; set; }  
+        private MappingsInfoViewModel MappingsInfoViewModel { get; set; }
 
         public void ShowBasicInfo()
         {
@@ -82,9 +82,8 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         protected override void OnActivate()
         {
-
             LoadCounters();
-            
+
             base.OnActivate();
         }
 
@@ -95,7 +94,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             IndicesInfoViewModel.Deactivate(close);
             DocumentsInfoViewModel.Deactivate(close);
             MappingsInfoViewModel.Deactivate(close);
-            
         }
 
         public void Handle(RefreshEvent message)

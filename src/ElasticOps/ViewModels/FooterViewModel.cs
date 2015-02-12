@@ -10,14 +10,14 @@ namespace ElasticOps.ViewModels
     {
         private readonly Infrastructure _infrastructure;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public FooterViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
             infrastructure.EventAggregator.Subscribe(this);
 
             CurrentClusterUri = infrastructure.Connection.ClusterUri.ToString();
-
         }
 
         private string _errorMessage;
@@ -45,7 +45,8 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ErrorOccuredEvent message)
         {
             ErrorMessage = message.ErrorMessage;
@@ -56,11 +57,11 @@ namespace ElasticOps.ViewModels
             });
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(NewConnectionEvent message)
         {
             CurrentClusterUri = message.URL;
         }
-
     }
 }

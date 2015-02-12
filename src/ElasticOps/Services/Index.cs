@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ElasticOps.Services
 {
-    public  class Index
+    public class Index
     {
         public IEnumerable<string> Types { get; set; }
         public IEnumerable<string> Analyzers { get; set; }
@@ -13,7 +13,7 @@ namespace ElasticOps.Services
 
         public Index(IEnumerable<string> types)
         {
-            Types = types.OrderBy(x=>x);
+            Types = types.OrderBy(x => x);
             LastUpdated = DateTime.Now;
         }
     }

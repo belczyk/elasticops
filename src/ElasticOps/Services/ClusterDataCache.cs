@@ -13,7 +13,8 @@ namespace ElasticOps.Services
         private const string _marvel = ".marvel";
         private readonly Infrastructure _infrastructure;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public ClusterDataCache(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
@@ -29,9 +30,17 @@ namespace ElasticOps.Services
         private readonly List<string> _indices = new List<string>();
         private readonly Dictionary<string, Index> _indexData = new Dictionary<string, Index>();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Indices")]
-        public IEnumerable<string> Indices { get { return _indices; } }
-        public IDictionary<string, Index> IndexData { get { return _indexData; } }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms",
+            MessageId = "Indices")]
+        public IEnumerable<string> Indices
+        {
+            get { return _indices; }
+        }
+
+        public IDictionary<string, Index> IndexData
+        {
+            get { return _indexData; }
+        }
 
         public void Handle(RefreshEvent message)
         {
@@ -47,9 +56,11 @@ namespace ElasticOps.Services
         {
             if (!_indices.Contains(index)) return;
 
-            if (_indexData.ContainsKey(index) && DateTime.Now - _indexData[index].LastUpdated < TimeSpan.FromSeconds(5)) return;
+            if (_indexData.ContainsKey(index) && DateTime.Now - _indexData[index].LastUpdated < TimeSpan.FromSeconds(5))
+                return;
 
-            var result = _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Connection, index));
+            var result =
+                _infrastructure.CommandBus.Execute(new ClusterInfo.ListTypesCommand(_infrastructure.Connection, index));
             if (result.Success)
             {
                 _indexData[index] = new Index(result.Result);

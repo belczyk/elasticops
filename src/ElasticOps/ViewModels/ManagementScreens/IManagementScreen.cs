@@ -1,10 +1,8 @@
-﻿
-
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    public interface IManagementScreen: IScreen
+    public interface IManagementScreen : IScreen
     {
     }
 }

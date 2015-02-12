@@ -28,11 +28,13 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public override void RefreshData()
         {
-           var result = commandBus.Execute(new ClusterInfo.HealthCommand(connection));
+            var result = commandBus.Execute(new ClusterInfo.HealthCommand(connection));
 
             if (result.Failed) return;
 
-            ClusterHealthProperties = result.Result.Select(element => new ElasticPropertyViewModel {Label = element.Key, Value = element.Value});
+            ClusterHealthProperties =
+                result.Result.Select(
+                    element => new ElasticPropertyViewModel {Label = element.Key, Value = element.Value});
         }
     }
 }
