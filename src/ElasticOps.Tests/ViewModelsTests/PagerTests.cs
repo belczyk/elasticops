@@ -1,7 +1,7 @@
 ﻿using ElasticOps.ViewModels;
 using Xunit;
 
-namespace ElasticOps.Tests.ViewModels
+namespace ElasticOps.Tests.ViewModelsTests
 {
     public class PagerTests
     {

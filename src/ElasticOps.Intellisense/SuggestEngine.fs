@@ -1,4 +1,5 @@
 ﻿namespace ElasticOps
+
     open ElasticOps.Parsing.Structures
     open ElasticOps.Parsing
     open ElasticOps.Parsing.Processing

@@ -57,11 +57,6 @@
     <Compile Include="SuggestEngine.fs" />
     <Compile Include="Intellisense.fsi" />
     <Compile Include="Intellisense.fs" />
-    <None Include="Script.fsx" />
-    <None Include="..\SolutionItems\IntellisenseRules_search.json">
-      <Link>IntellisenseRules_search.json</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="app.config" />
   </ItemGroup>

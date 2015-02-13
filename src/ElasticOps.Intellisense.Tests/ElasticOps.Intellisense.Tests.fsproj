@@ -61,6 +61,7 @@
     </None>
     <None Include="..\SolutionItems\IntellisenseRules_search.json">
       <Link>IntellisenseRules_search.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
