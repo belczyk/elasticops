@@ -20,7 +20,7 @@ namespace ElasticOps.ViewModels
             _eventAggregator = infrastructure.EventAggregator;
 
             var observable = Observable.Interval(_infrastructure.Config.RefreshInterval.Seconds()).TimeInterval();
-            observable.Subscribe((o) =>
+            observable.Subscribe(o =>
             {
                 if (infrastructure.Connection.IsConnected)
                     _eventAggregator.PublishOnUIThread(new RefreshEvent());

@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
-using ElasticOps.Attributes;
 using ElasticOps.ViewModels.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

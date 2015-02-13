@@ -6,7 +6,6 @@
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:ElasticOps.Behaviors"
-             xmlns:dependencyProperties="clr-namespace:ElasticOps.DependencyProperties"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1200">
     <Grid>

@@ -21,7 +21,7 @@ namespace ElasticOps.ViewModels
                            new Command
                            {
                                CanExecuteDelegate = x => true,
-                               ExecuteDelegate = x => this.DoChangeTheme(x)
+                               ExecuteDelegate = x => DoChangeTheme(x)
                            });
             }
         }

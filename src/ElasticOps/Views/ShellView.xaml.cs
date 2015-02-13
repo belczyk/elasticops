@@ -9,7 +9,7 @@ namespace ElasticOps.Views
         {
             InitializeComponent();
 
-            this.Closed += ShellView_Closed;
+            Closed += ShellView_Closed;
         }
 
         private void ShellView_Closed(object sender, System.EventArgs e)

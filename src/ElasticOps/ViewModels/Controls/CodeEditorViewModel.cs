@@ -11,7 +11,6 @@ namespace ElasticOps.ViewModels.Controls
 {
     public class CodeEditorViewModel : PropertyChangedBase, IHandle<ThemeChangedEvent>
     {
-        private readonly Infrastructure _infrastructure;
         private string _code;
         private Brush _foreground;
         private IHighlightingDefinition _highlightingDefinition;
@@ -21,8 +20,7 @@ namespace ElasticOps.ViewModels.Controls
         {
             Ensure.ArgumentNotNull(infrastructure, "infrastructure");
 
-            _infrastructure = infrastructure;
-            _infrastructure.EventAggregator.Subscribe(this);
+            infrastructure.EventAggregator.Subscribe(this);
             LoadHighlightRules(infrastructure.Config.Appearance.Theme == "BaseDark" ? Theme.Dark : Theme.Light);
         }
 
