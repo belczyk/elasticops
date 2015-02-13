@@ -9,6 +9,12 @@ namespace ElasticOps.ViewModels
     {
         private readonly Infrastructure _infrastructure;
 
+        private IObservableCollection<string> _allIndices;
+        private string _selectedIndex;
+        private string _selectedType;
+        private bool _showMarvelIndices;
+        private IObservableCollection<string> _typesForSelectedIndex;
+
         public TypesListViewModel(Infrastructure infrastructure)
         {
             _infrastructure = infrastructure;
@@ -16,34 +22,6 @@ namespace ElasticOps.ViewModels
             TypesForSelectedIndex = new BindableCollection<string>();
         }
 
-        private IObservableCollection<string> _allIndices;
-        private IObservableCollection<string> _typesForSelectedIndex;
-        private string _selectedIndex;
-        private string _selectedType;
-
-
-        public void RefreshData()
-        {
-            IsRefreshing = true;
-
-            var indices =
-                _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
-            var selectedIndex = SelectedIndex;
-            AllIndices.Clear();
-            indices.Result.OrderBy(x => x)
-                .Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _showMarvelIndices)
-                .ToList()
-                .ForEach(AllIndices.Add);
-            if (AllIndices.Contains(selectedIndex))
-            {
-                SelectedIndex = selectedIndex;
-            }
-            else if (AllIndices.Any())
-            {
-                SelectedIndex = AllIndices.First();
-            }
-            IsRefreshing = false;
-        }
 
         public IObservableCollection<string> AllIndices
         {
@@ -76,6 +54,52 @@ namespace ElasticOps.ViewModels
             }
         }
 
+        public string SelectedType
+        {
+            get { return _selectedType; }
+            set
+            {
+                _selectedType = value;
+                NotifyOfPropertyChange(() => SelectedType);
+            }
+        }
+
+        public bool ShowMarvelIndices
+        {
+            get { return _showMarvelIndices; }
+            set
+            {
+                _showMarvelIndices = value;
+                NotifyOfPropertyChange(() => ShowMarvelIndices);
+                RefreshData();
+            }
+        }
+
+        public bool IsRefreshing { get; set; }
+
+        public void RefreshData()
+        {
+            IsRefreshing = true;
+
+            var indices =
+                _infrastructure.CommandBus.Execute(new ClusterInfo.ListIndicesCommand(_infrastructure.Connection));
+            var selectedIndex = SelectedIndex;
+            AllIndices.Clear();
+            indices.Result.OrderBy(x => x)
+                .Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix) || _showMarvelIndices)
+                .ToList()
+                .ForEach(AllIndices.Add);
+            if (AllIndices.Contains(selectedIndex))
+            {
+                SelectedIndex = selectedIndex;
+            }
+            else if (AllIndices.Any())
+            {
+                SelectedIndex = AllIndices.First();
+            }
+            IsRefreshing = false;
+        }
+
         private void ReloadTypes()
         {
             if (string.IsNullOrEmpty(SelectedIndex)) return;
@@ -98,30 +122,5 @@ namespace ElasticOps.ViewModels
             }
             IsRefreshing = false;
         }
-
-        public string SelectedType
-        {
-            get { return _selectedType; }
-            set
-            {
-                _selectedType = value;
-                NotifyOfPropertyChange(() => SelectedType);
-            }
-        }
-
-        private bool _showMarvelIndices;
-
-        public bool ShowMarvelIndices
-        {
-            get { return _showMarvelIndices; }
-            set
-            {
-                _showMarvelIndices = value;
-                NotifyOfPropertyChange(() => ShowMarvelIndices);
-                RefreshData();
-            }
-        }
-
-        public bool IsRefreshing { get; set; }
     }
 }

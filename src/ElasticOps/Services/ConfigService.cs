@@ -7,7 +7,6 @@ namespace ElasticOps.Services
     {
         private readonly Infrastructure _infrastructure;
 
-
         public ConfigService(Infrastructure infrastructure)
         {
             Ensure.ArgumentNotNull(infrastructure, "infrastructure");
@@ -16,7 +15,6 @@ namespace ElasticOps.Services
             infrastructure.EventAggregator.Subscribe(this);
         }
 
-
         public void Handle(ThemeChangedEvent message)
         {
             Ensure.ArgumentNotNull(message, "message");
@@ -24,7 +22,6 @@ namespace ElasticOps.Services
             _infrastructure.Config.Appearance.Theme = message.Theme;
             SaveConfig();
         }
-
 
         public void Handle(AccentChangedEvent message)
         {

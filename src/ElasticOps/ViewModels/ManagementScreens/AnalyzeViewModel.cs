@@ -12,12 +12,12 @@ namespace ElasticOps.ViewModels.ManagementScreens
     {
         private readonly Infrastructure _infrastructure;
 
-        private string _text;
         private string _analyzerName;
-        private bool _isAnalyzerModeSelected;
-        private bool _isFieldModeSelected;
         private string _fieldName;
         private string _indexName;
+        private bool _isAnalyzerModeSelected;
+        private bool _isFieldModeSelected;
+        private string _text;
 
         public AnalyzeViewModel(Infrastructure infrastructure)
         {

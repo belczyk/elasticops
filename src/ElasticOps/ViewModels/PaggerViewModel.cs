@@ -8,10 +8,10 @@ namespace ElasticOps.ViewModels
 
     public class PaggerViewModel : PropertyChangedBase
     {
-        private long _total;
         private long _page;
-        private long _totalPages;
         private long _pageSize;
+        private long _total;
+        private long _totalPages;
 
         public PaggerViewModel()
         {
@@ -85,6 +85,8 @@ namespace ElasticOps.ViewModels
             }
         }
 
+        public Action OnPageChanged { get; set; }
+
         public void NextPage()
         {
             if (Page < TotalPages)
@@ -110,7 +112,5 @@ namespace ElasticOps.ViewModels
             if (Page > TotalPages)
                 Page = TotalPages;
         }
-
-        public Action OnPageChanged { get; set; }
     }
 }

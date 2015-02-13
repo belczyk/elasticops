@@ -10,6 +10,9 @@ namespace ElasticOps.ViewModels
     {
         private readonly Infrastructure _infrastructure;
 
+        private string _currentClusterUri;
+        private string _errorMessage;
+
         public FooterViewModel(Infrastructure infrastructure)
         {
             Ensure.ArgumentNotNull(infrastructure, "infrastructure");
@@ -19,9 +22,6 @@ namespace ElasticOps.ViewModels
 
             CurrentClusterUri = infrastructure.Connection.ClusterUri.ToString();
         }
-
-        private string _errorMessage;
-        private string _currentClusterUri;
 
         public string ErrorMessage
         {

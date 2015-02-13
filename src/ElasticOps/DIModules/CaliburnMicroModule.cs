@@ -3,8 +3,7 @@ using Caliburn.Micro;
 
 namespace ElasticOps.DIModules
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-        "CA1812:AvoidUninstantiatedInternalClasses")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance","CA1812:AvoidUninstantiatedInternalClasses",Justification = "It's instantiated by DI container.")]
     internal class CaliburnMicroModule : Module
     {
         protected override void Load(ContainerBuilder builder)

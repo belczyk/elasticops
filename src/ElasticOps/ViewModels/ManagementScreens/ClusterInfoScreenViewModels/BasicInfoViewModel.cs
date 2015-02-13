@@ -9,6 +9,12 @@ namespace ElasticOps.ViewModels.ManagementScreens
     {
         private IEnumerable<ElasticPropertyViewModel> _clusterHealthProperties;
 
+        public BasicInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
+        {
+            ClusterHealthProperties = new BindableCollection<ElasticPropertyViewModel>();
+        }
+
         public IEnumerable<ElasticPropertyViewModel> ClusterHealthProperties
         {
             get { return _clusterHealthProperties; }
@@ -18,12 +24,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 _clusterHealthProperties = value;
                 NotifyOfPropertyChange(() => ClusterHealthProperties);
             }
-        }
-
-        public BasicInfoViewModel(Infrastructure infrastructure)
-            : base(infrastructure)
-        {
-            ClusterHealthProperties = new BindableCollection<ElasticPropertyViewModel>();
         }
 
         public override void RefreshData()

@@ -6,6 +6,8 @@ namespace ElasticOps.ViewModels
     {
         private string _DisplayText;
 
+        private object _Value;
+
         public string DisplayText
         {
             get { return _DisplayText; }
@@ -15,8 +17,6 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => DisplayText);
             }
         }
-
-        private object _Value;
 
         public object Value
         {

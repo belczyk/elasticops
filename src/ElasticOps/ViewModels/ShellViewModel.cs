@@ -13,6 +13,8 @@ namespace ElasticOps.ViewModels
     {
         private readonly Infrastructure _infrastructure;
         private readonly StudioViewModel studioViewModel;
+        private FooterViewModel _footer;
+        private bool _isValuePreviewFlayoutOpen;
 
 
         public ShellViewModel(
@@ -69,9 +71,6 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        private FooterViewModel _footer;
-        private bool _isValuePreviewFlayoutOpen;
-
         public FooterViewModel Footer
         {
             get { return _footer; }
@@ -85,20 +84,6 @@ namespace ElasticOps.ViewModels
         public IEnumerable<AccentColorMenuData> AccentColors { get; private set; }
         public IEnumerable<AppThemeMenuData> AppThemes { get; private set; }
 
-        public void Handle(GoToStudioEvent message)
-        {
-            ActivateItem(studioViewModel);
-        }
-
-
-        public void Handle(ThemeChangedEvent message)
-        {
-            Ensure.ArgumentNotNull(message, "message");
-
-            _infrastructure.Config.Appearance.Theme = message.Theme;
-            _infrastructure.Config.Save(Predef.ConfigPath);
-        }
-
         public void Handle(AccentChangedEvent message)
         {
             Ensure.ArgumentNotNull(message, "message");
@@ -107,12 +92,25 @@ namespace ElasticOps.ViewModels
             _infrastructure.Config.Save(Predef.ConfigPath);
         }
 
+        public void Handle(GoToStudioEvent message)
+        {
+            ActivateItem(studioViewModel);
+        }
+
         public void Handle(PreviewValueEvent message)
         {
             Ensure.ArgumentNotNull(message, "message");
 
             ValuePreviewModel.Code = message.Value;
             IsValuePreviewFlayoutOpen = true;
+        }
+
+        public void Handle(ThemeChangedEvent message)
+        {
+            Ensure.ArgumentNotNull(message, "message");
+
+            _infrastructure.Config.Appearance.Theme = message.Theme;
+            _infrastructure.Config.Save(Predef.ConfigPath);
         }
     }
 }

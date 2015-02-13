@@ -22,6 +22,18 @@ namespace ElasticOps.ViewModels.ManagementScreens
             };
         }
 
+        public TypesListViewModel TypesList { get; set; }
+
+        public string Mapping
+        {
+            get { return _mapping; }
+            set
+            {
+                _mapping = value;
+                NotifyOfPropertyChange(() => Mapping);
+            }
+        }
+
         public override void RefreshData()
         {
             TypesList.RefreshData();
@@ -35,18 +47,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 TypesList.SelectedIndex, TypesList.SelectedType));
 
             if (res.Success) Mapping = res.Result;
-        }
-
-        public TypesListViewModel TypesList { get; set; }
-
-        public string Mapping
-        {
-            get { return _mapping; }
-            set
-            {
-                _mapping = value;
-                NotifyOfPropertyChange(() => Mapping);
-            }
         }
 
         public void CopyToCliboard()

@@ -5,78 +5,14 @@ namespace ElasticOps.ViewModels.ManagementScreens
 {
     public class NodeInfoViewModel : PropertyChangedBase
     {
+        private IObservableCollection<ElasticPropertyViewModel> _CPU;
         private string _Name;
-
-        public string Name
-        {
-            get { return _Name; }
-            set
-            {
-                _Name = value;
-                NotifyOfPropertyChange(() => Name);
-            }
-        }
+        private IObservableCollection<ElasticPropertyViewModel> _OS;
+        private IObservableCollection<ElasticPropertyViewModel> _Settings;
 
         private string _hostName;
 
-        public string HostName
-        {
-            get { return _hostName; }
-            set
-            {
-                _hostName = value;
-                NotifyOfPropertyChange(() => HostName);
-            }
-        }
-
         private string _httpAddress;
-
-        public string HttpAddress
-        {
-            get { return _httpAddress; }
-            set
-            {
-                _httpAddress = value;
-                NotifyOfPropertyChange(() => HttpAddress);
-            }
-        }
-
-        private IObservableCollection<ElasticPropertyViewModel> _OS;
-
-        public IObservableCollection<ElasticPropertyViewModel> OS
-        {
-            get { return _OS; }
-            private set
-            {
-                _OS = value;
-                NotifyOfPropertyChange(() => OS);
-            }
-        }
-
-        private IObservableCollection<ElasticPropertyViewModel> _CPU;
-
-        public IObservableCollection<ElasticPropertyViewModel> CPU
-        {
-            get { return _CPU; }
-            private set
-            {
-                _CPU = value;
-                NotifyOfPropertyChange(() => CPU);
-            }
-        }
-
-        private IObservableCollection<ElasticPropertyViewModel> _Settings;
-
-        public IObservableCollection<ElasticPropertyViewModel> Settings
-        {
-            get { return _Settings; }
-            private set
-            {
-                _Settings = value;
-                NotifyOfPropertyChange(() => Settings);
-            }
-        }
-
 
         public NodeInfoViewModel(NodeInfo nodeInfo)
         {
@@ -97,6 +33,66 @@ namespace ElasticOps.ViewModels.ManagementScreens
             if (nodeInfo.CPU != null)
                 foreach (var val in nodeInfo.CPU)
                     CPU.Add(new ElasticPropertyViewModel {Label = val.Key, Value = val.Value});
+        }
+
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                NotifyOfPropertyChange(() => Name);
+            }
+        }
+
+        public string HostName
+        {
+            get { return _hostName; }
+            set
+            {
+                _hostName = value;
+                NotifyOfPropertyChange(() => HostName);
+            }
+        }
+
+        public string HttpAddress
+        {
+            get { return _httpAddress; }
+            set
+            {
+                _httpAddress = value;
+                NotifyOfPropertyChange(() => HttpAddress);
+            }
+        }
+
+        public IObservableCollection<ElasticPropertyViewModel> OS
+        {
+            get { return _OS; }
+            private set
+            {
+                _OS = value;
+                NotifyOfPropertyChange(() => OS);
+            }
+        }
+
+        public IObservableCollection<ElasticPropertyViewModel> CPU
+        {
+            get { return _CPU; }
+            private set
+            {
+                _CPU = value;
+                NotifyOfPropertyChange(() => CPU);
+            }
+        }
+
+        public IObservableCollection<ElasticPropertyViewModel> Settings
+        {
+            get { return _Settings; }
+            private set
+            {
+                _Settings = value;
+                NotifyOfPropertyChange(() => Settings);
+            }
         }
     }
 }

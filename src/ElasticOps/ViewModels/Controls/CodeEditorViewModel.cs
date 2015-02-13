@@ -13,8 +13,8 @@ namespace ElasticOps.ViewModels.Controls
     {
         private readonly Infrastructure _infrastructure;
         private string _code;
-        private IHighlightingDefinition _highlightingDefinition;
         private Brush _foreground;
+        private IHighlightingDefinition _highlightingDefinition;
         private bool _isReadOnly;
 
         public CodeEditorViewModel(Infrastructure infrastructure)
@@ -24,26 +24,6 @@ namespace ElasticOps.ViewModels.Controls
             _infrastructure = infrastructure;
             _infrastructure.EventAggregator.Subscribe(this);
             LoadHighlightRules(infrastructure.Config.Appearance.Theme == "BaseDark" ? Theme.Dark : Theme.Light);
-        }
-
-        private enum Theme
-        {
-            Dark,
-            Light
-        }
-
-        private void LoadHighlightRules(Theme theme)
-        {
-            Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
-
-            var schemaStream =
-                (GetType()).Assembly.GetManifestResourceStream(String.Format(CultureInfo.InvariantCulture,
-                    "ElasticOps.Resources.Query{0}HighlightingRules.xshd", theme));
-
-            using (var reader = new XmlTextReader(schemaStream))
-            {
-                HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
-            }
         }
 
         public string Code
@@ -68,6 +48,17 @@ namespace ElasticOps.ViewModels.Controls
             }
         }
 
+        public bool IsReadOnly
+        {
+            get { return _isReadOnly; }
+            set
+            {
+                if (value.Equals(_isReadOnly)) return;
+                _isReadOnly = value;
+                NotifyOfPropertyChange(() => IsReadOnly);
+            }
+        }
+
         public IHighlightingDefinition HighlightingDefinition
         {
             get { return _highlightingDefinition; }
@@ -86,15 +77,24 @@ namespace ElasticOps.ViewModels.Controls
             LoadHighlightRules(message.IsDark ? Theme.Dark : Theme.Light);
         }
 
-        public bool IsReadOnly
+        private void LoadHighlightRules(Theme theme)
         {
-            get { return _isReadOnly; }
-            set
+            Foreground = theme == Theme.Dark ? Brushes.AntiqueWhite : Brushes.Navy;
+
+            var schemaStream =
+                (GetType()).Assembly.GetManifestResourceStream(String.Format(CultureInfo.InvariantCulture,
+                    "ElasticOps.Resources.Query{0}HighlightingRules.xshd", theme));
+
+            using (var reader = new XmlTextReader(schemaStream))
             {
-                if (value.Equals(_isReadOnly)) return;
-                _isReadOnly = value;
-                NotifyOfPropertyChange(() => IsReadOnly);
+                HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
             }
+        }
+
+        private enum Theme
+        {
+            Dark,
+            Light
         }
     }
 }

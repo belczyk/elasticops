@@ -16,8 +16,11 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
     public class RESTScreenViewModel : Screen, IManagementScreen
     {
-        private readonly Infrastructure _infrastructure;
         private readonly IEventAggregator _eventAggregator;
+        private readonly Infrastructure _infrastructure;
+        private string _Endpoint;
+        private bool _IsExecuting;
+        private string _Method;
 
         public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel requestBodyViewModel,
             CodeEditorViewModel resultViewModel)
@@ -51,8 +54,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
         public CodeEditorViewModel ResultEditor { get; set; }
         public CodeEditorViewModel RequestBodyEditor { get; set; }
 
-        private string _Method;
-
         public string Method
         {
             get { return _Method; }
@@ -63,8 +64,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        private string _Endpoint;
-
         public string Endpoint
         {
             get { return _Endpoint; }
@@ -74,8 +73,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 NotifyOfPropertyChange(() => Endpoint);
             }
         }
-
-        private bool _IsExecuting;
 
         public bool IsExecuting
         {

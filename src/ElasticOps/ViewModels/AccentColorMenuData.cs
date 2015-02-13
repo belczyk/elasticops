@@ -7,11 +7,10 @@ namespace ElasticOps.ViewModels
 {
     public class AccentColorMenuData
     {
+        private ICommand _changeAccentCommand;
         public string Name { get; set; }
         public Brush BorderColorBrush { get; set; }
         public Brush ColorBrush { get; set; }
-
-        private ICommand _changeAccentCommand;
 
         public ICommand ChangeAccentCommand
         {
@@ -19,7 +18,7 @@ namespace ElasticOps.ViewModels
             {
                 return this._changeAccentCommand ??
                        (_changeAccentCommand =
-                           new SimpleCommand
+                           new Command
                            {
                                CanExecuteDelegate = x => true,
                                ExecuteDelegate = x => this.DoChangeTheme(x)

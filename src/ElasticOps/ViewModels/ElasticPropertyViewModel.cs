@@ -7,6 +7,8 @@ namespace ElasticOps.ViewModels
     {
         private string _Label;
 
+        private string _Value;
+
         public string Label
         {
             get { return _Label; }
@@ -16,8 +18,6 @@ namespace ElasticOps.ViewModels
                 NotifyOfPropertyChange(() => Label);
             }
         }
-
-        private string _Value;
 
         public string Value
         {

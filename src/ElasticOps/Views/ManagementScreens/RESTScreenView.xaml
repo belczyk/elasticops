@@ -32,7 +32,7 @@
                 <Label Height="30">Method:</Label>
                 <ComboBox Margin="15,0,0,0"
                           ItemsSource="{Binding  Methods}"
-                          DisplayMemberPath="DisplayText"
+                          DisplayMemberPath="DisplayLabel"
                           SelectedValuePath="Value"
                           SelectedValue="{Binding Method}"
                           Height="30" Width="80" />

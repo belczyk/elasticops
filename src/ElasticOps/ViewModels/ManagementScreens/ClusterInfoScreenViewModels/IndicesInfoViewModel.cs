@@ -10,9 +10,17 @@ namespace ElasticOps.ViewModels.ManagementScreens
 {
     internal class IndicesInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
-        private readonly Infrastructure _infrastructure;
         private readonly List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
+        private readonly Infrastructure _infrastructure;
         private IEnumerable<IndexInfoViewModel> _indicesInfo;
+        private bool _showMarvelIndices;
+
+        public IndicesInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
+        {
+            _infrastructure = infrastructure;
+            IndicesInfo = new BindableCollection<IndexInfoViewModel>();
+        }
 
         public IEnumerable<IndexInfoViewModel> IndicesInfo
         {
@@ -25,11 +33,15 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        public IndicesInfoViewModel(Infrastructure infrastructure)
-            : base(infrastructure)
+        public bool ShowMarvelIndices
         {
-            _infrastructure = infrastructure;
-            IndicesInfo = new BindableCollection<IndexInfoViewModel>();
+            get { return _showMarvelIndices; }
+            set
+            {
+                _showMarvelIndices = value;
+                NotifyOfPropertyChange(() => ShowMarvelIndices);
+                FilterIndices();
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -56,19 +68,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
         {
             IndicesInfo =
                 AllIndicesInfo.Where(x => ShowMarvelIndices || !x.Name.StartsWithIgnoreCase(Predef.MarvelIndexPrefix));
-        }
-
-        private bool _showMarvelIndices;
-
-        public bool ShowMarvelIndices
-        {
-            get { return _showMarvelIndices; }
-            set
-            {
-                _showMarvelIndices = value;
-                NotifyOfPropertyChange(() => ShowMarvelIndices);
-                FilterIndices();
-            }
         }
     }
 }

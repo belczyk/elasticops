@@ -9,6 +9,12 @@ namespace ElasticOps.ViewModels.ManagementScreens
     {
         private IEnumerable<NodeInfoViewModel> _nodesInfo;
 
+        public NodesInfoViewModel(Infrastructure infrastructure)
+            : base(infrastructure)
+        {
+            NodesInfo = new BindableCollection<NodeInfoViewModel>();
+        }
+
         public IEnumerable<NodeInfoViewModel> NodesInfo
         {
             get { return _nodesInfo; }
@@ -18,12 +24,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 _nodesInfo = value;
                 NotifyOfPropertyChange(() => NodesInfo);
             }
-        }
-
-        public NodesInfoViewModel(Infrastructure infrastructure)
-            : base(infrastructure)
-        {
-            NodesInfo = new BindableCollection<NodeInfoViewModel>();
         }
 
         public override void RefreshData()

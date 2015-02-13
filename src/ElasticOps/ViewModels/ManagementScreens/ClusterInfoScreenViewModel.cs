@@ -8,6 +8,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
     internal class ClusterInfoScreenViewModel : Conductor<object>, IManagementScreen, IHandle<RefreshEvent>
     {
         private readonly Infrastructure _infrastructure;
+        private ClusterCounters _clusterCounters;
 
         public ClusterInfoScreenViewModel(
             BasicInfoViewModel basicInfoViewModel,
@@ -36,6 +37,21 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private DocumentsInfoViewModel DocumentsInfoViewModel { get; set; }
         private MappingsInfoViewModel MappingsInfoViewModel { get; set; }
 
+        public ClusterCounters ClusterCounters
+        {
+            get { return _clusterCounters; }
+            set
+            {
+                _clusterCounters = value;
+                NotifyOfPropertyChange(() => ClusterCounters);
+            }
+        }
+
+        public void Handle(RefreshEvent message)
+        {
+            LoadCounters();
+        }
+
         public void ShowBasicInfo()
         {
             ActivateItem(BasicInfoViewModel);
@@ -61,18 +77,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             ActivateItem(MappingsInfoViewModel);
         }
 
-        private ClusterCounters _clusterCounters;
-
-        public ClusterCounters ClusterCounters
-        {
-            get { return _clusterCounters; }
-            set
-            {
-                _clusterCounters = value;
-                NotifyOfPropertyChange(() => ClusterCounters);
-            }
-        }
-
         protected override void OnDeactivate(bool close)
         {
             DeactivateChildren(close);
@@ -94,11 +98,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             IndicesInfoViewModel.Deactivate(close);
             DocumentsInfoViewModel.Deactivate(close);
             MappingsInfoViewModel.Deactivate(close);
-        }
-
-        public void Handle(RefreshEvent message)
-        {
-            LoadCounters();
         }
 
         private void LoadCounters()

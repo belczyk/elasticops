@@ -3,25 +3,25 @@ using System.Linq;
 using ElasticOps.Extensions;
 using ElasticOps.Services;
 
-namespace ElasticOps.Behaviors.Suggesters
+namespace ElasticOps.Behaviors.AutoComplete
 {
-    public class IndexSuggestCollection : ObservableCollection<SuggestItem>
+    public class IndexAutoCompleteCollection : ObservableCollection<AutoCompleteItem>
     {
         private readonly ClusterDataCache _clusterData;
 
-        public IndexSuggestCollection(ClusterDataCache clusterData)
+        public IndexAutoCompleteCollection(ClusterDataCache clusterData)
         {
             _clusterData = clusterData;
         }
 
         public void UpdateSuggestions(string text)
         {
-            if (this.Any(x => x.Text == text)) return;
+            if (this.Any(x => x.Label == text)) return;
 
             if (string.IsNullOrEmpty(text))
             {
                 Clear();
-                _clusterData.Indices.Select(x => new SuggestItem(x, SuggestionMode.Index)).ForEach(Add);
+                _clusterData.Indices.Select(x => new AutoCompleteItem(x, AutoCompleteMode.Index)).ForEach(Add);
                 return;
             }
 
@@ -32,7 +32,7 @@ namespace ElasticOps.Behaviors.Suggesters
 
             Clear();
             _clusterData.Indices.Where(x => x.StartsWithIgnoreCase(text))
-                .Select(x => new SuggestItem(x, SuggestionMode.Index))
+                .Select(x => new AutoCompleteItem(x, AutoCompleteMode.Index))
                 .ForEach(Add);
         }
     }

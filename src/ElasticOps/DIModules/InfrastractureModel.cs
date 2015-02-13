@@ -1,13 +1,12 @@
 ﻿using Autofac;
-using ElasticOps.Behaviors.Suggesters;
+using ElasticOps.Behaviors.AutoComplete;
 using ElasticOps.Com;
 using ElasticOps.Configuration;
 using ElasticOps.Services;
 
 namespace ElasticOps.DIModules
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-        "CA1812:AvoidUninstantiatedInternalClasses")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance","CA1812:AvoidUninstantiatedInternalClasses", Justification = "It's instantiated by DI container.")]
     internal class InfrastractureModel : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -16,8 +15,8 @@ namespace ElasticOps.DIModules
             builder.RegisterType<ThemeService>().AsSelf().SingleInstance();
             builder.RegisterType<ConfigService>().AsSelf().SingleInstance();
             builder.RegisterType<ClusterDataCache>().AsSelf().SingleInstance();
-            builder.RegisterType<UrlSuggestCollection>().AsSelf().SingleInstance();
-            builder.RegisterType<IndexSuggestCollection>().AsSelf().SingleInstance();
+            builder.RegisterType<UrlAutoCompleteCollection>().AsSelf().SingleInstance();
+            builder.RegisterType<IndexAutoCompleteCollection>().AsSelf().SingleInstance();
 
             builder.Register((c) =>
             {

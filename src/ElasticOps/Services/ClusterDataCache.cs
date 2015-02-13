@@ -11,6 +11,8 @@ namespace ElasticOps.Services
     public class ClusterDataCache : IHandle<NewConnectionEvent>, IHandle<RefreshEvent>
     {
         private readonly Infrastructure _infrastructure;
+        private readonly List<string> _indices = new List<string>();
+        private readonly Dictionary<string, Index> _indexData = new Dictionary<string, Index>();
 
         public ClusterDataCache(Infrastructure infrastructure)
         {
@@ -25,9 +27,6 @@ namespace ElasticOps.Services
             if (_infrastructure.Connection.IsConnected)
                 RefreshData();
         }
-
-        private readonly List<string> _indices = new List<string>();
-        private readonly Dictionary<string, Index> _indexData = new Dictionary<string, Index>();
 
         public IEnumerable<string> Indices
         {

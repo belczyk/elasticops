@@ -16,9 +16,12 @@ namespace ElasticOps.ViewModels
     [Priority(30)]
     public class QueryViewModel : Screen, IManagementScreen
     {
+        private readonly Infrastructure _infrastructure;
+        private string _Method;
+        private ObservableCollection<ComboBoxItemViewModel> _Methods;
+        private bool _isExecuting;
         private CodeEditorViewModel _queryEditor;
         private CodeEditorViewModel _resultEditor;
-        private readonly Infrastructure _infrastructure;
         private string _url;
 
 
@@ -81,8 +84,6 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        private ObservableCollection<ComboBoxItemViewModel> _Methods;
-
         public ObservableCollection<ComboBoxItemViewModel> Methods
         {
             get { return _Methods; }
@@ -94,9 +95,6 @@ namespace ElasticOps.ViewModels
         }
 
 
-        private string _Method;
-        private bool _isExecuting;
-
         public string Method
         {
             get { return _Method; }
@@ -104,6 +102,17 @@ namespace ElasticOps.ViewModels
             {
                 _Method = value;
                 NotifyOfPropertyChange(() => Method);
+            }
+        }
+
+        public bool IsExecuting
+        {
+            get { return _isExecuting; }
+            set
+            {
+                if (value.Equals(_isExecuting)) return;
+                _isExecuting = value;
+                NotifyOfPropertyChange(() => IsExecuting);
             }
         }
 
@@ -168,17 +177,6 @@ namespace ElasticOps.ViewModels
         public void FormatCode()
         {
             QueryEditor.Code = TryFormatJson(QueryEditor.Code);
-        }
-
-        public bool IsExecuting
-        {
-            get { return _isExecuting; }
-            set
-            {
-                if (value.Equals(_isExecuting)) return;
-                _isExecuting = value;
-                NotifyOfPropertyChange(() => IsExecuting);
-            }
         }
 
         public void KeyPress(KeyEventArgs args)

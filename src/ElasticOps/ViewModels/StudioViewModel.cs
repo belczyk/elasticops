@@ -8,6 +8,8 @@ namespace ElasticOps.ViewModels
 {
     public class StudioViewModel : Conductor<IManagementScreen>.Collection.OneActive
     {
+        private ClusterConnectionViewModel _clusterConnectionViewModel;
+
         public StudioViewModel(IEnumerable<IManagementScreen> managementScreens,
             ClusterConnectionViewModel clusterConnectionViewModel)
         {
@@ -17,8 +19,6 @@ namespace ElasticOps.ViewModels
 
             ManagementScreens.ToList().ForEach(x => x.ConductWith(this));
         }
-
-        private ClusterConnectionViewModel _clusterConnectionViewModel;
 
         public ClusterConnectionViewModel ClusterConnectionViewModel
         {

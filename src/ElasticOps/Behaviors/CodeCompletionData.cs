@@ -25,17 +25,6 @@ namespace ElasticOps.Behaviors
             Content = suggestion.Text;
         }
 
-        public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
-        {
-            Ensure.ArgumentNotNull(textArea, "textArea");
-
-            var result = Intellisense.Complete(Context, Suggestion);
-
-            textArea.Document.Text = result.NewText;
-            textArea.Caret.Position = new TextViewPosition(result.NewCaretPosition.Item1, result.NewCaretPosition.Item2);
-            textArea.Caret.BringCaretToView();
-        }
-
         public object Content { get; set; }
 
         public object Description { get; set; }
@@ -49,6 +38,17 @@ namespace ElasticOps.Behaviors
         public Context Context { get; set; }
 
         public Suggestion Suggestion { get; set; }
+
+        public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
+        {
+            Ensure.ArgumentNotNull(textArea, "textArea");
+
+            var result = Intellisense.Complete(Context, Suggestion);
+
+            textArea.Document.Text = result.NewText;
+            textArea.Caret.Position = new TextViewPosition(result.NewCaretPosition.Item1, result.NewCaretPosition.Item2);
+            textArea.Caret.BringCaretToView();
+        }
 
         public override string ToString()
         {

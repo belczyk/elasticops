@@ -84,7 +84,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding Path=Text}" Grid.Column="0" />
+            <TextBlock Text="{Binding Path=Label}" Grid.Column="0" />
             <TextBlock Text="{Binding Path=Mode}" FontStyle="Italic" Grid.Column="1" />
         </Grid>
     </DataTemplate>

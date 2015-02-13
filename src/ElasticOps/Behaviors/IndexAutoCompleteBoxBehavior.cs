@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
-using ElasticOps.Behaviors.Suggesters;
+using ElasticOps.Behaviors.AutoComplete;
 
 namespace ElasticOps.Behaviors
 {
     public class IndexAutoCompleteBoxBehavior : Behavior<AutoCompleteBox>
     {
-        private IndexSuggestCollection _indexSuggestCollection;
+        private IndexAutoCompleteCollection _indexAutocompleteCollection;
 
         protected override void OnAttached()
         {
@@ -16,9 +16,9 @@ namespace ElasticOps.Behaviors
             AssociatedObject.IsTextCompletionEnabled = true;
             AssociatedObject.MinimumPrefixLength = 0;
 
-            _indexSuggestCollection = AppBootstrapper.GetInstance<IndexSuggestCollection>();
+            _indexAutocompleteCollection = AppBootstrapper.GetInstance<IndexAutoCompleteCollection>();
 
-            AssociatedObject.ItemsSource = _indexSuggestCollection;
+            AssociatedObject.ItemsSource = _indexAutocompleteCollection;
             AssociatedObject.TextChanged += AssociatedObject_TextChanged;
         }
 
@@ -30,7 +30,7 @@ namespace ElasticOps.Behaviors
 
         private void AssociatedObject_TextChanged(object sender, RoutedEventArgs e)
         {
-            _indexSuggestCollection.UpdateSuggestions(AssociatedObject.Text);
+            _indexAutocompleteCollection.UpdateSuggestions(AssociatedObject.Text);
         }
     }
 }

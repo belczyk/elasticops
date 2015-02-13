@@ -9,8 +9,10 @@ namespace ElasticOps.ViewModels
 {
     public class ClusterConnectionViewModel : PropertyChangedBase
     {
-        private readonly Infrastructure _infrastructure;
         private readonly IEventAggregator _eventAggregator;
+        private readonly Infrastructure _infrastructure;
+
+        private string clusterUri;
 
         public ClusterConnectionViewModel(Infrastructure infrastructure)
         {
@@ -25,8 +27,6 @@ namespace ElasticOps.ViewModels
             });
             ClusterUri = infrastructure.Config.DefaultClusterUrl.ToString();
         }
-
-        private string clusterUri;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public string ClusterUri

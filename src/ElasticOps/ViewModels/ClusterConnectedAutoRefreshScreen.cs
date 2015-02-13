@@ -7,6 +7,8 @@ namespace ElasticOps.ViewModels
 {
     internal abstract class ClusterConnectedAutoRefreshScreen : Screen, IHandle<RefreshEvent>
     {
+        private bool _isRefreshing;
+
         protected ClusterConnectedAutoRefreshScreen(Infrastructure infrastructure)
         {
             Ensure.ArgumentNotNull(infrastructure, "infrastructure");
@@ -19,7 +21,6 @@ namespace ElasticOps.ViewModels
         protected IEventAggregator EventAggregator { get; set; }
         protected CommandBus CommandBus { get; set; }
         protected Connection Connection { get; set; }
-        private bool _isRefreshing;
 
         public bool IsRefreshing
         {
@@ -29,6 +30,12 @@ namespace ElasticOps.ViewModels
                 _isRefreshing = value;
                 NotifyOfPropertyChange(() => IsRefreshing);
             }
+        }
+
+        public void Handle(RefreshEvent message)
+        {
+            if (!IsRefreshing)
+                StartRefreshingData();
         }
 
         protected override void OnDeactivate(bool close)
@@ -47,12 +54,6 @@ namespace ElasticOps.ViewModels
             EventAggregator.Subscribe(this);
             StartRefreshingData();
             base.OnActivate();
-        }
-
-        public void Handle(RefreshEvent message)
-        {
-            if (!IsRefreshing)
-                StartRefreshingData();
         }
 
         private void StartRefreshingData()

@@ -15,12 +15,10 @@ namespace ElasticOps
             EventAggregator = eventAggregator;
             WindowManager = windowManager;
             Config = config;
-
             Connection = new Connection();
         }
 
         public Connection Connection { get; set; }
-
         public CommandBus CommandBus { get; set; }
         public IEventAggregator EventAggregator { get; set; }
         public IWindowManager WindowManager { get; set; }

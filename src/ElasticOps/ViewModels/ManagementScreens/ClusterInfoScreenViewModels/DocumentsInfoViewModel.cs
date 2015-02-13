@@ -9,10 +9,22 @@ namespace ElasticOps.ViewModels.ManagementScreens
 {
     internal class DocumentsInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
+        private IEnumerable<ElasticPropertyViewModel> _documents;
+
         public DocumentsInfoViewModel(Infrastructure infrastructure)
             : base(infrastructure)
         {
             Documents = new BindableCollection<ElasticPropertyViewModel>();
+        }
+
+        public IEnumerable<ElasticPropertyViewModel> Documents
+        {
+            get { return _documents; }
+            set
+            {
+                _documents = value;
+                NotifyOfPropertyChange(() => Documents);
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -35,18 +47,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
             catch (Exception ex)
             {
                 Log.Logger.Warning(ex, "Exception while refreshing data.");
-            }
-        }
-
-        private IEnumerable<ElasticPropertyViewModel> _documents;
-
-        public IEnumerable<ElasticPropertyViewModel> Documents
-        {
-            get { return _documents; }
-            set
-            {
-                _documents = value;
-                NotifyOfPropertyChange(() => Documents);
             }
         }
     }

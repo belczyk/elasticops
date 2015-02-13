@@ -162,7 +162,7 @@
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\OnlyDigitsInTextBoxBehavior.cs" />
-    <Compile Include="Behaviors\Suggesters\IndexSuggestCollection.cs" />
+    <Compile Include="Behaviors\Autocomplete\IndexAutoCompleteCollection.cs" />
     <Compile Include="DependencyProperties\AutoCompleteBoxProperties.cs" />
     <Compile Include="DIModules\CaliburnMicroModule.cs" />
     <Compile Include="DIModules\InfrastractureModel.cs" />
@@ -175,9 +175,9 @@
     <Compile Include="Behaviors\AvalonEditBehavior.cs" />
     <Compile Include="Behaviors\CodeCompletionData.cs" />
     <Compile Include="Behaviors\IntellisenseBehavior.cs" />
-    <Compile Include="Behaviors\Suggesters\UrlSuggestCollection.cs" />
-    <Compile Include="Behaviors\Suggesters\SuggestionMode.cs" />
-    <Compile Include="Behaviors\Suggesters\SuggestItem.cs" />
+    <Compile Include="Behaviors\Autocomplete\UrlAutocompleteCollection.cs" />
+    <Compile Include="Behaviors\Autocomplete\AutoCompleteMode.cs" />
+    <Compile Include="Behaviors\Autocomplete\AutoCompleteItem.cs" />
     <Compile Include="CodeEditor\BraceFoldingStrategy.cs" />
     <Compile Include="ViewModels\ClusterConnectedAutoRefreshScreen.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -188,7 +188,7 @@
     <Compile Include="ViewModels\ManagementScreens\AnalyzeViewModel.cs" />
     <Compile Include="ViewModels\AppThemeMenuData.cs" />
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
-    <Compile Include="Infrastructure\SimpleCommand.cs" />
+    <Compile Include="Infrastructure\Command.cs" />
     <Compile Include="ViewModels\ManagementScreens\ConsoleViewModel.cs" />
     <Compile Include="ViewModels\ManagementScreens\DataViewerViewModel.cs" />
     <Compile Include="ViewModels\PaggerViewModel.cs" />

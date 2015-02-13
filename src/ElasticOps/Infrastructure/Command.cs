@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace ElasticOps
 {
-    public class SimpleCommand : ICommand
+    public class Command : ICommand
     {
         public Predicate<object> CanExecuteDelegate { get; set; }
         public Action<object> ExecuteDelegate { get; set; }

@@ -10,8 +10,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
     internal class DataViewerViewModel : ClusterConnectedAutoRefreshScreen, IManagementScreen
     {
         private readonly Infrastructure _infrastructure;
-
-        public PaggerViewModel PaggerModel { get; set; }
+        private IEnumerable<dynamic> _documents;
 
         public DataViewerViewModel(Infrastructure infrastructure, TypesListViewModel typesListViewModel,
             PaggerViewModel paggerModel)
@@ -24,10 +23,10 @@ namespace ElasticOps.ViewModels.ManagementScreens
             paggerModel.OnPageChanged = View;
         }
 
+        public PaggerViewModel PaggerModel { get; set; }
+
 
         public TypesListViewModel TypesList { get; set; }
-
-        private IEnumerable<dynamic> _documents;
 
         public IEnumerable<dynamic> Documents
         {
