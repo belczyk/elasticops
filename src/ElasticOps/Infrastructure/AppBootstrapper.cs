@@ -52,7 +52,7 @@ namespace ElasticOps
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile("logs/log-{Date}.log")
-                .WriteTo.Observers(o => o.Subscribe(Observer.Create<LogEvent>((le) =>
+                .WriteTo.Observers(o => o.Subscribe(Observer.Create<LogEvent>(le =>
                 {
                     eventsAggr.PublishOnUIThread(new LogEntryCreatedEvent(le));
                     if (le.Level == LogEventLevel.Error || le.Level == LogEventLevel.Fatal)

@@ -48,10 +48,8 @@ namespace ElasticOps.Tests.ViewModels
         [Fact]
         public void Calculates_number_of_total_pages_correctly()
         {
-            var pagger = new PaggerViewModel();
-            pagger.PageSize = 100;
+            var pagger = new PaggerViewModel {PageSize = 100, Total = 200};
 
-            pagger.Total = 200;
             Assert.Equal(2, pagger.TotalPages);
 
             pagger.Total = 201;

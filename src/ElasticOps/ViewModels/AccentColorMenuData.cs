@@ -16,7 +16,7 @@ namespace ElasticOps.ViewModels
         {
             get
             {
-                return this._changeAccentCommand ??
+                return _changeAccentCommand ??
                        (_changeAccentCommand =
                            new Command
                            {
@@ -28,7 +28,7 @@ namespace ElasticOps.ViewModels
 
         public virtual void DoChangeTheme(object sender)
         {
-            AppBootstrapper.GetInstance<IEventAggregator>().PublishOnUIThread(new AccentChangedEvent(this.Name));
+            AppBootstrapper.GetInstance<IEventAggregator>().PublishOnUIThread(new AccentChangedEvent(Name));
         }
     }
 }

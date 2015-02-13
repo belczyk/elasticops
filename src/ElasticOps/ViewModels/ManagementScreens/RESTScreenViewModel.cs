@@ -17,9 +17,9 @@ namespace ElasticOps.ViewModels.ManagementScreens
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly Infrastructure _infrastructure;
-        private string _Endpoint;
-        private bool _IsExecuting;
-        private string _Method;
+        private string _endpoint;
+        private bool _isExecuting;
+        private string _method;
 
         public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel requestBodyViewModel,
             CodeEditorViewModel resultViewModel)
@@ -55,30 +55,30 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public string Method
         {
-            get { return _Method; }
+            get { return _method; }
             set
             {
-                _Method = value;
+                _method = value;
                 NotifyOfPropertyChange(() => Method);
             }
         }
 
         public string Endpoint
         {
-            get { return _Endpoint; }
+            get { return _endpoint; }
             set
             {
-                _Endpoint = value;
+                _endpoint = value;
                 NotifyOfPropertyChange(() => Endpoint);
             }
         }
 
         public bool IsExecuting
         {
-            get { return _IsExecuting; }
+            get { return _isExecuting; }
             set
             {
-                _IsExecuting = value;
+                _isExecuting = value;
                 NotifyOfPropertyChange(() => IsExecuting);
             }
         }
@@ -88,7 +88,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
             IsExecuting = true;
 
             Task.Factory.StartNew(ExecuteCall)
-                .ContinueWith((t) => IsExecuting = false);
+                .ContinueWith(t => IsExecuting = false);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -108,6 +108,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
                     dataStream.Close();
                 }
                 WebResponse response = request.GetResponse();
+
                 var reader = new StreamReader(response.GetResponseStream());
 
                 ResultEditor.Code = TryFormatIfJson(reader.ReadToEnd());

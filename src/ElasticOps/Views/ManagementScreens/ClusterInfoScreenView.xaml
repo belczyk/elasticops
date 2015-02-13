@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:cal="http://www.caliburnproject.org"
-             xmlns:elasticOps="clr-namespace:ElasticOps"
              xmlns:conv="clr-namespace:ElasticOps.Converters"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1024">

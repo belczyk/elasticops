@@ -5,26 +5,26 @@ namespace ElasticOps.ViewModels
 {
     public class ElasticPropertyViewModel : PropertyChangedBase
     {
-        private string _Label;
+        private string _label;
 
-        private string _Value;
+        private string _value;
 
         public string Label
         {
-            get { return _Label; }
+            get { return _label; }
             set
             {
-                _Label = value;
+                _label = value;
                 NotifyOfPropertyChange(() => Label);
             }
         }
 
         public string Value
         {
-            get { return _Value; }
+            get { return _value; }
             set
             {
-                _Value = value;
+                _value = value;
                 NotifyOfPropertyChange(() => Value);
             }
         }

@@ -5,10 +5,10 @@ namespace ElasticOps.ViewModels.ManagementScreens
 {
     public class NodeInfoViewModel : PropertyChangedBase
     {
-        private IObservableCollection<ElasticPropertyViewModel> _CPU;
-        private string _Name;
-        private IObservableCollection<ElasticPropertyViewModel> _OS;
-        private IObservableCollection<ElasticPropertyViewModel> _Settings;
+        private IObservableCollection<ElasticPropertyViewModel> _cpu;
+        private string _name;
+        private IObservableCollection<ElasticPropertyViewModel> _os;
+        private IObservableCollection<ElasticPropertyViewModel> _settings;
 
         private string _hostName;
 
@@ -37,10 +37,10 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public string Name
         {
-            get { return _Name; }
+            get { return _name; }
             set
             {
-                _Name = value;
+                _name = value;
                 NotifyOfPropertyChange(() => Name);
             }
         }
@@ -67,30 +67,30 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         public IObservableCollection<ElasticPropertyViewModel> OS
         {
-            get { return _OS; }
+            get { return _os; }
             private set
             {
-                _OS = value;
+                _os = value;
                 NotifyOfPropertyChange(() => OS);
             }
         }
 
         public IObservableCollection<ElasticPropertyViewModel> CPU
         {
-            get { return _CPU; }
+            get { return _cpu; }
             private set
             {
-                _CPU = value;
+                _cpu = value;
                 NotifyOfPropertyChange(() => CPU);
             }
         }
 
         public IObservableCollection<ElasticPropertyViewModel> Settings
         {
-            get { return _Settings; }
+            get { return _settings; }
             private set
             {
-                _Settings = value;
+                _settings = value;
                 NotifyOfPropertyChange(() => Settings);
             }
         }

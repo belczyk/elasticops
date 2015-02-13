@@ -121,7 +121,7 @@ namespace ElasticOps.ViewModels
         {
             IsExecuting = true;
             Task.Factory.StartNew(ExecuteCall)
-                .ContinueWith((t) => IsExecuting = false);
+                .ContinueWith(t => IsExecuting = false);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]

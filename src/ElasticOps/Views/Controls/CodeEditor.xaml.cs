@@ -24,7 +24,7 @@ namespace ElasticOps.Views.Controls
             var foldingManager = FoldingManager.Install(TextEditor.TextArea);
             foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document);
             TextEditor.TextChanged +=
-                (sender, args) => { foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document); };
+                (sender, args) => foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document);
         }
     }
 }

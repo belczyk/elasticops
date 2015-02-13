@@ -49,7 +49,7 @@ namespace ElasticOps.Behaviors
             var behavior = dependencyObject as AvalonEditBehavior;
             if (behavior.AssociatedObject != null)
             {
-                var editor = behavior.AssociatedObject as TextEditor;
+                var editor = behavior.AssociatedObject;
                 if (editor.Document != null)
                 {
                     var caretOffset = editor.CaretOffset;

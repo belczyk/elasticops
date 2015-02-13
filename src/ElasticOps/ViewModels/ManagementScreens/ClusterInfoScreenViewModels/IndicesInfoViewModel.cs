@@ -10,7 +10,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
 {
     internal class IndicesInfoViewModel : ClusterConnectedAutoRefreshScreen
     {
-        private readonly List<IndexInfoViewModel> AllIndicesInfo = new List<IndexInfoViewModel>();
+        private readonly List<IndexInfoViewModel> _allIndicesInfo = new List<IndexInfoViewModel>();
         private readonly Infrastructure _infrastructure;
         private IEnumerable<IndexInfoViewModel> _indicesInfo;
         private bool _showMarvelIndices;
@@ -52,9 +52,9 @@ namespace ElasticOps.ViewModels.ManagementScreens
                 var result = CommandBus.Execute(new ClusterInfo.IndicesInfoCommand(Connection));
                 if (result.Failed) return;
 
-                AllIndicesInfo.Clear();
+                _allIndicesInfo.Clear();
                 foreach (var indexInfo in result.Result)
-                    AllIndicesInfo.Add(new IndexInfoViewModel(indexInfo, _infrastructure, RefreshData));
+                    _allIndicesInfo.Add(new IndexInfoViewModel(indexInfo, _infrastructure, RefreshData));
 
                 FilterIndices();
             }
@@ -67,7 +67,7 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private void FilterIndices()
         {
             IndicesInfo =
-                AllIndicesInfo.Where(x => ShowMarvelIndices || !x.Name.StartsWithIgnoreCase(Predef.MarvelIndexPrefix));
+                _allIndicesInfo.Where(x => ShowMarvelIndices || !x.Name.StartsWithIgnoreCase(Predef.MarvelIndexPrefix));
         }
     }
 }

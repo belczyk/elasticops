@@ -18,13 +18,13 @@ namespace ElasticOps.DIModules
             builder.RegisterType<UrlAutoCompleteCollection>().AsSelf().SingleInstance();
             builder.RegisterType<IndexAutoCompleteCollection>().AsSelf().SingleInstance();
 
-            builder.Register((c) =>
+            builder.Register(c =>
             {
                 var config = ConfigLoaders.LoadElasticOpsConfig();
                 return config;
             }).As<ElasticOpsConfig>().SingleInstance();
 
-            builder.Register((c) =>
+            builder.Register(c =>
             {
                 var config = ConfigLoaders.LoadIntellisenseConfig();
                 return config;

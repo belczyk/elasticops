@@ -41,13 +41,13 @@ namespace ElasticOps.ViewModels
             AccentColors = ThemeManager.Accents
                 .Select(
                     a =>
-                        new AccentColorMenuData() {Name = a.Name, ColorBrush = a.Resources["AccentColorBrush"] as Brush})
+                        new AccentColorMenuData {Name = a.Name, ColorBrush = a.Resources["AccentColorBrush"] as Brush})
                 .ToList();
 
             AppThemes = ThemeManager.AppThemes
                 .Select(
                     a =>
-                        new AppThemeMenuData()
+                        new AppThemeMenuData
                         {
                             Name = a.Name,
                             BorderColorBrush = a.Resources["BlackColorBrush"] as Brush,

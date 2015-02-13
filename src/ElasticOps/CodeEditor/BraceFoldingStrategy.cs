@@ -27,12 +27,12 @@ namespace ElasticOps
         /// </summary>
         public BraceFoldingStrategy()
         {
-            this.OpeningBrace = '{';
-            this.ClosingBrace = '}';
+            OpeningBrace = '{';
+            ClosingBrace = '}';
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+        [SuppressMessage("Microsoft.Naming",
             "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
         public void UpdateFoldings(FoldingManager manager, ITextSource document)
         {
@@ -47,7 +47,7 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+        [SuppressMessage("Microsoft.Naming",
             "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings"),
          SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document, out int firstErrorOffset)
@@ -59,19 +59,19 @@ namespace ElasticOps
         /// <summary>
         /// Create <see cref="NewFolding"/>s for the specified document.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+        [SuppressMessage("Microsoft.Naming",
             "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Foldings")]
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
         {
             if (document == null)
                 throw new ArgumentNullException("document");
 
-            List<NewFolding> newFoldings = new List<NewFolding>();
+            var newFoldings = new List<NewFolding>();
 
-            Stack<int> startOffsets = new Stack<int>();
+            var startOffsets = new Stack<int>();
             int lastNewLineOffset = 0;
-            char openingBrace = this.OpeningBrace;
-            char closingBrace = this.ClosingBrace;
+            char openingBrace = OpeningBrace;
+            char closingBrace = ClosingBrace;
             for (int i = 0; i < document.TextLength; i++)
             {
                 char c = document.GetCharAt(i);

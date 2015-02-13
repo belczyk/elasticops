@@ -4,16 +4,16 @@ namespace ElasticOps.ViewModels
 {
     public class ComboBoxItemViewModel : PropertyChangedBase
     {
-        private string _DisplayText;
+        private string _displayText;
 
         private object _Value;
 
         public string DisplayText
         {
-            get { return _DisplayText; }
+            get { return _displayText; }
             set
             {
-                _DisplayText = value;
+                _displayText = value;
                 NotifyOfPropertyChange(() => DisplayText);
             }
         }
