@@ -1,12 +1,12 @@
 # 1 "JsonLexer.fsl"
  
 
-module Lexer
+module ElasticOps.Parsing.JsonLexer
 
 open Microsoft.FSharp.Text.Lexing
-open ElasticOps.Parsing.Structures
+open ElasticOps.Parsing
 open System
-open Parser
+open ElasticOps.Parsing.JsonParser
 
 exception SyntaxError of string
 

@@ -58,7 +58,6 @@
     <Compile Include="Intellisense.fsi" />
     <Compile Include="Intellisense.fs" />
     <None Include="packages.config" />
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElasticOps.Configuration\ElasticOps.Configuration.fsproj">

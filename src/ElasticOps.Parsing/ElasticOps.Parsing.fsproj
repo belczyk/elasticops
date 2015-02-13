@@ -56,13 +56,13 @@
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
     <FsYacc Include="IntellisenseParser.fsy">
-      <OtherFlags>--module IntellisenseParser</OtherFlags>
+      <OtherFlags>--module ElasticOps.Parsing.IntellisenseParser</OtherFlags>
     </FsYacc>
     <FsLex Include="JsonLexer.fsl">
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
     <FsYacc Include="JsonParser.fsy">
-      <OtherFlags>--module Parser</OtherFlags>
+      <OtherFlags>--module ElasticOps.Parsing.JsonParser</OtherFlags>
     </FsYacc>
     <Compile Include="Structures.fs" />
     <Compile Include="IntellisenseParser.fsi" />

@@ -3,10 +3,10 @@
 open NUnit.Framework
 open FsUnit
 open ElasticOps.Parsing.Processing
-open ElasticOps.Parsing.Structures
-open ElasticOps.SuggestEngine
 open System.IO
 open System
+open ElasticOps.Intellisense
+open ElasticOps.Intellisense.SuggestEngine
 
 [<Test>]
 let ``path for property in object`` () = 

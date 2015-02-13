@@ -3,8 +3,8 @@
 open NUnit.Framework
 open FsUnit
 open ElasticOps.Parsing.Processing
-open ElasticOps
-open ElasticOps.SuggestEngine
+open ElasticOps.Intellisense 
+open ElasticOps.Intellisense.SuggestEngine
 
 [<Test>]
 let ``matchRuleWithPath: when path and rule matches return true`` () = 

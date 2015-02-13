@@ -1,5 +1,5 @@
 ﻿%{
-open ElasticOps.Parsing.Structures
+open ElasticOps.Parsing
 
 %}
 
@@ -14,13 +14,13 @@ open ElasticOps.Parsing.Structures
 %token COLON
 %token COMMA
 %token <string> COMPLETION_MACRO
-%token <string * ElasticOps.Parsing.Structures.JsonValueType> UNFINISHED_VALUE
+%token <string * ElasticOps.Parsing.JsonValueType> UNFINISHED_VALUE
 %token ANY_PROPERTY
 %token ANY_PATH
 
 %token EOF
 
-%type <ElasticOps.Parsing.Structures.IntellisenseValue option> start
+%type <ElasticOps.Parsing.IntellisenseValue option> start
 
 %%
 start: prog {  $1 }

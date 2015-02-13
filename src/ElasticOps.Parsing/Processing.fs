@@ -1,8 +1,8 @@
 ﻿module ElasticOps.Parsing.Processing
 
     open Microsoft.FSharp.Text.Lexing
-    open Parser
-    open ElasticOps.Parsing.Structures
+    open ElasticOps.Parsing.JsonParser
+    open ElasticOps.Parsing.IntellisenseParser
     open System
     
     let tokenizeAll (lexbuf : LexBuffer<char>, lexingFun) = 
@@ -17,7 +17,7 @@
     let parse json = 
         try 
             let lexbuf = LexBuffer<char>.FromString json
-            let res = Parser.start Lexer.read lexbuf
+            let res = JsonParser.start JsonLexer.read lexbuf
             res
         with 
         | _ -> None

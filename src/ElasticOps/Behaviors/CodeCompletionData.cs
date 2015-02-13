@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Media;
+using ElasticOps.Intellisense;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
@@ -43,7 +44,7 @@ namespace ElasticOps.Behaviors
         {
             Ensure.ArgumentNotNull(textArea, "textArea");
 
-            var result = Intellisense.Complete(Context, Suggestion);
+            var result = IntellisenseEngine.Complete(Context, Suggestion);
 
             textArea.Document.Text = result.NewText;
             textArea.Caret.Position = new TextViewPosition(result.NewCaretPosition.Item1, result.NewCaretPosition.Item2);

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using ElasticOps.Configuration;
 using ElasticOps.Extensions;
+using ElasticOps.Intellisense;
 using ElasticOps.Views;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -86,7 +87,7 @@ namespace ElasticOps.Behaviors
             if (endpoint == null) return;
             if (!_config.IntellisenseEndpoints.Contains(endpoint)) return;
 
-            var intellisenseResult = Intellisense.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line,
+            var intellisenseResult = IntellisenseEngine.TrySuggest(_textEditor.Document.Text, _textEditor.Caret.Line,
                 _textEditor.Caret.Column, endpoint);
             var context = intellisenseResult.Item1;
             var suggestions = intellisenseResult.Item2;

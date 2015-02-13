@@ -1,10 +1,10 @@
 # 1 "IntellisenseLexer.fsl"
  
 
-module IntellisenseLexer
+module ElasticOps.Parsing.IntellisenseLexer
 
 open Microsoft.FSharp.Text.Lexing
-open ElasticOps.Parsing.Structures
+open ElasticOps.Parsing
 open System
 open IntellisenseParser
 

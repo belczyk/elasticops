@@ -2,7 +2,7 @@
 
 open NUnit.Framework
 open FsUnit
-open ElasticOps.Parsing.Structures
+open ElasticOps.Parsing
 open ElasticOps.Parsing.Processing  
 open System.IO
 
