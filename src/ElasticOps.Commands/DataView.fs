@@ -1,7 +1,7 @@
 ﻿[<CommandsHandlers>]
-module ElasticOps.Com.DataView
+module ElasticOps.Commands.DataView
 
-    open ElasticOps.Com
+    open ElasticOps.Commands
     open System.Collections.Generic
     open FSharp.Data
     open FSharp.Data.JsonExtensions

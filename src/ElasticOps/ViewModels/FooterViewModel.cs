@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Events;
 using Humanizer;
 

@@ -1,7 +1,7 @@
 ﻿module ClsterInfoCommandsTests
 open FsUnit
 open NUnit.Framework
-open ElasticOps.Com
+open ElasticOps.Commands
 
     module OverDefaultSet =
         [<Test>]

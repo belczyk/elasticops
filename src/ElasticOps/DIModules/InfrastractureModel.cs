@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using ElasticOps.Behaviors.AutoComplete;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Configuration;
 using ElasticOps.Services;
 

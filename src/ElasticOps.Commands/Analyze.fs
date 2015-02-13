@@ -1,4 +1,4 @@
-﻿namespace ElasticOps.Com
+﻿namespace ElasticOps.Commands
 
     open FSharp.Data
     open FSharp.Data.JsonExtensions

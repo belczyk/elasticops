@@ -76,6 +76,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Version.fs" />
     <Compile Include="CommandResult.fs" />
     <Compile Include="Connection.fs" />
@@ -89,10 +90,8 @@
     <Compile Include="Analyze.fs" />
     <Compile Include="Index.fs" />
     <Compile Include="DataView.fs" />
-    <None Include="Script.fsx" />
     <Compile Include="HandlerFinder.fs" />
     <Compile Include="CommandBus.fs" />
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>

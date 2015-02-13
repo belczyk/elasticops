@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Events;
 
 namespace ElasticOps.Views.ManagementScreens

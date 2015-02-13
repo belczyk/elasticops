@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Events;
 using ElasticOps.Extensions;
 

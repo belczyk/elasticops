@@ -1,4 +1,4 @@
-﻿namespace ElasticOps.Com
+﻿namespace ElasticOps.Commands
 
     open System
 
@@ -14,7 +14,7 @@
         member x.build = build
     
         member x.ToVersion() = 
-            new ElasticOps.Com.Version(major,minor,patch,build)
+            new ElasticOps.Commands.Version(major,minor,patch,build)
     
         member x.ToTuple() = 
             (major,minor,patch,build)

@@ -1,5 +1,5 @@
 ﻿[<AutoOpen>]
-module ElasticOps.Com.CList
+module ElasticOps.Commands.CList
 
     open System.Linq
 

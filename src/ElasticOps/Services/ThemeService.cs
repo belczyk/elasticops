@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Events;
 using MahApps.Metro;
 

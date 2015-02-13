@@ -1,4 +1,4 @@
-﻿namespace ElasticOps.Com
+﻿namespace ElasticOps.Commands
 
     type Command<'T>(connection : Connection) = 
         new (connection) = Command<'T>(connection)

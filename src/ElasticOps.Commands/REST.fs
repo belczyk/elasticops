@@ -1,5 +1,5 @@
 ﻿[<AutoOpen>]
-module ElasticOps.Com.REST
+module ElasticOps.Commands.REST
     open System
     open FSharp.Data
     open Serilog

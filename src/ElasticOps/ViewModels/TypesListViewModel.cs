@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Extensions;
 
 namespace ElasticOps.ViewModels

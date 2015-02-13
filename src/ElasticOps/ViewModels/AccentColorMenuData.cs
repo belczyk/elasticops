@@ -1,7 +1,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.Events;
 
 namespace ElasticOps.ViewModels

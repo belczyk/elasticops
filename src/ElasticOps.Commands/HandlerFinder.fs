@@ -1,4 +1,4 @@
-﻿module ElasticOps.Com.HandlerFinder 
+﻿module ElasticOps.Commands.HandlerFinder 
 
     open System.Reflection
     open System.Linq
@@ -21,7 +21,7 @@
         | from::[] -> Some ((from :?> 'T ).ToVersion()) 
         | _ -> raise (IllegalOperationMultipleESVersionFromAttributes (sprintf "Methods %s have multiple ESVersionFrom attributes" m.Name))
     
-    let private byVersion (version : ElasticOps.Com.Version) (m : MethodInfo) =
+    let private byVersion (version : ElasticOps.Commands.Version) (m : MethodInfo) =
         let fromVersion = getVersionAttribute<ESVersionFrom> m
         let toVersion = getVersionAttribute<ESVersionTo> m
         match (fromVersion, toVersion) with 
@@ -30,10 +30,10 @@
         | (None , Some v) -> version <= v
         | (Some vFrom, Some vTo) -> version >= vFrom && version<= vTo
     
-    let private raiseAmbiguousHanlderResolution (commandType : Type) eligableMethods (version :  ElasticOps.Com.Version) = 
+    let private raiseAmbiguousHanlderResolution (commandType : Type) eligableMethods (version :  ElasticOps.Commands.Version) = 
           raise (AmbiguousHanlderResolution (sprintf "found multiple handlers for requested command %s: %s. ElasticSearch version: %s" commandType.Name  (foldMethodNames eligableMethods) (version.ToString()) ))
     
-    let exactHanlderMatch (methods :  MethodInfo list) (commandType : Type) (version : ElasticOps.Com.Version) = 
+    let exactHanlderMatch (methods :  MethodInfo list) (commandType : Type) (version : ElasticOps.Commands.Version) = 
          let eligableMethods = methods  
                                 |> List.filter (fun m -> m.GetParameters().First().ParameterType = commandType)
                                 |> List.filter (byVersion version)

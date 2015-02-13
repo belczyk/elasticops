@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {

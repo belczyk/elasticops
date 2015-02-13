@@ -1,9 +1,9 @@
-﻿namespace  ElasticOps.Com
+﻿namespace ElasticOps.Commands
 
     open System 
     open System.Reflection
     open System.Linq
-    open ElasticOps.Com
+    open ElasticOps.Commands
     open Serilog
     
     type CommandBus() =

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using Serilog;
 
 namespace ElasticOps.ViewModels.ManagementScreens

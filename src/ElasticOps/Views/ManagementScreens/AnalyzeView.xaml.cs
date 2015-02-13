@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 
 namespace ElasticOps.Views.ManagementScreens
 {

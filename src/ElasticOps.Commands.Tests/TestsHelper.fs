@@ -1,7 +1,7 @@
 ﻿[<AutoOpen>]
 module TestHelpers
 open Config
-open ElasticOps.Com
+open ElasticOps.Commands
 open System.IO
 
 let config = new CommandsTestsConfig()

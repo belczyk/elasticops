@@ -1,7 +1,7 @@
 ﻿[<CommandsHandlers>]
-module ElasticOps.Com.Index
+module ElasticOps.Commands.Index
 
-    open ElasticOps.Com
+    open ElasticOps.Commands
 
     type CloseCommand(connection : Connection, index : string) =
         inherit Command<string>(connection)

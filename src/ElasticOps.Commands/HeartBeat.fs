@@ -1,4 +1,4 @@
-﻿namespace ElasticOps.Com
+﻿namespace ElasticOps.Commands
 
     [<AllowNullLiteral>]
     type HeartBeat( isAlive : bool , version : string ) =

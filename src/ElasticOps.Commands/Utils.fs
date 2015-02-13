@@ -1,5 +1,5 @@
 ﻿[<AutoOpen>]
-module ElasticOps.Com.Utils
+module ElasticOps.Commands.Utils
     open FSharp.Data
     open FSharp.Data.JsonExtensions
     open FSharp.Data.Runtime

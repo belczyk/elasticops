@@ -1,4 +1,4 @@
-﻿namespace ElasticOps.Com
+﻿namespace ElasticOps.Commands
 
     open FSharp.Data
     open FSharp.Data.JsonExtensions
@@ -9,9 +9,9 @@
         let mutable uri : Uri = clusterUri
         let mutable isConnected = false
         let mutable uncheckedUri = false
-        let mutable version : ElasticOps.Com.Version = null
+        let mutable version : ElasticOps.Commands.Version = null
     
-        member val DiskVersion = (null : ElasticOps.Com.Version) with get,set
+        member val DiskVersion = (null : ElasticOps.Commands.Version) with get,set
     
         member x.GetVersion uri = 
             if x.IsOfflineMode then 
@@ -25,7 +25,7 @@
                     let response = JsonValue.Parse (reader.ReadToEnd())
     
                     match response?status.AsString() with
-                        | "200" -> Some (ElasticOps.Com.Version.FromString(response?version?number.AsString()))
+                        | "200" -> Some (ElasticOps.Commands.Version.FromString(response?version?number.AsString()))
                         | _ -> None
                 with
                 | :? System.Net.WebException -> None

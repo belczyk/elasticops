@@ -4,7 +4,7 @@ using System.Windows;
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using ElasticOps.DIModules;
 using ElasticOps.Events;
 using ElasticOps.Services;

@@ -1,6 +1,6 @@
 ﻿module AnalyzeCommandsTests
 open NUnit.Framework
-open ElasticOps.Com
+open ElasticOps.Commands
 open FsUnit 
 open System.Linq
 

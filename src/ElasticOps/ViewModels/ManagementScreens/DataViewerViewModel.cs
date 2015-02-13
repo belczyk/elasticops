@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ElasticOps.Attributes;
-using ElasticOps.Com;
+using ElasticOps.Commands;
 using Newtonsoft.Json;
 
 namespace ElasticOps.ViewModels.ManagementScreens
