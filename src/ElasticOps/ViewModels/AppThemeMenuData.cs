@@ -1,5 +1,6 @@
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 
 namespace ElasticOps.ViewModels
 {

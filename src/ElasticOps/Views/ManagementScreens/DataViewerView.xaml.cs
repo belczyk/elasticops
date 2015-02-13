@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 
 namespace ElasticOps.Views.ManagementScreens
 {

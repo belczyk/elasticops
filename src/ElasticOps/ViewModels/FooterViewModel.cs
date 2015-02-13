@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 using Humanizer;
 
 namespace ElasticOps.ViewModels
 {
-    public class FooterViewModel : PropertyChangedBase, IHandle<ErrorOccuredEvent>, IHandle<NewConnectionEvent>
+    public class FooterViewModel : PropertyChangedBase, IHandle<ErrorOccurredEvent>, IHandle<NewConnectionEvent>
     {
         private readonly Infrastructure _infrastructure;
 
@@ -46,7 +47,7 @@ namespace ElasticOps.ViewModels
         }
 
 
-        public void Handle(ErrorOccuredEvent message)
+        public void Handle(ErrorOccurredEvent message)
         {
             Ensure.ArgumentNotNull(message, "message");
 

@@ -158,6 +158,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Ensure.cs" />
+    <Compile Include="Events\AccentChangedEvent.cs" />
+    <Compile Include="Events\ErrorOccurredEvent.cs" />
+    <Compile Include="Events\GoToStudioEvent.cs" />
+    <Compile Include="Events\LogEntryCreatedEvent.cs" />
+    <Compile Include="Events\NewConnectionEvent.cs" />
+    <Compile Include="Events\PreviewValueEvent.cs" />
+    <Compile Include="Events\RefreshEvent.cs" />
+    <Compile Include="Events\ThemeChangedEvent.cs" />
     <Compile Include="Infrastructure\AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />

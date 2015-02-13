@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 
 namespace ElasticOps.ViewModels
 {

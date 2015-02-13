@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.Com;
+using ElasticOps.Events;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {

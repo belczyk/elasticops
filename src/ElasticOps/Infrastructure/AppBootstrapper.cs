@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using ElasticOps.Com;
 using ElasticOps.DIModules;
+using ElasticOps.Events;
 using ElasticOps.Services;
 using ElasticOps.ViewModels;
 using Serilog;
@@ -56,7 +57,7 @@ namespace ElasticOps
                 {
                     eventsAggr.PublishOnUIThread(new LogEntryCreatedEvent(le));
                     if (le.Level == LogEventLevel.Error || le.Level == LogEventLevel.Fatal)
-                        eventsAggr.PublishOnUIThread(new ErrorOccuredEvent(le.RenderMessage()));
+                        eventsAggr.PublishOnUIThread(new ErrorOccurredEvent(le.RenderMessage()));
                 })))
                 .CreateLogger();
 

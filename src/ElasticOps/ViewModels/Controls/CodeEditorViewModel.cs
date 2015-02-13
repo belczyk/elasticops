@@ -4,6 +4,7 @@ using System.Windows.Media;
 using System.Xml;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 

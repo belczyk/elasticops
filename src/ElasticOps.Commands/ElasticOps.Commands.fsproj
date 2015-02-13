@@ -76,7 +76,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events.fs" />
     <Compile Include="CommonTypes.fs" />
     <Compile Include="ESVersionAttributes.fs" />
     <Compile Include="ElasticResponseProcessing.fs" />

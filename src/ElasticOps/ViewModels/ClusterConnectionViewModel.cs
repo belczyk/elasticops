@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 using Humanizer;
 using Serilog;
 

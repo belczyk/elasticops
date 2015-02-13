@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 using ElasticOps.Extensions;
 
 namespace ElasticOps.Services

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
 using ElasticOps.Com;
+using ElasticOps.Events;
 using MahApps.Metro;
 
 namespace ElasticOps.Services
