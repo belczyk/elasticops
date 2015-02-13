@@ -11,16 +11,14 @@ namespace ElasticOps.DependencyProperties
 
         public static bool GetSelectedIndex(DependencyObject obj)
         {
-            if (obj == null)
-                throw new ArgumentNullException("obj");
+            Ensure.ArgumentNotNull(obj,"obj");
 
             return (bool) obj.GetValue(SelectedIndexProperty);
         }
 
         public static void SetSelectedIndex(DependencyObject obj, bool value)
         {
-            if (obj == null)
-                throw new ArgumentNullException("obj");
+            Ensure.ArgumentNotNull(obj, "obj");
 
             obj.SetValue(SelectedIndexProperty, value);
         }

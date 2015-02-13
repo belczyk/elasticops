@@ -13,18 +13,17 @@ using Newtonsoft.Json.Linq;
 
 namespace ElasticOps.ViewModels.ManagementScreens
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly",
-        MessageId = "REST"), Priority(50)]
+
     public class RESTScreenViewModel : Screen, IManagementScreen
     {
         private readonly Infrastructure _infrastructure;
         private readonly IEventAggregator _eventAggregator;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public RESTScreenViewModel(Infrastructure infrastructure, CodeEditorViewModel requestBodyViewModel,
             CodeEditorViewModel resultViewModel)
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+
             ResultEditor = resultViewModel;
             RequestBodyEditor = requestBodyViewModel;
 
@@ -138,10 +137,11 @@ namespace ElasticOps.ViewModels.ManagementScreens
             return requestUri;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
+
         public void OnEndpointKeyDown(ActionExecutionContext context)
         {
+            Ensure.ArgumentNotNull(context,"context");
+
             var keyArgs = context.EventArgs as KeyEventArgs;
 
             if (keyArgs != null && keyArgs.Key == Key.Enter)
@@ -177,10 +177,10 @@ namespace ElasticOps.ViewModels.ManagementScreens
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void KeyPress(KeyEventArgs args)
         {
+            Ensure.ArgumentNotNull(args,"args");
+
             if (args.Key == Key.F5)
             {
                 ExecuteCall();

@@ -42,7 +42,7 @@
     <CodeAnalysisTreatWarningsAsErrors>True</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Build|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -153,11 +153,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Resources\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Ensure.cs" />
+    <Compile Include="Infrastructure\AppBootstrapper.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Behaviors\IndexAutoCompleteBoxBehavior.cs" />
     <Compile Include="Behaviors\OnlyDigitsInTextBoxBehavior.cs" />
@@ -177,8 +178,8 @@
     <Compile Include="Behaviors\Suggesters\UrlSuggestCollection.cs" />
     <Compile Include="Behaviors\Suggesters\SuggestionMode.cs" />
     <Compile Include="Behaviors\Suggesters\SuggestItem.cs" />
-    <Compile Include="BraceFoldingStrategy.cs" />
-    <Compile Include="ClusterConnectedAutoRefreshScreen.cs" />
+    <Compile Include="CodeEditor\BraceFoldingStrategy.cs" />
+    <Compile Include="ViewModels\ClusterConnectedAutoRefreshScreen.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Services\ClusterDataCache.cs" />
     <Compile Include="Services\ConfigService.cs" />
@@ -187,14 +188,14 @@
     <Compile Include="ViewModels\ManagementScreens\AnalyzeViewModel.cs" />
     <Compile Include="ViewModels\AppThemeMenuData.cs" />
     <Compile Include="ViewModels\Controls\CodeEditorViewModel.cs" />
-    <Compile Include="SimpleCommand.cs" />
+    <Compile Include="Infrastructure\SimpleCommand.cs" />
     <Compile Include="ViewModels\ManagementScreens\ConsoleViewModel.cs" />
     <Compile Include="ViewModels\ManagementScreens\DataViewerViewModel.cs" />
     <Compile Include="ViewModels\PaggerViewModel.cs" />
     <Compile Include="Views\Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure.cs" />
+    <Compile Include="Infrastructure\Infrastructure.cs" />
     <Compile Include="Predef.cs" />
     <Compile Include="ViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="ViewModels\ElasticPropertyViewModel.cs" />
@@ -329,7 +330,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -398,13 +399,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="QueryLightHighlightingRules.xshd" />
+    <EmbeddedResource Include="Resources\QueryLightHighlightingRules.xshd" />
     <None Include="..\SolutionItems\Config.yaml">
-      <Link>Config.yaml</Link>
+      <Link>Config\Config.yaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="..\SolutionItems\IntellisenseConfig.yaml">
-      <Link>IntellisenseConfig.yaml</Link>
+      <Link>Config\IntellisenseConfig.yaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="CodeAnalysisRules.ruleset">
@@ -418,7 +419,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <EmbeddedResource Include="QueryDarkHighlightingRules.xshd" />
+    <EmbeddedResource Include="Resources\QueryDarkHighlightingRules.xshd" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -431,7 +432,7 @@
     <Resource Include="Assets\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElasticOps.Commands\ElasticOps.Commands.fsproj">

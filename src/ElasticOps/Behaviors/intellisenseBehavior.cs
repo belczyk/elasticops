@@ -59,9 +59,7 @@ namespace ElasticOps.Behaviors
             TryComplete();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
-            "CA1303:Do not pass literals as localized parameters",
-            MessageId = "ICSharpCode.AvalonEdit.Document.TextDocument.Insert(System.Int32,System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization","CA1303:Do not pass literals as localized parameters",MessageId = "ICSharpCode.AvalonEdit.Document.TextDocument.Insert(System.Int32,System.String)")]
         private void TryCompleteChar(char c)
         {
             if (c == '{' && _config.AutoCompleteChars.Contains("{"))

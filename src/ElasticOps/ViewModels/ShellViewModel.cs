@@ -14,10 +14,7 @@ namespace ElasticOps.ViewModels
         private readonly Infrastructure _infrastructure;
         private readonly StudioViewModel studioViewModel;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0"),
-         System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-             "CA1062:Validate arguments of public methods", MessageId = "3")]
+
         public ShellViewModel(
             Infrastructure infrastructure,
             StudioViewModel studioViewModel,
@@ -25,6 +22,9 @@ namespace ElasticOps.ViewModels
             CodeEditorViewModel valuePreviewModel
             )
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+            Ensure.ArgumentNotNull(valuePreviewModel, "valuePreviewModel");
+
             _infrastructure = infrastructure;
             this.studioViewModel = studioViewModel;
             Footer = footer;
@@ -58,8 +58,6 @@ namespace ElasticOps.ViewModels
 
         public CodeEditorViewModel ValuePreviewModel { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
-            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Flayout")]
         public bool IsValuePreviewFlayoutOpen
         {
             get { return _isValuePreviewFlayoutOpen; }
@@ -93,26 +91,26 @@ namespace ElasticOps.ViewModels
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ThemeChangedEvent message)
         {
+            Ensure.ArgumentNotNull(message, "message");
+
             _infrastructure.Config.Appearance.Theme = message.Theme;
-            _infrastructure.Config.Save("config.yaml");
+            _infrastructure.Config.Save(Predef.ConfigPath);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(AccentChangedEvent message)
         {
+            Ensure.ArgumentNotNull(message, "message");
+
             _infrastructure.Config.Appearance.Accent = message.Accent;
-            _infrastructure.Config.Save("config.yaml");
+            _infrastructure.Config.Save(Predef.ConfigPath);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(PreviewValueEvent message)
         {
+            Ensure.ArgumentNotNull(message, "message");
+
             ValuePreviewModel.Code = message.Value;
             IsValuePreviewFlayoutOpen = true;
         }

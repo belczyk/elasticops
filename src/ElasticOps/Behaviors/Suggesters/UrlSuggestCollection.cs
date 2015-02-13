@@ -41,11 +41,7 @@ namespace ElasticOps.Behaviors.Suggesters
                 SuggestTypeEndpoint(parts);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
-            "CA1303:Do not pass literals as localized parameters",
-            MessageId =
-                "ElasticOps.Behaviors.Suggesters.SuggestItem.#ctor(System.String,ElasticOps.Behaviors.Suggesters.SuggestionMode)"
-            )]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization","CA1303:Do not pass literals as localized parameters",MessageId ="ElasticOps.Behaviors.Suggesters.SuggestItem.#ctor(System.String,ElasticOps.Behaviors.Suggesters.SuggestionMode)")]
         private void SuggestTypeEndpoint(List<string> parts)
         {
             var prefix = parts[2];
@@ -61,13 +57,7 @@ namespace ElasticOps.Behaviors.Suggesters
                 .ForEach(Add);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase"
-            ),
-         System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
-             "CA1303:Do not pass literals as localized parameters",
-             MessageId =
-                 "ElasticOps.Behaviors.Suggesters.SuggestItem.#ctor(System.String,ElasticOps.Behaviors.Suggesters.SuggestionMode)"
-             )]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase"),System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization","CA1303:Do not pass literals as localized parameters",MessageId ="ElasticOps.Behaviors.Suggesters.SuggestItem.#ctor(System.String,ElasticOps.Behaviors.Suggesters.SuggestionMode)")]
         private void SuggestType(IEnumerable<string> parts)
         {
             var index = parts.First().ToLower(CultureInfo.InvariantCulture);
@@ -104,7 +94,7 @@ namespace ElasticOps.Behaviors.Suggesters
             var text = parts.First();
             Clear();
             _clusterData.Indices
-                .Where(x => _config.URLSuggest.IncludeMarvelIndices || !x.StartsWithIgnoreCase(".marvel"))
+                .Where(x => _config.URLSuggest.IncludeMarvelIndices || !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix))
                 .Where(x => x.StartsWithIgnoreCase(text))
                 .Select(x => new SuggestItem(x, SuggestionMode.Index))
                 .ForEach(Add);

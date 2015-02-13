@@ -55,8 +55,6 @@ namespace ElasticOps.ViewModels.ManagementScreens
 
         private IObservableCollection<ElasticPropertyViewModel> _CPU;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly",
-            MessageId = "CPU")]
         public IObservableCollection<ElasticPropertyViewModel> CPU
         {
             get { return _CPU; }
@@ -79,10 +77,11 @@ namespace ElasticOps.ViewModels.ManagementScreens
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
+
         public NodeInfoViewModel(NodeInfo nodeInfo)
         {
+            Ensure.ArgumentNotNull(nodeInfo, "nodeInfo");
+
             Name = nodeInfo.Name;
             HostName = nodeInfo.Hostname;
             HttpAddress = nodeInfo.HttpAddress;

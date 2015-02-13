@@ -45,8 +45,6 @@ namespace ElasticOps.ViewModels
             IsRefreshing = false;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms",
-            MessageId = "Indices")]
         public IObservableCollection<string> AllIndices
         {
             get { return _allIndices; }
@@ -113,8 +111,6 @@ namespace ElasticOps.ViewModels
 
         private bool _showMarvelIndices;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms",
-            MessageId = "Indices")]
         public bool ShowMarvelIndices
         {
             get { return _showMarvelIndices; }

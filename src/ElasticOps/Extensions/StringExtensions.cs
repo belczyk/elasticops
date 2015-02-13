@@ -26,8 +26,9 @@ namespace ElasticOps.Extensions
 
         public static bool StartsWithIgnoreCase(this string value, string prefix)
         {
-            if (value == null)
-                throw new ArgumentNullException("value");
+            Ensure.ArgumentNotNull(value, "value");
+            Ensure.ArgumentNotNull(prefix, "prefix");
+
             return value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);
         }
     }

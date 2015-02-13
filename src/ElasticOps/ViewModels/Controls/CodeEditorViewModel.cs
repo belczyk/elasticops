@@ -17,10 +17,10 @@ namespace ElasticOps.ViewModels.Controls
         private Brush _foreground;
         private bool _isReadOnly;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public CodeEditorViewModel(Infrastructure infrastructure)
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+
             _infrastructure = infrastructure;
             _infrastructure.EventAggregator.Subscribe(this);
             LoadHighlightRules(infrastructure.Config.Appearance.Theme == "BaseDark" ? Theme.Dark : Theme.Light);
@@ -38,7 +38,7 @@ namespace ElasticOps.ViewModels.Controls
 
             var schemaStream =
                 (GetType()).Assembly.GetManifestResourceStream(String.Format(CultureInfo.InvariantCulture,
-                    "ElasticOps.Query{0}HighlightingRules.xshd", theme));
+                    "ElasticOps.Resources.Query{0}HighlightingRules.xshd", theme));
 
             using (var reader = new XmlTextReader(schemaStream))
             {
@@ -79,10 +79,10 @@ namespace ElasticOps.ViewModels.Controls
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ThemeChangedEvent message)
         {
+            Ensure.ArgumentNotNull(message, "message");
+
             LoadHighlightRules(message.IsDark ? Theme.Dark : Theme.Light);
         }
 

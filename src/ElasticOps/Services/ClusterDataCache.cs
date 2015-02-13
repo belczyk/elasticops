@@ -10,13 +10,12 @@ namespace ElasticOps.Services
 {
     public class ClusterDataCache : IHandle<NewConnectionEvent>, IHandle<RefreshEvent>
     {
-        private const string Marvel = ".marvel";
         private readonly Infrastructure _infrastructure;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public ClusterDataCache(Infrastructure infrastructure)
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+
             _infrastructure = infrastructure;
             _infrastructure.EventAggregator.Subscribe(this);
 
@@ -30,8 +29,6 @@ namespace ElasticOps.Services
         private readonly List<string> _indices = new List<string>();
         private readonly Dictionary<string, Index> _indexData = new Dictionary<string, Index>();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms",
-            MessageId = "Indices")]
         public IEnumerable<string> Indices
         {
             get { return _indices; }
@@ -76,12 +73,12 @@ namespace ElasticOps.Services
                 if (result.Success)
                 {
                     _indices.Clear();
-                    var marvelIndices = result.Result.Where(x => x.StartsWithIgnoreCase(Marvel)).OrderBy(x => x);
-                    var otherIndices = result.Result.Where(x => !x.StartsWithIgnoreCase(Marvel)).OrderBy(x => x);
+                    var marvelIndices = result.Result.Where(x => x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix)).OrderBy(x => x);
+                    var otherIndices = result.Result.Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix)).OrderBy(x => x);
                     _indices.AddRange(otherIndices.Union(marvelIndices));
                 }
 
-                _indices.Intersect(_indices.Where(x => !x.StartsWithIgnoreCase(Marvel))).ToList()
+                _indices.Intersect(_indices.Where(x => !x.StartsWithIgnoreCase(Predef.MarvelIndexPrefix))).ToList()
                     .ForEach(i =>
                     {
                         UpdateTypes(i);

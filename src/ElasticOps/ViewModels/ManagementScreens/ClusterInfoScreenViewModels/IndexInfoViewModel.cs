@@ -13,10 +13,11 @@ namespace ElasticOps.ViewModels.ManagementScreens
         private readonly Action _refreshIndexList;
         private bool _isOpen;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public IndexInfoViewModel(IndexInfo indexInfo, Infrastructure infrastructure, Action refreshIndexList)
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+            Ensure.ArgumentNotNull(indexInfo, "indexInfo");
+
             _infrastructure = infrastructure;
             _refreshIndexList = refreshIndexList;
             Name = indexInfo.Name;

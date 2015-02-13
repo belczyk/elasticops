@@ -5,8 +5,7 @@ using Action = System.Action;
 
 namespace ElasticOps.ViewModels
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly",
-        MessageId = "Pagger")]
+
     public class PaggerViewModel : PropertyChangedBase
     {
         private long _total;

@@ -9,10 +9,11 @@ namespace ElasticOps.Services
     {
         private readonly Infrastructure _infrastructure;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public ThemeService(Infrastructure infrastructure)
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+
+
             _infrastructure = infrastructure;
             _infrastructure.EventAggregator.Subscribe(this);
 
@@ -26,7 +27,7 @@ namespace ElasticOps.Services
             var accent = ThemeManager.GetAccent(accentName);
             ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
             _infrastructure.Config.Appearance.Accent = accentName;
-            _infrastructure.Config.Save("Config.yaml");
+            _infrastructure.Config.Save(Predef.ConfigPath);
         }
 
         private void ChangeTheme(string themeName)
@@ -35,20 +36,20 @@ namespace ElasticOps.Services
             var appTheme = ThemeManager.GetAppTheme(themeName);
             ThemeManager.ChangeAppStyle(Application.Current, theme.Item2, appTheme);
             _infrastructure.Config.Appearance.Theme = themeName;
-            _infrastructure.Config.Save("Config.yaml");
+            _infrastructure.Config.Save(Predef.ConfigPath);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(AccentChangedEvent message)
         {
+            Ensure.ArgumentNotNull(message, "message");
+
             ChangeAccent(message.Accent);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void Handle(ThemeChangedEvent message)
         {
+            Ensure.ArgumentNotNull(message, "message");
+
             ChangeTheme(message.Theme);
         }
     }

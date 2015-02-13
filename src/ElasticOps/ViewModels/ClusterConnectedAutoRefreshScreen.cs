@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using ElasticOps.Com;
 
-namespace ElasticOps
+namespace ElasticOps.ViewModels
 {
     internal abstract class ClusterConnectedAutoRefreshScreen : Screen, IHandle<RefreshEvent>
     {
         protected ClusterConnectedAutoRefreshScreen(Infrastructure infrastructure)
         {
-            if (infrastructure == null)
-                throw new ArgumentNullException("infrastructure");
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
 
             EventAggregator = infrastructure.EventAggregator;
             CommandBus = infrastructure.CommandBus;

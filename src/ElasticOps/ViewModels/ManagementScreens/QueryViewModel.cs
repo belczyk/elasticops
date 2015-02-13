@@ -21,11 +21,13 @@ namespace ElasticOps.ViewModels
         private readonly Infrastructure _infrastructure;
         private string _url;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "1")]
+
         public QueryViewModel(CodeEditorViewModel queryEditorModel, CodeEditorViewModel resultEditorModel,
             Infrastructure infrastructure)
         {
+            Ensure.ArgumentNotNull(infrastructure, "infrastructure");
+            Ensure.ArgumentNotNull(resultEditorModel, "resultEditorModel");
+
             base.DisplayName = "Query";
             _queryEditor = queryEditorModel;
             _resultEditor = resultEditorModel;
@@ -179,10 +181,10 @@ namespace ElasticOps.ViewModels
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void KeyPress(KeyEventArgs args)
         {
+            Ensure.ArgumentNotNull(args,"args");
+
             if (args.Key == Key.F5)
             {
                 ExecuteCall();
