@@ -455,10 +455,6 @@
       <Project>{18f8a397-c3f3-4d32-9ad6-e5912b232e9f}</Project>
       <Name>ElasticOps.Intellisense</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ElasticOps.Parsing\ElasticOps.Parsing.fsproj">
-      <Project>{e9ef6fba-1dfd-4020-9caf-f77111c0bfdf}</Project>
-      <Name>ElasticOps.Parsing</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />

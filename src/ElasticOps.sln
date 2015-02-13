@@ -30,6 +30,12 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ElasticOps.Intellisense.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticOps.Tests", "ElasticOps.Tests\ElasticOps.Tests.csproj", "{BE0B17D1-2FB4-4FB9-8C76-33ECEE02C3B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FsYaccBuildTargets", "FsYaccBuildTargets", "{9A66604C-A27C-42F0-9CC8-1FCD606EFF2C}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\FsYaccBuildTargets\FsLexYacc.Build.Tasks.dll = SolutionItems\FsYaccBuildTargets\FsLexYacc.Build.Tasks.dll
+		SolutionItems\FsYaccBuildTargets\FsLexYacc.targets = SolutionItems\FsYaccBuildTargets\FsLexYacc.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Build|Any CPU = Build|Any CPU
@@ -100,5 +106,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A66604C-A27C-42F0-9CC8-1FCD606EFF2C} = {979F7567-AD97-48A2-866C-3049A3F43DB9}
 	EndGlobalSection
 EndGlobal

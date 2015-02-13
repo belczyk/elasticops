@@ -3,7 +3,6 @@ using System.Globalization;
 using Caliburn.Micro;
 using ElasticOps.Attributes;
 using ElasticOps.Commands;
-using ElasticOps.Commands;
 using ElasticOps.Extensions;
 
 namespace ElasticOps.ViewModels.ManagementScreens
