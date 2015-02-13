@@ -36,10 +36,12 @@
                         |> fun x -> x.[command.Index]?settings
     
             match (res.TryGetProperty("index")) with
-            | Some r -> r?index?analysis?analyzer
-                        |> asPropertyList
-                        |> List.ofArray
-                        |> List.map (fun x -> (fst x))
+            | Some r -> match r.TryGetProperty("analysis") with
+                        | Some i -> i?analyzer
+                                    |> asPropertyList
+                                    |> List.ofArray
+                                    |> List.map (fun x -> (fst x))
+                        | None -> []
             | None -> []
     
     
