@@ -76,10 +76,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonTypes.fs" />
-    <Compile Include="ESVersionAttributes.fs" />
-    <Compile Include="ElasticResponseProcessing.fs" />
-    <Compile Include="ClusterInfoModels.fs" />
+    <Compile Include="Version.fs" />
+    <Compile Include="CommandResult.fs" />
+    <Compile Include="Connection.fs" />
+    <Compile Include="HeartBeat.fs" />
+    <Compile Include="Command.fs" />
+    <Compile Include="Attributes.fs" />
+    <Compile Include="CList.fs" />
+    <Compile Include="REST.fs" />
+    <Compile Include="Utils.fs" />
     <Compile Include="ClusterInfo.fs" />
     <Compile Include="Analyze.fs" />
     <Compile Include="Index.fs" />
