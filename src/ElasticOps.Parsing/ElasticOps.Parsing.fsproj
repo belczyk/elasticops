@@ -50,7 +50,7 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <Import Project="..\SolutionItems\FsYaccBuildTargets\FsLexYacc.targets" />
+  <Import Project="..\SolutionItems\FsLexYacc.6.0.4\FsLexYacc.targets" />
   <ItemGroup>
     <FsLex Include="IntellisenseLexer.fsl">
       <OtherFlags>--unicode</OtherFlags>

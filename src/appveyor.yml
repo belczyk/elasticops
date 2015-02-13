@@ -1,2 +1,5 @@
+version: 0.0.{build}
 before_build:
-  - nuget restore
+- nuget restore src\ElasticOps.sln
+build:
+  verbosity: minimal
