@@ -27,6 +27,7 @@
     
     type DocumentInfo = { Name : string; Count : int}
 
+    [<CommandsHandlers>]
     module ClusterInfo =
 
         type HealthCommand(connection) = 
