@@ -2,6 +2,9 @@
 module ElasticOps.Parsing.IntellisenseParser
 type token = 
   | EOF
+  | ONE_OF
+  | RIGHT_PARENTHESIS
+  | LEFT_PARENTHESIS
   | ANY_PATH
   | ANY_PROPERTY
   | UNFINISHED_VALUE of (string * ElasticOps.Parsing.JsonValueType)
@@ -16,6 +19,9 @@ type token =
   | ID of (string)
 type tokenId = 
     | TOKEN_EOF
+    | TOKEN_ONE_OF
+    | TOKEN_RIGHT_PARENTHESIS
+    | TOKEN_LEFT_PARENTHESIS
     | TOKEN_ANY_PATH
     | TOKEN_ANY_PROPERTY
     | TOKEN_UNFINISHED_VALUE
@@ -37,7 +43,8 @@ type nonTerminalId =
     | NONTERM_value
     | NONTERM_object_fields
     | NONTERM_rev_object_fields
-    | NONTERM_rev_values
+    | NONTERM_one_of_values
+    | NONTERM_rev_one_of_values
 /// This function maps integers indexes to symbolic token ids
 val tagOfToken: token -> int
 

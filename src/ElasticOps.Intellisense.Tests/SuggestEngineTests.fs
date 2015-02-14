@@ -72,3 +72,20 @@ let ``matchRuleWithPath: match any path when in array `` () =
     let rule = [RuleSign.AnyPath;RuleSign.Property("filter"); RuleSign.Property("boost");RuleSign.UnfinishedPropertyName]
 
     SuggestEngine.matchRuleWithPath rule path |> should be True
+
+[<Test>]
+let ``matchRuleWithPath: match oneof`` () = 
+    let path = @"{ ""prop"" : { ""should"" : { """ |> parse  |> Option.get |> findDSLPath
+
+    let rule = [RuleSign.Property("prop");RuleSign.OneOf(["query";"should";"must"]); RuleSign.UnfinishedPropertyName]
+
+    SuggestEngine.matchRuleWithPath rule path |> should be True
+
+
+[<Test>]
+let ``matchRuleWithPath: match oneof after anyPath`` () = 
+    let path = @"{ ""xxx"" : { ""yyy"" : { ""prop"" : { ""should"" : { """ |> parse  |> Option.get |> findDSLPath
+
+    let rule = [RuleSign.Property("xxx");RuleSign.AnyPath;RuleSign.OneOf(["query";"should";"must"]); RuleSign.UnfinishedPropertyName]
+
+    SuggestEngine.matchRuleWithPath rule path |> should be True

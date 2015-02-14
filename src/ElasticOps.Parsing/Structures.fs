@@ -63,6 +63,7 @@
     and IntellisenseProperty = 
       | AnyProperty of IntellisenseValue
       | AnyPath of IntellisenseValue
+      | OneOf of string list * IntellisenseValue
       | Property of string * string * IntellisenseValue
       | Macro
       member x.getPropertyName() = 

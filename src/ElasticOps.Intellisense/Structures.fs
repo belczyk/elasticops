@@ -44,5 +44,6 @@
         | Property of string 
         | AnyProperty
         | AnyPath
+        | OneOf of string list
     
     type Rule = { Sign : RuleSign list ; Suggestions : Suggestion list}

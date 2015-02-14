@@ -12,6 +12,9 @@ open ElasticOps.Parsing
 // This type is the type of tokens accepted by the parser
 type token = 
   | EOF
+  | ONE_OF
+  | RIGHT_PARENTHESIS
+  | LEFT_PARENTHESIS
   | ANY_PATH
   | ANY_PROPERTY
   | UNFINISHED_VALUE of (string * ElasticOps.Parsing.JsonValueType)
@@ -27,6 +30,9 @@ type token =
 // This type is used to give symbolic names to token indexes, useful for error messages
 type tokenId = 
     | TOKEN_EOF
+    | TOKEN_ONE_OF
+    | TOKEN_RIGHT_PARENTHESIS
+    | TOKEN_LEFT_PARENTHESIS
     | TOKEN_ANY_PATH
     | TOKEN_ANY_PROPERTY
     | TOKEN_UNFINISHED_VALUE
@@ -49,43 +55,50 @@ type nonTerminalId =
     | NONTERM_value
     | NONTERM_object_fields
     | NONTERM_rev_object_fields
-    | NONTERM_rev_values
+    | NONTERM_one_of_values
+    | NONTERM_rev_one_of_values
 
 // This function maps tokens to integers indexes
 let tagOfToken (t:token) = 
   match t with
   | EOF  -> 0 
-  | ANY_PATH  -> 1 
-  | ANY_PROPERTY  -> 2 
-  | UNFINISHED_VALUE _ -> 3 
-  | COMPLETION_MACRO _ -> 4 
-  | COMMA  -> 5 
-  | COLON  -> 6 
-  | RIGHT_BRACK  -> 7 
-  | LEFT_BRACK  -> 8 
-  | RIGHT_BRACE  -> 9 
-  | LEFT_BRACE  -> 10 
-  | STRING _ -> 11 
-  | ID _ -> 12 
+  | ONE_OF  -> 1 
+  | RIGHT_PARENTHESIS  -> 2 
+  | LEFT_PARENTHESIS  -> 3 
+  | ANY_PATH  -> 4 
+  | ANY_PROPERTY  -> 5 
+  | UNFINISHED_VALUE _ -> 6 
+  | COMPLETION_MACRO _ -> 7 
+  | COMMA  -> 8 
+  | COLON  -> 9 
+  | RIGHT_BRACK  -> 10 
+  | LEFT_BRACK  -> 11 
+  | RIGHT_BRACE  -> 12 
+  | LEFT_BRACE  -> 13 
+  | STRING _ -> 14 
+  | ID _ -> 15 
 
 // This function maps integers indexes to symbolic token ids
 let tokenTagToTokenId (tokenIdx:int) = 
   match tokenIdx with
   | 0 -> TOKEN_EOF 
-  | 1 -> TOKEN_ANY_PATH 
-  | 2 -> TOKEN_ANY_PROPERTY 
-  | 3 -> TOKEN_UNFINISHED_VALUE 
-  | 4 -> TOKEN_COMPLETION_MACRO 
-  | 5 -> TOKEN_COMMA 
-  | 6 -> TOKEN_COLON 
-  | 7 -> TOKEN_RIGHT_BRACK 
-  | 8 -> TOKEN_LEFT_BRACK 
-  | 9 -> TOKEN_RIGHT_BRACE 
-  | 10 -> TOKEN_LEFT_BRACE 
-  | 11 -> TOKEN_STRING 
-  | 12 -> TOKEN_ID 
-  | 15 -> TOKEN_end_of_input
-  | 13 -> TOKEN_error
+  | 1 -> TOKEN_ONE_OF 
+  | 2 -> TOKEN_RIGHT_PARENTHESIS 
+  | 3 -> TOKEN_LEFT_PARENTHESIS 
+  | 4 -> TOKEN_ANY_PATH 
+  | 5 -> TOKEN_ANY_PROPERTY 
+  | 6 -> TOKEN_UNFINISHED_VALUE 
+  | 7 -> TOKEN_COMPLETION_MACRO 
+  | 8 -> TOKEN_COMMA 
+  | 9 -> TOKEN_COLON 
+  | 10 -> TOKEN_RIGHT_BRACK 
+  | 11 -> TOKEN_LEFT_BRACK 
+  | 12 -> TOKEN_RIGHT_BRACE 
+  | 13 -> TOKEN_LEFT_BRACE 
+  | 14 -> TOKEN_STRING 
+  | 15 -> TOKEN_ID 
+  | 18 -> TOKEN_end_of_input
+  | 16 -> TOKEN_error
   | _ -> failwith "tokenTagToTokenId: bad token"
 
 /// This function maps production indexes returned in syntax errors to strings representing the non terminal that would be produced by that production
@@ -112,17 +125,26 @@ let prodIdxToNonTerminal (prodIdx:int) =
     | 18 -> NONTERM_rev_object_fields 
     | 19 -> NONTERM_rev_object_fields 
     | 20 -> NONTERM_rev_object_fields 
-    | 21 -> NONTERM_rev_values 
-    | 22 -> NONTERM_rev_values 
+    | 21 -> NONTERM_rev_object_fields 
+    | 22 -> NONTERM_rev_object_fields 
+    | 23 -> NONTERM_one_of_values 
+    | 24 -> NONTERM_rev_one_of_values 
+    | 25 -> NONTERM_rev_one_of_values 
+    | 26 -> NONTERM_rev_one_of_values 
+    | 27 -> NONTERM_rev_one_of_values 
+    | 28 -> NONTERM_rev_one_of_values 
     | _ -> failwith "prodIdxToNonTerminal: bad production index"
 
-let _fsyacc_endOfInputTag = 15 
-let _fsyacc_tagOfErrorTerminal = 13
+let _fsyacc_endOfInputTag = 18 
+let _fsyacc_tagOfErrorTerminal = 16
 
 // This function gets the name of a token as a string
 let token_to_string (t:token) = 
   match t with 
   | EOF  -> "EOF" 
+  | ONE_OF  -> "ONE_OF" 
+  | RIGHT_PARENTHESIS  -> "RIGHT_PARENTHESIS" 
+  | LEFT_PARENTHESIS  -> "LEFT_PARENTHESIS" 
   | ANY_PATH  -> "ANY_PATH" 
   | ANY_PROPERTY  -> "ANY_PROPERTY" 
   | UNFINISHED_VALUE _ -> "UNFINISHED_VALUE" 
@@ -140,6 +162,9 @@ let token_to_string (t:token) =
 let _fsyacc_dataOfToken (t:token) = 
   match t with 
   | EOF  -> (null : System.Object) 
+  | ONE_OF  -> (null : System.Object) 
+  | RIGHT_PARENTHESIS  -> (null : System.Object) 
+  | LEFT_PARENTHESIS  -> (null : System.Object) 
   | ANY_PATH  -> (null : System.Object) 
   | ANY_PROPERTY  -> (null : System.Object) 
   | UNFINISHED_VALUE _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
@@ -152,18 +177,18 @@ let _fsyacc_dataOfToken (t:token) =
   | LEFT_BRACE  -> (null : System.Object) 
   | STRING _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
   | ID _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
-let _fsyacc_gotos = [| 0us; 65535us; 1us; 65535us; 0us; 1us; 1us; 65535us; 0us; 2us; 9us; 65535us; 0us; 4us; 10us; 11us; 14us; 15us; 17us; 18us; 20us; 21us; 23us; 24us; 26us; 27us; 29us; 30us; 32us; 33us; 1us; 65535us; 5us; 6us; 1us; 65535us; 5us; 8us; 0us; 65535us; |]
-let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 3us; 5us; 15us; 17us; 19us; |]
-let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 2us; 1us; 3us; 2us; 4us; 5us; 2us; 4us; 5us; 1us; 4us; 8us; 6us; 9us; 11us; 13us; 15us; 16us; 19us; 20us; 4us; 8us; 10us; 17us; 18us; 1us; 8us; 1us; 8us; 7us; 9us; 11us; 13us; 15us; 16us; 19us; 20us; 4us; 9us; 11us; 19us; 20us; 1us; 9us; 1us; 9us; 2us; 10us; 18us; 1us; 10us; 1us; 10us; 2us; 11us; 20us; 1us; 11us; 1us; 11us; 1us; 12us; 1us; 12us; 1us; 12us; 1us; 13us; 1us; 13us; 1us; 13us; 1us; 14us; 1us; 14us; 1us; 14us; 1us; 15us; 1us; 15us; 1us; 15us; |]
-let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; 13us; 16us; 18us; 27us; 32us; 34us; 36us; 44us; 49us; 51us; 53us; 56us; 58us; 60us; 63us; 65us; 67us; 69us; 71us; 73us; 75us; 77us; 79us; 81us; 83us; 85us; 87us; 89us; |]
-let _fsyacc_action_rows = 34
-let _fsyacc_actionTableElements = [|2us; 32768us; 0us; 3us; 10us; 5us; 0us; 49152us; 0us; 16385us; 0us; 16386us; 0us; 16387us; 3us; 16391us; 1us; 28us; 2us; 22us; 11us; 9us; 1us; 16389us; 9us; 7us; 0us; 16388us; 1us; 16390us; 5us; 12us; 2us; 16401us; 4us; 16us; 6us; 10us; 1us; 32768us; 10us; 5us; 0us; 16392us; 3us; 16400us; 1us; 31us; 2us; 25us; 11us; 13us; 2us; 16403us; 4us; 19us; 6us; 14us; 1us; 32768us; 10us; 5us; 0us; 16393us; 1us; 16402us; 6us; 17us; 1us; 32768us; 10us; 5us; 0us; 16394us; 1us; 16404us; 6us; 20us; 1us; 32768us; 10us; 5us; 0us; 16395us; 1us; 32768us; 6us; 23us; 1us; 32768us; 10us; 5us; 0us; 16396us; 1us; 32768us; 6us; 26us; 1us; 32768us; 10us; 5us; 0us; 16397us; 1us; 32768us; 6us; 29us; 1us; 32768us; 10us; 5us; 0us; 16398us; 1us; 32768us; 6us; 32us; 1us; 32768us; 10us; 5us; 0us; 16399us; |]
-let _fsyacc_actionTableRowOffsets = [|0us; 3us; 4us; 5us; 6us; 7us; 11us; 13us; 14us; 16us; 19us; 21us; 22us; 26us; 29us; 31us; 32us; 34us; 36us; 37us; 39us; 41us; 42us; 44us; 46us; 47us; 49us; 51us; 52us; 54us; 56us; 57us; 59us; 61us; |]
-let _fsyacc_reductionSymbolCounts = [|1us; 1us; 1us; 1us; 3us; 2us; 1us; 0us; 3us; 5us; 4us; 6us; 3us; 5us; 3us; 5us; 2us; 1us; 2us; 3us; 4us; 1us; 3us; |]
-let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 2us; 3us; 3us; 4us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 6us; 6us; |]
-let _fsyacc_immediateActions = [|65535us; 49152us; 16385us; 16386us; 16387us; 65535us; 65535us; 16388us; 65535us; 65535us; 65535us; 16392us; 65535us; 65535us; 65535us; 16393us; 65535us; 65535us; 16394us; 65535us; 65535us; 16395us; 65535us; 65535us; 16396us; 65535us; 65535us; 16397us; 65535us; 65535us; 16398us; 65535us; 65535us; 16399us; |]
+let _fsyacc_gotos = [| 0us; 65535us; 1us; 65535us; 0us; 1us; 1us; 65535us; 0us; 2us; 11us; 65535us; 0us; 4us; 13us; 14us; 20us; 21us; 23us; 24us; 26us; 27us; 29us; 30us; 32us; 33us; 35us; 36us; 38us; 39us; 41us; 42us; 44us; 45us; 1us; 65535us; 5us; 6us; 1us; 65535us; 5us; 8us; 2us; 65535us; 10us; 11us; 17us; 18us; 2us; 65535us; 10us; 46us; 17us; 46us; |]
+let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 3us; 5us; 17us; 19us; 21us; 24us; |]
+let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 2us; 1us; 3us; 2us; 4us; 5us; 2us; 4us; 5us; 1us; 4us; 9us; 6us; 9us; 11us; 13us; 15us; 17us; 18us; 21us; 22us; 1us; 8us; 1us; 8us; 1us; 8us; 1us; 8us; 1us; 8us; 1us; 8us; 8us; 9us; 11us; 13us; 15us; 17us; 18us; 21us; 22us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 4us; 10us; 12us; 19us; 20us; 1us; 10us; 1us; 10us; 4us; 11us; 13us; 21us; 22us; 1us; 11us; 1us; 11us; 2us; 12us; 20us; 1us; 12us; 1us; 12us; 2us; 13us; 22us; 1us; 13us; 1us; 13us; 1us; 14us; 1us; 14us; 1us; 14us; 1us; 15us; 1us; 15us; 1us; 15us; 1us; 16us; 1us; 16us; 1us; 16us; 1us; 17us; 1us; 17us; 1us; 17us; 3us; 23us; 27us; 28us; 2us; 25us; 26us; 1us; 26us; 2us; 27us; 28us; 1us; 27us; |]
+let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; 13us; 16us; 18us; 28us; 30us; 32us; 34us; 36us; 38us; 40us; 49us; 51us; 53us; 55us; 57us; 59us; 61us; 66us; 68us; 70us; 75us; 77us; 79us; 82us; 84us; 86us; 89us; 91us; 93us; 95us; 97us; 99us; 101us; 103us; 105us; 107us; 109us; 111us; 113us; 115us; 117us; 121us; 124us; 126us; 129us; |]
+let _fsyacc_action_rows = 51
+let _fsyacc_actionTableElements = [|2us; 32768us; 0us; 3us; 13us; 5us; 0us; 49152us; 0us; 16385us; 0us; 16386us; 0us; 16387us; 4us; 16391us; 1us; 9us; 4us; 40us; 5us; 34us; 14us; 22us; 1us; 16389us; 12us; 7us; 0us; 16388us; 1us; 16390us; 8us; 15us; 1us; 32768us; 3us; 10us; 1us; 16408us; 14us; 47us; 1us; 32768us; 2us; 12us; 1us; 32768us; 9us; 13us; 1us; 32768us; 13us; 5us; 0us; 16392us; 4us; 16402us; 1us; 16us; 4us; 43us; 5us; 37us; 14us; 25us; 1us; 32768us; 3us; 17us; 1us; 16408us; 14us; 47us; 1us; 32768us; 2us; 19us; 1us; 32768us; 9us; 20us; 1us; 32768us; 13us; 5us; 0us; 16393us; 2us; 16403us; 7us; 28us; 9us; 23us; 1us; 32768us; 13us; 5us; 0us; 16394us; 2us; 16405us; 7us; 31us; 9us; 26us; 1us; 32768us; 13us; 5us; 0us; 16395us; 1us; 16404us; 9us; 29us; 1us; 32768us; 13us; 5us; 0us; 16396us; 1us; 16406us; 9us; 32us; 1us; 32768us; 13us; 5us; 0us; 16397us; 1us; 32768us; 9us; 35us; 1us; 32768us; 13us; 5us; 0us; 16398us; 1us; 32768us; 9us; 38us; 1us; 32768us; 13us; 5us; 0us; 16399us; 1us; 32768us; 9us; 41us; 1us; 32768us; 13us; 5us; 0us; 16400us; 1us; 32768us; 9us; 44us; 1us; 32768us; 13us; 5us; 0us; 16401us; 1us; 16407us; 14us; 49us; 1us; 16409us; 8us; 48us; 0us; 16410us; 1us; 16412us; 8us; 50us; 0us; 16411us; |]
+let _fsyacc_actionTableRowOffsets = [|0us; 3us; 4us; 5us; 6us; 7us; 12us; 14us; 15us; 17us; 19us; 21us; 23us; 25us; 27us; 28us; 33us; 35us; 37us; 39us; 41us; 43us; 44us; 47us; 49us; 50us; 53us; 55us; 56us; 58us; 60us; 61us; 63us; 65us; 66us; 68us; 70us; 71us; 73us; 75us; 76us; 78us; 80us; 81us; 83us; 85us; 86us; 88us; 90us; 91us; 93us; |]
+let _fsyacc_reductionSymbolCounts = [|1us; 1us; 1us; 1us; 3us; 2us; 1us; 0us; 6us; 8us; 3us; 5us; 4us; 6us; 3us; 5us; 3us; 5us; 2us; 1us; 2us; 3us; 4us; 1us; 0us; 1us; 2us; 3us; 2us; |]
+let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 2us; 3us; 3us; 4us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 6us; 7us; 7us; 7us; 7us; 7us; |]
+let _fsyacc_immediateActions = [|65535us; 49152us; 16385us; 16386us; 16387us; 65535us; 65535us; 16388us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16392us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16393us; 65535us; 65535us; 16394us; 65535us; 65535us; 16395us; 65535us; 65535us; 16396us; 65535us; 65535us; 16397us; 65535us; 65535us; 16398us; 65535us; 65535us; 16399us; 65535us; 65535us; 16400us; 65535us; 65535us; 16401us; 65535us; 65535us; 16410us; 65535us; 16411us; |]
 let _fsyacc_reductions ()  =    [| 
-# 166 "IntellisenseParser.fs"
+# 191 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : ElasticOps.Parsing.IntellisenseValue option)) in
             Microsoft.FSharp.Core.Operators.box
@@ -172,94 +197,119 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startstart));
-# 175 "IntellisenseParser.fs"
+# 200 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'prog)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 26 "IntellisenseParser.fsy"
+# 28 "IntellisenseParser.fsy"
                                     _1 
                    )
-# 26 "IntellisenseParser.fsy"
+# 28 "IntellisenseParser.fsy"
                  : ElasticOps.Parsing.IntellisenseValue option));
-# 186 "IntellisenseParser.fs"
+# 211 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 29 "IntellisenseParser.fsy"
+# 31 "IntellisenseParser.fsy"
                                  None 
                    )
-# 29 "IntellisenseParser.fsy"
+# 31 "IntellisenseParser.fsy"
                  : 'prog));
-# 196 "IntellisenseParser.fs"
+# 221 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 30 "IntellisenseParser.fsy"
+# 32 "IntellisenseParser.fsy"
                                  Some _1 
                    )
-# 30 "IntellisenseParser.fsy"
+# 32 "IntellisenseParser.fsy"
                  : 'prog));
-# 207 "IntellisenseParser.fs"
+# 232 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'object_fields)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 33 "IntellisenseParser.fsy"
+# 35 "IntellisenseParser.fsy"
                                                                 Assoc _2 
                    )
-# 33 "IntellisenseParser.fsy"
+# 35 "IntellisenseParser.fsy"
                  : 'value));
-# 218 "IntellisenseParser.fs"
+# 243 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'object_fields)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 34 "IntellisenseParser.fsy"
+# 36 "IntellisenseParser.fsy"
                                                                 Assoc _2 
                    )
-# 34 "IntellisenseParser.fsy"
+# 36 "IntellisenseParser.fsy"
                  : 'value));
-# 229 "IntellisenseParser.fs"
+# 254 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 36 "IntellisenseParser.fsy"
+# 38 "IntellisenseParser.fsy"
                                                         List.rev _1 
                    )
-# 36 "IntellisenseParser.fsy"
+# 38 "IntellisenseParser.fsy"
                  : 'object_fields));
-# 240 "IntellisenseParser.fs"
+# 265 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 39 "IntellisenseParser.fsy"
-                                                                                              [] 
+# 41 "IntellisenseParser.fsy"
+                                                                                                                        [] 
                    )
-# 39 "IntellisenseParser.fsy"
+# 41 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 250 "IntellisenseParser.fs"
+# 275 "IntellisenseParser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'one_of_values)) in
+            let _6 = (let data = parseState.GetInput(6) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 42 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.OneOf(_3,_6)] 
+                   )
+# 42 "IntellisenseParser.fsy"
+                 : 'rev_object_fields));
+# 287 "IntellisenseParser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
+            let _5 = (let data = parseState.GetInput(5) in (Microsoft.FSharp.Core.Operators.unbox data : 'one_of_values)) in
+            let _8 = (let data = parseState.GetInput(8) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 43 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.OneOf(_5,_8)] 
+                   )
+# 43 "IntellisenseParser.fsy"
+                 : 'rev_object_fields));
+# 300 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 40 "IntellisenseParser.fsy"
-                                                                                              [IntellisenseProperty.Property(_1,"|empty_object|",_3)] 
+# 44 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.Property(_1,"|empty_object|",_3)] 
                    )
-# 40 "IntellisenseParser.fsy"
+# 44 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 262 "IntellisenseParser.fs"
+# 312 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -267,12 +317,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 41 "IntellisenseParser.fsy"
-                                                                                              IntellisenseProperty.Property(_3,"|empty_object|",_5) :: _1 
+# 45 "IntellisenseParser.fsy"
+                                                                                                                        IntellisenseProperty.Property(_3,"|empty_object|",_5) :: _1 
                    )
-# 41 "IntellisenseParser.fsy"
+# 45 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 275 "IntellisenseParser.fs"
+# 325 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -280,12 +330,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 42 "IntellisenseParser.fsy"
-                                                                                              [IntellisenseProperty.Property(_1,_2,_4)] 
+# 46 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.Property(_1,_2,_4)] 
                    )
-# 42 "IntellisenseParser.fsy"
+# 46 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 288 "IntellisenseParser.fs"
+# 338 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -294,104 +344,104 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 43 "IntellisenseParser.fsy"
-                                                                                              IntellisenseProperty.Property(_3,_4,_6) :: _1 
+# 47 "IntellisenseParser.fsy"
+                                                                                                                        IntellisenseProperty.Property(_3,_4,_6) :: _1 
                    )
-# 43 "IntellisenseParser.fsy"
+# 47 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 302 "IntellisenseParser.fs"
+# 352 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 44 "IntellisenseParser.fsy"
-                                                                                              [IntellisenseProperty.AnyProperty(_3)] 
+# 48 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.AnyProperty(_3)] 
                    )
-# 44 "IntellisenseParser.fsy"
+# 48 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 313 "IntellisenseParser.fs"
+# 363 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             let _5 = (let data = parseState.GetInput(5) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 45 "IntellisenseParser.fsy"
-                                                                                              IntellisenseProperty.AnyProperty(_5) :: _1 
+# 49 "IntellisenseParser.fsy"
+                                                                                                                        IntellisenseProperty.AnyProperty(_5) :: _1 
                    )
-# 45 "IntellisenseParser.fsy"
+# 49 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 325 "IntellisenseParser.fs"
+# 375 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 46 "IntellisenseParser.fsy"
-                                                                                              [IntellisenseProperty.AnyPath(_3)] 
+# 50 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.AnyPath(_3)] 
                    )
-# 46 "IntellisenseParser.fsy"
+# 50 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 336 "IntellisenseParser.fs"
+# 386 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             let _5 = (let data = parseState.GetInput(5) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 47 "IntellisenseParser.fsy"
-                                                                                              IntellisenseProperty.AnyPath(_5) :: _1 
+# 51 "IntellisenseParser.fsy"
+                                                                                                                        IntellisenseProperty.AnyPath(_5) :: _1 
                    )
-# 47 "IntellisenseParser.fsy"
+# 51 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 348 "IntellisenseParser.fs"
+# 398 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 48 "IntellisenseParser.fsy"
-                                                                                              _1 
+# 52 "IntellisenseParser.fsy"
+                                                                                                                        _1 
                    )
-# 48 "IntellisenseParser.fsy"
+# 52 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 359 "IntellisenseParser.fs"
+# 409 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 49 "IntellisenseParser.fsy"
-                                                                                              [IntellisenseProperty.Property(_1,"|empty_object|",Assoc([]))] 
+# 53 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.Property(_1,"|empty_object|",Assoc([]))] 
                    )
-# 49 "IntellisenseParser.fsy"
+# 53 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 370 "IntellisenseParser.fs"
+# 420 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 50 "IntellisenseParser.fsy"
-                                                                                              [IntellisenseProperty.Property(_1,_2,Assoc([]))] 
+# 54 "IntellisenseParser.fsy"
+                                                                                                                        [IntellisenseProperty.Property(_1,_2,Assoc([]))] 
                    )
-# 50 "IntellisenseParser.fsy"
+# 54 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 382 "IntellisenseParser.fs"
+# 432 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 51 "IntellisenseParser.fsy"
-                                                                                              IntellisenseProperty.Property(_3,"|empty_object|",Assoc([])) :: _1 
+# 55 "IntellisenseParser.fsy"
+                                                                                                                        IntellisenseProperty.Property(_3,"|empty_object|",Assoc([])) :: _1 
                    )
-# 51 "IntellisenseParser.fsy"
+# 55 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 394 "IntellisenseParser.fs"
+# 444 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_object_fields)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -399,36 +449,80 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 52 "IntellisenseParser.fsy"
-                                                                                              IntellisenseProperty.Property(_3,_4,Assoc([])) :: _1 
+# 56 "IntellisenseParser.fsy"
+                                                                                                                        IntellisenseProperty.Property(_3,_4,Assoc([])) :: _1 
                    )
-# 52 "IntellisenseParser.fsy"
+# 56 "IntellisenseParser.fsy"
                  : 'rev_object_fields));
-# 407 "IntellisenseParser.fs"
+# 457 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
-            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_one_of_values)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 55 "IntellisenseParser.fsy"
-                                                  [_1] 
+# 58 "IntellisenseParser.fsy"
+                                                        List.rev _1 
                    )
-# 55 "IntellisenseParser.fsy"
-                 : 'rev_values));
-# 418 "IntellisenseParser.fs"
+# 58 "IntellisenseParser.fsy"
+                 : 'one_of_values));
+# 468 "IntellisenseParser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
-            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_values)) in
-            let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'value)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 56 "IntellisenseParser.fsy"
-                                                  _3 :: _1 
+# 61 "IntellisenseParser.fsy"
+                                                            [] 
                    )
-# 56 "IntellisenseParser.fsy"
-                 : 'rev_values));
+# 61 "IntellisenseParser.fsy"
+                 : 'rev_one_of_values));
+# 478 "IntellisenseParser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 62 "IntellisenseParser.fsy"
+                                                            [_1] 
+                   )
+# 62 "IntellisenseParser.fsy"
+                 : 'rev_one_of_values));
+# 489 "IntellisenseParser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 63 "IntellisenseParser.fsy"
+                                                            [_1] 
+                   )
+# 63 "IntellisenseParser.fsy"
+                 : 'rev_one_of_values));
+# 500 "IntellisenseParser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_one_of_values)) in
+            let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 64 "IntellisenseParser.fsy"
+                                                            _2::_1 
+                   )
+# 64 "IntellisenseParser.fsy"
+                 : 'rev_one_of_values));
+# 512 "IntellisenseParser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rev_one_of_values)) in
+            let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 65 "IntellisenseParser.fsy"
+                                                            _2::_1 
+                   )
+# 65 "IntellisenseParser.fsy"
+                 : 'rev_one_of_values));
 |]
-# 431 "IntellisenseParser.fs"
+# 525 "IntellisenseParser.fs"
 let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;
@@ -447,7 +541,7 @@ let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> =
                               match parse_error_rich with 
                               | Some f -> f ctxt
                               | None -> parse_error ctxt.Message);
-    numTerminals = 16;
+    numTerminals = 19;
     productionToNonTerminalTable = _fsyacc_productionToNonTerminalTable  }
 let engine lexer lexbuf startState = (tables ()).Interpret(lexer, lexbuf, startState)
 let start lexer lexbuf : ElasticOps.Parsing.IntellisenseValue option =

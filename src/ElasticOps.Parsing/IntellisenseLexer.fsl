@@ -30,10 +30,13 @@ rule read =
   | '}'             { RIGHT_BRACE }
   | '['             { LEFT_BRACK }
   | ']'             { RIGHT_BRACK }
+  | '('             { LEFT_PARENTHESIS }
+  | ')'             { RIGHT_PARENTHESIS }
   | ':'             { COLON }
   | ','             { COMMA }
   | "AnyProperty"   {ANY_PROPERTY}
   | "AnyPath"       {ANY_PATH}
+  | "OneOf"        {ONE_OF}
   | completionMacro {COMPLETION_MACRO (lexeme lexbuf)}
   | id              { ID(lexeme lexbuf) }
   | eof             { EOF }

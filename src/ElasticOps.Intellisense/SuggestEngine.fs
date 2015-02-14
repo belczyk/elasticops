@@ -67,6 +67,7 @@
                                                                                                    | IntellisenseProperty.Property(name,_, value) -> discoverRules value (RuleSign.Property(name)::rulePrefix)
                                                                                                    | IntellisenseProperty.AnyProperty(value) -> discoverRules value (RuleSign.AnyProperty::rulePrefix)
                                                                                                    | IntellisenseProperty.AnyPath(value) -> discoverRules value (RuleSign.AnyPath::rulePrefix)
+                                                                                                   | IntellisenseProperty.OneOf(props,value) -> discoverRules value (RuleSign.OneOf(props)::rulePrefix)
                                                                                                    | _ -> failwith "Unsupported")
                                                      mainRule::(List.collect (fun sr -> sr) subRules)
                               
@@ -89,6 +90,7 @@
                                | (RuleSign.AnyProperty, DSLPathNode.PropertyWithValue _) -> true
                                | (RuleSign.AnyProperty, _ ) -> false
                                | (RuleSign.AnyPath, _ ) -> true
+                               | (RuleSign.OneOf(_), _ ) -> false
             | (rH::rT,pH::pT) -> 
                                match (rH,pH) with
                                | (RuleSign.Property rName, DSLPathNode.PropertyWithValue pName) when rName = pName -> matchRuleWithPath rT pT 
@@ -97,6 +99,9 @@
                                | (RuleSign.UnfinishedPropertyName, _ ) -> false
                                | (RuleSign.AnyProperty, DSLPathNode.PropertyWithValue _) -> matchRuleWithPath rT pT
                                | (RuleSign.AnyProperty, _ ) -> false
+                               | (RuleSign.OneOf(props), DSLPathNode.PropertyWithValue(name) ) -> if (List.exists (fun el -> el = name) props) then
+                                                                                                      matchRuleWithPath rT pT
+                                                                                                  else false
                                | (RuleSign.AnyPath, _ ) -> let nextInRule = (List.head rT)
                                                            match nextInRule with 
                                                            | RuleSign.Property name -> let reversedPath = List.rev path
@@ -104,6 +109,17 @@
                                                                                             match path with
                                                                                             | h::t -> match h with
                                                                                                         | DSLPathNode.PropertyWithValue pName when pName = name -> (true,h::rem)
+                                                                                                        | _ -> matchingTillMarker t (h::rem)
+                                                                                            | [] -> (false,rem)
+                                                                                       let (matched,rem) = (matchingTillMarker reversedPath [])
+    
+                                                                                       if matched then matchRuleWithPath rT rem
+                                                                                       else false
+                                                           | RuleSign.OneOf props ->   let reversedPath = List.rev path
+                                                                                       let rec matchingTillMarker path rem = 
+                                                                                            match path with
+                                                                                            | h::t -> match h with
+                                                                                                        | DSLPathNode.PropertyWithValue pName when (List.exists (fun el-> el=pName) props) -> (true,h::rem)
                                                                                                         | _ -> matchingTillMarker t (h::rem)
                                                                                             | [] -> (false,rem)
                                                                                        let (matched,rem) = (matchingTillMarker reversedPath [])
