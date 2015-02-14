@@ -4,17 +4,18 @@ Elastic Ops
 
 ElasticOps is a desktop application which allows you to manage ElasticSearch cluster. 
 It allows you to :
-* See basic cluster information 
+* [See basic cluster information ](#user-content-cluster)
   - Nodes
   - Indices
   - Document counts
   - Mappings
-* Query nodes (all endpoints are available) 
+* [Query nodes ](#user-content-query)Query nodes (all endpoints are available) 
   - Editor contains intellisense for _search and _mapping endpoints (more are comming) 
   - Indices, types and endpoints are suggested 
-* Analyze - See how ElasticSearch sees your data
-* View your documents, simply select index and type and you can browse docuemnts as sql table
-* Perform any REST request (to ElasticSearch or any other API)
+* [Analyze](#user-content-analyze)Analyze - See how ElasticSearch sees your data
+* [View your documents](#user-content-view-data), simply select index and type and you can browse docuemnts as sql table
+* [Perform any REST request](#user-content-REST) (to ElasticSearch or any other API)
+* [Change it's theme](#user-content-theme) just for fun :) 
 
 Cluster
 -------
