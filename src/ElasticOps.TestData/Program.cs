@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
+using System.Threading;
 using Nest;
 using Serilog;
 
@@ -48,8 +49,6 @@ namespace ElasticOps.TestData
                 client.DeleteIndex(x => x.Index(name));
             }
 
-            client.OpenIndex(x => x.Index(name));
-
             Log.Logger.Information("Create index {indexName}", name);
             client.CreateIndex(name, c => c
                 .NumberOfReplicas(0)
@@ -59,7 +58,13 @@ namespace ElasticOps.TestData
             Log.Logger.Information("Index {indexName} created", name);
 
             Log.Logger.Information("Closing index {indexName}", name);
-            client.CloseIndex(x => x.Index(name));
+
+            Thread.Sleep(30000);
+            var closeRes = client.CloseIndex(x => x.Index(name));
+
+            
+            if (!closeRes.Acknowledged)
+                Log.Logger.Error("Could not close index: {message}",closeRes.ServerError.Error);
 
             Log.Logger.Information("Add analyzer to index {indexName}", name);
             var res = client.Raw.IndicesPutSettings(name, File.ReadAllText("Analyzer.json"));
@@ -67,7 +72,9 @@ namespace ElasticOps.TestData
             if (!res.Success)
                 Log.Logger.Error("Could not create analyzer: {error}", res.OriginalException.ToString());
 
+
             Log.Logger.Information("Open index {indexName}", name);
+            client.OpenIndex(x => x.Index(name));
 
             RandomBooks(1000, name, client);
             RandomCDs(1000, name, client);
