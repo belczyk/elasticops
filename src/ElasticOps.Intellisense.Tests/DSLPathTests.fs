@@ -37,7 +37,7 @@ let ``can get path for for huge ElasticSearch query cut in the middle randomly``
 
     watch.Stop()
 
-    printfn "total time [ms]: %d" watch.ElapsedMilliseconds
+    //printfn "total time [ms]: %d" watch.ElapsedMilliseconds
     //fool test runner to not ignore this test
     Assert.True true
 

@@ -45,7 +45,7 @@ let ``matchRuleWithPath: match any property `` () =
 let ``can read rules from _search schema`` () = 
     let rules = readRulesFromJson "IntellisenseRules_search.json"
 
-    System.Console.WriteLine(rules.Length)
+    //System.Console.WriteLine(rules.Length)
 
     rules.Length |> should  be (greaterThan 0)
 
@@ -54,7 +54,7 @@ let ``can read rules from _search schema`` () =
 let ``can read rules from _mapping schema`` () = 
     let rules = readRulesFromJson "IntellisenseRules_mapping.json"
 
-    System.Console.WriteLine(rules.Length)
+    //System.Console.WriteLine(rules.Length)
 
     rules.Length |> should  be (greaterThan 0)
 [<Test>]
