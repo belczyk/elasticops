@@ -4,6 +4,7 @@
     open Microsoft.FSharp.Core
     open ElasticOps.Configuration
 
+
     module IntellisenseEngine =
         
         let config = ConfigLoaders.LoadIntellisenseConfig()
@@ -32,8 +33,8 @@
                                                     
         
                 (context, suggestions)
-        
-        let postfixFromCompletionMode mode = 
+
+        let PostfixFromCompletionMode mode = 
             match mode with
             | "|colon|" -> (" : ","")
             | "|empty_object|" -> (" : {","}")
@@ -43,16 +44,33 @@
             | "|int_0|" -> (" : 0 ","")
             | "|int_1|" -> (" : 1 ","")
             | "|int_3|" -> (" : 3 ","")
+            | "|int_5|" -> (" : 5 ","")
             | "|int_10|" -> (" : 10 ","")
             | "|int_20|" -> (" : 20 ","")
             | "|int_50|" -> (" : 50 ","")
+            | "|int_70|" -> (" : 70 ","")
             | "|int_100|" -> (" : 100 ","")
             | "|int_300|" -> (" : 300 ","")
             | "|int_1000|" -> (" : 1000 ","")
             | "|example_lat|" -> (" : 52.376 ","")
             | "|example_lon|" -> (" : 4.894 ","")
             | "|true|" -> (" : true ","")
-            | "|astrisk|" -> (" : \"*\" ","")
+            | "|false|" -> (" : false ","")
+            | "|none|" -> (" : \"none\"","")
+            | "|shape|" -> (" : \"shape","\"")
+            | "|within|" -> (" : \"within\"","")
+            | "|OR|" -> (" : \"OR\"","")
+            | "|ROOT|" -> (" : \"ROOT\"","")
+            | "|day|" -> (" : \"day\"","")
+            | "|max|" -> (" : \"max\"","")
+            | "|count|" -> (" : \"count\"","")
+            | "|km|" -> (" : \"km\"","")
+            | "|envelope|" -> (" : \"envelope\"","")
+            | "|plain|" -> (" : \"plain\"","")
+            | "|avg|" -> (" : \"avg\"","")
+            | "|first|" -> (" : \"first\"","")
+            | "|multiply|" -> (" : \"first\"","")
+            | "|asterisk|" -> (" : \"*\" ","")
             | "|_1s|" -> (" : \"_1s\" ","")
             | "|percentiles_percents|" -> (" : [1,5,25,50,75,95,99] ","")
             | "|percentile_ranks_values|" -> (" : [10,15] ","")
@@ -62,14 +80,15 @@
             | "|empty_string|" -> (" : \"","\" ")
             | "|date_format|" -> (" : \"yyyy-MM-dd\" ","")
             | "|MMyyy|" -> (" : \"MM-yyy\" ","")
-            | _ -> failwith "Unknown completion mode."
-        
+            | "|MMyyyy|" -> (" : \"MM-yyyy\" ","")
+            | _ -> failwith ("Unknown completion mode: "+mode)
+    
         let completeProperty context suggestion mode = 
             let codeFromCaret = context.OriginalCode.Substring(context.CodeTillCaret.Length)
             let lastQuotePos = context.CodeTillCaret.LastIndexOf "\""
             let codeTillQuote = context.CodeTillCaret.Substring(0,lastQuotePos+1)
         
-            let postfix = postfixFromCompletionMode(mode)
+            let postfix = PostfixFromCompletionMode(mode)
             let suggestText = suggestion.Text + "\" " 
             let lastLineTillCaret = ((String.split "\r\n" context.CodeTillCaret ) |> Seq.last);
             let indexOfLastQuoteInLastLineTillCaret = lastLineTillCaret.LastIndexOf("\"")

@@ -25,3 +25,15 @@ let ``parse completion mode``() =
 [<Test>]
 let ``parse completion mode 2``() =
      @"{ ""prop"" |empty_object| : {}, ""prop2"" |empty_array| : {} }" |> parseIntellisense |> should equal (Some(IntellisenseValue.Assoc([IntellisenseProperty.Property("prop","|empty_object|", IntellisenseValue.Assoc([]));IntellisenseProperty.Property("prop2","|empty_array|", IntellisenseValue.Assoc([]))])))
+
+
+[<Test>]
+let ``parse full _search schema``() =
+    let schema = System.IO.File.ReadAllText(@"IntellisenseRules_search.json")
+
+    let result = schema |> parseIntellisense
+
+    match result with 
+    | Some b -> System.Console.WriteLine(b.ToString())
+    | None -> Assert.Fail()
+

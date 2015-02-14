@@ -1,49 +1,391 @@
 {
     "query": {
-        "bool": {
-            "should" |empty_array| ,
-            "must" |empty_array| ,
-            "must_not" |empty_array| ,
-            "boost" |colon| ,
-            "minimum_number_should_match" |colon| 
-        },
-        "boosting",
-        "constant_score",
-        "custom_filters_score",
-        "dis_max",
-        "field",
-        "filtered",
-        "flt",
-        "function_score",
-        "fuzzy",
-        "fuzzy_like_this",
-        "geo_shape",
-        "has_child",
-        "has_parent",
-        "ids",
-        "indices",
-        "match",
-        "match_all",
-        "match_phrase",
-        "match_phrase_perfix",
-        "mlt",
-        "more_like_this",
-        "more_like_this_field",
-        "multi_match",
-        "nested",
-        "prefix",
-        "query_string",
-        "range",
-        "simple_query_string",
-        "span_frist",
-        "span_near",
-        "span_not",
-        "span_or",
-        "term",
-        "terms",
-        "top_children",
-        "wildcard"
-    },
+              "bool":{
+                 "boost" |int_1|,
+                 "minimum_number_should_match" |int_1|,
+                 "must" |empty_array|,
+                 "must_not" |empty_array|,
+                 "should" |empty_array|
+              },
+              "boosting":{
+                 "negative" |empty_object|,
+                 "negative_boost" |decimal_0_2|,
+                 "positive" |empty_object|
+              },
+              "constant_score":{
+                 "filter" |empty_object|,
+                 "boost" |decimal_1_2|,
+                 "query" |empty_object|
+              },
+              "custom_filters_score":{
+                 "query" |empty_object|,
+                 "lang" |empty_string|,
+                 "max_boost" |int_2|,
+                 "params" |empty_object|,
+                 "score_mode" |first|,
+                 "filters" |empty_array|
+              },
+              "dis_max":{
+                 "tie_breaker" |decimal_0_7|,
+                 "boost" |decimal_1_2|,
+                 "queries" |empty_array|
+              },
+              "field" |empty_object|,
+              "filtered":{
+                 "query" |empty_object|,
+                 "filter" |empty_object|
+              },
+              "flt":{
+                 "fields" |empty_array|,
+                 "like_text" |empty_string|,
+                 "max_query_terms" |int_12|
+              },
+              "function_score":{
+                                       "query" |empty_object|,
+                                       "functions":
+                                          {
+                                             "boost_factor" |int_2|,
+                                             "exp":{
+                                                AnyProperty : {
+                                                   "origin" |empty_string|,
+                                                   "scale" |empty_string|,
+                                                   "decay" |decimal_0_5|,
+                                                   "offset" |empty_string|
+                                                }
+                                             },
+                                             "field_value_factor":{
+                                                "field" |empty_string|,
+                                                "factor" |decimal_1_2|,
+                                                "modifier" |none|
+                                             },
+                                             "filter" |empty_object|,
+                                             "gauss":{
+                                                AnyProperty :{
+                                                   "origin" |empty_string|,
+                                                   "scale" |empty_string|,
+                                                   "decay" |decimal_0_5|,
+                                                   "offset" |empty_string|
+                                                }
+                                             },
+                                             "linear":{
+                                                AnyProperty:{
+                                                   "origin" |empty_string|,
+                                                   "scale" |empty_string|,
+                                                   "offset" |empty_string|,
+                                                   "decay" |decimal_0_5|
+                                                }
+                                             },
+                                             "random_score":{
+                                                "seed" |INT_314159265359|
+                                             },
+                                             "script_score":{
+                                                "script" |empty_string|,
+                                                "lang" |groovy|,
+                                                "params" |empty_object|,
+                                                "script_id" |empty_string|
+                                             },
+                                             "weight" |int_1|
+                                          }
+                                  },
+         "boost" |int_1|,
+         "boost_factor" |int_2|,
+         "boost_mode" |multiply|,
+         "exp":{
+            AnyProperty :{
+               "origin" |empty_string|,
+               "scale" |empty_string|,
+               "offset" |empty_string|,
+               "decay" |decimal_0_5|
+            }
+         },
+         "field_value_factor":{
+            "field" |empty_string|,
+            "factor" |decimal_1_2|,
+            "modifier" |none|
+         },
+         "gauss":{
+            AnyProperty :{
+               "origin" |empty_string|,
+               "scale" |empty_string|,
+               "decay" |decimal_0_5|,
+               "offset" |empty_string|
+            }
+         },
+         "linear":{
+            AnyProperty:{
+               "origin" |empty_string|,
+               "scale" |empty_string|,
+               "decay" |decimal_0_5|,
+               "offset" |empty_string|
+            }
+         },
+         "max_boost" |decimal_1_0|,
+         "random_score":{
+            "seed" |INT_314159265359|
+         },
+         "score_mode" |multiply|,
+         "script_score":{
+            "script" |empty_string|,
+            "lang" |groovy|,
+            "params" |empty_object|,
+            "script_id" |empty_string|
+         }
+      },
+      "fuzzy":{
+         AnyProperty :{
+            "boost" |int_1|,
+            "min_similarity" |decimal_0_5|,
+            "prefix_length" |int_0|,
+            "value" |empty_string|
+         }
+      },
+      "fuzzy_like_this":{
+         "fields" |empty_array|,
+         "like_text" |empty_string|,
+         "max_query_terms" |int_1|
+      },
+      "geo_shape":{
+         "location":{
+            "indexed_shape":{
+               "id" |empty_string|,
+               "index" |index_placeholder|,
+               "shape_field_name" |shape|,
+               "type" |type_placeholder|
+            }
+         },
+         "relation" |within|,
+         AnyProperty:{
+            "indexed_shape":{
+               "id" |empty_string|,
+               "index" |index_placeholder|,
+               "shape_field_name" |shape|,
+               "type" |type_placeholder|
+            },
+            "relation" |within|,
+            "shape":{
+               "coordinates" |empty_array|,
+               "type" |empty_string|
+            }
+         }
+      },
+      "has_child":{
+         "_scope" |empty_string|,
+         "max_children" |decimal_1_0|,
+         "min_children" |int_1|,
+         "score_mode" |none|,
+         "type" |type_placeholder|,
+         "query" |empty_object|
+      },
+      "has_parent":{
+         "parent_type" |type_placeholder|,
+         "query" |empty_object|,
+         "_scope" |empty_string|,
+         "score_mode" |none|
+      },
+      "ids":{
+         "type" |empty_string|,
+         "values" |empty_array|
+      },
+      "indices":{
+         "indices" |empty_array|,
+         "query" |empty_object|,
+         "no_match_query" |empty_object|
+      },
+      "match" |empty_object|,
+      "match_all" |empty_object|,
+      "match_phrase" |empty_object|,
+      "match_phrase_prefix" |empty_object|,
+      "mlt":{
+         "analyzer" |empty_string|,
+         "boost" |int_1|,
+         "boost_terms" |int_1|,
+         "docs": {
+               "_id" |empty_string|,
+               "_index" |index_placeholder|,
+               "_type" |type_placeholder|
+            } ,
+         "fields" |empty_array|,
+         "ids" |empty_array|,
+         "like_text" |empty_string|,
+         "max_doc_freq" |int_100|,
+         "max_query_terms" |int_25|,
+         "max_word_len" |int_0|,
+         "percent_terms_to_match" |decimal_0_3|,
+         "stop_words" |empty_array|
+      },
+      "more_like_this" |empty_object|,
+      "more_like_this_field":{
+         AnyProperty:{
+            "analyzer" |empty_string|,
+            "boost" |int_1|,
+            "boost_terms" |int_1|,
+            "like_text" |empty_string|,
+            "max_doc_freq" |int_100|,
+            "max_query_terms" |int_25|,
+            "max_word_len" |int_0|,
+            "min_doc_freq" |int_5|,
+            "min_term_freq" |int_2|,
+            "min_word_len" |int_0|,
+            "percent_terms_to_match" |decimal_0_3|,
+            "stop_words" |empty_array|
+         }
+      },
+      "multi_match":{
+         "query" |empty_string|,
+         "fields" |empty_array|,
+         "tie_breaker" |int_0|,
+         "type" |best_fields|,
+         "use_dis_max" |true|
+      },
+      "nested":{
+         "path" |empty_string|,
+         "filter" |empty_object|,
+         "score_mode" |avg|,
+         "query" |empty_object|
+      },
+      "prefix":{
+         AnyProperty:{
+            "value" |empty_string|,
+            "boost" |int_1|
+         }
+      },
+      "query_string":{
+         "default_field" |empty_string|,
+         "query" |empty_string|,
+         "allow_leading_wildcard" |true|,
+         "analyze_wildcard" |false|,
+         "analyzer" |empty_string|,
+         "auto_generate_phrase_queries" |false|,
+         "boost" |int_1|,
+         "default_operator" |OR|,
+         "enable_position_increments" |true|,
+         "fields" |empty_array|,
+         "fuzzy_max_expansions" |int_50|,
+         "fuzzy_min_sim" |decimal_0_5|,
+         "fuzzy_prefix_length" |int_0|,
+         "lenient" |false|,
+         "lowercase_expanded_terms" |true|,
+         "minimum_should_match" |percent_20|,
+         "phrase_slop" |int_0|,
+         "tie_breaker" |int_0|,
+         "use_dis_max" |true|
+      },
+      "range":{
+         AnyProperty : {
+            "boost" |int_1|,
+            "gt" |decimal_1_0|,
+            "gte" |decimal_1_0|,
+            "lt" |int_20|,
+            "lte" |int_20|,
+            "time_zone" |empty_string|
+         }
+      },
+      "simple_query_string":{
+         "query" |empty_string|,
+         "fields" |empty_array|,
+         "analyzer" |empty_string|,
+         "flags" |flags_OR_AND_PREFIX|,
+         "lenient" |true|,
+         "locale" |ROOT|,
+         "lowercase_expanded_terms" |true|
+      },"span_first":{
+         "match" |empty_object|
+      },
+      "span_near":{
+         "clauses":
+            {
+               "span_first" |empty_object|
+            },
+         "collect_payloads" |false|,
+         "in_order" |false|,
+         "slop" |int_12|
+      },
+      "span_not":{
+         "exclude":{
+            "span_first" |empty_object|
+         },
+         "include" |empty_object|
+      },
+      "span_or":{
+         "clauses" |empty_array|
+      },
+      "span_term" |empty_object|,
+      "term":{
+         AnyProperty : {
+            "value" |empty_string|,
+            "boost" |int_2|
+         }
+      },
+      "terms" |empty_object|,
+      "top_children":{
+         "factor" |int_5|,
+         "incremental_factor" |int_2|,
+         "query" |empty_object|,
+         "score" |max|,
+         "type" |empty_string|
+      },
+      "wildcard":{
+         AnyProperty :{
+            "value" |empty_string|,
+            "boost" |int_2|
+         }
+      },
+         "facets":{
+            AnyProperty :{
+                        "date_histogram":{
+                          "field" |field_placeholder|,
+                          "interval" |day|
+                       },
+                       "facet_filter" |empty_object|,
+                       "filter" |empty_object|,
+                       "histogram":{
+                          "field" |field_placeholder|,
+                          "interval" |int_100|,
+                          "key_field" |field_placeholder|,
+                          "key_script" |empty_string|,
+                          "params" |empty_object|,
+                          "time_interval" |h_1_5|,
+                          "value_field" |field_placeholder|,
+                          "value_script" |empty_string|
+                       },
+                       "query" |empty_object|,
+                       "range":{
+                          "field" |field_placeholder|,
+                          "ranges":
+                             {
+                                "from" |int_20|,
+                                "to" |int_70|
+                             }
+                          
+                       },
+                       "statistical":{
+                          "field" |field_placeholder|,
+                          "fields" |empty_array|,
+                          "script" |empty_string|
+                       },
+                        "terms":{
+                            "size" |decimal_1_0|,
+                            "all_terms" |false|,
+                            "exclude" |empty_array|,
+                            "field" |field_placeholder|,
+                            "fields" |empty_array|,
+                            "order" |count|,
+                            "regex" |empty_string|,
+                            "regex_flags" |empty_string|,
+                            "script" |empty_string|,
+                            "script_field" |empty_string|
+                         },
+                         "terms_stats":{
+                            "key_field" |field_placeholder|,
+                            "value_field" |field_placeholder|,
+                            "order" |count|,
+                            "size" |decimal_1_0|,
+                            "value_script" |empty_string|
+                         }
+            }
+          }
+    ,
+
     "aggs",
     AnyPath : {
         "aggs": {
@@ -287,13 +629,29 @@
             }
         }
     },
-    "facets",
-    "fielddata_fields",
-    "fields",
-    "highlight",
-    "partial_fields",
-    "post_filter",
-    "script_fields",
+         "fielddata_fields" |empty_array|,
+      "fields" |empty_array|,
+      "highlight": {
+        "fields" |empty_object|,
+        "post_tags" |empty_object|,
+        "pre_tags" |empty_object|,
+        "tags_schema" |empty_object|
+      },
+  "partial_fields": {
+    AnyProperty : {
+      "include" |empty_array|,
+      "exclude" |empty_array|
+    }
+  },
+  "post_filter" |empty_object|,
+  "script_fields": {
+    AnyProperty : {
+      "script" |empty_string|,
+      "lang" |empty_string|,
+      "params" |empty_object|
+    }
+  },
+      
     "sort" |empty_array|,
     "stats" ,
     "explain" |true|,
@@ -301,5 +659,139 @@
     "size" |int_20|,
     "timeout" |_1s|,
     "version" |true|,
-
+    "post_filter":{
+                "and":{
+                         "filters" |empty_array|,
+                         "_cache" |false|
+                      },
+                      "bool":{
+                         "_cache" |false|,
+                         "must"  |empty_array|,
+                         "must_not" |empty_array|,
+                         "should" |empty_array|
+                      },
+                      "exists":{
+                         "field" |empty_string|
+                      },
+                      "fquery":{
+                         "query" |empty_object|,
+                         "_cache" |true|
+                      },
+                      "geo_distance":{
+                         "distance" |int_100|,
+                         "distance_unit" |km|,
+                         AnyProperty :{
+                            "lat"  |example_lat|,
+                            "lon" |example_lon|
+                         }
+                      },
+                      "geo_distance_range":{
+                         "from" |int_100|,
+                         "to" |int_200|,
+                         "distance_unit" |km|,
+                         AnyProperty :{
+                            "lat"  |example_lat|,
+                            "lon"  |example_lon|
+                         }
+                      },                      
+      "geo_polygon":{
+         AnyProperty : {
+            "points": {
+                  "lat"  |example_lat|,
+                  "lon" |example_lon|
+               }
+         }
+      },
+      "geo_shape":{
+         AnyProperty : {
+            "shape":{
+               "type" |envelope|,
+               "coordinates" |empty_array|
+            },
+            "indexed_shape":{
+               "id" |empty_string|,
+               "index" |index_placeholder|,
+               "shape_field_name" |shape|,
+               "type" |type_placeholder|
+            },
+            "relation" |within|
+         }
+      },
+      "has_child":{
+         "type" |type_placeholder|,
+         "filter" |empty_object|,
+         "_scope" |empty_string|,
+         "max_children" |decimal_1_0|,
+         "min_children" |int_1|
+      },
+      "has_parent":{
+         "parent_type" |type_placeholder|,
+         "_scope" |empty_string|,
+         "query" |empty_object|,
+         "filter" |empty_object|
+      },                      
+      "ids":{
+         "values" |empty_array|,
+         "type" |type_placeholder|
+      },
+      "limit":{
+         "value" |int_100|
+      },
+      "m":{
+         "field" |field_placeholder|,
+         "existence" |true|,
+         "null_value" |true|
+      },
+      "missing":{
+         "field" |field_placeholder|,
+         "existence" |true|,
+         "null_value" |true|
+      },
+      "nested":{
+         "path" |empty_string|,
+         "query" |empty_object|,
+         "_cache" |true|,
+         "_name" |empty_string|
+      },
+      "not":{
+         "filter" |empty_object|,
+         "_cache" |true|
+      },
+      "or":{
+         "filters" |empty_array|,
+         "_cache" |false|
+      },
+      "prefix":{
+         "{field}" |empty_string|,
+         "_cache" |true|
+      },
+      "query" |empty_object|,
+      "range":{
+         AnyProperty :{
+            "execution" |index_placeholder|,
+            "gt" |int_1|,
+            "gte" |int_1|,
+            "lt" |int_20|,
+            "lte" |int_20|,
+            "time_zone" |empty_string|
+         }
+      },
+      "script":{
+         "script" |empty_string|,
+         "_cache" |true|,
+         "params" |empty_object|
+      },
+      "term":{
+         "{field}" |empty_string|,
+         "_cache" |false|
+      },
+      "terms":{
+         "{field}" |empty_array|,
+         "execution" |plain|,
+         "_cache" |false|
+      },
+      "type":{
+         "value" |type_placeholder|
+      }      
+    }
 }

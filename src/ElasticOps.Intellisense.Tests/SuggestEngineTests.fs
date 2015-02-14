@@ -45,6 +45,7 @@ let ``matchRuleWithPath: match any property `` () =
 let ``can read rules from file`` () = 
     let rules = readRulesFromJson "IntellisenseRules_search.json"
 
+    System.Console.WriteLine(rules.Length)
 
     rules.Length |> should  be (greaterThan 0)
 
