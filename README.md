@@ -14,8 +14,8 @@ It allows you to :
   - Indices, types and endpoints are suggested 
 * [Analyze](#user-content-analyze)Analyze - See how ElasticSearch sees your data
 * [View your documents](#user-content-view-data), simply select index and type and you can browse docuemnts as sql table
-* [Perform any REST request](#user-content-REST) (to ElasticSearch or any other API)
-* [Change it's theme](#user-content-theme) just for fun :) 
+* [Perform any REST request](#user-content-rest) (to ElasticSearch or any other API)
+* [Change it's theme](#user-content-themes) just for fun :) 
 
 Cluster
 -------
