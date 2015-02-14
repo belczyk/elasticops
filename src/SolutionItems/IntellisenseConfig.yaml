@@ -1,5 +1,6 @@
 IntellisenseEndpoints: 
     - _search
+    - _mapping
 RulesFileFomrat : Config/IntellisenseRules{0}.json
 AutoCompleteChars :
     - "["

@@ -1,0 +1,44 @@
+{
+  "analyzer" |standard|,
+  "date_detection" |true|,
+  "dynamic_date_formats" |empty_array|,
+  "index_analyzer" |standard|,
+  "numeric_detection" |true|,
+  "search_analyzer" |standard|,
+  "transform": {
+    "script" |empty_string|,
+    "lang" |groovy|,
+    "params" |empty_object|
+  },
+  "properties": {
+    AnyProperty : {
+      "analyzer" |standard|,
+      "boost" |int_1|,
+      "copy_to" |field_placeholder|,
+      "fielddata": {
+        "filter" |empty_string|
+      },
+      "format" |basic_date|,
+      "ignore_above" |int_10|,
+      "ignore_malformed" |true|,
+      "include_in_all" |false|,
+      "include_in_parent" |true|,
+      "include_in_root" |true|,
+      "index" |analyzed|,
+      "index_analyzer" |standard|,
+      "index_name" |empty_string|,
+      "index_options" |docs|,
+      "null_value" |empty_string|,
+      "omit_norms" |true|,
+      "path" |just_name|,
+      "position_offset_gap" |int_0|,
+      "postings_format" |direct|,
+      "precision_step" |int_4|,
+      "search_analyzer" |standard|,
+      "similarity" |default|,
+      "store" |true|,
+      "term_vector" |no|,
+      "type" |empty_string|
+    }
+  }
+}

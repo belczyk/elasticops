@@ -52,6 +52,7 @@
     <None Include="packages.config" />
     <Compile Include="DSLPathTests.fs" />
     <Compile Include="SuggestEngineTests.fs" />
+    <Compile Include="IntellisenseEngineTests.fs" />
     <None Include="app.config" />
     <None Include="randomComplexTestsJson.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -63,7 +64,10 @@
       <Link>IntellisenseRules_search.json</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="IntellisenseEngineTests.fs" />
+    <None Include="..\SolutionItems\IntellisenseRules_mapping.json">
+      <Link>IntellisenseRules_mapping.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

@@ -416,6 +416,10 @@
       <Link>Config\IntellisenseConfig.yaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\SolutionItems\IntellisenseRules_mapping.json">
+      <Link>Config\IntellisenseRules_mapping.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\SolutionItems\IntellisenseRules_search.json">
       <Link>Config\IntellisenseRules_search.json</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

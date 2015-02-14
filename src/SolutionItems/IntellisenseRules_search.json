@@ -76,7 +76,7 @@
                                                 }
                                              },
                                              "random_score":{
-                                                "seed" |INT_314159265359|
+                                                "seed" |int_314159265359|
                                              },
                                              "script_score":{
                                                 "script" |empty_string|,
@@ -121,7 +121,7 @@
          },
          "max_boost" |decimal_1_0|,
          "random_score":{
-            "seed" |INT_314159265359|
+            "seed" |int_314159265359|
          },
          "score_mode" |multiply|,
          "script_score":{

@@ -42,13 +42,21 @@ let ``matchRuleWithPath: match any property `` () =
     SuggestEngine.matchRuleWithPath rule path |> should be True
 
 [<Test>]
-let ``can read rules from file`` () = 
+let ``can read rules from _search schema`` () = 
     let rules = readRulesFromJson "IntellisenseRules_search.json"
 
     System.Console.WriteLine(rules.Length)
 
     rules.Length |> should  be (greaterThan 0)
 
+
+[<Test>]
+let ``can read rules from _mapping schema`` () = 
+    let rules = readRulesFromJson "IntellisenseRules_mapping.json"
+
+    System.Console.WriteLine(rules.Length)
+
+    rules.Length |> should  be (greaterThan 0)
 [<Test>]
 let ``matchRuleWithPath: match any path`` () = 
     let path = @"{ ""prop"" : { ""query"" : { ""filter"" : { ""xxx" |> parse  |> Option.get |> findDSLPath
