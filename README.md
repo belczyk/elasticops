@@ -1,27 +1,41 @@
 Elastic Ops
 ==========
-
-
-
 <img src="https://ci.appveyor.com/api/projects/status/uvu9ymptbd1lnfjw?svg=true" height="25px" />
 
-The project started from real need for a tool that I can copy on server an use to quickly asses cluster state. Most of the managment tools for ElasticSearch are Chrom plugins or online sites. It's offen not possible to reach internet from our client servers or to install Chrome but on the other hand I can copy whaterver I want ... (bloody corporate rules).
+ElasticOps is a desktop application which allows you to manage ElasticSearch cluster. 
+It allows you to :
+* See basic cluster information 
+  - Nodes
+  - Indices
+  - Document counts
+  - Mappings
+* Query nodes (all endpoints are available) 
+  - Editor contains intellisense for _search and _mapping endpoints (more are comming) 
+  - Indices, types and endpoints are suggested 
+* Analyze - See how ElasticSearch sees your data
+* View your documents, simply select index and type and you can browse docuemnts as sql table
+* Perform any REST request (to ElasticSearch or any other API)
+Cluster
+-------
+![Cluster info](/docs/images/cluster_info.jpg)
 
-It became my pet project (also [Weronika Łabaj](https://github.com/weralabaj) helped me a lot) and test field for ideas. Front end is build in `C#, WPF, MVVM` and back end is written in `F#, FSharp.Data`. Initailly backend was also in C# but we switched to F# as it's more sutiable for JSON processing.
+Query
+-------
+![Query - Intellisense](/docs/images/intellisense.jpg)
+![Query - URL Autocomplete](/docs/images/url_suggest.jpg)
 
-Ideas explored in the project:
-* F#, C# integration (success) 
-* Working with multi version REST API (success, read more about it on [my blog post](http://belczyk.com/2014/06/working-effectively-with-multi-version-apis/)
-* intellisense system for ElasticSearch DSL writen in F#; Parsing partial and invalid JSON to support intellisense. (WORKS LIKE A CHARM!)
+Analyze
+-------
+![Analyze](/docs/images/analyze_and_highlight_tokens.jpg)
 
-I'm hoping to add below features:
-* Viewing cluster, nodes and indices status and health information (DONE)
-* Indices managment (DONE)
-* Quering (DONE)
-* Running any REST call to ElasticSearch or any other API (DONE)
-* Reviewing _analyze endpoint results (DONE) 
-* Backup and restore 
-* Indexing SQL tables 
-* Reviewing mappings (DONE)
+View data
+---------
+![View data](/docs/images/view_data.jpg)
 
-![ElsticOps main screen](/docs/images/elastic.png)
+
+REST
+-------
+![REST requests](/docs/images/REST_ES_enpoint_or_any_url.jpg)
+
+
+
