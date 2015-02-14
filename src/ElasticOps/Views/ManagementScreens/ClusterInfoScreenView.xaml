@@ -20,40 +20,106 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            <controls:Tile Title="Cluster"
-                           TiltFactor="2"
+            <Border Padding="0" Margin="5">
+                <Border.Style>
+                    <Style  TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsClusterSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <controls:Tile Title="Cluster"
+                           TiltFactor="0"
                            Width="100"
+                           Margin="0"
                            Height="100"
+                           Padding="0"
                            HorizontalAlignment="Center"
                            Name="ShowClusterInfo"
                            cal:Message.Attach="[Event Click] = [Action ShowBasicInfo()]" />
-            <controls:Tile Title="Nodes"
-                           TiltFactor="2"
+            </Border>
+            <Border Padding="0" Margin="5">
+                <Border.Style>
+                    <Style  TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsNodesSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <controls:Tile Title="Nodes"
+                           TiltFactor="0"
+                           Margin="0"
                            Width="100"
                            Height="100"
                            HorizontalAlignment="Center"
                            Count="{Binding ClusterCounters.Nodes}"
                            cal:Message.Attach="[Event Click] = [Action ShowNodesInfo()]" />
-            <controls:Tile Title="Indices"
-                           TiltFactor="2"
+            </Border>
+            <Border Padding="0" Margin="5">
+                <Border.Style>
+                    <Style  TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsIndicesSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <controls:Tile Title="Indices"
+                           TiltFactor="0"
                            Width="100"
+                           Margin="0"
                            Height="100"
                            HorizontalContentAlignment="Center"
                            Count="{Binding ClusterCounters.Indices, Converter={StaticResource BigNumbersConverter}}"
                            cal:Message.Attach="[Event Click] = [Action ShowIndicesInfo()]" />
-            <controls:Tile Title="Documents"
+            </Border>
+            <Border Padding="0" Margin="5">
+                <Border.Style>
+                    <Style  TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDocumentsSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <controls:Tile Title="Documents"
                            HorizontalAlignment="Center"
-                           TiltFactor="2"
+                           TiltFactor="0"
                            Width="100"
+                           Margin="0"
                            Height="100"
                            Count="{Binding ClusterCounters.Documents, Converter={StaticResource BigNumbersConverter}}"
                            cal:Message.Attach="[Event Click] = [Action ShowDocumentsInfo()]" />
-            <controls:Tile Title="Mappings"
+            </Border>
+            <Border Padding="0" Margin="5">
+                <Border.Style>
+                    <Style  TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMappingsSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <controls:Tile Title="Mappings"
                            HorizontalAlignment="Center"
-                           TiltFactor="2"
+                           TiltFactor="0"
                            Width="100"
                            Height="100"
+                           Margin="0"
                            cal:Message.Attach="[Event Click] = [Action ShowMappingsInfo()]" />
+            </Border>
         </StackPanel>
         <ContentControl Grid.Row="1" x:Name="ActiveItem" />
     </Grid>

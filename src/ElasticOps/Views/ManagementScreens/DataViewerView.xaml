@@ -15,15 +15,15 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <ContentControl Name="TypesList" />
-            <Button Name="View">View</Button>
+            <Button Name="View" Margin="15,0,0,0">View</Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <views:Pagger cal:Bind.Model="{Binding PaggerModel}" />
         </StackPanel>
-        <DataGrid Grid.Row="2" IsReadOnly="True" ItemsSource="{Binding Documents}" MaxColumnWidth="1000" RowHeight="25">
+        <DataGrid Grid.Row="2" IsReadOnly="True" ItemsSource="{Binding Documents}" MaxColumnWidth="1000" RowHeight="25" SelectionUnit="Cell" SelectionMode="Single">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
-                    <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
+                    <EventSetter Event="Selected" Handler="EventSetter_OnHandler" />
 
                 </Style>
             </DataGrid.Resources>

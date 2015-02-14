@@ -22,7 +22,6 @@
         <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}" />
     </Style>
 
-
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <!--TextBox Style-->
@@ -90,7 +89,6 @@
     </DataTemplate>
 
     <Style TargetType="{x:Type controls:Tile}">
-
         <Style.Triggers>
             <Trigger Property="IsMouseOver"
                      Value="True">

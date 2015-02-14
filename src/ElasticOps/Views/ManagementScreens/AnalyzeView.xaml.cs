@@ -24,6 +24,7 @@ namespace ElasticOps.Views.ManagementScreens
                 Text.Focus();
                 Text.CaretIndex = token.StartOffset;
                 Text.Select(token.StartOffset, token.EndOffset - token.StartOffset);
+
             }
         }
     }

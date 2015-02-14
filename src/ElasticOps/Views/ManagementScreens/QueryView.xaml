@@ -27,7 +27,7 @@
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Height="30">Method:</Label>
                 <ComboBox Margin="15,0,0,0"
                           ItemsSource="{Binding  Methods}"
-                          DisplayMemberPath="DisplayLabel"
+                          DisplayMemberPath="DisplayText"
                           SelectedValuePath="Value"
                           SelectedValue="{Binding Method}"
                           Height="30" />

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Caliburn.Micro;
 using ElasticOps.Commands;
@@ -16,13 +17,13 @@ namespace ElasticOps.Views.ManagementScreens
             InitializeComponent();
         }
 
-        private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+        private void EventSetter_OnHandler(object sender, RoutedEventArgs e)
         {
-            var cell = (DataGridCell) sender;
+            var cell = (DataGridCell)sender;
 
             if (cell.Content is TextBlock)
                 AppBootstrapper.GetInstance<IEventAggregator>()
-                    .PublishOnUIThread(new PreviewValueEvent(((TextBlock) cell.Content).Text));
+                    .PublishOnUIThread(new PreviewValueEvent(((TextBlock)cell.Content).Text));
         }
     }
 }
