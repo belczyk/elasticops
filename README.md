@@ -9,13 +9,13 @@ It allows you to :
   - Indices
   - Document counts
   - Mappings
-* [Query nodes ](#user-content-query) Query nodes (all endpoints are available) 
+* [Query nodes ](#user-content-query) - all endpoints are available
   - Editor contains intellisense for _search and _mapping endpoints (more are comming) 
   - Indices, types and endpoints are suggested 
-* [Analyze](#user-content-analyze) - See how ElasticSearch sees your data
-* [View your documents](#user-content-view-data), simply select index and type and you can browse docuemnts as sql table
-* [Perform any REST request](#user-content-rest) (to ElasticSearch or any other API)
-* [Change it's theme](#user-content-themes) just for fun :) 
+* [Analyze](#user-content-analyze) - see how ElasticSearch sees your data
+* [View your documents](#user-content-view-data) - simply select index and type and you can browse docuemnts as sql table
+* [Perform any REST request](#user-content-rest) - to ElasticSearch or any other API
+* [Play with themes](#user-content-themes) - just for fun :) 
 
 Cluster
 -------
