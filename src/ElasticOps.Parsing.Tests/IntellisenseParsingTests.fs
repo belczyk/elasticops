@@ -47,3 +47,14 @@ let ``parse full _search schema``() =
     | Some b -> System.Console.WriteLine(b.ToString())
     | None -> Assert.Fail()
 
+
+
+[<Test>]
+let ``format full _search schema``() =
+    let schema = System.IO.File.ReadAllText(@"IntellisenseRules_search.json")
+
+    let result = schema |> formatIntellisense
+
+    //System.Console.WriteLine result
+
+    ()
