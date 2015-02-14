@@ -102,6 +102,7 @@
                                | (RuleSign.OneOf(props), DSLPathNode.PropertyWithValue(name) ) -> if (List.exists (fun el -> el = name) props) then
                                                                                                       matchRuleWithPath rT pT
                                                                                                   else false
+                               | (RuleSign.OneOf(props), _) -> false
                                | (RuleSign.AnyPath, _ ) -> let nextInRule = (List.head rT)
                                                            match nextInRule with 
                                                            | RuleSign.Property name -> let reversedPath = List.rev path
